@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/txvPRegisterL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/register"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnContinueL" />
+
+    <TextView
+        android:id="@+id/txvForgotPassL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/fPass"
+        android:fontFamily="@font/opensans"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpPassL" />
+
+    <EditText
+        android:id="@+id/txpPassL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:fontFamily="@font/opensans"
+        android:hint="@string/pass"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpMailL" />
+
+    <ImageView
+        android:id="@+id/imvLogoL"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/txpMailL"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:fontFamily="@font/opensans"
+        android:hint="@string/mail"
+        android:inputType="textPersonName"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
+
+    <EditText
+        android:id="@+id/txpPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/outline_box"
+        android:ems="10"
+        android:fontFamily="@font/opensans"
+        android:hint="@string/exNumber"
+        android:inputType="phone"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinueL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/txpNArea"
+        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
+
+    <EditText
+        android:id="@+id/txpNArea"
+        android:layout_width="60dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:background="@drawable/outline_box"
+        android:ems="10"
+        android:fontFamily="@font/opensans"
+        android:hint="@string/exArea"
+        android:inputType="phone"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinueL"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
+
+    <Button
+        android:id="@+id/btnContinueL"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/opensansextrabold"
+        android:text="@string/cntBtn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:backgroundTint="@color/secundaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL" />
+
+    <ImageButton
+        android:id="@+id/imbFacebookL"
+        style="@android:style/Widget.ImageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primaryColor"
+        android:contentDescription="@string/facebook"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toEndOf="@+id/txvPRegisterL"
+        app:layout_constraintTop_toBottomOf="@+id/txvPRegisterL"
+        app:srcCompat="@drawable/facebook" />
+
+    <ImageButton
+        android:id="@+id/imbGoogleL"
+        style="@android:style/Widget.ImageButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-20dp"
+        android:backgroundTint="@color/primaryColor"
+        android:contentDescription="@string/google"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/txvPRegisterL"
+        app:layout_constraintTop_toBottomOf="@+id/txvPRegisterL"
+        app:srcCompat="@drawable/google" />
+
+    <ImageView
+        android:id="@+id/imvPBSettlet2"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/pbSettlet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/pbsettlet" />
+
+    <TextView
+        android:id="@+id/txvLoginL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/opensansbold"
+        android:text="@string/LoginTitle"
+        android:textColor="@color/secundaryColor"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvLogoL" />
+
+    <Switch
+        android:id="@+id/swcLoginPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:text="cambiar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    tools:context=".RegisterActivity">
+
+    <TextView
+        android:id="@+id/txvRegisterTR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/opensansbold"
+        android:text="@string/registerTitle"
+        android:textColor="@color/secundaryColor"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvLogoR" />
+
+    <EditText
+        android:id="@+id/txpNNameR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/nName"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpUserNameR" />
+
+    <EditText
+        android:id="@+id/txpUserNameR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/userName"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpTelR" />
+
+    <Button
+        android:id="@+id/btnContinueR"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/opensansextrabold"
+        android:text="@string/cntBtn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:backgroundTint="@color/secundaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/txvPLoginR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imvPBSettletR"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/pbSettlet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/pbsettlet" />
+
+    <ImageView
+        android:id="@+id/imvLogoR"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/txpMailR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/mail"
+        android:inputType="textEmailAddress"
+        android:minHeight="48dp"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+
+    <EditText
+        android:id="@+id/txpTelR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/tel"
+        android:inputType="phone"
+        android:minHeight="48dp"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpMailR" />
+
+    <TextView
+        android:id="@+id/txvPLoginR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="25dp"
+        android:fontFamily="@font/opensans"
+        android:text="@string/pLogin"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/imvNavBarNull"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imvNavBarNull"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/imvPBSettletR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/navbarnull" />
+
+    <ImageButton
+        android:id="@+id/imbBackR"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primaryColor"
+        android:contentDescription="@string/cancel"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btnback" />
+
+    <EditText
+        android:id="@+id/txpDateBirthR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/dateBirth"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpRegionR" />
+
+    <EditText
+        android:id="@+id/txpRegionR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/region"
+        android:inputType="textPersonName"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpCountryR" />
+
+    <EditText
+        android:id="@+id/txpCountryR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/country"
+        android:inputType="textPersonName"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+
+    <ImageView
+        android:id="@+id/imvNavBar1"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imvPBSettletR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/navbar1" />
+
+    <EditText
+        android:id="@+id/txpPassR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/pass"
+        android:inputType="textPassword"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+
+    <EditText
+        android:id="@+id/txpRepeatPassR"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+        android:backgroundTint="@color/TertiaryColor"
+        android:ems="10"
+        android:hint="@string/rPass"
+        android:inputType="textPassword"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColorHint="@color/transQuaternaryColor"
+        android:textColor="@color/quaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpPassR" />
+
+    <TextView
+        android:id="@+id/txvRememberPPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/rememberPass"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpRepeatPassR" />
+
+    <CheckBox
+        android:id="@+id/ckbRememberPass"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="7dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/txvRememberPPass"
+        app:layout_constraintTop_toBottomOf="@+id/txpRepeatPassR" />
+
+    <ImageView
+        android:id="@+id/imvNavBar2"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imvPBSettletR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/navbar2" />
+
+    <Button
+        android:id="@+id/btnCancelR"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/opensansextrabold"
+        android:text="@string/cancel"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:backgroundTint="@color/quaternaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/imvNavBar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnContinueR2"
+        android:layout_width="220dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/opensansextrabold"
+        android:text="@string/cntBtn"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:visibility="invisible"
+        app:backgroundTint="@color/secundaryColor"
+        app:layout_constraintBottom_toTopOf="@+id/btnCancelR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txvTerminos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="35dp"
+        android:text="@string/termsConditions"
+        android:visibility="invisible"
+        android:fontFamily="@font/opensans"
+        android:textColor="@color/secundaryColor"
+        android:textSize="18sp"
+        android:justificationMode="inter_word"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+
+    <ImageView
+        android:id="@+id/imvNavBar3"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/imvPBSettletR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/navbar3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

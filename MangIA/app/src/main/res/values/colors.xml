@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#E9E5D6</color>
+    <color name="secundaryColor">#41803C</color>
+    <color name="TertiaryColor">#ACB992</color>
+    <color name="quaternaryColor">#5A3921</color>
+    <color name="transQuaternaryColor">#927D69</color>
+    <color name="white">#FFFFFF</color>
+</resources>
