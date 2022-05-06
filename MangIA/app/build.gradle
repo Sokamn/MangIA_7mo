@@ -3,12 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
 }
-
 allprojects{
     repositories {
         google()
         mavenCentral()
-        maven{url'https://jitpack.io'}
+        maven { url 'https://www.jitpack.io' }
     }
 }
 

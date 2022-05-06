@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primaryColor"
+    tools:context=".FPassActivity">
+
+    <ImageButton
+        android:id="@+id/imbBackFP"
+        android:layout_width="30dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/primaryColor"
+        android:contentDescription="@string/cancel"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btnback" />
+
+    <Button
+        android:id="@+id/btnSendFP"
+        android:layout_width="220dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/opensansextrabold"
+        android:text="@string/send"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:backgroundTint="@color/secundaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpMailFP" />
+
+    <TextView
+        android:id="@+id/txvTextCenterFP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="35dp"
+        android:fontFamily="@font/opensans"
+        android:gravity="center_horizontal"
+        android:text="@string/descFPass"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvTitleFP" />
+
+    <TextView
+        android:id="@+id/txvTitleFP"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/opensansbold"
+        android:text="@string/FPassTitle"
+        android:textColor="@color/secundaryColor"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvLogoFP" />
+
+    <ImageView
+        android:id="@+id/imvPBSettletFP"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/pbSettlet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/pbsettlet" />
+
+    <ImageView
+        android:id="@+id/imvLogoFP"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="25dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo"
+        tools:ignore="ImageContrastCheck" />
+
+    <EditText
+        android:id="@+id/txpMailFP"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/outline_box"
+        android:ems="10"
+        android:fontFamily="@font/opensans"
+        android:hint="@string/mail"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvTextCenterFP" />
+</androidx.constraintlayout.widget.ConstraintLayout>
