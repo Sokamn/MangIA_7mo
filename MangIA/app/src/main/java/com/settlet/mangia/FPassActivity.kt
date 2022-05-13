@@ -22,18 +22,14 @@ class FPassActivity : AppCompatActivity() {
 
         binding.btnSendFP.setOnClickListener {
             val emailAddress = binding.txpMailFP.text.toString()
-            if(emailAddress.isNotEmpty()){
-                Firebase.auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener{ task ->
-                    if(task.isSuccessful)
-                    {
-                        val intent = Intent(this, LoginActivity::class.java)
-                        this.startActivity(intent)
-                    }else{
-                        Toast.makeText(this,"Ingrese un email de una cuenta valida.",Toast.LENGTH_SHORT).show()
-                    }
+            Firebase.auth.sendPasswordResetEmail(emailAddress).addOnCompleteListener{ task ->
+                if(task.isSuccessful)
+                {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    this.startActivity(intent)
+                }else{
+                    Toast.makeText(this,"Ingrese un email de una cuenta valida.",Toast.LENGTH_SHORT).show()
                 }
-            }else{
-                Toast.makeText(this,"Ingrese un email de una cuenta valida.",Toast.LENGTH_SHORT).show()
             }
         }
     }

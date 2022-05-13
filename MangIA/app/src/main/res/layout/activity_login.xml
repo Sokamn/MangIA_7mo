@@ -139,9 +139,8 @@
 
     <ImageButton
         android:id="@+id/imbFacebookL"
-        style="@android:style/Widget.ImageButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginStart="-20dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="@color/primaryColor"
@@ -153,9 +152,8 @@
 
     <ImageButton
         android:id="@+id/imbGoogleL"
-        style="@android:style/Widget.ImageButton"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="-20dp"
         android:backgroundTint="@color/primaryColor"
@@ -198,7 +196,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:text="cambiar"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

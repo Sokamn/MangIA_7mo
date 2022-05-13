@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityMainBinding
-import com.settlet.mangia.databinding.ActivityRegisterBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

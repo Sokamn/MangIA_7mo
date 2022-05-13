@@ -9,7 +9,6 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityCheckMailBinding
-import com.settlet.mangia.databinding.ActivityRegisterBinding
 
 class CheckMailActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

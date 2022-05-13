@@ -10,11 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
-            android:name=".SlideBarActivity"
-            android:exported="false"
-            android:label="@string/title_activity_slide_bar"
-            android:theme="@style/Theme.MangIA.NoActionBar" />
-        <activity
             android:name=".FPassActivity"
             android:exported="false" />
         <activity

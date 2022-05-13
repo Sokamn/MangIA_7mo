@@ -13,7 +13,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.settlet.mangia.databinding.ActivityLoginBinding
 import com.settlet.mangia.databinding.ActivityRegisterBinding
 import java.util.*
 import java.util.regex.Pattern
@@ -103,6 +102,7 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun checkValue(contador:Int):Boolean{
         val passwordRegex = Pattern.compile("^" + "(?=.*[-@#\$%^&+=])" + ".{6,}" + "$")
+        val badWords = arrayListOf<String>("sorete","imbecil","tarado","pelotudo","pajero","pajera","pelotuda","tarada","puto","puta","concha","culo","poronga","verga","pito","pene\n" + "nigga" , "trola" , "trolo" , "caca" , "down" , "mierda" , "nazi" , "hitler" , "estupido" , "coger" , "cojer" , "pendejo " , "pendeja" , "porno" , "orto" , "sexo" , "pinche" , "pinchi" , "cojo" , "cabrón" , "cabrona" , "mames" , "pendejos" , "pendejas" , "chinga" , "mamadas" , "pendejadas" , "mama huevo" , "pete" , "wueon" , "xuxa" , "weon" , "weonado" , "weona" , "coño" , "aguevoniado" , "guevon" , "pajuo" , "marica", "monda" , "marrana" , "marrano" ,"monda" , "pijudo" , "hijueputa" , "cotopla" , "pichurria" , "picha" , "mother fucker" , "fuck" , "ass" , "orgy" , "bitch" , "suck" , "my balls" , "slut " , "whore" , "hoe" , "chupamela" , "culito" , "cojida" , "cojiendo" , "zoofilia" , "putito" , "reputo" , "free viagra" , "taradito", "taradita" , "pelotudito" , "pelotudita" , "pelotuditos", "pelotuditas" , "putita" , "poronguita" , "verguita" , "pitito" , "trolito" , "trolita" , "caquita" , "estupidito" , "estupidita" , "pendejito" , "pendejita" , "putitos" , "putitas" , "poronguitas" , "porongotas" , "porongota" , "porongon" , "verguitas", "vergotas" , "vergota" , "pititos" , "pitotes" , "pitote" , "trolitos" , "trolitas" , "caquitas" , "cacotas" , "estupiditos" , "estupiditas" , "pendejitos" , "pendejitas" , "feto" , "cigoto" , "caka" , "kaka" , "kk" , "joto" , "jota" , "kaco" , "kago" , "kojo" , "kulo" , "mamo" , "meaas" , "mion" , "mula" , "pedo" , "qulo" , "buey" , "caco" , "cago" , "cako" , "coja" , "coji" , "guey" , "kaca" , "kaga" , "koge" , "mame" , "mear" , "meon" , "moco")
         when(contador){
             0 -> {
                 if(binding.txpMailR.text.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(binding.txpMailR.text.toString()).matches())
@@ -111,9 +111,15 @@ class RegisterActivity : AppCompatActivity() {
                     return false
                 }
                 if(binding.txpTelR.text.isNotEmpty()&&binding.txpUserNameR.text.isNotEmpty()&&binding.txpNNameR.text.isNotEmpty()){
-                    verifyUserNames()
-                    register2()
-                    return true
+                    if(verifyUserNames(badWords,binding.txpUserNameR.text.toString(),binding.txpNNameR.text.toString()))
+                    {
+                        register2()
+                        return true
+                    }
+                    else{
+                        Toast.makeText(this, "Se detectó un nombre de usuario o apodo ofensivo.",Toast.LENGTH_SHORT).show()
+                        return false
+                    }
                 }
                 else{
                     showErrorEmpty()
@@ -177,8 +183,15 @@ class RegisterActivity : AppCompatActivity() {
     private fun showErrorEmpty(){
         Toast.makeText(this,"Complete todos los campos",Toast.LENGTH_SHORT).show()
     }
-    private fun verifyUserNames() {
-
+    private fun verifyUserNames(badWords:ArrayList<String>,uName:String, nName:String):Boolean {
+        for (badWord in badWords)
+        {
+            if(badWord == uName.lowercase() || badWord == nName.lowercase())
+            {
+                return false
+            }
+        }
+        return true
     }
     private fun register1(){
         //register1
