@@ -8,7 +8,7 @@
     tools:context=".RegisterActivity">
 
     <TextView
-        android:id="@+id/txvRegisterTR"
+        android:id="@+id/txvEProfileEP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -94,7 +94,7 @@
         android:id="@+id/imvLogoR"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -120,7 +120,7 @@
         android:textColor="@color/quaternaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+        app:layout_constraintTop_toBottomOf="@+id/txvEProfileEP" />
 
     <EditText
         android:id="@+id/txpTelR"
@@ -213,7 +213,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+        app:layout_constraintTop_toBottomOf="@+id/txvEProfileEP" />
 
     <EditText
         android:id="@+id/txpRegionR"
@@ -263,7 +263,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+        app:layout_constraintTop_toBottomOf="@+id/txvEProfileEP" />
 
     <EditText
         android:id="@+id/txpRepeatPassR"
@@ -359,16 +359,16 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="35dp"
-        android:text="@string/termsConditions"
-        android:visibility="invisible"
         android:fontFamily="@font/opensans"
+        android:justificationMode="inter_word"
+        android:text="@string/termsConditions"
         android:textColor="@color/secundaryColor"
         android:textSize="18sp"
-        android:justificationMode="inter_word"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvRegisterTR" />
+        app:layout_constraintTop_toBottomOf="@+id/txvEProfileEP" />
 
     <ImageView
         android:id="@+id/imvNavBar3"

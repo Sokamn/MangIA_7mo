@@ -87,6 +87,12 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, FPassActivity::class.java)
             startActivity(intent)
         }
+        binding.imbGoogleL.setOnClickListener {
+            Toast.makeText(this,"Google",Toast.LENGTH_SHORT).show()
+        }
+        binding.imbFacebookL.setOnClickListener {
+            Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
+        }
     }
 
     public override fun onStart() {

@@ -19,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         binding.btnSalir.setOnClickListener {
             logOut()
         }
+        binding.btnEP.setOnClickListener {
+            val intent = Intent(this,EditProfileActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun logOut()
     {

@@ -55,7 +55,7 @@
         android:id="@+id/imvLogoL"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -139,7 +139,7 @@
 
     <ImageButton
         android:id="@+id/imbFacebookL"
-        style="@style/Widget.AppCompat.ImageButton"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginStart="-20dp"
@@ -153,7 +153,7 @@
 
     <ImageButton
         android:id="@+id/imbGoogleL"
-        style="@style/Widget.AppCompat.ImageButton"
+        style="@android:style/Widget.DeviceDefault.ImageButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
@@ -201,4 +201,5 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

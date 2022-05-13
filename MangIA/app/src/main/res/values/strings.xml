@@ -45,5 +45,8 @@
     <string name="search">Buscar</string>
     <string name="scan">Escanear Ingredientes</string>
     <string name="config">Configuración</string>
+    <string name="eProfile">Editar Perfil</string>
+    <string name="done">Hecho</string>
+    <string name="bio">Biografía</string>
 
 </resources>

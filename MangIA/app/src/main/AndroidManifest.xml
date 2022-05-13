@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".FPassActivity"
             android:exported="false" />
         <activity
