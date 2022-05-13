@@ -60,7 +60,7 @@
         android:layout_marginTop="50dp"
         android:fontFamily="@font/opensansbold"
         android:text="@string/FPassTitle"
-        android:textColor="@color/secundaryColor"
+        android:textColor="@color/quaternaryColor"
         android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
