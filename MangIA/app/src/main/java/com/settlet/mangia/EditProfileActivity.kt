@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityEditProfileBinding
 
 class EditProfileActivity : AppCompatActivity() {
@@ -21,5 +23,11 @@ class EditProfileActivity : AppCompatActivity() {
         binding.imbSaveEP.setOnClickListener{
             Toast.makeText(this,"Se han actualizado sus datos correctamente.",Toast.LENGTH_SHORT).show()
         }
+    }
+
+     public override fun onStart() {
+        super.onStart()
+        val user = Firebase.auth.currentUser
+
     }
 }

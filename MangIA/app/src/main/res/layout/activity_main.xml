@@ -43,7 +43,6 @@
 
         <ImageButton
             android:id="@+id/imbOptionM"
-            style="@android:style/Widget.ImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/primaryColor"
@@ -55,7 +54,6 @@
 
         <ImageButton
             android:id="@+id/imbChatM"
-            style="@android:style/Widget.ImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:backgroundTint="@color/primaryColor"
