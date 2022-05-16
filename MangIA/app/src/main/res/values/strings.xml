@@ -48,5 +48,6 @@
     <string name="eProfile">Editar Perfil</string>
     <string name="done">Hecho</string>
     <string name="bio">Biografía</string>
+    <string name="default_web_client_ids">1097311336191-cnv4t48qrrbd20p5i3qlonlsvvt2e7vh.apps.googleusercontent.com</string>
 
 </resources>
