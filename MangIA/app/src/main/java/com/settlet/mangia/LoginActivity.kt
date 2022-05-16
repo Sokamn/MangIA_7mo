@@ -20,6 +20,9 @@ import java.util.concurrent.TimeUnit
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.ktx.firestore
+import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
@@ -33,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var stateVPhone = false
+        val db = Firebase.firestore
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -102,6 +106,29 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.imbGoogleL.setOnClickListener {
             logInG()
+            val user = auth.currentUser
+            if (user != null) {
+                var existUser:Boolean = false
+                db.collection("users").whereEqualTo(FieldPath.documentId(),user.email.toString()).get().addOnSuccessListener{
+                    existUser = true
+                }
+                if (!existUser) {
+                    db.collection("users").document(user.email.toString()).set{
+                        hashMapOf("phoneNumber" to user.phoneNumber,
+                            "userName" to user.displayName,
+                            "nickName" to null,
+                            "country" to null,
+                            "region" to null,
+                            "dateBirth" to null,
+                            "password" to "********",
+                            "cantReports" to 0,
+                            "age" to 0,
+                            "cantFollows" to 0,
+                            "cantFollowers" to 0
+                        )
+                    }
+                }
+            }
         }
         binding.imbFacebookL.setOnClickListener {
             Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()

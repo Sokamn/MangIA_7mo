@@ -52,9 +52,9 @@ class RegisterActivity : AppCompatActivity() {
                     "country" to binding.txpCountryR.text.toString(),
                     "region" to binding.txpRegionR.text.toString(),
                     "dateBirth" to binding.txpDateBirthR.text.toString(),
-                    "password" to binding.txpPassR.text.toString(),
+                    "password" to passr,
                     "cantReports" to 0,
-                    "edad" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                    "age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
                     "cantFollows" to 0,
                     "cantFollowers" to 0
                 )
@@ -63,6 +63,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
     public override fun onStart() {
@@ -85,8 +86,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.setText("$day/$month/$year")
     }
 
-
-            private fun createAccount(email: String, password: String)
+    private fun createAccount(email: String, password: String)
     {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -128,8 +128,15 @@ class RegisterActivity : AppCompatActivity() {
             }
             1->{
                 if(binding.txpCountryR.text.isNotEmpty()&&binding.txpRegionR.text.isNotEmpty()&&binding.txpDateBirthR.text.isNotEmpty()){
-                    register3()
-                    return true
+                    val edad = Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt()
+                    if(edad < 13)
+                    {
+                        Toast.makeText(this, "Usted tiene menos de 13 años, por favor, ingrese una fecha valida.",Toast.LENGTH_SHORT).show()
+                        return false
+                    }else{
+                        register3()
+                        return true
+                    }
                 }
                 else{
                     showErrorEmpty()
