@@ -80,48 +80,48 @@ class EditProfileActivity : AppCompatActivity() {
                 .addOnCompleteListener{ task ->
                     if(task.isSuccessful)
                     {
-                        var map: HashMap<String, Any> = mapOf<String,Any>() as HashMap<String, Any>
+                        var map: HashMap<String, Any>? = null
                         val userRef = db.collection("users")
                         var countS = 0
                         var countIFs = 0
                         if(binding.txpUNameEP.text.toString()!=userFB.userName)
                         {
-                            map.put("userName",binding.txpUNameEP.text.toString())
+                            map!!.put("userName",binding.txpUNameEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
                             countIFs++
                         }else if (binding.txpNNameEP.text.toString()!=userFB.nickName)
                         {
-                            map.put("nickName",binding.txpNNameEP.text.toString())
+                            map!!.put("nickName",binding.txpNNameEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
                             countIFs++
                         }else if(binding.txpBioEP.text.toString()!=userFB.biography)
                         {
-                            map.put("biography",binding.txpBioEP.text.toString())
+                            map!!.put("biography",binding.txpBioEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
                             countIFs++
                         }else if(binding.txpDBirthEP.text.toString()!=userFB.dateBirth.toString())
                         {
-                            map.put("dateBirth",binding.txpDBirthEP.text.toString())
+                            map!!.put("dateBirth",binding.txpDBirthEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
                             countIFs++
                         }else if(binding.txpCountryEP.text.toString()!=userFB.country)
                         {
-                            map.put("country",binding.txpCountryEP.text.toString())
+                            map!!.put("country",binding.txpCountryEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
                             countIFs++
                         }else if(binding.txpRegionEP.text.toString()!=userFB.region)
                         {
-                            map.put("region",binding.txpRegionEP.text.toString())
+                            map!!.put("region",binding.txpRegionEP.text.toString())
                             userRef.document(user.email.toString()).update(map).addOnSuccessListener {
                                 countS++
                             }
