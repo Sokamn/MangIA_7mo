@@ -33,10 +33,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: ActivityLoginBinding
     private val RC_SIGN_IN = 45
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var stateVPhone = false
-        val db = Firebase.firestore
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -114,17 +114,20 @@ class LoginActivity : AppCompatActivity() {
                 }
                 if (!existUser) {
                     db.collection("users").document(user.email.toString()).set{
-                        hashMapOf("phoneNumber" to user.phoneNumber,
+                        hashMapOf("email" to user.email.toString(),
+                            "phoneNumber" to user.phoneNumber,
                             "userName" to user.displayName,
                             "nickName" to null,
                             "country" to null,
                             "region" to null,
                             "dateBirth" to null,
+                            "dateCreationAccount" to Calendar.getInstance().time,
                             "password" to "********",
                             "cantReports" to 0,
                             "age" to 0,
                             "cantFollows" to 0,
-                            "cantFollowers" to 0
+                            "cantFollowers" to 0,
+                            "biography" to ""
                         )
                     }
                 }
@@ -161,6 +164,17 @@ class LoginActivity : AppCompatActivity() {
                 Log.w("TAG", "Google sign in failed", e)
             }
         }
+    }
+    private fun getAllUserDocuments(){
+        val userList = mutableListOf<User>()
+
+        db.collection("users").get().addOnSuccessListener { result ->
+            for (document in result){
+                val user:User = document.toObject(User::class.java)
+                userList.add(user)
+            }
+        }
+
     }
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
