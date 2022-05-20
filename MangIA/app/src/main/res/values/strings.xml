@@ -49,5 +49,10 @@
     <string name="done">Hecho</string>
     <string name="bio">Biografía</string>
     <string name="default_web_client_ids">1097311336191-cnv4t48qrrbd20p5i3qlonlsvvt2e7vh.apps.googleusercontent.com</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
 
 </resources>

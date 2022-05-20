@@ -21,6 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val db = Firebase.firestore
         auth = Firebase.auth
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this,HomeActivity::class.java)
+            startActivity(intent)
+        }
         binding.btnSalir.setOnClickListener {
             logOut()
         }
