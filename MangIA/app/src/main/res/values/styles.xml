@@ -3,4 +3,10 @@
     <style name="datePickerTheme" parent="android:Theme.Material.Light.Dialog">
         <item name="android:colorAccent">@color/secundaryColor</item>
     </style>
+    <style name="ThemeOverlay.AppCompat.navTheme">
+
+        <item name="colorPrimary">@color/secundaryColor</item>
+        <item name="colorControlHighlight">@color/tertiaryColor</item>
+
+    </style>
 </resources>

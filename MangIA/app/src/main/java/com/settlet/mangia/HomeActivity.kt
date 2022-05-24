@@ -2,6 +2,7 @@ package com.settlet.mangia
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import androidx.annotation.DrawableRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -22,6 +23,8 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_FULLSCREEN)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
