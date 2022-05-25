@@ -11,13 +11,14 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="182dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/rounded_navheader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        android:elevation="10dp">
 
         <ImageView
             android:id="@+id/imvProfileNH"
@@ -88,15 +89,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="@drawable/shadow_top_bottom"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
