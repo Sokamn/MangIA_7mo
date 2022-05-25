@@ -31,7 +31,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/profile_picture" />
 
             <ImageView
                 android:id="@+id/imvFrameEP"
@@ -250,48 +250,56 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/primaryColor"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <ImageButton
-        android:id="@+id/imbBackEP"
-        android:layout_width="30dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:backgroundTint="@color/primaryColor"
-        android:contentDescription="@string/cancel"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/btnback" />
+            <ImageButton
+                android:id="@+id/imbBackEP"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/primaryColor"
+                android:contentDescription="@string/cancel"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btnback" />
 
-    <ImageButton
-        android:id="@+id/imbSaveEP"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:backgroundTint="@color/primaryColor"
-        android:contentDescription="@string/cancel"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/check" />
+            <ImageButton
+                android:id="@+id/imbSaveEP"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:backgroundTint="@color/primaryColor"
+                android:contentDescription="@string/cancel"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/check" />
 
-    <TextView
-        android:id="@+id/txvEProfileEP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/opensansbold"
-        android:text="@string/eProfile"
-        android:textColor="@color/secundaryColor"
-        android:textSize="23sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/txvEProfileEP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/opensansbold"
+                android:text="@string/eProfile"
+                android:textColor="@color/secundaryColor"
+                android:textSize="23sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/imbSaveEP"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toEndOf="@+id/imbBackEP"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
