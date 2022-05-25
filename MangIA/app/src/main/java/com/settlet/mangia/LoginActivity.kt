@@ -107,32 +107,6 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.imbGoogleL.setOnClickListener {
             logInG()
-            var existUser:Boolean = false
-            val user = auth.currentUser
-            if (user != null) {
-                db.collection("users").whereEqualTo(FieldPath.documentId(),user.email.toString()).get().addOnSuccessListener{
-                    existUser = true
-                }
-                if (!existUser) {
-                    db.collection("users").document(user.email.toString()).set{
-                        hashMapOf("email" to user.email.toString(),
-                            "phoneNumber" to user.phoneNumber,
-                            "userName" to user.displayName,
-                            "nickName" to null,
-                            "country" to null,
-                            "region" to null,
-                            "dateBirth" to null,
-                            "dateCreationAccount" to Calendar.getInstance().time,
-                            "password" to "",
-                            "cantReports" to 0,
-                            "age" to 0,
-                            "cantFollows" to 0,
-                            "cantFollowers" to 0,
-                            "biography" to ""
-                        )
-                    }
-                }
-            }
         }
         binding.imbFacebookL.setOnClickListener {
             Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
@@ -186,6 +160,31 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("TAG", "signInWithCredential:success")
                     Toast.makeText(this,"Bienvenido. No olvides rellenar tus datos extras desde 'Editar Perfil'",Toast.LENGTH_LONG).show()
                     val user = auth.currentUser
+                    var existUser: Boolean = false
+                    if (user != null) {
+                        db.collection("users").whereEqualTo(FieldPath.documentId(),user.email.toString()).get().addOnSuccessListener{
+                            existUser = true
+                        }
+                        if (!existUser) {
+                            db.collection("users").document(user.email.toString()).set{
+                                hashMapOf("email" to user.email.toString(),
+                                    "phoneNumber" to user.phoneNumber,
+                                    "userName" to user.displayName,
+                                    "nickName" to null,
+                                    "country" to null,
+                                    "region" to null,
+                                    "dateBirth" to null,
+                                    "dateCreationAccount" to Calendar.getInstance().time,
+                                    "password" to "",
+                                    "cantReports" to 0,
+                                    "age" to 0,
+                                    "cantFollows" to 0,
+                                    "cantFollowers" to 0,
+                                    "biography" to ""
+                                )
+                            }
+                        }
+                    }
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
