@@ -45,23 +45,22 @@ class RegisterActivity : AppCompatActivity() {
             val mailr = binding.txpMailR.text.toString()
             val passr = binding.txpPassR.text.toString()
             createAccount(mailr,passr)
-            db.collection("users").document(mailr).set{
-                hashMapOf("email" to binding.txpMailR.text.toString(),
-                    "phoneNumber" to binding.txpTelR.text.toString(),
-                    "userName" to binding.txpUserNameR.text.toString(),
-                    "nickName" to binding.txpNNameR.text.toString(),
-                    "country" to binding.txpCountryR.text.toString(),
-                    "region" to binding.txpRegionR.text.toString(),
-                    "dateBirth" to binding.txpDateBirthR.text.toString(),
-                    "dateCreationAccount" to Calendar.getInstance().time,
-                    "password" to passr,
-                    "cantReports" to 0,
-                    "age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
-                    "cantFollows" to 0,
-                    "cantFollowers" to 0,
-                    "biography" to ""
-                )
-            }
+            val docUser = hashMapOf("email" to binding.txpMailR.text.toString(),
+                "phoneNumber" to binding.txpTelR.text.toString(),
+                "userName" to binding.txpUserNameR.text.toString(),
+                "nickName" to binding.txpNNameR.text.toString(),
+                "country" to binding.txpCountryR.text.toString(),
+                "region" to binding.txpRegionR.text.toString(),
+                "dateBirth" to binding.txpDateBirthR.text.toString(),
+                "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                "password" to passr,
+                "cantReports" to 0,
+                "age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                "cantFollows" to 0,
+                "cantFollowers" to 0,
+                "biography" to ""
+            )
+            db.collection("users").document(mailr).set(docUser)
         }
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
             val intent = Intent(this,LoginActivity::class.java)

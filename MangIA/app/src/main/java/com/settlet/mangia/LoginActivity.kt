@@ -140,8 +140,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun getAllUserDocuments(){
-        val userList = mutableListOf<User>()
+    private fun getAllUserDocuments(userList:MutableList<User>){
 
         db.collection("users").get().addOnSuccessListener { result ->
             for (document in result){
@@ -160,29 +159,34 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("TAG", "signInWithCredential:success")
                     Toast.makeText(this,"Bienvenido. No olvides rellenar tus datos extras desde 'Editar Perfil'",Toast.LENGTH_LONG).show()
                     val user = auth.currentUser
+                    val userList = mutableListOf<User>()
                     var existUser: Boolean = false
                     if (user != null) {
-                        db.collection("users").whereEqualTo(FieldPath.documentId(),user.email.toString()).get().addOnSuccessListener{
-                            existUser = true
+                        getAllUserDocuments(userList)
+                        for(users in userList)
+                        {
+                            if(users.email == user.email.toString())
+                            {
+                                existUser = true
+                            }
                         }
                         if (!existUser) {
-                            db.collection("users").document(user.email.toString()).set{
-                                hashMapOf("email" to user.email.toString(),
-                                    "phoneNumber" to user.phoneNumber,
-                                    "userName" to user.displayName,
-                                    "nickName" to null,
-                                    "country" to null,
-                                    "region" to null,
-                                    "dateBirth" to null,
-                                    "dateCreationAccount" to Calendar.getInstance().time,
-                                    "password" to "",
-                                    "cantReports" to 0,
-                                    "age" to 0,
-                                    "cantFollows" to 0,
-                                    "cantFollowers" to 0,
-                                    "biography" to ""
-                                )
-                            }
+                            val docUser = hashMapOf("email" to user.email.toString(),
+                                "phoneNumber" to user.phoneNumber,
+                                "userName" to user.displayName,
+                                "nickName" to null,
+                                "country" to null,
+                                "region" to null,
+                                "dateBirth" to null,
+                                "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                                "password" to "",
+                                "cantReports" to 0,
+                                "age" to 0,
+                                "cantFollows" to 0,
+                                "cantFollowers" to 0,
+                                "biography" to ""
+                            )
+                            db.collection("users").document(user.email.toString()).set(docUser)
                         }
                     }
                     updateUI(user)
