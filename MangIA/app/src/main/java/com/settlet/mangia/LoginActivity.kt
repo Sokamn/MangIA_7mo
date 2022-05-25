@@ -62,6 +62,7 @@ class LoginActivity : AppCompatActivity() {
                     showErrorEmpty()
                 } else{
                     logInM(maill,passl)
+
                 }
             }
         }
@@ -106,9 +107,9 @@ class LoginActivity : AppCompatActivity() {
         }
         binding.imbGoogleL.setOnClickListener {
             logInG()
+            var existUser:Boolean = false
             val user = auth.currentUser
             if (user != null) {
-                var existUser:Boolean = false
                 db.collection("users").whereEqualTo(FieldPath.documentId(),user.email.toString()).get().addOnSuccessListener{
                     existUser = true
                 }
@@ -122,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
                             "region" to null,
                             "dateBirth" to null,
                             "dateCreationAccount" to Calendar.getInstance().time,
-                            "password" to "********",
+                            "password" to "",
                             "cantReports" to 0,
                             "age" to 0,
                             "cantFollows" to 0,
@@ -213,7 +214,16 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d("TAG", "signInWithEmail:success")
-                    reload()
+                    val currentUser = auth.currentUser
+                    if(currentUser != null){
+                        if(currentUser.isEmailVerified){
+                            reload()
+                        }
+                        else{
+                            val intent = Intent(this,CheckMailActivity::class.java)
+                            startActivity(intent)
+                        }
+                    }
                     finish()
                 } else {
                     Log.w("TAG", "signInWithEmail:failure", task.exception)
