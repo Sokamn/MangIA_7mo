@@ -45,20 +45,20 @@ class RegisterActivity : AppCompatActivity() {
             val mailr = binding.txpMailR.text.toString()
             val passr = binding.txpPassR.text.toString()
             createAccount(mailr,passr)
-            val docUser = hashMapOf("email" to binding.txpMailR.text.toString(),
-                "phoneNumber" to binding.txpTelR.text.toString(),
-                "userName" to binding.txpUserNameR.text.toString(),
-                "nickName" to binding.txpNNameR.text.toString(),
+            val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                "biography" to "",
+                "cantFollowers" to 0,
+                "cantFollows" to 0,
+                "cantReports" to 0,
                 "country" to binding.txpCountryR.text.toString(),
-                "region" to binding.txpRegionR.text.toString(),
                 "dateBirth" to binding.txpDateBirthR.text.toString(),
                 "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                "email" to binding.txpMailR.text.toString(),
+                "nickName" to binding.txpNNameR.text.toString(),
                 "password" to passr,
-                "cantReports" to 0,
-                "age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
-                "cantFollows" to 0,
-                "cantFollowers" to 0,
-                "biography" to ""
+                "phoneNumber" to binding.txpTelR.text.toString(),
+                "region" to binding.txpRegionR.text.toString(),
+                "userName" to binding.txpUserNameR.text.toString()
             )
             db.collection("users").document(mailr).set(docUser)
         }

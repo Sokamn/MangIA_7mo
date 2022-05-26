@@ -52,7 +52,7 @@ class EditProfileActivity : AppCompatActivity() {
                      userFB = document.toObject(User::class.java)
                  }
              }
-             binding.txpUNameEP.setText(user.displayName)
+             binding.txpUNameEP.setText(userFB?.userName)
              binding.txpNNameEP.setText(userFB?.nickName)
              binding.txpBioEP.setText(userFB?.biography)
              binding.txpDBirthEP.setText(userFB?.dateBirth.toString())

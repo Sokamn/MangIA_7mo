@@ -23,6 +23,7 @@
         android:background="@drawable/side_nav_bar"
         android:fitsSystemWindows="true"
         app:itemIconTint="@color/quaternaryColor"
+        app:itemTextColor="@color/quaternaryColor"
         app:theme="@style/ThemeOverlay.AppCompat.navTheme"
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/activity_main_drawer" >
@@ -31,13 +32,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+
             <ImageView
+                android:id="@+id/imvPBSettletH"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:src="@drawable/pbsettlet"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/btnCSesionH"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_gradent_button"
+                android:text="@string/cSesion"
+                android:textColor="@color/quaternaryColor"
+                app:icon="@drawable/ic_menu_camera"
+                app:iconTint="@color/quaternaryColor"
+                app:layout_constraintBottom_toTopOf="@+id/imvPBSettletH"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.navigation.NavigationView>
