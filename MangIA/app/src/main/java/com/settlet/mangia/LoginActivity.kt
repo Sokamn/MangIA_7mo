@@ -62,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
                     showErrorEmpty()
                 } else{
                     logInM(maill,passl)
-
                 }
             }
         }

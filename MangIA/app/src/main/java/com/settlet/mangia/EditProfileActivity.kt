@@ -46,7 +46,7 @@ class EditProfileActivity : AppCompatActivity() {
          var userFB: User? = null
          if (user!=null)
          {
-             db.collection("users").whereEqualTo("email",user.email).get().addOnSuccessListener { result ->
+             db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener { result ->
                  for (document in result)
                  {
                      userFB = document.toObject(User::class.java)
@@ -135,7 +135,7 @@ class EditProfileActivity : AppCompatActivity() {
                             Toast.makeText(baseContext,"No todos los cambios se realizaron correctamente. Por favor, intentelo nuevamente más tarde.", Toast.LENGTH_SHORT).show()
                         }
                     }
-        }
+                }
+            }
         }
     }
-}
