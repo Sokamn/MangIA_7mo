@@ -6,7 +6,7 @@
     <style name="ThemeOverlay.AppCompat.navTheme">
 
         <item name="colorPrimary">@color/secundaryColor</item>
-        <item name="colorControlHighlight">@color/primaryColor</item>
+        <item name="colorControlHighlight">@color/transPrimaryColor</item>
 
     </style>
 </resources>
