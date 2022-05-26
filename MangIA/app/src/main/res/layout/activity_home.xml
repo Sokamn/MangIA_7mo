@@ -40,12 +40,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
             <Button
                 android:id="@+id/btnCSesionH"
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/manjariregular"
                 android:text="@string/cSesion"
                 android:textAllCaps="false"
                 android:textColor="@color/quaternaryColor"

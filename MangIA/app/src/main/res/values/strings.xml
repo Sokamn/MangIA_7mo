@@ -15,7 +15,7 @@
     <string name="dateBirth">Fecha de Nacimiento</string>
     <string name="termsConditions">Para completar tu Registro, debes aceptar nuestros <b>Términos de uso</b> y el procesamiento, tratamiento y transferencia de tus datos personales conforme a lo dispuesto en las <b>Políticas de Privacidad</b></string>
     <string name="cancel">Cancelar</string>}
-    <string name="fPass">¿<u>Olvidaste tu contraseña?</u></string>
+    <string name="fPass"><u>¿Olvidaste tu contraseña?</u></string>
     <string name="logo">Logo MangIA</string>
     <string name="google">Iniciar con Google</string>
     <string name="facebook">Iniciar con Facebook</string>
@@ -29,7 +29,7 @@
     <string name="vMailTitle">Verificacion de Email</string>
     <string name="FPassTitle">Recuperación de la cuenta</string>
     <string name="descFPass">Ingresa a tu email para que se te pueda enviar un correo con los pasos para cambiar tu contraseña</string>
-    <string name="send">ENVIAR</string>
+    <string name="send">Enviar</string>
     <string name="codeVerPhone">Codigo de Verificación</string>
     <string name="vPhoneTitle">Verificación de Celular</string>
     <string name="title_activity_slide_bar">SlideBarActivity</string>

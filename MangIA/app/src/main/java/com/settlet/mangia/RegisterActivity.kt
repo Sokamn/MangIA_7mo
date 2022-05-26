@@ -218,8 +218,6 @@ class RegisterActivity : AppCompatActivity() {
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.txvRememberPPass.visibility = View.INVISIBLE
-        binding.ckbRememberPass.visibility = View.INVISIBLE
         binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.VISIBLE
@@ -244,8 +242,6 @@ class RegisterActivity : AppCompatActivity() {
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.txvRememberPPass.visibility = View.INVISIBLE
-        binding.ckbRememberPass.visibility = View.INVISIBLE
         binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.VISIBLE
@@ -269,8 +265,6 @@ class RegisterActivity : AppCompatActivity() {
         //register3
         binding.txpPassR.visibility = View.VISIBLE
         binding.txpRepeatPassR.visibility = View.VISIBLE
-        binding.txvRememberPPass.visibility = View.VISIBLE
-        binding.ckbRememberPass.visibility = View.VISIBLE
         binding.imvNavBar2.visibility = View.VISIBLE
         binding.txvPLoginR.visibility = View.VISIBLE
         //register4
@@ -295,8 +289,6 @@ class RegisterActivity : AppCompatActivity() {
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.txvRememberPPass.visibility = View.INVISIBLE
-        binding.ckbRememberPass.visibility = View.INVISIBLE
         binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.INVISIBLE
