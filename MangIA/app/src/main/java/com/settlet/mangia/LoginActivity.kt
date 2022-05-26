@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import java.util.*
 
@@ -108,7 +109,10 @@ class LoginActivity : AppCompatActivity() {
             logInG()
         }
         binding.imbFacebookL.setOnClickListener {
-            Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
+            val userList= mutableListOf<User>()
+            getAllUserDocuments(userList)
+            Log.d("Usuarios: ", "$userList")
         }
     }
     public override fun onStart() {
@@ -140,11 +144,10 @@ class LoginActivity : AppCompatActivity() {
         }
     }
     private fun getAllUserDocuments(userList:MutableList<User>){
-
         db.collection("users").get().addOnSuccessListener { result ->
             for (document in result){
-                val user:User = document.toObject(User::class.java)
-                userList.add(user)
+                val userObjects:User = document.toObject(User::class.java)
+                userList.add(userObjects)
             }
         }
 
@@ -169,14 +172,15 @@ class LoginActivity : AppCompatActivity() {
                                 existUser = true
                             }
                         }
+                        Log.d("Usuarios: ", "$userList")
                         if (!existUser) {
                             val docUser = hashMapOf("email" to user.email.toString(),
-                                "phoneNumber" to user.phoneNumber,
-                                "userName" to user.displayName,
-                                "nickName" to null,
-                                "country" to null,
-                                "region" to null,
-                                "dateBirth" to null,
+                                "phoneNumber" to user.phoneNumber.toString(),
+                                "userName" to user.displayName.toString(),
+                                "nickName" to "",
+                                "country" to "",
+                                "region" to "",
+                                "dateBirth" to "",
                                 "dateCreationAccount" to Calendar.getInstance().time.toString(),
                                 "password" to "",
                                 "cantReports" to 0,
