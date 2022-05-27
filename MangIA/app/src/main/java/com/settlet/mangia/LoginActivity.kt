@@ -161,41 +161,39 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("TAG", "signInWithCredential:success")
                     Toast.makeText(this,"Bienvenido. No olvides rellenar tus datos extras desde 'Editar Perfil'",Toast.LENGTH_LONG).show()
                     val user = auth.currentUser
-                    val userList = mutableListOf<User>()
                     var existUser: Boolean = false
                     if (user != null) {
-                        getAllUserDocuments(userList)
-                        for(users in userList)
-                        {
-                            if(users.email == user.email.toString())
+                        db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener{ documents ->
+                            for(document in documents)
                             {
+                                Log.d("TAG", "${document.id} => ${document.data}")
                                 existUser = true
                             }
-                        }
-                        Log.d("Usuarios: ", "$userList")
-                        if (!existUser) {
-                            val docUser = hashMapOf("email" to user.email.toString(),
-                                "phoneNumber" to user.phoneNumber.toString(),
-                                "userName" to user.displayName.toString(),
-                                "nickName" to "",
-                                "country" to "",
-                                "region" to "",
-                                "dateBirth" to "",
-                                "dateCreationAccount" to Calendar.getInstance().time.toString(),
-                                "password" to "",
-                                "cantReports" to 0,
-                                "age" to 0,
-                                "cantFollows" to 0,
-                                "cantFollowers" to 0,
-                                "biography" to ""
-                            )
-                            db.collection("users").document(user.email.toString()).set(docUser)
+                            Log.d("TAG", "$existUser ES VERDAD ESTA CHOTA?")
+                            if (existUser == false) {
+                                val docUser = hashMapOf("email" to user.email.toString(),
+                                    "phoneNumber" to user.phoneNumber.toString(),
+                                    "userName" to user.displayName.toString(),
+                                    "nickName" to "",
+                                    "country" to "",
+                                    "region" to "",
+                                    "dateBirth" to "",
+                                    "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                                    "password" to "",
+                                    "cantReports" to 0,
+                                    "age" to 0,
+                                    "cantFollows" to 0,
+                                    "cantFollowers" to 0,
+                                    "biography" to ""
+                                )
+                                db.collection("users").document(user.email.toString()).set(docUser)
+                            }
                         }
                     }
                     updateUI(user)
                 } else {
-                    // If sign in fails, display a message to the user.
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
+                    Toast.makeText(this,"Ocurrió un error inesperado. Por favor, intentelo más tarde...",Toast.LENGTH_SHORT).show()
                     updateUI(null)
                 }
             }
