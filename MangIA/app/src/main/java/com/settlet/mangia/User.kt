@@ -1,6 +1,6 @@
 package com.settlet.mangia
 
-data class User (    var age: Int = 0,
+class User (    var age: Int = 0,
                      var biography: String = "",
                      var cantFollowers: Int = 0,
                      var cantFollows: Int = 0,

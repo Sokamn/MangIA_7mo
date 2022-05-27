@@ -30,42 +30,42 @@ class EditProfileActivity : AppCompatActivity() {
             val user = auth.currentUser
             var userFB: User? = null
             if (user!=null) {
-                db.collection("users").whereEqualTo("email", user.email).get()
+                db.collection("users").whereEqualTo("email", user.email.toString()).get()
                     .addOnSuccessListener { result ->
                         for (document in result) {
                             userFB = document.toObject(User::class.java)
+                            updateProfile(binding.txpUNameEP.text.toString(), userFB!!)
                         }
                     }
-                updateProfile(binding.txpUNameEP.text.toString(), userFB!!)
             }
         }
     }
-     /*public override fun onStart() {
+    public override fun onStart() {
         super.onStart()
         val user = auth.currentUser
          var userFB: User? = null
          if (user!=null)
          {
-             db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener { result ->
-                 for (document in result)
+             db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener { documents ->
+                 for (document in documents)
                  {
                      userFB = document.toObject(User::class.java)
+                     binding.txpUNameEP.setText(userFB?.userName)
+                     binding.txpNNameEP.setText(userFB?.nickName)
+                     binding.txpBioEP.setText(userFB?.biography)
+                     binding.txpDBirthEP.setText(userFB?.dateBirth.toString())
+                     binding.txpCountryEP.setText(userFB?.country)
+                     binding.txpRegionEP.setText(userFB?.region)
+                     /*Glide
+                         .with(this)
+                         .load(user.photoUrl)
+                         .centerCrop()
+                         .placeholder(R.drawable.profile_photo)
+                         .into(binding.imvProfile)*/
                  }
              }
-             binding.txpUNameEP.setText(userFB?.userName)
-             binding.txpNNameEP.setText(userFB?.nickName)
-             binding.txpBioEP.setText(userFB?.biography)
-             binding.txpDBirthEP.setText(userFB?.dateBirth.toString())
-             binding.txpCountryEP.setText(userFB?.country)
-             binding.txpRegionEP.setText(userFB?.region)
-             Glide
-                 .with(this)
-                 .load(user.photoUrl)
-                 .centerCrop()
-                 .placeholder(R.drawable.profile_photo)
-                 .into(binding.imvProfile)
          }
-    }*/
+    }
     private fun updateProfile(name: String, userFB: User){
         val user = auth.currentUser
         if(binding.txpUNameEP.text.toString()==userFB.userName && binding.txpNNameEP.text.toString()==userFB.nickName && binding.txpBioEP.text.toString()==userFB.biography && binding.txpDBirthEP.text.toString()==userFB.dateBirth.toString() && binding.txpCountryEP.text.toString()==userFB.country && binding.txpRegionEP.text.toString()==userFB.region)
