@@ -109,10 +109,7 @@ class LoginActivity : AppCompatActivity() {
             logInG()
         }
         binding.imbFacebookL.setOnClickListener {
-            //Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
-            val userList= mutableListOf<User>()
-            getAllUserDocuments(userList)
-            Log.d("Usuarios: ", "$userList")
+            Toast.makeText(this,"Facebook",Toast.LENGTH_SHORT).show()
         }
     }
     public override fun onStart() {
@@ -169,7 +166,6 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d("TAG", "${document.id} => ${document.data}")
                                 existUser = true
                             }
-                            Log.d("TAG", "$existUser ES VERDAD ESTA CHOTA?")
                             if (existUser == false) {
                                 val docUser = hashMapOf("email" to user.email.toString(),
                                     "phoneNumber" to user.phoneNumber.toString(),

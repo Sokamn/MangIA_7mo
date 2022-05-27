@@ -40,7 +40,7 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     }
-     public override fun onStart() {
+     /*public override fun onStart() {
         super.onStart()
         val user = auth.currentUser
          var userFB: User? = null
@@ -65,7 +65,7 @@ class EditProfileActivity : AppCompatActivity() {
                  .placeholder(R.drawable.profile_photo)
                  .into(binding.imvProfile)
          }
-    }
+    }*/
     private fun updateProfile(name: String, userFB: User){
         val user = auth.currentUser
         if(binding.txpUNameEP.text.toString()==userFB.userName && binding.txpNNameEP.text.toString()==userFB.nickName && binding.txpBioEP.text.toString()==userFB.biography && binding.txpDBirthEP.text.toString()==userFB.dateBirth.toString() && binding.txpCountryEP.text.toString()==userFB.country && binding.txpRegionEP.text.toString()==userFB.region)
