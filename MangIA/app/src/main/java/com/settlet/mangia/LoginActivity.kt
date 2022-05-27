@@ -184,7 +184,7 @@ class LoginActivity : AppCompatActivity() {
                                 )
                                 db.collection("users").document(user.email.toString()).set(docUser)
                             }
-                        }
+                        }// Cuando le das al login, fijarte las cuenas pueden acceder, Ventanas emergentes para los Toast.makeText()
                     }
                     updateUI(user)
                 } else {
