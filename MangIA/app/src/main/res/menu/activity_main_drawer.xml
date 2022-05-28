@@ -9,10 +9,6 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_profile" />
-        <item
             android:id="@+id/nav_notif"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_notification" />
@@ -20,14 +16,6 @@
             android:id="@+id/nav_fav"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_favorite" />
-        <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_search" />
-        <item
-            android:id="@+id/nav_scan"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_scan" />
         <item
             android:id="@+id/nav_config"
             android:icon="@drawable/ic_menu_camera"
