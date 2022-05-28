@@ -6,42 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBTNSearchFH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="-41dp"
-        android:src="@drawable/ic_search_btn"
-        android:scaleType="fitCenter"
-        android:background="@drawable/homebtn_gradent"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBTNScanFH"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="-40dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_menu_camera"
-        android:background="@drawable/homebtn_gradent"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabBTNCrearRecetaFH"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="-41dp"
-        android:src="@drawable/ic_search_btn"
-        android:scaleType="fitCenter"
-        android:background="@drawable/homebtn_gradent"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -82,5 +46,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
+    <ImageButton
+        android:id="@+id/fabBTNSearchFH"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="-41dp"
+        android:src="@drawable/ic_search_btn"
+        android:padding="10dp"
+
+        android:scaleType="fitCenter"
+        android:background="@drawable/homebtn_gradent"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fabBTNScanFH"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginBottom="-40dp"
+        android:padding="10dp"
+        android:background="@drawable/homebtn_gradent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_scan_nav"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/fabBTNCrearRecetaFH"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:padding="10dp"
+        android:layout_marginBottom="-41dp"
+        android:background="@drawable/homebtn_gradent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_search_btn"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
