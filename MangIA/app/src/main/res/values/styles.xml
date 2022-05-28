@@ -5,8 +5,8 @@
     </style>
     <style name="ThemeOverlay.AppCompat.navTheme">
 
-        <item name="colorPrimary">@color/transQuaternaryColor</item>
-        <item name="colorControlHighlight">@color/transPrimaryColor</item>
+        <item name="colorPrimary">@color/colorStatePressed</item>
+        <item name="colorControlHighlight">@color/colorStatePressed</item>
 
     </style>
 </resources>

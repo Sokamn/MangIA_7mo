@@ -23,7 +23,7 @@
         android:background="@drawable/side_nav_bar"
         android:fitsSystemWindows="true"
         app:itemTextAppearance="@style/CustomTextItems"
-        app:itemIconTint="@color/quaternaryColor"
+        app:itemIconTint="@color/black"
         app:itemTextColor="@color/quaternaryColor"
         app:theme="@style/ThemeOverlay.AppCompat.navTheme"
         app:headerLayout="@layout/nav_header_home"
@@ -44,18 +44,18 @@
 
             <Button
                 android:id="@+id/btnCSesionH"
-                android:layout_width="220dp"
-                android:layout_height="50dp"
-                android:background="@drawable/rounded_gradent_button"
-                android:fontFamily="@font/manjariregular"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/close_sesion_button"
                 android:text="@string/cSesion"
                 android:textAllCaps="false"
                 android:textColor="@color/quaternaryColor"
-                app:icon="@drawable/ic_menu_camera"
-                app:iconTint="@color/quaternaryColor"
+                app:icon="@drawable/ic_csesion_menu"
+                app:iconTint="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/imvPBSettletH"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
