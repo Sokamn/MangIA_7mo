@@ -198,7 +198,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if(user!=null)
         {
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -276,7 +276,7 @@ class LoginActivity : AppCompatActivity() {
     }
     private fun reload()
     {
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this,HomeActivity::class.java)
         this.startActivity(intent)
     }
     private fun showErrorEmpty(){
@@ -288,7 +288,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("TAG", "signInWithCredential:success")
                     val user = task.result?.user
-                    val intent = Intent(this,MainActivity::class.java)
+                    val intent = Intent(this,HomeActivity::class.java)
                     startActivity(intent)
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)

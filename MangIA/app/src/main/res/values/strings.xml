@@ -59,4 +59,6 @@
     <string name="menu_configuration">Configuración</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="cSesion">Cerrar Sesión</string>
+    <string name="follow">Seguidos</string>
+    <string name="followers">Seguidores</string>
 </resources>

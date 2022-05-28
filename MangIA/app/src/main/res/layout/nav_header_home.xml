@@ -38,7 +38,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
             android:fontFamily="@font/manjaribold"
-            android:text="Marty"
+            android:text="@string/nName"
             android:textColor="@color/quaternaryColor"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -52,20 +52,20 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/manjarithin"
-            android:text="\@Martin_Zed"
+            android:text="@string/userName"
             android:textColor="@color/transQuaternaryColor"
             android:textSize="15sp"
             app:layout_constraintStart_toEndOf="@+id/imvProfileNH"
             app:layout_constraintTop_toBottomOf="@+id/txvNNameNH" />
 
         <TextView
-            android:id="@+id/txvFollows"
+            android:id="@+id/txvFollowsNH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:fontFamily="@font/manjaribold"
-            android:text="774 Seguidos"
+            android:text="@string/follow"
             android:textColor="@color/quaternaryColor"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -73,13 +73,13 @@
             app:layout_constraintTop_toBottomOf="@+id/txvUNameNH" />
 
         <TextView
-            android:id="@+id/txvFollowers"
+            android:id="@+id/txvFollowersNH"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="25dp"
             android:fontFamily="@font/manjaribold"
-            android:text="83K Seguidores"
+            android:text="@string/followers"
             android:textColor="@color/quaternaryColor"
             android:textSize="12sp"
             android:textStyle="bold"

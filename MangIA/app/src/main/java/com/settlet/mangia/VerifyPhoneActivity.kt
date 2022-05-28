@@ -43,7 +43,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d("TAG", "signInWithCredential:success")
                     val user = task.result?.user
-                    val intent = Intent(this,MainActivity::class.java)
+                    val intent = Intent(this,HomeActivity::class.java)
                     startActivity(intent)
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
