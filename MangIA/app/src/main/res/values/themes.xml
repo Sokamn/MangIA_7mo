@@ -4,16 +4,21 @@
         <!-- Primary brand color. -->
         <!-- Status bar color. -->
         <!-- Customize your theme here. -->
+        <item name="android:itemTextAppearance">@style/CustomTextItems</item>
+
     </style>
 
     <style name="Theme.MangIA.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:itemTextAppearance">@style/CustomTextItems</item>
     </style>
 
     <style name="Theme.MangIA.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-
+    <style name="CustomTextItems">
+        <item name="fontFamily">@font/manjariregular</item>
+    </style>
 
     <style name="Theme.MangIA.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

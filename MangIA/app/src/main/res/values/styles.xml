@@ -5,7 +5,7 @@
     </style>
     <style name="ThemeOverlay.AppCompat.navTheme">
 
-        <item name="colorPrimary">@color/secundaryColor</item>
+        <item name="colorPrimary">@color/transQuaternaryColor</item>
         <item name="colorControlHighlight">@color/transPrimaryColor</item>
 
     </style>
