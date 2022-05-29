@@ -14,7 +14,6 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityEditProfileBinding
-import com.settlet.mangia.databinding.ActivityLoginBinding
 import kotlin.collections.HashMap
 
 class EditProfileActivity : AppCompatActivity() {
@@ -38,7 +37,7 @@ class EditProfileActivity : AppCompatActivity() {
                     .addOnSuccessListener { documents ->
                         for (document in documents) {
                             val userFB = User(0,document.getString("biography").toString(),
-                                0,0,0,document.getString("country").toString(),
+                                0,0,0,0,document.getString("country").toString(),
                                 document.getString("dateBirth").toString(),"",document.getString("email").toString(),
                                 document.getString("nickName").toString(),"","",document.get("region").toString(),
                                 document.getString("userName").toString())

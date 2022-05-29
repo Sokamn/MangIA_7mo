@@ -1,18 +1,72 @@
 package com.settlet.mangia
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.TextView
+import android.widget.Toast
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.PhoneAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityCheckMailBinding
+import com.settlet.mangia.databinding.ActivityLoginBinding
 import com.settlet.mangia.databinding.ActivityProfileBinding
+import kotlinx.android.synthetic.main.activity_home.view.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var auth: FirebaseAuth
+    private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.imbBackP.setOnClickListener {
+            val intent = Intent(this,HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.btnEProfileP.setOnClickListener {
+            val intent = Intent(this,EditProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        binding.btnMRecipeP.setOnClickListener {
+            Toast.makeText(this, "Crear receta", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    public override fun onStart() {
+        super.onStart()
+        val currentUser = Firebase.auth.currentUser
+        if (currentUser!=null)
+        {
+            db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
+                for (document in documents)
+                {
+                    val uNameFB = document.getString("userName").toString()
+                    val nNameFB = document.getString("nickName").toString()
+                    val followsFB = "${document.getLong("cantFollows")?.toInt()}\nSeguidos"
+                    val followersFB = "${document.getLong("cantFollowers")?.toInt()}\nSeguidores"
+                    val cantRecipesFB = "${document.getLong("cantRecipes")?.toInt()}\nRecetas"
+                    val bioFB = document.getString("biography").toString()
 
 
+                    binding.txvUNameP.text = uNameFB
+                    binding.txvNNameP.text = nNameFB
+                    binding.txvFollowersP.text = followersFB
+                    binding.txvFollowsP.text = followsFB
+                    binding.txvRecipesP.text = cantRecipesFB
+                    binding.txvBioP.text = bioFB
+
+                    Log.d("TAG", "${document.id} => ${document.data}")
+                }
+            }
+        }
     }
 }
