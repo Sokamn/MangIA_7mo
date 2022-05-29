@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarHome.toolbar)
 
+
         binding.btnCSesionH.setOnClickListener {
             logOut()
         }

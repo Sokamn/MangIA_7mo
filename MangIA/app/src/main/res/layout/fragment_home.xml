@@ -6,87 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:orientation="horizontal" />
-
-    <ImageView
-        android:id="@+id/imvBackgroundBTNScan"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:layout_marginBottom="-46dp"
-        android:src="@drawable/circlebackground"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imvBackgroundBTNSearch"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-45dp"
-        android:src="@drawable/circlebackground"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/imvBackgroundBTNRecipe"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="-45dp"
-        android:src="@drawable/circlebackground"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
-    <ImageButton
-        android:id="@+id/fabBTNSearchFH"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginBottom="-41dp"
-        android:src="@drawable/ic_search_btn"
-        android:padding="10dp"
-        android:elevation="5dp"
-        android:scaleType="fitCenter"
-        android:background="@drawable/homebtn_gradent"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/fabBTNScanFH"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="-40dp"
-        android:padding="10dp"
-        android:elevation="5dp"
-        android:background="@drawable/homebtn_gradent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_scan_nav"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageButton
-        android:id="@+id/fabBTNCrearRecetaFH"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:padding="10dp"
-        android:elevation="5dp"
-        android:layout_marginBottom="-41dp"
-        android:background="@drawable/homebtn_gradent"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_search_btn"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
-
+<include
+    android:id="@+id/bottom_bar"
+    layout="@layout/bottom_bar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
