@@ -46,13 +46,13 @@ class HomeActivity : AppCompatActivity() {
 
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
-        homeView.bottom_bar.imbScanFH.setOnClickListener {
+        homeView.bottom_barH.imbScanFH.setOnClickListener {
             Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
         }
-        homeView.bottom_bar.imbSearchFH.setOnClickListener {
+        homeView.bottom_barH.imbSearchFH.setOnClickListener {
             Toast.makeText(baseContext,"Busar",Toast.LENGTH_SHORT).show()
         }
-        homeView.bottom_bar.imbMRecipeFH.setOnClickListener {
+        homeView.bottom_barH.imbMRecipeFH.setOnClickListener {
             Toast.makeText(baseContext,"Crear Receta",Toast.LENGTH_SHORT).show()
         }
 

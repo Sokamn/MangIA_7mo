@@ -1,11 +1,17 @@
 package com.settlet.mangia
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Typeface
 import android.os.Bundle
+import android.text.InputType.*
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -14,16 +20,11 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityLoginBinding
-import java.util.concurrent.TimeUnit
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.ktx.firestore
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 class LoginActivity : AppCompatActivity() {
@@ -35,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val RC_SIGN_IN = 45
     private val db = Firebase.firestore
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         var stateVPhone = false
@@ -50,6 +52,26 @@ class LoginActivity : AppCompatActivity() {
         binding.swcLoginPhone.setOnCheckedChangeListener{
                 _, isChecked -> isChecked
             logPhone()
+        }
+
+        binding.imvPassVisible.setOnTouchListener { v, event ->
+            val action = event.action
+            when(action){
+                MotionEvent.ACTION_DOWN -> {
+                    binding.txpPassL.inputType = 145
+                    binding.imvPassVisible.setImageResource(R.drawable.ic_slashpass_btn)
+                    val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.manjariregular);
+                    binding.txpPassL.typeface = typeface
+
+                }
+                MotionEvent.ACTION_UP -> {
+                    binding.txpPassL.inputType = 129
+                    binding.imvPassVisible.setImageResource(R.drawable.ic_viewpass_btn)
+                    val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.manjariregular);
+                    binding.txpPassL.typeface = typeface
+                }
+            }
+            true
         }
 
         binding.btnContinueL.setOnClickListener {
@@ -124,6 +146,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -299,3 +323,5 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 }
+
+

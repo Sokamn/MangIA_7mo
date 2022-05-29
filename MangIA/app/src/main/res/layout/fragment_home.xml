@@ -7,7 +7,7 @@
     tools:context=".ui.home.HomeFragment">
 
 <include
-    android:id="@+id/bottom_bar"
+    android:id="@+id/bottom_barH"
     layout="@layout/bottom_bar"
     android:layout_width="match_parent"
     android:layout_height="match_parent" />
