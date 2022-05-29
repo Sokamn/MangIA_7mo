@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -23,6 +24,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.bottom_bar.view.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -41,6 +44,17 @@ class HomeActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarHome.toolbar)
 
+        val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
+
+        homeView.bottom_bar.imbScanFH.setOnClickListener {
+            Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
+        }
+        homeView.bottom_bar.imbSearchFH.setOnClickListener {
+            Toast.makeText(baseContext,"Busar",Toast.LENGTH_SHORT).show()
+        }
+        homeView.bottom_bar.imbMRecipeFH.setOnClickListener {
+            Toast.makeText(baseContext,"Crear Receta",Toast.LENGTH_SHORT).show()
+        }
 
         binding.btnCSesionH.setOnClickListener {
             logOut()

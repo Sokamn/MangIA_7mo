@@ -9,8 +9,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:orientation="vertical"
         android:background="@color/primaryColor"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageView
@@ -31,7 +31,7 @@
         android:layout_marginBottom="-45dp"
         android:src="@drawable/circlebackground"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
+        app:layout_constraintEnd_toStartOf="@+id/imbScanFH"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,9 +44,9 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
+        app:layout_constraintStart_toEndOf="@+id/imbScanFH" />
     <ImageButton
-        android:id="@+id/fabBTNSearchFH"
+        android:id="@+id/imbSearchFH"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginBottom="-41dp"
@@ -56,11 +56,11 @@
         android:scaleType="fitCenter"
         android:background="@drawable/homebtn_gradent"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/fabBTNScanFH"
+        app:layout_constraintEnd_toStartOf="@+id/imbScanFH"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/fabBTNScanFH"
+        android:id="@+id/imbScanFH"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="-40dp"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/fabBTNCrearRecetaFH"
+        android:id="@+id/imbMRecipeFH"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:padding="10dp"
@@ -85,6 +85,6 @@
         android:src="@drawable/ic_search_btn"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fabBTNScanFH" />
+        app:layout_constraintStart_toEndOf="@+id/imbScanFH" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
