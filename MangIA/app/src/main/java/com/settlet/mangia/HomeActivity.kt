@@ -3,12 +3,9 @@ package com.settlet.mangia
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.DrawableRes
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,7 +14,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -46,13 +42,13 @@ class HomeActivity : AppCompatActivity() {
 
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
-        homeView.bottom_barH.imbScanFH.setOnClickListener {
+        homeView.bottom_barH.imbScanBB.setOnClickListener {
             Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
         }
-        homeView.bottom_barH.imbSearchFH.setOnClickListener {
+        homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             Toast.makeText(baseContext,"Busar",Toast.LENGTH_SHORT).show()
         }
-        homeView.bottom_barH.imbMRecipeFH.setOnClickListener {
+        homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Crear Receta",Toast.LENGTH_SHORT).show()
         }
 

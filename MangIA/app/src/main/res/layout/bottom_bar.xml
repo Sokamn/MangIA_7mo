@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="vertical"
         android:background="@color/primaryColor"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imvBackgroundBTNScan"
@@ -31,7 +33,7 @@
         android:layout_marginBottom="-45dp"
         android:src="@drawable/circlebackground"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/imbScanFH"
+        app:layout_constraintEnd_toStartOf="@+id/imbScanBB"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -44,29 +46,30 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toEndOf="@+id/imbScanFH" />
+        app:layout_constraintStart_toEndOf="@+id/imbScanBB" />
+
     <ImageButton
-        android:id="@+id/imbSearchFH"
+        android:id="@+id/imbMRecipeBB"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_marginBottom="-41dp"
-        android:src="@drawable/ic_search_btn"
-        android:padding="10dp"
-        android:elevation="5dp"
-        android:scaleType="fitCenter"
         android:background="@drawable/homebtn_gradent"
+        android:elevation="5dp"
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_search_btn"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/imbScanFH"
+        app:layout_constraintEnd_toStartOf="@+id/imbScanBB"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imbScanFH"
+        android:id="@+id/imbScanBB"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="-40dp"
-        android:padding="10dp"
-        android:elevation="5dp"
         android:background="@drawable/homebtn_gradent"
+        android:elevation="5dp"
+        android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_scan_nav"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
@@ -74,17 +77,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imbMRecipeFH"
+        android:id="@+id/imbSearchBB"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:padding="10dp"
-        android:elevation="5dp"
         android:layout_marginBottom="-41dp"
         android:background="@drawable/homebtn_gradent"
+        android:elevation="5dp"
+        android:padding="10dp"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_search_btn"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imbScanFH" />
+        app:layout_constraintStart_toEndOf="@+id/imbScanBB" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
