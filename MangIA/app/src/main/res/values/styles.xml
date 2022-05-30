@@ -9,4 +9,37 @@
         <item name="colorControlHighlight">@color/colorStatePressed</item>
 
     </style>
+
+    <style name="roundImageProfile" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">37.5dp</item>
+        <item name="cornerSizeBottomRight">45dp</item>
+        <item name="cornerSizeTopLeft">56.25dp</item>
+        <item name="cornerSizeTopRight">42dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
+
+    <style name="roundImageNavHeader" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">36dp</item>
+        <item name="cornerSizeTopLeft">45dp</item>
+        <item name="cornerSizeTopRight">33.6dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
+
+    <style name="roundImageEditProfile" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">67.5dp</item>
+        <item name="cornerSizeBottomRight">81dp</item>
+        <item name="cornerSizeTopLeft">101.25dp</item>
+        <item name="cornerSizeTopRight">75.6dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
 </resources>

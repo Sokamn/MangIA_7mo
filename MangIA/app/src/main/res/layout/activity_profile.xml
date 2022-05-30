@@ -22,6 +22,7 @@
         android:textColor="#69A165"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/txvBioP"
+        app:layout_constraintEnd_toStartOf="@+id/txvFollowersP"
         app:layout_constraintStart_toEndOf="@+id/imvProfileP" />
 
     <Button
@@ -39,7 +40,8 @@
         android:textColor="#69A165"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/txvBioP"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txvFollowersP" />
 
     <TextView
         android:id="@+id/txvBioP"
@@ -58,12 +60,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvNNameP" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imvProfileP"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="3dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay="@style/roundImageProfile"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvUNameP"
