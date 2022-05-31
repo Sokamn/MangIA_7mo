@@ -75,7 +75,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.txpCountryR.requestFocus()
                 binding.txpRegionR.isFocusableInTouchMode = false
             }
-            "America del Norte"->{
+            "America del Norte o Central"->{
                 Log.w("TAG", "${countryProvider.lNAmerica}")
                 binding.txpCountryR.setAdapter(arrayAdapterLANorth)
                 binding.txpCountryR.isFocusableInTouchMode = true
@@ -170,7 +170,7 @@ class RegisterActivity : AppCompatActivity() {
         datePicker.show(supportFragmentManager, "datePicker")
     }
     fun onDateSelected(day: Int, month: Int, year: Int){
-        binding.txpDateBirthR.setText("$day/$month/$year")
+        binding.txpDateBirthR.setText("$day/${month+1}/$year")
     }
 
     private fun createAccount(email: String, password: String)
