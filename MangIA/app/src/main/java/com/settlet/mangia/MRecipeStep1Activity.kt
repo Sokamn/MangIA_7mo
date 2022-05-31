@@ -27,7 +27,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
         binding.rcvGaleryMR?.layoutManager = GridLayoutManager(this,3)
         binding.rcvGaleryMR?.setHasFixedSize(true)
 
-
         if(ContextCompat.checkSelfPermission(this@MRecipeStep1Activity,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this@MRecipeStep1Activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
