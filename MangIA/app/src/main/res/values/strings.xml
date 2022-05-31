@@ -60,4 +60,12 @@
     <string name="followers">Seguidores</string>
     <string name="mRecipe">Crear Receta</string>
     <string name="nRecipe">Nueva Receta</string>
+    <string-array name="continents">
+        <item>Africa</item>
+        <item>Asia</item>
+        <item>America del Norte</item>
+        <item>America del Sur</item>
+        <item>Europa</item>
+        <item>Oceania</item>
+    </string-array>
 </resources>

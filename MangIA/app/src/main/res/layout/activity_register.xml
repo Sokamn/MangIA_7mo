@@ -112,12 +112,12 @@
         android:layout_marginEnd="35dp"
         android:backgroundTint="@color/quaternaryColor"
         android:ems="10"
+        android:fontFamily="@font/manjariregular"
         android:hint="@string/mail"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
-        android:fontFamily="@font/manjariregular"
-        android:textColorHint="@color/transQuaternaryColor"
         android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvEProfileEP" />
@@ -131,12 +131,12 @@
         android:layout_marginEnd="35dp"
         android:backgroundTint="@color/quaternaryColor"
         android:ems="10"
+        android:fontFamily="@font/manjariregular"
         android:hint="@string/tel"
         android:inputType="phone"
         android:minHeight="48dp"
-        android:fontFamily="@font/manjariregular"
-        android:textColorHint="@color/transQuaternaryColor"
         android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/transQuaternaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -196,7 +196,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txpTelR" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/txpCountryR"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -205,6 +205,7 @@
         android:layout_marginEnd="35dp"
         android:backgroundTint="@color/quaternaryColor"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:fontFamily="@font/manjariregular"
         android:hint="@string/country"
         android:inputType="textPersonName"
@@ -216,7 +217,7 @@
         app:layout_constraintStart_toStartOf="@+id/txpRegionR"
         app:layout_constraintTop_toBottomOf="@+id/txpMailR" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/txpRegionR"
         android:layout_width="match_parent"
         android:layout_height="48dp"
@@ -225,6 +226,7 @@
         android:layout_marginEnd="35dp"
         android:backgroundTint="@color/quaternaryColor"
         android:ems="10"
+        android:focusableInTouchMode="false"
         android:fontFamily="@font/manjariregular"
         android:hint="@string/region"
         android:inputType="textPersonName"

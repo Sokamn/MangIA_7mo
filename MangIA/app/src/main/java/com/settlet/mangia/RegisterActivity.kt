@@ -6,16 +6,21 @@ import android.os.Bundle
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.blongho.country_data.Country
+import com.blongho.country_data.World
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityRegisterBinding
+import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import java.util.regex.Pattern
+import kotlin.math.log
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -23,10 +28,90 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+        World.init(applicationContext)
         val db = Firebase.firestore
         var contador: Int = 0
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val continents = resources.getStringArray(R.array.continents)
+        val arrayAdapterC = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, continents)
+        val arrayAdapterLAfrica = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAfrican)
+        val arrayAdapterLAsia = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAsia)
+        val arrayAdapterLASouth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lSAmerica)
+        val arrayAdapterLANorth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lNAmerica)
+        val arrayAdapterLOceania = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lOceania)
+        val arrayAdapterLEurope = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lEurope)
+
+        binding.txpRegionR.setAdapter(arrayAdapterC)
+
+        binding.txpRegionR.setOnClickListener {
+            if(binding.txpCountryR.text.toString() == "")
+            {
+                binding.txpRegionR.isFocusableInTouchMode = true
+                binding.txpCountryR.isFocusableInTouchMode = false
+                binding.txpRegionR.requestFocus()
+            }
+            else
+            {
+                binding.txpCountryR.setText("")
+                binding.txpRegionR.isFocusableInTouchMode = true
+                binding.txpCountryR.isFocusableInTouchMode = false
+                binding.txpRegionR.requestFocus()
+            }
+        }
+        binding.txpCountryR.setOnClickListener {
+            when(binding.txpRegionR.text.toString()){
+            "Africa"->{
+                Log.w("TAG", "${countryProvider.lAfrican}")
+                binding.txpCountryR.setAdapter(arrayAdapterLAfrica)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            "Asia"->{
+                Log.w("TAG", "${countryProvider.lAsia}")
+                binding.txpCountryR.setAdapter(arrayAdapterLAsia)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            "America del Norte"->{
+                Log.w("TAG", "${countryProvider.lNAmerica}")
+                binding.txpCountryR.setAdapter(arrayAdapterLANorth)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            "America del Sur"->{
+                Log.w("TAG", "${countryProvider.lSAmerica}")
+                binding.txpCountryR.setAdapter(arrayAdapterLASouth)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            "Europa"->{
+                Log.w("TAG", "${countryProvider.lEurope}")
+                binding.txpCountryR.setAdapter(arrayAdapterLEurope)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            "Oceania"->{
+                Log.w("TAG", "${countryProvider.lOceania}")
+                binding.txpCountryR.setAdapter(arrayAdapterLOceania)
+                binding.txpCountryR.isFocusableInTouchMode = true
+                binding.txpCountryR.requestFocus()
+                binding.txpRegionR.isFocusableInTouchMode = false
+            }
+            else ->{
+                Log.w("TAG", "VACIO ABSOLUTO")
+                binding.txpCountryR.setAdapter(null)
+                Toast.makeText(this,"Primero ingrese su región / Continente",Toast.LENGTH_LONG).show()
+                binding.txpRegionR.requestFocus()
+            }
+        }
+        }
+
         binding.txpDateBirthR.setOnClickListener { showDatePickerDialog() }
         binding.btnContinueR.setOnClickListener{ // Boton de continuar inicial
             if(checkValue(contador)) {
