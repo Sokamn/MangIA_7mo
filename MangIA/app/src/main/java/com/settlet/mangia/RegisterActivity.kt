@@ -31,9 +31,9 @@ class RegisterActivity : AppCompatActivity() {
         World.init(applicationContext)
         val db = Firebase.firestore
         var contador: Int = 0
+        val continents = resources.getStringArray(R.array.continents)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val continents = resources.getStringArray(R.array.continents)
         val arrayAdapterC = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, continents)
         val arrayAdapterLAfrica = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAfrican)
         val arrayAdapterLAsia = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAsia)
@@ -222,8 +222,24 @@ class RegisterActivity : AppCompatActivity() {
                         Toast.makeText(this, "Usted tiene menos de 13 años, por favor, ingrese una fecha valida.",Toast.LENGTH_SHORT).show()
                         return false
                     }else{
-                        register3()
-                        return true
+                        for (c in resources.getStringArray(R.array.continents))
+                        {
+                            if(binding.txpRegionR.text.toString() == c)
+                            {
+                                for (C in countryProvider.lTPaises)
+                                {
+                                    if(binding.txpCountryR.text.toString() == C)
+                                    {
+                                        register3()
+                                        return true
+                                    }
+                                }
+                                Toast.makeText(this,"Pais seleccionado inexistente. Por favor, seleccione los que les recomendamos.\nTenga en cuenta que los paises están en Ingles",Toast.LENGTH_LONG).show()
+                                return false
+                            }
+                        }
+                        Toast.makeText(this,"Continente seleccionado inexistente. Por favor, seleccione los que les recomendamos",Toast.LENGTH_SHORT).show()
+                        return false
                     }
                 }
                 else{

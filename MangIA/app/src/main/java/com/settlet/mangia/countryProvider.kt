@@ -10,7 +10,18 @@ class countryProvider {
             val lNAmerica = paisesANor()
             val lSAmerica = paisesASur()
             val lAfrican = paisesAfrica()
+            val lTPaises = todosPaises()
 
+        private fun todosPaises():MutableList<String>
+        {
+            val listCountries = World.getAllCountries()
+            val listCountriesNames: MutableList<String> = mutableListOf()
+            for(c in listCountries)
+            {
+                listCountriesNames.add(c.name).toString()
+            }
+            return listCountriesNames
+        }
         private fun paisesAsia():MutableList<String>
         {
             val listAsian = World.getCountriesFrom(World.Continent.ASIA)
