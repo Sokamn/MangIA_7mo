@@ -10,8 +10,9 @@
         android:id="@+id/rcvGaleryMR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MidBarMR" />
 
@@ -19,6 +20,7 @@
         android:id="@+id/ImageAdded"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
         android:orientation="vertical"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,7 +35,6 @@
             android:scaleType="centerInside"
             android:src="@drawable/profile_picture" />
 
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:elevation="10dp"
+        android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ImageAdded">
@@ -87,6 +89,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/AppBarMR"
+        android:background="@color/primaryColor"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:elevation="10dp"
@@ -137,7 +140,7 @@
     <ProgressBar
         android:id="@+id/pgbLoadImagesMR"
         android:layout_width="match_parent"
+        android:elevation="50dp"
         android:layout_height="match_parent"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
