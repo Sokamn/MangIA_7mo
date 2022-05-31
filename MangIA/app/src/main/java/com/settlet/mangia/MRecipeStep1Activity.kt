@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.settlet.mangia.databinding.ActivityMrecipeStep1Binding
+import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
 import java.lang.Exception
 import java.util.jar.Manifest
