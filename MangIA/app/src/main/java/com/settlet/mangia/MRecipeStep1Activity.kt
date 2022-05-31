@@ -1,5 +1,6 @@
 package com.settlet.mangia
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -39,6 +40,17 @@ class MRecipeStep1Activity : AppCompatActivity() {
             allPictures=getAllImages()
             binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
             binding.pgbLoadImagesMR.visibility = View.GONE
+        }
+
+        binding.imvCloseMR.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.imvNextStepMR.setOnClickListener {
+            val intent = Intent(this, MRecipeStep2Activity::class.java)
+            startActivity(intent)
         }
     }
 

@@ -46,11 +46,11 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
         }
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
-            Toast.makeText(baseContext,"Busar",Toast.LENGTH_SHORT).show()
-        }
-        homeView.bottom_barH.imbSearchBB.setOnClickListener {
             val intent = Intent(this, MRecipeStep1Activity::class.java)
             this.startActivity(intent)
+        }
+        homeView.bottom_barH.imbSearchBB.setOnClickListener {
+            Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
         }
 
         binding.btnCSesionH.setOnClickListener {

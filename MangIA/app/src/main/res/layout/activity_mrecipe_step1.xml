@@ -41,7 +41,7 @@
         android:id="@+id/MidBarMR"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:elevation="10dp"
+        android:elevation="20dp"
         android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,7 +72,7 @@
             app:layout_constraintEnd_toStartOf="@+id/txvTitleMR2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/facebook" />
+            app:srcCompat="@drawable/ic_gallery" />
 
         <ImageView
             android:id="@+id/imvCameraMR"
@@ -84,7 +84,7 @@
             app:layout_constraintStart_toEndOf="@+id/txvTitleMR2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/google" />
+            app:srcCompat="@drawable/ic_camera_mr" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -135,6 +135,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
