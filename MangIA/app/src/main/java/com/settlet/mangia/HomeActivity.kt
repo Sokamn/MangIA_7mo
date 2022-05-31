@@ -38,7 +38,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.appBarHome.toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
@@ -49,7 +49,8 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(baseContext,"Busar",Toast.LENGTH_SHORT).show()
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
-            Toast.makeText(baseContext,"Crear Receta",Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MRecipeStep1Activity::class.java)
+            this.startActivity(intent)
         }
 
         binding.btnCSesionH.setOnClickListener {

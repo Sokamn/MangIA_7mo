@@ -59,4 +59,5 @@
     <string name="follow">Seguidos</string>
     <string name="followers">Seguidores</string>
     <string name="mRecipe">Crear Receta</string>
+    <string name="nRecipe">Nueva Receta</string>
 </resources>
