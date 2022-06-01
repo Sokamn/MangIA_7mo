@@ -82,6 +82,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
         Glide.with(this)
             .load(images[0].imagePath)
             .into(binding.imvImageAdded)
-        return images
+        return images.reversed() as ArrayList<Image>
     }
 }
