@@ -35,7 +35,11 @@ class MRecipeStep1Activity : AppCompatActivity() {
             ActivityCompat.requestPermissions(this@MRecipeStep1Activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
         }
 
+        this.
+
         allPictures = ArrayList()
+
+
 
         if(allPictures!!.isEmpty())
         {
@@ -55,7 +59,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
             val intent = Intent(this, MRecipeStep2Activity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun getAllImages(): ArrayList<Image> {

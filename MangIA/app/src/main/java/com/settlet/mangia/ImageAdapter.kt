@@ -1,8 +1,6 @@
 package com.settlet.mangia
 
-import android.app.Activity
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +8,6 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
-import java.security.AccessController.getContext
-import kotlin.math.log
 
 class ImageAdapter (private var context: Context, private var imagesList:ArrayList<Image>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     class ImageViewHolder (itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -36,12 +31,16 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
             .into(holder.image!!)
 
         holder.image?.setOnClickListener {
-            val imagePath = currentImage.imagePath
+            val act = context as MRecipeStep1Activity
+            val imageAdded = act.findViewById<ImageView>(R.id.imvImageAdded)
+            Glide.with(context)
+                .load(currentImage.imagePath)
+                .into(imageAdded)
         }
     }
-
 
     override fun getItemCount(): Int {
         return imagesList.size
     }
+
 }
