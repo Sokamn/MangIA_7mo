@@ -14,6 +14,7 @@ import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.databinding.ActivityEditProfileBinding
+import java.util.*
 import kotlin.collections.HashMap
 
 class EditProfileActivity : AppCompatActivity() {
@@ -46,6 +47,7 @@ class EditProfileActivity : AppCompatActivity() {
                     }
             }
         }
+        binding.txpDBirthEP.setOnClickListener { showDatePickerDialog() }
     }
 
     public override fun onStart() {
@@ -80,6 +82,16 @@ class EditProfileActivity : AppCompatActivity() {
             }
     }
 
+    private fun showDatePickerDialog() {
+        val datePicker = DatePickerFragment{day, month, year -> onDateSelected(day, month, year)}
+        datePicker.show(supportFragmentManager, "datePicker")
+    }
+
+    fun onDateSelected(day: Int, month: Int, year: Int){
+        binding.txpDBirthEP.setText("$day/${month+1}/$year")
+    }
+
+
     private fun updateProfile(name: String, userFB: User){
         val user = Firebase.auth.currentUser
         if(binding.txpUNameEP.text.toString()==userFB.userName && binding.txpNNameEP.text.toString()==userFB.nickName && binding.txpBioEP.text.toString()==userFB.biography && binding.txpDBirthEP.text.toString()==userFB.dateBirth && binding.txpCountryEP.text.toString()==userFB.country && binding.txpRegionEP.text.toString()==userFB.region)
@@ -94,18 +106,39 @@ class EditProfileActivity : AppCompatActivity() {
                 .addOnCompleteListener{ task ->
                     if(task.isSuccessful)
                     {
+                        val badWords = arrayListOf<String>("sorete","imbecil","tarado","pelotudo","pajero","pajera","pelotuda","tarada","puto","puta","concha","culo","poronga","verga","pito","pene" + "nigga" , "trola" , "trolo" , "caca" , "down" , "mierda" , "nazi" , "hitler" , "estupido" , "coger" , "cojer" , "pendejo " , "pendeja" , "porno" , "orto" , "sexo" , "pinche" , "pinchi" , "cojo" , "cabrón" , "cabrona" , "mames" , "pendejos" , "pendejas" , "chinga" , "mamadas" , "pendejadas" , "mama huevo" , "pete" , "wueon" , "xuxa" , "weon" , "weonado" , "weona" , "coño" , "aguevoniado" , "guevon" , "pajuo" , "marica", "monda" , "marrana" , "marrano" ,"monda" , "pijudo" , "hijueputa" , "cotopla" , "pichurria" , "picha" , "mother fucker" , "fuck" , "ass" , "orgy" , "bitch" , "suck" , "my balls" , "slut " , "whore" , "hoe" , "chupamela" , "culito" , "cojida" , "cojiendo" , "zoofilia" , "putito" , "reputo" , "free viagra" , "taradito", "taradita" , "pelotudito" , "pelotudita" , "pelotuditos", "pelotuditas" , "putita" , "poronguita" , "verguita" , "pitito" , "trolito" , "trolita" , "caquita" , "estupidito" , "estupidita" , "pendejito" , "pendejita" , "putitos" , "putitas" , "poronguitas" , "porongotas" , "porongota" , "porongon" , "verguitas", "vergotas" , "vergota" , "pititos" , "pitotes" , "pitote" , "trolitos" , "trolitas" , "caquitas" , "cacotas" , "estupiditos" , "estupiditas" , "pendejitos" , "pendejitas" , "feto" , "cigoto" , "caka" , "kaka" , "kk" , "joto" , "jota" , "kaco" , "kago" , "kojo" , "kulo" , "mamo" , "meaas" , "mion" , "mula" , "pedo" , "qulo" , "buey" , "caco" , "cago" , "cako" , "coja" , "coji" , "guey" , "kaca" , "kaga" , "koge" , "mame" , "mear" , "meon" , "moco")
                         val userRef = db.collection("users").document(user.email.toString())
                         if(binding.txpUNameEP.text.toString()!=userFB.userName)
                         {
-                            userRef.update("userName",binding.txpUNameEP.text.toString()).addOnSuccessListener {
-                                Log.w("TAG", "Cambio realizado correctamente. ${binding.txpUNameEP.text}", )
-                                Toast.makeText(baseContext,"El cambio de Nombre de usuario a: ${binding.txpUNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                            for(t in badWords)
+                            {
+                                if(binding.txpUNameEP.text.toString() == t)
+                                {
+                                    Toast.makeText(this,"Se detectó un nombre de usuario o apodo ofensivo.",Toast.LENGTH_SHORT).show()
+                                }
+                                else{
+                                    userRef.update("userName",binding.txpUNameEP.text.toString()).addOnSuccessListener {
+                                        Log.w("TAG", "Cambio realizado correctamente. ${binding.txpUNameEP.text}", )
+                                        Toast.makeText(baseContext,"El cambio de Nombre de usuario a: ${binding.txpUNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                                    }
+                                }
                             }
                         }else if (binding.txpNNameEP.text.toString()!=userFB.nickName)
                         {
-                            userRef.update("nickName",binding.txpNNameEP.text.toString()).addOnSuccessListener {
-                                Log.w("TAG", "Cambio realizado correctamente. ${binding.txpNNameEP.text}", )
-                                Toast.makeText(baseContext,"El cambio de Apodo a: ${binding.txpNNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                            for(t in badWords) {
+                                if (binding.txpNNameEP.text.toString() == t) {
+                                    Toast.makeText(
+                                        this,
+                                        "Se detectó un nombre de usuario o apodo ofensivo.",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                                else{
+                                    userRef.update("nickName",binding.txpNNameEP.text.toString()).addOnSuccessListener {
+                                        Log.w("TAG", "Cambio realizado correctamente. ${binding.txpNNameEP.text}", )
+                                        Toast.makeText(baseContext,"El cambio de Apodo a: ${binding.txpNNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                                    }
+                                }
                             }
                         }else if(binding.txpBioEP.text.toString()!=userFB.biography)
                         {
@@ -115,9 +148,16 @@ class EditProfileActivity : AppCompatActivity() {
                             }
                         }else if(binding.txpDBirthEP.text.toString()!=userFB.dateBirth)
                         {
-                            userRef.update("dateBirth",binding.txpDBirthEP.text.toString()).addOnSuccessListener {
-                                Log.w("TAG", "Cambio realizado correctamente. ${binding.txpDBirthEP.text}", )
-                                Toast.makeText(baseContext,"El cambio de fecha de nacimiento a: ${binding.txpDBirthEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                            val edad = Calendar.getInstance().get(Calendar.YEAR)-binding.txpDBirthEP.text.substring(binding.txpDBirthEP.text.length-4).trim().toInt()
+                            if(edad<13)
+                            {
+                                Toast.makeText(this, "Usted tiene menos de 13 años, por favor, ingrese una fecha valida.",Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                                userRef.update("dateBirth",binding.txpDBirthEP.text.toString()).addOnSuccessListener {
+                                    Log.w("TAG", "Cambio realizado correctamente. ${binding.txpDBirthEP.text}", )
+                                    Toast.makeText(baseContext,"El cambio de fecha de nacimiento a: ${binding.txpDBirthEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                                }
                             }
                         }else if(binding.txpCountryEP.text.toString()!=userFB.country)
                         {
