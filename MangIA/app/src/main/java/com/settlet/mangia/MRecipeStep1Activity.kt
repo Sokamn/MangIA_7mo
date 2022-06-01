@@ -10,6 +10,7 @@ import android.widget.GridLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import com.bumptech.glide.Glide
 import com.settlet.mangia.databinding.ActivityMrecipeStep1Binding
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
@@ -27,12 +28,14 @@ class MRecipeStep1Activity : AppCompatActivity() {
         binding.rcvGaleryMR?.layoutManager = GridLayoutManager(this,3)
         binding.rcvGaleryMR?.setHasFixedSize(true)
 
+
+
         if(ContextCompat.checkSelfPermission(this@MRecipeStep1Activity,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this@MRecipeStep1Activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
         }
 
-        allPictures= ArrayList()
+        allPictures = ArrayList()
 
         if(allPictures!!.isEmpty())
         {
@@ -52,9 +55,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
             val intent = Intent(this, MRecipeStep2Activity::class.java)
             startActivity(intent)
         }
+
     }
 
-    private fun getAllImages(): ArrayList<Image>? {
+    private fun getAllImages(): ArrayList<Image> {
         val images = ArrayList<Image>()
         val allImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA,MediaStore.Images.Media.DISPLAY_NAME)
@@ -72,6 +76,9 @@ class MRecipeStep1Activity : AppCompatActivity() {
         }catch (e:Exception){
             e.printStackTrace()
         }
+        Glide.with(this)
+            .load(images[0].imagePath)
+            .into(binding.imvImageAdded)
         return images
     }
 }
