@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
 
 class ImageAdapter (private var context: Context, private var imagesList:ArrayList<Image>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     class ImageViewHolder (itemView: View):RecyclerView.ViewHolder(itemView) {
@@ -32,10 +33,7 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
 
         holder.image?.setOnClickListener {
             val act = context as MRecipeStep1Activity
-            val imageAdded = act.findViewById<ImageView>(R.id.imvImageAdded)
-            Glide.with(context)
-                .load(currentImage.imagePath)
-                .into(imageAdded)
+            act.path = currentImage.imagePath!!
         }
     }
 
