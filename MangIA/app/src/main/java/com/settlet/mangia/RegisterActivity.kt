@@ -134,6 +134,7 @@ class RegisterActivity : AppCompatActivity() {
                 "biography" to "",
                 "cantFollowers" to 0,
                 "cantFollows" to 0,
+                "cantRecipes" to 0,
                 "cantReports" to 0,
                 "country" to binding.txpCountryR.text.toString(),
                 "dateBirth" to binding.txpDateBirthR.text.toString(),

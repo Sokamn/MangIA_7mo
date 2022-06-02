@@ -203,6 +203,7 @@ class LoginActivity : AppCompatActivity() {
                                     "cantReports" to 0,
                                     "age" to 0,
                                     "cantFollows" to 0,
+                                    "cantRecipes" to 0,
                                     "cantFollowers" to 0,
                                     "biography" to ""
                                 )
