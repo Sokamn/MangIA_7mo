@@ -4,7 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.blongho.country_data.World
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
@@ -23,12 +25,92 @@ class EditProfileActivity : AppCompatActivity() {
     private val db = Firebase.firestore
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        World.init(applicationContext)
         binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val continents = resources.getStringArray(R.array.continents)
+        val arrayAdapterC = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, continents)
+        val arrayAdapterLAfrica = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAfrican)
+        val arrayAdapterLAsia = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAsia)
+        val arrayAdapterLASouth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lSAmerica)
+        val arrayAdapterLANorth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lNAmerica)
+        val arrayAdapterLOceania = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lOceania)
+        val arrayAdapterLEurope = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lEurope)
 
         binding.imbBackEP.setOnClickListener {
             val intent = Intent(this,ProfileActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.txpRegionEP.setAdapter(arrayAdapterC)
+
+        binding.txpRegionEP.setOnClickListener {
+            if(binding.txpCountryEP.text.toString() == "")
+            {
+                binding.txpRegionEP.isFocusableInTouchMode = true
+                binding.txpCountryEP.isFocusableInTouchMode = false
+                binding.txpRegionEP.requestFocus()
+            }
+            else
+            {
+                binding.txpCountryEP.setText("")
+                binding.txpRegionEP.isFocusableInTouchMode = true
+                binding.txpCountryEP.isFocusableInTouchMode = false
+                binding.txpRegionEP.requestFocus()
+            }
+        }
+        binding.txpCountryEP.setOnClickListener {
+            when(binding.txpRegionEP.text.toString()){
+                "Africa"->{
+                    Log.w("TAG", "${countryProvider.lAfrican}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLAfrica)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                "Asia"->{
+                    Log.w("TAG", "${countryProvider.lAsia}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLAsia)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                "America del Norte o Central"->{
+                    Log.w("TAG", "${countryProvider.lNAmerica}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLANorth)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                "America del Sur"->{
+                    Log.w("TAG", "${countryProvider.lSAmerica}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLASouth)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                "Europa"->{
+                    Log.w("TAG", "${countryProvider.lEurope}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLEurope)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                "Oceania"->{
+                    Log.w("TAG", "${countryProvider.lOceania}")
+                    binding.txpCountryEP.setAdapter(arrayAdapterLOceania)
+                    binding.txpCountryEP.isFocusableInTouchMode = true
+                    binding.txpCountryEP.requestFocus()
+                    binding.txpRegionEP.isFocusableInTouchMode = false
+                }
+                else ->{
+                    Log.w("TAG", "VACIO ABSOLUTO")
+                    binding.txpCountryEP.setAdapter(null)
+                    Toast.makeText(this,"Primero ingrese su región / Continente",Toast.LENGTH_LONG).show()
+                    binding.txpRegionEP.requestFocus()
+                }
+            }
         }
 
         binding.imbSaveEP.setOnClickListener{
@@ -70,12 +152,6 @@ class EditProfileActivity : AppCompatActivity() {
                         binding.txpDBirthEP.setText(dBirth)
                         binding.txpCountryEP.setText(country)
                         binding.txpRegionEP.setText(region)
-                        /*Glide
-                            .with(this)
-                            .load(currentUser.photoUrl)
-                            .centerCrop()
-                            .placeholder(R.drawable.profile_photo)
-                            .into(binding.imvProfile)*/
                         Log.d("TAG", "${document.id} => ${document.data}")
                     }
                 }
@@ -94,6 +170,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun updateProfile(name: String, userFB: User){
         val user = Firebase.auth.currentUser
+        var aux1 = 0
+        var aux2 = 0
         if(binding.txpUNameEP.text.toString()==userFB.userName && binding.txpNNameEP.text.toString()==userFB.nickName && binding.txpBioEP.text.toString()==userFB.biography && binding.txpDBirthEP.text.toString()==userFB.dateBirth && binding.txpCountryEP.text.toString()==userFB.country && binding.txpRegionEP.text.toString()==userFB.region)
         {
             Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
@@ -123,7 +201,8 @@ class EditProfileActivity : AppCompatActivity() {
                                     }
                                 }
                             }
-                        }else if (binding.txpNNameEP.text.toString()!=userFB.nickName)
+                        }
+                        if (binding.txpNNameEP.text.toString()!=userFB.nickName)
                         {
                             for(t in badWords) {
                                 if (binding.txpNNameEP.text.toString() == t) {
@@ -140,13 +219,15 @@ class EditProfileActivity : AppCompatActivity() {
                                     }
                                 }
                             }
-                        }else if(binding.txpBioEP.text.toString()!=userFB.biography)
+                        }
+                        if(binding.txpBioEP.text.toString()!=userFB.biography)
                         {
                             userRef.update("biography",binding.txpBioEP.text.toString()).addOnSuccessListener {
                                 Log.w("TAG", "Cambio realizado correctamente. ${binding.txpBioEP.text}", )
                                 Toast.makeText(baseContext,"El cambio de Biografia a: ${binding.txpBioEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
                             }
-                        }else if(binding.txpDBirthEP.text.toString()!=userFB.dateBirth)
+                        }
+                        if(binding.txpDBirthEP.text.toString()!=userFB.dateBirth)
                         {
                             val edad = Calendar.getInstance().get(Calendar.YEAR)-binding.txpDBirthEP.text.substring(binding.txpDBirthEP.text.length-4).trim().toInt()
                             if(edad<13)
@@ -159,21 +240,53 @@ class EditProfileActivity : AppCompatActivity() {
                                     Toast.makeText(baseContext,"El cambio de fecha de nacimiento a: ${binding.txpDBirthEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
                                 }
                             }
-                        }else if(binding.txpCountryEP.text.toString()!=userFB.country)
+                        }
+                        if(binding.txpCountryEP.text.toString()!=userFB.country)
                         {
-                            userRef.update("country",binding.txpCountryEP.text.toString()).addOnSuccessListener {
-                                Log.w("TAG", "Cambio realizado correctamente. ${binding.txpCountryEP.text}", )
-                                Toast.makeText(baseContext,"El cambio de pais a: ${binding.txpCountryEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                            for (C in countryProvider.lTPaises)
+                            {
+                                if(binding.txpCountryEP.text.toString() == C)
+                                {
+                                    aux1++
+                                    userRef.update("country",binding.txpCountryEP.text.toString()).addOnSuccessListener {
+                                        Log.w("TAG", "Cambio realizado correctamente. ${binding.txpCountryEP.text}", )
+                                        Toast.makeText(baseContext,"El cambio de pais a: ${binding.txpCountryEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                                    }
+                                }
                             }
-                        }else if(binding.txpRegionEP.text.toString()!=userFB.region)
+                            if(aux1==0)
+                            {
+                                Toast.makeText(this,"Pais seleccionado inexistente. Por favor, seleccione los que les recomendamos.\nTenga en cuenta que los paises están en Ingles",Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        if(binding.txpRegionEP.text.toString()!=userFB.region)
                         {
-                            userRef.update("region",binding.txpRegionEP.text.toString()).addOnSuccessListener {
-                                Log.w("TAG", "Cambio realizado correctamente. ${binding.txpRegionEP.text}", )
-                                Toast.makeText(baseContext,"El cambio de region a: ${binding.txpRegionEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
+                            for (c in resources.getStringArray(R.array.continents))
+                            {
+                                if(binding.txpRegionEP.text.toString() == c) {
+                                    aux2++
+                                    userRef.update("region", binding.txpRegionEP.text.toString())
+                                        .addOnSuccessListener {
+                                            Log.w(
+                                                "TAG",
+                                                "Cambio realizado correctamente. ${binding.txpRegionEP.text}",
+                                            )
+                                            Toast.makeText(
+                                                baseContext,
+                                                "El cambio de region a: ${binding.txpRegionEP.text} se ha realizado correctamente",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                }
+                            }
+                            if(aux2==0)
+                            {
+                                Toast.makeText(this,"Continente seleccionado inexistente. Por favor, seleccione los que les recomendamos",Toast.LENGTH_SHORT).show()
+                            }
+
                             }
                         }
                     }
                 }
             }
         }
-    }
