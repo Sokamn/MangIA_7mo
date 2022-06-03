@@ -39,13 +39,13 @@ import kotlin.math.log
 class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding
     private var allPictures: ArrayList<Image>?=null
-    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         val inputUri = uri
         val outputUri = File(filesDir,"croppedImage.jpg").toUri()
         val listUri = listOf<Uri>(inputUri,outputUri)
         cropImage.launch(listUri)
     }
-    private val uCropContract= object: ActivityResultContract<List<Uri>,Uri>(){
+    private val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
         override fun createIntent(context: Context, input: List<Uri>): Intent {
             val inputUri = input[0]
             val outputUri = input[1]
@@ -97,7 +97,8 @@ class MRecipeStep1Activity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.imvImageAdded.setOnClickListener {
-            getContent.launch(path)
+            //getContent.launch("image/*")
+
         }
 
     }
