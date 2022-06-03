@@ -1,5 +1,6 @@
 package com.settlet.mangia
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -93,7 +94,6 @@ class HomeActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(result)
                     .into(nav_view.imvProfileNH)
-
             }
                 .addOnFailureListener {
                     defaultPImage.downloadUrl.addOnSuccessListener { result ->
