@@ -97,8 +97,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.imvImageAdded.setOnClickListener {
-            //getContent.launch("image/*")
 
+        }
+        binding.imvMFiles.setOnClickListener {
+            getContent.launch("image/*")
         }
 
     }
@@ -126,12 +128,4 @@ class MRecipeStep1Activity : AppCompatActivity() {
             .into(binding.imvImageAdded)
         return images.reversed() as ArrayList<Image>
     }
-    /*private fun uploadImage(img: Uri)
-    {
-        val auth = Firebase.auth
-        if(auth.currentUser!=null)
-        {
-            if()
-        }
-    }*/
 }

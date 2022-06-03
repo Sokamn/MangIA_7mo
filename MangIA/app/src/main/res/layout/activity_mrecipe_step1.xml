@@ -16,10 +16,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/MidBarMR" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/ImageAdded"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="320dp"
+        android:layout_height="320dp"
         android:background="@color/primaryColor"
         android:orientation="vertical"
         android:padding="10dp"
@@ -33,9 +33,21 @@
             android:layout_height="300dp"
             android:layout_gravity="center"
             android:scaleType="centerInside"
-            android:src="@drawable/profile_picture" />
+            android:src="@drawable/profile_picture"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/imvMFiles"
+            android:layout_width="140dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_home_menu"
+            app:layout_constraintStart_toStartOf="@+id/imvImageAdded"
+            app:layout_constraintTop_toTopOf="@+id/imvImageAdded" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/MidBarMR"
@@ -55,6 +67,7 @@
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/manjaribold"
             android:text="|"
+            android:visibility="invisible"
             android:textColor="@color/quaternaryColor"
             android:textSize="22sp"
             android:textStyle="bold"
@@ -137,7 +150,6 @@
             app:srcCompat="@drawable/ic_close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <ProgressBar
         android:id="@+id/pgbLoadImagesMR"
         android:layout_width="match_parent"
