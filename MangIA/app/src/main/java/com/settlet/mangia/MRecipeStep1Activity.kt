@@ -63,7 +63,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
     private val cropImage = registerForActivityResult(uCropContract){ uri ->
         binding.imvImageAdded.setImageURI(uri)
     }
-    internal var path:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep1Binding.inflate(layoutInflater)

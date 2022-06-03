@@ -238,6 +238,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/txpCountryEP"
                 tools:layout_editor_absoluteX="0dp" />
 
+            <ImageView
+                android:id="@+id/imvEditProfilePicture"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imvProfile"
+                app:layout_constraintEnd_toEndOf="@+id/imvProfile"
+                app:srcCompat="@drawable/check" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>

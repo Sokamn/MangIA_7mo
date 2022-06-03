@@ -183,7 +183,7 @@ class RegisterActivity : AppCompatActivity() {
                     startActivity(intent)
                 } else {
                     Log.w("TAG", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Error al registrarse.",
+                    Toast.makeText(baseContext, "Error al registrarse. Por favor, intentelo más tarde.",
                         Toast.LENGTH_SHORT).show()
                 }
             }

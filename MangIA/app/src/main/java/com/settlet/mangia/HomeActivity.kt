@@ -14,20 +14,26 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.databinding.ActivityHomeBinding
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.activity_profile.view.*
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
+    private val storageReference = FirebaseStorage.getInstance().reference
     private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +85,23 @@ class HomeActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         val currentUser = Firebase.auth.currentUser
+        val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
         if (currentUser!=null)
         {
+            val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+            pImageRef.downloadUrl.addOnSuccessListener { result ->
+                Glide.with(this)
+                    .load(result)
+                    .into(nav_view.imvProfileNH)
+
+            }
+                .addOnFailureListener {
+                    defaultPImage.downloadUrl.addOnSuccessListener { result ->
+                        Glide.with(this)
+                            .load(result)
+                            .into(nav_view.imvProfileNH)
+                    }
+                }
             db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
                 for (document in documents)
                 {

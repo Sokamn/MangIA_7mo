@@ -1,11 +1,16 @@
 package com.settlet.mangia
 
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
 import com.blongho.country_data.World
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -15,7 +20,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.databinding.ActivityEditProfileBinding
+import com.yalantis.ucrop.UCrop
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.nav_header_home.view.*
+import java.io.File
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -23,6 +33,58 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
+    private val storageReference = FirebaseStorage.getInstance().reference
+    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
+        val inputUri = uri
+        val outputUri = File(filesDir,"croppedImage.jpg").toUri()
+        val listUri = listOf<Uri>(inputUri,outputUri)
+        cropImage.launch(listUri)
+    }
+    private val uCropContract = object: ActivityResultContract<List<Uri>, Uri>(){
+        override fun createIntent(context: Context, input: List<Uri>): Intent {
+            val inputUri = input[0]
+            val outputUri = input[1]
+
+            val uCrop = UCrop.of(inputUri, outputUri)
+                .withAspectRatio(5f,5f)
+                .withMaxResultSize(512,512)
+            return uCrop.getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri {
+            return UCrop.getOutput(intent!!)!!
+        }
+    }
+    private val cropImage = registerForActivityResult(uCropContract){ uri ->
+        binding.imvProfile.setImageURI(uri)
+        uploadImageToFirebase(uri)
+        val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
+        val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+        pImageRef.downloadUrl.addOnSuccessListener { result ->
+            Glide.with(this)
+                .load(result)
+                .into(nav_view.imvProfileNH)
+
+        }
+            .addOnFailureListener {
+                defaultPImage.downloadUrl.addOnSuccessListener { result ->
+                    Glide.with(this)
+                        .load(result)
+                        .into(nav_view.imvProfileNH)
+                }
+            }
+    }
+
+    private fun uploadImageToFirebase(image: Uri) {
+        var fileRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+        fileRef.putFile(image).addOnSuccessListener {
+            Log.d("imageUpload", "Imagen subida correctamente")
+        }
+            .addOnFailureListener{
+                Log.d("imageUpload", "Imagen no se ha subido correctamente")
+            }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         World.init(applicationContext)
@@ -130,13 +192,32 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
         binding.txpDBirthEP.setOnClickListener { showDatePickerDialog() }
+
+        binding.imvEditProfilePicture.setOnClickListener {
+            getContent.launch("image/*")
+        }
     }
 
     public override fun onStart() {
         super.onStart()
         val currentUser = Firebase.auth.currentUser
-            if (currentUser!=null)
+        val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
+        if (currentUser!=null)
             {
+                val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+                pImageRef.downloadUrl.addOnSuccessListener { result ->
+                    Glide.with(this)
+                        .load(result)
+                        .into(binding.imvProfile)
+
+                }
+                    .addOnFailureListener {
+                        defaultPImage.downloadUrl.addOnSuccessListener { result ->
+                            Glide.with(this)
+                                .load(result)
+                                .into(binding.imvProfile)
+                        }
+                    }
                 db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
                     for (document in documents)
                     {

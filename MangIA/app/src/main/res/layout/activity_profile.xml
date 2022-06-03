@@ -72,7 +72,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvUNameP"
-        app:srcCompat="@drawable/profile_picture" />
+        app:srcCompat="@drawable/ic_launcher_background" />
 
     <TextView
         android:id="@+id/txvUNameP"

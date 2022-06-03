@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MRecipeStep1Activity">
+    tools:context=".MRecipeStep1Activity"
+    android:background="@color/primaryColor">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvGaleryMR"
@@ -32,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_gravity="center"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             android:src="@drawable/profile_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
