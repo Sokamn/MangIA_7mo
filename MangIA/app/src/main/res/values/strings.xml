@@ -60,6 +60,10 @@
     <string name="followers">Seguidores</string>
     <string name="mRecipe">Crear Receta</string>
     <string name="nRecipe">Nueva Receta</string>
+    <string name="aIngredient">Agregar Ingredientes</string>
+    <string name="stepByStep">Paso a paso</string>
+    <string name="sIngredient">Buscar Ingredientes</string>
+    <string name="plusAdd">+ Añadir…</string>
     <string-array name="continents">
         <item>Africa</item>
         <item>Asia</item>
