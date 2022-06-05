@@ -20,6 +20,15 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             a.initRcView(a.listIngredientRecipe)
         }
 
+        binding.imbAddQuantity.setOnClickListener {
+            ingredient.cantidad++
+        }
+        binding.imbRemoveQuantity.setOnClickListener {
+            ingredient.cantidad--
+        }
+        binding.imvExpandUnity.setOnClickListener {
+
+        }
         ingredient.imgRef.downloadUrl.addOnSuccessListener { result ->
             Glide.with(binding.imvIngredient.context)
                 .load(result)

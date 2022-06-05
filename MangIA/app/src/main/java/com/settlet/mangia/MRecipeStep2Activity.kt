@@ -32,9 +32,12 @@ class MRecipeStep2Activity : AppCompatActivity() {
                         listIngredientRecipe.add(i)
                         initRcView(listIngredientRecipe)
                     }
-
                 }
             }
+        }
+
+        binding.txvPlusAddIngredientMR2.setOnClickListener {
+
         }
     }
 
