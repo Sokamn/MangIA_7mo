@@ -1,10 +1,11 @@
 package com.settlet.mangia
 
+import com.blongho.country_data.World
 import com.google.firebase.storage.FirebaseStorage
 
 class IngredientProvider {
     companion object{
-        val ingredientList = listOf<Ingredient>(
+        val ingredientListO = listOf<Ingredient>(
             Ingredient(
                 "Achiote",
                 "Gramos",
@@ -258,5 +259,16 @@ class IngredientProvider {
                 FirebaseStorage.getInstance().reference.child("ingredients/Cardamomo.png")
             )
         )
+        val ingredientListN = IngredientListNames()
+        private fun IngredientListNames(): List<String> {
+            val listIngredient = ingredientListO
+            val listIngredientNames: MutableList<String> = mutableListOf()
+            for(i in listIngredient)
+            {
+                listIngredientNames.add(i.nombre).toString()
+            }
+            return listIngredientNames
+        }
+
     }
 }

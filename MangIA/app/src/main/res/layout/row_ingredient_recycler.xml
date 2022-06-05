@@ -1,6 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="50dp"
+    android:background="@color/primaryColor">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/lineColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/txvIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="12dp"
+        android:fontFamily="@font/manjariregular"
+        android:text="@string/ingredient"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivmIngredient" />
+
+    <ImageView
+        android:id="@+id/ivmIngredient"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_load_ingredient" />
+
+    <ImageView
+        android:id="@+id/imvRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
+
+    <ImageButton
+        android:id="@+id/imbAddQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imvRemove"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_add" />
+
+    <ImageButton
+        android:id="@+id/imbRemoveQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txpQuantity"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_remove" />
+
+    <TextView
+        android:id="@+id/txvUnity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="-6dp"
+        android:fontFamily="@font/manjarithin"
+        android:text="Un"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
+        app:layout_constraintEnd_toStartOf="@+id/imvExpandUnity" />
+
+    <ImageView
+        android:id="@+id/imvExpandUnity"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="-2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
+        app:layout_constraintEnd_toStartOf="@+id/imbAddQuantity"
+        app:srcCompat="@drawable/ic_unity_expand" />
+
+    <EditText
+        android:id="@+id/txpQuantity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:fontFamily="@font/manjarithin"
+        android:layout_marginBottom="-4dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="0"
+        android:textAlignment="center"
+        android:paddingBottom="0dp"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
+        app:layout_constraintEnd_toStartOf="@+id/txvUnity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

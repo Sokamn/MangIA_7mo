@@ -64,6 +64,7 @@
     <string name="stepByStep">Paso a paso</string>
     <string name="sIngredient">Buscar Ingredientes</string>
     <string name="plusAdd">+ Añadir…</string>
+    <string name="ingredient">Ingrediente</string>
     <string-array name="continents">
         <item>Africa</item>
         <item>Asia</item>

@@ -18,25 +18,28 @@
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
+                android:layout_marginTop="50dp"
                 android:background="@color/lineColor"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txvPlusAddIngredientMR2"
-                app:layout_constraintTop_toBottomOf="@+id/txvPlusAddIngredientMR2" />
+                app:layout_constraintTop_toBottomOf="@+id/rcvIngredients" />
+
             <TextView
                 android:id="@+id/txvPlusAddIngredientMR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="@font/manjarithin"
                 android:text="@string/plusAdd"
-                android:textColor="@color/secundaryColor"
-                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rcvIngredients" />
+                app:layout_constraintBottom_toTopOf="@+id/view2"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/txvAddIngredientMRS2"
@@ -57,19 +60,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="500dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/manjaribold"
-                android:text="@string/aIngredient"
+                android:text="@string/stepByStep"
                 android:textColor="@color/secundaryColor"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rcvIngredients" />
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <AutoCompleteTextView
-                android:id="@+id/txpSIngredientMRS2"
+                android:id="@+id/txpSearchMRS2"
                 android:layout_width="match_parent"
-                android:padding="0dp"
                 android:textAlignment="center"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
@@ -78,6 +80,7 @@
                 android:elevation="10dp"
                 android:background="@drawable/search_btn"
                 android:ems="10"
+                android:padding="0dp"
                 android:fontFamily="@font/manjarithin"
                 android:hint="@string/sIngredient"
                 android:inputType="textEmailAddress"
@@ -93,9 +96,9 @@
                 android:layout_marginStart="15dp"
                 android:elevation="11dp"
                 android:src="@drawable/ic_search_black"
-                app:layout_constraintBottom_toBottomOf="@+id/txpSIngredientMRS2"
-                app:layout_constraintStart_toStartOf="@+id/txpSIngredientMRS2"
-                app:layout_constraintTop_toTopOf="@+id/txpSIngredientMRS2" />
+                app:layout_constraintBottom_toBottomOf="@+id/txpSearchMRS2"
+                app:layout_constraintStart_toStartOf="@+id/txpSearchMRS2"
+                app:layout_constraintTop_toTopOf="@+id/txpSearchMRS2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvIngredients"
@@ -104,7 +107,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpSIngredientMRS2" />
+                app:layout_constraintTop_toBottomOf="@+id/txpSearchMRS2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
