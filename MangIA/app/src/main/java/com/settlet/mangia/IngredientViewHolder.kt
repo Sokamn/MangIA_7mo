@@ -3,9 +3,11 @@ package com.settlet.mangia
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.databinding.RowIngredientRecyclerBinding
+import kotlinx.android.synthetic.main.activity_mrecipe_step2.*
 
 class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
     val binding = RowIngredientRecyclerBinding.bind(view)
@@ -17,14 +19,27 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
         binding.imvRemove.setOnClickListener {
             val a = binding.imvRemove.context as MRecipeStep2Activity
             a.listIngredientRecipe.remove(ingredient)
-            a.initRcView(a.listIngredientRecipe)
+            a.rcvIngredients.adapter!!.notifyDataSetChanged()
+
         }
 
         binding.imbAddQuantity.setOnClickListener {
-            ingredient.cantidad++
+            if(binding.txpQuantity.text.toString() == "")
+            {
+                binding.txpQuantity.setText("1")
+            }
+            else{
+                binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
+            }
         }
         binding.imbRemoveQuantity.setOnClickListener {
-            ingredient.cantidad--
+            if(binding.txpQuantity.text.toString() == "0")
+            {
+                Toast.makeText(binding.txpQuantity.context,"No puedes tener menos de 0 ${binding.txvUnity.text} de ${ingredient.nombre} en tu receta.",Toast.LENGTH_SHORT).show()
+            }
+            else{
+                binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-1).toString())
+            }
         }
         binding.imvExpandUnity.setOnClickListener {
 
@@ -37,5 +52,6 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
         }.addOnFailureListener {
 
         }
+
     }
 }

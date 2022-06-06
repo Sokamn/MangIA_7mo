@@ -17,9 +17,9 @@ class MRecipeStep2Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep2Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        initRcView(listIngredientRecipe)
         val arrayAdapterLIngredientNames = ArrayAdapter<String>(this, R.layout.simple_list_item_1, IngredientProvider.ingredientListN)
         binding.txpSearchMRS2.setAdapter(arrayAdapterLIngredientNames)
-
         binding.txpSearchMRS2.setOnItemClickListener { parent, view, position, id ->
             for(i in IngredientProvider.ingredientListO)
             {
@@ -30,14 +30,14 @@ class MRecipeStep2Activity : AppCompatActivity() {
                     }
                     else{
                         listIngredientRecipe.add(i)
-                        initRcView(listIngredientRecipe)
+                        binding.rcvIngredients.adapter!!.notifyDataSetChanged()
                     }
                 }
             }
         }
 
         binding.txvPlusAddIngredientMR2.setOnClickListener {
-
+            binding.txpSearchMRS2.requestFocus()
         }
     }
 
