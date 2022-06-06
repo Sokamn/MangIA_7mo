@@ -91,6 +91,7 @@ class EditProfileActivity : AppCompatActivity() {
         binding.imbBackEP.setOnClickListener {
             val intent = Intent(this,ProfileActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.txpRegionEP.setAdapter(arrayAdapterC)

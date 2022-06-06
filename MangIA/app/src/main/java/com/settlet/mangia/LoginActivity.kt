@@ -247,6 +247,7 @@ class LoginActivity : AppCompatActivity() {
                         else{
                             val intent = Intent(this,CheckMailActivity::class.java)
                             startActivity(intent)
+                            finish()
                         }
                     }
                     finish()
@@ -303,6 +304,7 @@ class LoginActivity : AppCompatActivity() {
     {
         val intent = Intent(this,HomeActivity::class.java)
         this.startActivity(intent)
+        finish()
     }
     private fun showErrorEmpty(){
         Toast.makeText(this,"Complete todos los campos",Toast.LENGTH_SHORT).show()
@@ -315,6 +317,7 @@ class LoginActivity : AppCompatActivity() {
                     val user = task.result?.user
                     val intent = Intent(this,HomeActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {

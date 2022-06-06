@@ -61,11 +61,13 @@ class CheckMailActivity : AppCompatActivity() {
     {
         val intent = Intent(this,HomeActivity::class.java)
         this.startActivity(intent)
+        finish()
     }
     private fun logOut()
     {
         Firebase.auth.signOut()
         val intent = Intent(this,LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }

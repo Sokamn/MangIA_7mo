@@ -25,6 +25,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
         binding.imbBackVP.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.btnContinueVP.setOnClickListener {
             val otp=binding.txpPinVP.text.toString().trim()
@@ -45,6 +46,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                     val user = task.result?.user
                     val intent = Intent(this,HomeActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {

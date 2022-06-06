@@ -18,6 +18,7 @@ class FPassActivity : AppCompatActivity() {
         binding.imbBackFP.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         binding.btnSendFP.setOnClickListener {
@@ -27,6 +28,7 @@ class FPassActivity : AppCompatActivity() {
                 {
                     val intent = Intent(this, LoginActivity::class.java)
                     this.startActivity(intent)
+                    finish()
                 }else{
                     Toast.makeText(this,"Ingrese un email de una cuenta valida.",Toast.LENGTH_SHORT).show()
                 }

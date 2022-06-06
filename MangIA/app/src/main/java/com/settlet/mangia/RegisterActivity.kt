@@ -125,6 +125,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvPLoginR.setOnClickListener { // Volver al Login
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.btnContinueR2.setOnClickListener{ // Boton de finalizar registro
             val mailr = binding.txpMailR.text.toString()
@@ -163,6 +164,7 @@ class RegisterActivity : AppCompatActivity() {
             } else{
                 val intent = Intent(this, CheckMailActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     }
@@ -181,6 +183,7 @@ class RegisterActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val intent = Intent(this, CheckMailActivity::class.java)
                     startActivity(intent)
+                    finish()
                 } else {
                     Log.w("TAG", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Error al registrarse. Por favor, intentelo más tarde.",
@@ -285,6 +288,7 @@ class RegisterActivity : AppCompatActivity() {
             0 ->{
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                finish()
             }
             1 ->{register1()}
             2 ->{register2()}
@@ -405,5 +409,6 @@ class RegisterActivity : AppCompatActivity() {
     {
         val intent = Intent(this,HomeActivity::class.java)
         this.startActivity(intent)
+        finish()
     }
 }

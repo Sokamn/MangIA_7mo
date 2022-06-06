@@ -55,6 +55,7 @@ class HomeActivity : AppCompatActivity() {
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             val intent = Intent(this, MRecipeStep1Activity::class.java)
             this.startActivity(intent)
+            finish()
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
@@ -67,6 +68,7 @@ class HomeActivity : AppCompatActivity() {
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
+            finish()
         }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout
@@ -134,5 +136,6 @@ class HomeActivity : AppCompatActivity() {
         Firebase.auth.signOut()
         val intent = Intent(this,LoginActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
