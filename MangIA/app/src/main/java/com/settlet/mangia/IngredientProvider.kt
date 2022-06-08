@@ -261,9 +261,8 @@ class IngredientProvider {
         )
         val ingredientListN = IngredientListNames()
         private fun IngredientListNames(): List<String> {
-            val listIngredient = ingredientListO
             val listIngredientNames: MutableList<String> = mutableListOf()
-            for(i in listIngredient)
+            for(i in ingredientListO)
             {
                 listIngredientNames.add(i.nombre).toString()
             }
