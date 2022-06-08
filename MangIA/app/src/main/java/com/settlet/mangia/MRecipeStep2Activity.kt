@@ -21,16 +21,17 @@ class MRecipeStep2Activity : AppCompatActivity() {
         val arrayAdapterLIngredientNames = ArrayAdapter<String>(this, R.layout.simple_list_item_1, IngredientProvider.ingredientListN)
         binding.txpSearchMRS2.setAdapter(arrayAdapterLIngredientNames)
         binding.txpSearchMRS2.setOnItemClickListener { parent, view, position, id ->
-            for(i in IngredientProvider.ingredientListO)
-            {
-                if(i.nombre == parent.getItemAtPosition(position)){
-                    if(listIngredientRecipe.contains(i))
+            IngredientProvider.ingredientListO.forEach {
+                if(it.nombre == parent.getItemAtPosition(position)){
+                    if(listIngredientRecipe.contains(it))
                     {
                         Toast.makeText(this,"Este ingrediente ya ha sido agregado.",Toast.LENGTH_SHORT).show()
+                        binding.txpSearchMRS2.setText("")
                     }
                     else{
-                        listIngredientRecipe.add(i)
+                        listIngredientRecipe.add(it)
                         binding.rcvIngredients.adapter!!.notifyDataSetChanged()
+                        binding.txpSearchMRS2.setText("")
                     }
                 }
             }
