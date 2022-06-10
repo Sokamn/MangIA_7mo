@@ -8,7 +8,7 @@ class IngredientProvider {
         val ingredientListO = listOf<Ingredient>(
             Ingredient(
                 "Achiote",
-                "Gramos",
+                "Liquidos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Achiote.png")
@@ -22,14 +22,14 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Ajenuz",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Ajenuz.png")
             ),
             Ingredient(
                 "Ajowán",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Ajowan.png")

@@ -65,6 +65,7 @@
     <string name="sIngredient">Buscar Ingredientes</string>
     <string name="plusAdd">+ Añadir…</string>
     <string name="ingredient">Ingrediente</string>
+    <string name="plusAddStep">+ Agregar paso…</string>
     <string-array name="continents">
         <item>Africa</item>
         <item>Asia</item>
@@ -73,4 +74,36 @@
         <item>Europa</item>
         <item>Oceania</item>
     </string-array>
+    <string-array name="hojas">
+        <item>Atd</item>
+        <item>Gr</item>
+        <item>Kg</item>
+        <item>Hjs</item>
+        <item>Un</item>
+    </string-array>
+    <string-array name="liquidos">
+        <item>Lts</item>
+        <item>Ml</item>
+        <item>Cm³</item>
+        <item>Taza</item>
+        <item>C/s</item>
+        <item>C/c</item>
+    </string-array>
+    <string-array name="polvos">
+        <item>Gr</item>
+        <item>Kg</item>
+        <item>C/s</item>
+        <item>C/c</item>
+        <item>Tz</item>
+    </string-array>
+    <string-array name="legumbres_semillas">
+        <item>Tz</item>
+        <item>Gr</item>
+        <item>Kg</item>
+    </string-array>
+    <string-array name="unidad">
+        <item>Un</item>
+    </string-array>
+
+
 </resources>
