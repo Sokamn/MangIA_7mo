@@ -99,6 +99,4 @@
         app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
         app:layout_constraintEnd_toStartOf="@+id/spnUnity" />
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
