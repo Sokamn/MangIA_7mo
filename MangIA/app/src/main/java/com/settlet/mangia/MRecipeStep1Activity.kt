@@ -40,10 +40,16 @@ class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding
     private var allPictures: ArrayList<Image>?=null
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
-        val inputUri = uri
-        val outputUri = File(filesDir,"croppedImage.jpg").toUri()
-        val listUri = listOf<Uri>(inputUri,outputUri)
-        cropImage.launch(listUri)
+        if(uri!=null)
+        {
+            val inputUri = uri
+            val outputUri = File(filesDir,"croppedImage.jpg").toUri()
+            val listUri = listOf<Uri>(inputUri,outputUri)
+            cropImage.launch(listUri)
+        }
+        else{
+            Toast.makeText(baseContext,"No has seleccionado ninguna imagen.",Toast.LENGTH_SHORT).show()
+        }
     }
     private val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
         override fun createIntent(context: Context, input: List<Uri>): Intent {
@@ -57,12 +63,25 @@ class MRecipeStep1Activity : AppCompatActivity() {
             return uCrop.getIntent(context)
         }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri {
-            return UCrop.getOutput(intent!!)!!
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            if(intent!=null)
+            {
+                return UCrop.getOutput(intent)!!
+            }
+            else
+            {
+                return null
+            }
         }
     }
     private val cropImage = registerForActivityResult(uCropContract){ uri ->
-        binding.imvImageAdded.setImageURI(uri)
+        if (uri!=null)
+        {
+            binding.imvImageAdded.setImageURI(uri)
+        }
+        else{
+            Toast.makeText(baseContext,"No has terminado de recortar una imagen.",Toast.LENGTH_SHORT).show()
+        }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
