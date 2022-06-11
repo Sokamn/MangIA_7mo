@@ -19,53 +19,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <View
-                android:id="@+id/lineStep"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstAddStep"
                 android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="50dp"
-                android:background="@color/lineColor"
+                android:layout_height="50dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txvPlusAddIngredientMR2"
-                app:layout_constraintTop_toBottomOf="@+id/rcvStepsMR2" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcvStepsMR2">
 
-            <TextView
-                android:id="@+id/txvPlusAddStepMR2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/manjarithin"
-                android:text="@string/plusAddStep"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/lineStep"
-                app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/txvPlusAddStepMR2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="@string/plusAddStep"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <View
-                android:id="@+id/lineIngredient"
-                android:layout_width="match_parent"
-                android:layout_height="1px"
-                android:layout_marginTop="50dp"
-                android:background="@color/lineColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/txvPlusAddIngredientMR2"
-                app:layout_constraintTop_toBottomOf="@+id/rcvIngredients" />
+                <View
+                    android:id="@+id/lineStep"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txvPlusAddIngredientMR2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/manjarithin"
-                android:text="@string/plusAdd"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/lineIngredient"
-                app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/txvAddIngredientMRS2"
@@ -81,7 +68,42 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cstAddIngredient"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcvIngredients">
+
+                <TextView
+                    android:id="@+id/txvPlusAddIngredientMR2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="@string/plusAdd"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/lineIngredient"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <View
+                    android:id="@+id/lineIngredient"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
                 android:id="@+id/txvSbyStepMR2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,7 +115,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lineIngredient" />
+                app:layout_constraintTop_toBottomOf="@+id/cstAddIngredient" />
 
             <AutoCompleteTextView
                 android:id="@+id/txpSearchMRS2"
@@ -143,6 +165,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvSbyStepMR2" />
+
+            <TextView
+                android:id="@+id/txvSuggestionMRS2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/manjarithin"
+                android:text="@string/iSuggestion"
+                android:textColor="@color/quaternaryColor"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/txpSearchMRS2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
