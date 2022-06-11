@@ -9,10 +9,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1000dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AppBarMRS2">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -96,18 +98,18 @@
             <AutoCompleteTextView
                 android:id="@+id/txpSearchMRS2"
                 android:layout_width="match_parent"
-                android:textAlignment="center"
                 android:layout_height="30dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:elevation="10dp"
                 android:background="@drawable/search_btn"
+                android:elevation="10dp"
                 android:ems="10"
-                android:padding="0dp"
                 android:fontFamily="@font/manjarithin"
                 android:hint="@string/sIngredient"
                 android:inputType="textEmailAddress"
+                android:padding="0dp"
+                android:textAlignment="center"
                 android:textColor="@color/quaternaryColor"
                 android:textColorHint="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -173,7 +175,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
-            android:id="@+id/imvCloseMRS2"
+            android:id="@+id/imvBackMRS2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"

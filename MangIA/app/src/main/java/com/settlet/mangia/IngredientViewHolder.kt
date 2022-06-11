@@ -1,9 +1,8 @@
 package com.settlet.mangia
 
-import android.R
-import android.content.res.Resources
 import android.view.View
 import android.widget.*
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.databinding.RowIngredientRecyclerBinding
@@ -14,7 +13,6 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
 
     fun render(ingredient:Ingredient){
         binding.txvIngredient.text = ingredient.nombre
-        binding.txpQuantity.setText("0")
         val hojas =  binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.hojas)
         val liquidos = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.liquidos)
         val polvos = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.polvos)
@@ -36,6 +34,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             "Semillas"->binding.spnUnity.adapter = arrayAdapterLegumbresSemillas
             "Unidad"->binding.spnUnity.adapter = arrayAdapterUnidad
         }
+
         binding.spnUnity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 if (p0 != null) {
@@ -64,6 +63,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
 
         binding.imvRemove.setOnClickListener {
             val a = binding.imvRemove.context as MRecipeStep2Activity
+            binding.txpQuantity.setText("0")
             a.listIngredientRecipe.remove(ingredient)
             a.rcvIngredients.adapter!!.notifyDataSetChanged()
         }
