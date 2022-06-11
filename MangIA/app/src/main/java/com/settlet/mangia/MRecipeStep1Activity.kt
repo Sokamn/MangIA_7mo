@@ -49,6 +49,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
         override fun createIntent(context: Context, input: List<Uri>): Intent {
             val inputUri = input[0]
             val outputUri = input[1]
+            Log.d("URI","${input[0]} ! ${input[1]}")
 
             val uCrop = UCrop.of(inputUri, outputUri)
                 .withAspectRatio(5f,5f)
