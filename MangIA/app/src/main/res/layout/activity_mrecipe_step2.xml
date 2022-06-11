@@ -45,11 +45,10 @@
                     android:id="@+id/lineStep"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="50dp"
                     android:background="@color/lineColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,11 +93,10 @@
                     android:id="@+id/lineIngredient"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:layout_marginTop="50dp"
                     android:background="@color/lineColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -128,6 +126,7 @@
                 android:elevation="10dp"
                 android:ems="10"
                 android:fontFamily="@font/manjarithin"
+                android:focusableInTouchMode="true"
                 android:hint="@string/sIngredient"
                 android:inputType="textEmailAddress"
                 android:padding="0dp"

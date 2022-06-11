@@ -41,12 +41,12 @@ class MRecipeStep2Activity : AppCompatActivity() {
             }
         }
 
-        binding.txvPlusAddIngredientMR2.setOnClickListener {
+        binding.cstAddIngredient.setOnClickListener {
             binding.txpSearchMRS2.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.rcvIngredients, InputMethodManager.SHOW_IMPLICIT);
+            imm.showSoftInput(binding.rcvIngredients, InputMethodManager.SHOW_IMPLICIT)
         }
-        binding.txvPlusAddStepMR2.setOnClickListener {
+        binding.cstAddStep.setOnClickListener {
             quantSteps++
             listStepRecipe.add(Step(quantSteps,"",false))
             binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
