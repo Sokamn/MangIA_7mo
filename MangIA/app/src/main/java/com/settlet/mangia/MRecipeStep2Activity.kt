@@ -1,16 +1,19 @@
 package com.settlet.mangia
 
 import android.R
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.settlet.mangia.databinding.ActivityMrecipeStep2Binding
 
 class MRecipeStep2Activity : AppCompatActivity() {
     internal val listIngredientRecipe = mutableListOf<Ingredient>()
     internal val listStepRecipe = mutableListOf<Step>()
+    var quantSteps: Int = 0
     private lateinit var binding: ActivityMrecipeStep2Binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +42,13 @@ class MRecipeStep2Activity : AppCompatActivity() {
 
         binding.txvPlusAddIngredientMR2.setOnClickListener {
             binding.txpSearchMRS2.requestFocus()
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(binding.rcvIngredients, InputMethodManager.SHOW_IMPLICIT);
+        }
+        binding.txvPlusAddStepMR2.setOnClickListener {
+            quantSteps++
+            listStepRecipe.add(Step(quantSteps,"",false))
+            binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
         }
     }
 

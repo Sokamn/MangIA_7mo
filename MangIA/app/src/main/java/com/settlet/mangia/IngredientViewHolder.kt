@@ -69,6 +69,10 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
         }
 
         binding.imbAddQuantity.setOnClickListener {
+            if (binding.txpQuantity.text.isEmpty())
+            {
+                binding.txpQuantity.setText("0")
+            }
             when(selectedUnity ){
                 "Atd"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
                 "Gr"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+10).toString())
@@ -87,10 +91,14 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
         binding.imbRemoveQuantity.setOnClickListener {
             if(binding.txpQuantity.text.toString() == "0")
             {
-                Toast.makeText(binding.txpQuantity.context,"No puedes tener menos de 0 ${binding.spnUnity.onItemSelectedListener} de ${ingredient.nombre} en tu receta.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(binding.txpQuantity.context,"No puedes tener menos de 0 ${binding.spnUnity.selectedItem.toString()} de ${ingredient.nombre} en tu receta.",Toast.LENGTH_SHORT).show()
             }
             else{
-                when(selectedUnity ){
+                if (binding.txpQuantity.text.isEmpty())
+                {
+                    binding.txpQuantity.setText("0")
+                }
+                when(selectedUnity){
                     "Atd"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-1).toString())
                     "Gr"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-10).toString())
                     "Kg"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-1).toString())

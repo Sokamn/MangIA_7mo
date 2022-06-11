@@ -7,7 +7,7 @@
     android:background="@color/primaryColor">
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/viewTopLine"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="@color/lineColor"

@@ -15,7 +15,11 @@ class StepAdapter(val stepList:List<Step>):RecyclerView.Adapter<StepViewHolder>(
         val item = stepList[position]
         val isExpandable:Boolean = item.expandable
         holder.expandableLayout.visibility = if (isExpandable) View.VISIBLE else View.GONE
-        holder.expandableLayout.setOnClickListener {
+        holder.vwBottomLine.visibility = if (isExpandable) View.VISIBLE else View.GONE
+        holder.vwTopLine.visibility = if (isExpandable) View.VISIBLE else View.VISIBLE
+        holder.imgExpand.setImageResource(if (isExpandable) R.drawable.ic_unity_collapse else R.drawable.ic_unity_expand)
+
+        holder.expand.setOnClickListener{
             item.expandable = !item.expandable
             notifyItemChanged(position)
         }
