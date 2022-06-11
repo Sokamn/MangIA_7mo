@@ -68,7 +68,6 @@ class HomeActivity : AppCompatActivity() {
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
-            finish()
         }
 
         val drawerLayout: DrawerLayout = binding.drawerLayout

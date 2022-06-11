@@ -36,14 +36,12 @@ class ProfileActivity : AppCompatActivity() {
             val intent = Intent(this,HomeActivity::class.java)
             startActivity(intent)
             finish()
+            //PROFILE ACTIVITY LINEA 39 COMO VOY A UN INTENT EXISTENTE
         }
         binding.btnEProfileP.setOnClickListener {
             val intent = Intent(this,EditProfileActivity::class.java)
             startActivity(intent)
             finish()
-        }
-        binding.btnMRecipeP.setOnClickListener {
-            Toast.makeText(this, "Crear receta", Toast.LENGTH_SHORT).show()
         }
     }
 

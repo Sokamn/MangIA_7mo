@@ -20,7 +20,7 @@
     <string name="google">Iniciar con Google</string>
     <string name="facebook">Iniciar con Facebook</string>
     <string name="twitter">Iniciar con Twitter</string>
-    <string name="register"><u>Conviertete en un Chef</u></string>
+    <string name="register"><u>Conviertete en Chef</u></string>
     <string name="registerTitle">Registro</string>
     <string name="rememberPass">Recuerdame</string>
     <string name="exNumber">1132150923</string>
@@ -104,6 +104,4 @@
     <string-array name="unidad">
         <item>Un</item>
     </string-array>
-
-
 </resources>

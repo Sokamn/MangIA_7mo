@@ -2,6 +2,7 @@ package com.settlet.mangia
 
 import android.R
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
@@ -49,6 +50,14 @@ class MRecipeStep2Activity : AppCompatActivity() {
             quantSteps++
             listStepRecipe.add(Step(quantSteps,"",false))
             binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
+        }
+        binding.imvBackMRS2.setOnClickListener {
+            val intent = Intent(this,MRecipeStep1Activity::class.java)
+            startActivity(intent)
+        }
+        binding.imvNextStepMRS2.setOnClickListener {
+            /*val intent = Intent(this,MRecipeStep3Activity::class.java)
+            startActivity(intent)*/
         }
     }
 
