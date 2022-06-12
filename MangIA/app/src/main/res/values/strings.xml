@@ -16,7 +16,7 @@
     <string name="termsConditions">Para completar tu Registro, debes aceptar nuestros <b>Términos de uso</b> y el procesamiento, tratamiento y transferencia de tus datos personales conforme a lo dispuesto en las <b>Políticas de Privacidad</b></string>
     <string name="cancel">Cancelar</string>}
     <string name="fPass"><u>¿Olvidaste tu contraseña?</u></string>
-    <string name="iSuggestion"><u>¿No encuentras tu ingrediente?</u></string>
+    <string name="iSuggestion"><u>¿No encuentras tu ingrediente? Sugiérelo</u></string>
     <string name="logo">Logo MangIA</string>
     <string name="google">Iniciar con Google</string>
     <string name="facebook">Iniciar con Facebook</string>

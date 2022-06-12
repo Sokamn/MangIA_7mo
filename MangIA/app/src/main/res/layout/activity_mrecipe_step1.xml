@@ -40,6 +40,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <org.imaginativeworld.whynotimagecarousel.ImageCarousel
+            android:id="@+id/crsImagesAdded"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <ImageView
             android:id="@+id/imvMFiles"
             android:layout_width="90dp"
@@ -48,6 +58,15 @@
             android:src="@drawable/myfiles_expand"
             app:layout_constraintStart_toStartOf="@+id/imvImageAdded"
             app:layout_constraintTop_toTopOf="@+id/imvImageAdded" />
+
+        <ImageView
+            android:id="@+id/imvMultiFiles"
+            android:layout_width="90dp"
+            android:layout_height="33dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/myfiles_expand"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -152,10 +171,6 @@
             app:srcCompat="@drawable/ic_close" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    <ProgressBar
-        android:id="@+id/pgbLoadImagesMR"
-        android:layout_width="match_parent"
-        android:elevation="50dp"
-        android:layout_height="match_parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -137,6 +137,20 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvAddIngredientMRS2" />
 
+            <TextView
+                android:id="@+id/txvSuggestionMRS2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/manjarithin"
+                android:text="@string/iSuggestion"
+                android:textColor="@color/quaternaryColor"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/txpSearchMRS2"
+                app:layout_constraintStart_toStartOf="@+id/txpSearchMRS2"
+                app:layout_constraintTop_toBottomOf="@+id/txpSearchMRS2" />
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -151,10 +165,10 @@
                 android:id="@+id/rcvIngredients"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpSearchMRS2" />
+                app:layout_constraintTop_toBottomOf="@+id/txvSuggestionMRS2" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvStepsMR2"
@@ -165,19 +179,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvSbyStepMR2" />
 
-            <TextView
-                android:id="@+id/txvSuggestionMRS2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/manjarithin"
-                android:text="@string/iSuggestion"
-                android:textColor="@color/quaternaryColor"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txpSearchMRS2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

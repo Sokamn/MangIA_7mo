@@ -31,6 +31,7 @@ import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
 import kotlinx.android.synthetic.main.activity_mrecipe_step1.view.*
 import kotlinx.android.synthetic.main.row_gallery_recycler.view.*
+import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
 import java.lang.Exception
 import java.util.jar.Manifest
@@ -39,6 +40,9 @@ import kotlin.math.log
 class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding
     private var allPictures: ArrayList<Image>?=null
+    private var isMultiImages: Boolean = false
+    //val listDefaultItem  = mutableListOf<CarouselItem>()
+    //private val listMultiImagesItem = mutableListOf<CarouselItem>()
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
         {
@@ -77,7 +81,15 @@ class MRecipeStep1Activity : AppCompatActivity() {
     private val cropImage = registerForActivityResult(uCropContract){ uri ->
         if (uri!=null)
         {
-            binding.imvImageAdded.setImageURI(uri)
+            if(isMultiImages)
+            {
+                //listMultiImagesItem.add(CarouselItem("https://browsecat.net/sites/default/files/1080-x-1080-pixels-wallpapers-97538-628163-936066.png"))
+                //binding.crsImagesAdded.setData(listMultiImagesItem)
+            }
+            else{
+                binding.imvImageAdded.setImageURI(null)
+                binding.imvImageAdded.setImageURI(uri)
+            }
         }
         else{
             Toast.makeText(baseContext,"No has terminado de recortar una imagen.",Toast.LENGTH_SHORT).show()
@@ -90,6 +102,9 @@ class MRecipeStep1Activity : AppCompatActivity() {
         allPictures = ArrayList()
         binding.rcvGaleryMR.layoutManager = GridLayoutManager(this,3)
         binding.rcvGaleryMR.setHasFixedSize(true)
+        //listDefaultItem.add(CarouselItem(R.drawable.profile_picture))
+        //binding.crsImagesAdded.setData(listDefaultItem)
+
 
 
         if(ContextCompat.checkSelfPermission(this@MRecipeStep1Activity,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
@@ -99,10 +114,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
 
         if(allPictures!!.isEmpty())
         {
-            binding.pgbLoadImagesMR.visibility = View.VISIBLE
+            //binding.pgbLoadImagesMR.visibility = View.VISIBLE
             allPictures=getAllImages()
             binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
-            binding.pgbLoadImagesMR.visibility = View.GONE
+            //binding.pgbLoadImagesMR.visibility = View.GONE
         }
 
         binding.imvCloseMR.setOnClickListener {
@@ -115,11 +130,25 @@ class MRecipeStep1Activity : AppCompatActivity() {
             val intent = Intent(this, MRecipeStep2Activity::class.java)
             startActivity(intent)
         }
-        binding.imvImageAdded.setOnClickListener {
 
-        }
         binding.imvMFiles.setOnClickListener {
             getContent.launch("image/*")
+        }
+
+        binding.imvMultiFiles.setOnClickListener {
+            isMultiImages = !isMultiImages
+            if (isMultiImages)
+            {
+                //binding.crsImagesAdded.visibility = View.VISIBLE
+                binding.imvImageAdded.visibility = View.INVISIBLE
+                binding.imvMultiFiles.setImageResource(R.drawable.backgroundnav)
+            }
+            else
+            {
+                //binding.crsImagesAdded.visibility = View.GONE
+                binding.imvImageAdded.visibility = View.VISIBLE
+                binding.imvMultiFiles.setImageResource(R.drawable.myfiles_expand)
+            }
         }
 
     }
