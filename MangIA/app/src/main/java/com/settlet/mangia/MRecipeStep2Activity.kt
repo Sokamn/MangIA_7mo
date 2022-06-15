@@ -3,19 +3,68 @@ package com.settlet.mangia
 import android.R
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.settlet.mangia.databinding.ActivityMrecipeStep2Binding
+import com.yalantis.ucrop.UCrop
+import java.io.File
 
 class MRecipeStep2Activity : AppCompatActivity() {
     internal val listIngredientRecipe = mutableListOf<Ingredient>()
     internal val listStepRecipe = mutableListOf<Step>()
     var quantSteps: Int = 0
     private lateinit var binding: ActivityMrecipeStep2Binding
+    internal var finishedListener:Boolean = false
+    internal var auxUri:Uri?=null
+    internal val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
+        if(uri!=null)
+        {
+            val inputUri = uri
+            val outputUri = File(filesDir,"croppedImage.jpg").toUri()
+            val listUri = listOf<Uri>(inputUri,outputUri)
+            cropImage.launch(listUri)
+        }
+        else{
+            Toast.makeText(baseContext,"No has seleccionado ninguna imagen.", Toast.LENGTH_SHORT).show()
+            finishedListener = false
+        }
+    }
+    internal val uCropContract = object: ActivityResultContract<List<Uri>, Uri>(){
+        override fun createIntent(context: Context, input: List<Uri>): Intent {
+            val inputUri = input[0]
+            val outputUri = input[1]
+
+            val uCrop = UCrop.of(inputUri, outputUri)
+                .withAspectRatio(5f,5f)
+                .withMaxResultSize(1080,1080)
+            return uCrop.getIntent(context)
+        }
+
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            return if(intent!=null) {
+                UCrop.getOutput(intent)!!
+            } else {
+                null
+            }
+        }
+    }
+    internal val cropImage = registerForActivityResult(uCropContract){ uri ->
+        finishedListener = if (uri!=null) {
+            auxUri = uri
+            true
+        } else{
+            Toast.makeText(baseContext,"No has terminado de recortar una imagen.", Toast.LENGTH_SHORT).show()
+            false
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep2Binding.inflate(layoutInflater)

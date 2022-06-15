@@ -168,13 +168,15 @@
                 android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvSuggestionMRS2" />
+                app:layout_constraintTop_toBottomOf="@+id/txvSuggestionMRS2"
+                tools:listitem="@layout/row_ingredient_recycler"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvStepsMR2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                tools:listitem="@layout/row_step_mr"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvSbyStepMR2" />
