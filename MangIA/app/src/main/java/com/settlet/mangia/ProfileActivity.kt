@@ -43,6 +43,16 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+        binding.txvFollowersP.setOnClickListener {
+            val intent = Intent(this,FollowsAndFollowersActivity::class.java)
+            intent.putExtra("vPage", "Followers")
+            startActivity(intent)
+        }
+        binding.txvFollowsP.setOnClickListener {
+            val intent = Intent(this,FollowsAndFollowersActivity::class.java)
+            intent.putExtra("vPage", "Follows")
+            startActivity(intent)
+        }
     }
 
     public override fun onStart() {

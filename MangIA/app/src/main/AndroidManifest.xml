@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
+            android:name=".FollowsAndFollowersActivity"
+            android:exported="false" />
+        <activity
             android:name=".MRecipeStep3Activity"
             android:exported="false" />
         <activity
