@@ -75,7 +75,27 @@ class ProfileActivity : AppCompatActivity() {
                         .into(binding.imvProfileP)
                     }
                 }
+            db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
+                for (document in documents)
+                {
+                    val uNameFB = document.getString("userName").toString()
+                    val nNameFB = document.getString("nickName").toString()
+                    val followsFB = "${document.getLong("cantFollows")?.toInt()}\nSeguidos"
+                    val followersFB = "${document.getLong("cantFollowers")?.toInt()}\nSeguidores"
+                    val cantRecipesFB = "${document.getLong("cantRecipes")?.toInt()}\nRecetas"
+                    val bioFB = document.getString("biography").toString()
 
+
+                    binding.txvUNameP.text = uNameFB
+                    binding.txvNNameP.text = nNameFB
+                    binding.txvFollowersP.text = followersFB
+                    binding.txvFollowsP.text = followsFB
+                    binding.txvRecipesP.text = cantRecipesFB
+                    binding.txvBioP.text = bioFB
+
+                    Log.d("TAG", "${document.id} => ${document.data}")
+                }
+            }
         }
     }
 }
