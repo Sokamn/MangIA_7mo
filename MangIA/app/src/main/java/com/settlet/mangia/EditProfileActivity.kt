@@ -13,21 +13,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
 import com.blongho.country_data.World
 import com.bumptech.glide.Glide
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.DatePickerFragment
+import com.settlet.mangia.Model.User
+import com.settlet.mangia.Provider.countryProvider
 import com.settlet.mangia.databinding.ActivityEditProfileBinding
 import com.yalantis.ucrop.UCrop
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.nav_header_home.view.*
 import java.io.File
 import java.util.*
-import kotlin.collections.HashMap
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding

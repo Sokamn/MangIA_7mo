@@ -7,20 +7,17 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.LinearLayout
 import android.widget.Toast
-import com.blongho.country_data.Country
 import com.blongho.country_data.World
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.Model.DatePickerFragment
+import com.settlet.mangia.Provider.countryProvider
 import com.settlet.mangia.databinding.ActivityRegisterBinding
-import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
 import java.util.regex.Pattern
-import kotlin.math.log
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

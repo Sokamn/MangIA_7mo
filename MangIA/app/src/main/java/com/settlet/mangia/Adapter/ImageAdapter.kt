@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Adapter
 
 import android.content.Context
 import android.content.Intent
@@ -14,6 +14,9 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.settlet.mangia.MRecipeStep1Activity
+import com.settlet.mangia.Model.Image
+import com.settlet.mangia.R
 import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
 import java.io.File

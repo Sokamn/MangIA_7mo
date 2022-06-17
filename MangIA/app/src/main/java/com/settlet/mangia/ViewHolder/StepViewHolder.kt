@@ -1,21 +1,11 @@
-package com.settlet.mangia
+package com.settlet.mangia.ViewHolder
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import com.settlet.mangia.MRecipeStep2Activity
+import com.settlet.mangia.Model.Step
 import com.settlet.mangia.databinding.RowStepMrBinding
-import com.yalantis.ucrop.UCrop
 import kotlinx.android.synthetic.main.activity_mrecipe_step2.*
-import org.imaginativeworld.whynotimagecarousel.utils.setImage
-import java.io.File
 
 class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val binding = RowStepMrBinding.bind(view)

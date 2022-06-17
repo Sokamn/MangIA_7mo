@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Model
 
 data class User (    var age: Int = 0,
                      var biography: String = "",

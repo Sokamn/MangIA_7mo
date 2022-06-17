@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Model
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -6,6 +6,7 @@ import android.content.Context
 import android.os.Bundle
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
+import com.settlet.mangia.R
 import java.util.*
 
 class DatePickerFragment(val listener: (day: Int, month: Int, year: Int)-> Unit): DialogFragment(),
@@ -21,7 +22,8 @@ class DatePickerFragment(val listener: (day: Int, month: Int, year: Int)-> Unit)
         val day:Int = c.get(Calendar.DAY_OF_MONTH)
         val month: Int = c.get(Calendar.MONTH)
         val year: Int = c.get(Calendar.YEAR)
-        val picker = DatePickerDialog(activity as Context,R.style.datePickerTheme,this, year, month, day)
+        val picker = DatePickerDialog(activity as Context,
+            R.style.datePickerTheme,this, year, month, day)
         picker.datePicker.maxDate = c.timeInMillis
 
         return picker

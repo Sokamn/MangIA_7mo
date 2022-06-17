@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FollowsFragment"
+    tools:context=".Fragment.FollowsFragment"
     android:background="@color/primaryColor">
 
     <androidx.recyclerview.widget.RecyclerView

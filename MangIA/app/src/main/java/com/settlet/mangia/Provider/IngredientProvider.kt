@@ -1,7 +1,7 @@
-package com.settlet.mangia
+package com.settlet.mangia.Provider
 
-import com.blongho.country_data.World
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.Ingredient
 
 class IngredientProvider {
     companion object{

@@ -7,35 +7,22 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
-import android.widget.GridLayout
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.Adapter.ImageAdapter
+import com.settlet.mangia.Model.Image
 import com.settlet.mangia.databinding.ActivityMrecipeStep1Binding
 import com.yalantis.ucrop.UCrop
-import kotlinx.android.synthetic.main.activity_mrecipe_step1.*
-import kotlinx.android.synthetic.main.activity_mrecipe_step1.view.*
-import kotlinx.android.synthetic.main.row_gallery_recycler.view.*
-import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
 import java.io.File
 import java.lang.Exception
-import java.util.jar.Manifest
-import kotlin.math.log
 
 class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding

@@ -1,12 +1,12 @@
-package com.settlet.mangia
+package com.settlet.mangia.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.Model.Ingredient
+import com.settlet.mangia.R
+import com.settlet.mangia.ViewHolder.IngredientViewHolder
+
 
 class IngredientAdapter(private val ingredientList: List<Ingredient>) : RecyclerView.Adapter<IngredientViewHolder>() {
 
@@ -21,8 +21,4 @@ class IngredientAdapter(private val ingredientList: List<Ingredient>) : Recycler
     }
 
     override fun getItemCount(): Int = ingredientList.size
-
-    private fun isFollowing(email:String, btn:Button){
-        Firebase.firestore
-    }
 }

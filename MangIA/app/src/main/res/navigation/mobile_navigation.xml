@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.settlet.mangia.ui.home.HomeFragment"
+        android:name="com.settlet.mangia.Fragment.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/nav_notif"
-        android:name="com.settlet.mangia.NotifFragment"
+        android:name="com.settlet.mangia.Fragment.NotifFragment"
         android:label="@string/menu_notification"
         tools:layout="@layout/fragment_notif" />
     <fragment
         android:id="@+id/nav_fav"
-        android:name="com.settlet.mangia.FavFragment"
+        android:name="com.settlet.mangia.Fragment.FavFragment"
         android:label="@string/menu_favorite"
         tools:layout="@layout/fragment_fav" />
     <fragment
         android:id="@+id/nav_config"
-        android:name="com.settlet.mangia.ConfigFragment"
+        android:name="com.settlet.mangia.Fragment.ConfigFragment"
         android:label="@string/menu_configuration"
         tools:layout="@layout/fragment_config" />
 

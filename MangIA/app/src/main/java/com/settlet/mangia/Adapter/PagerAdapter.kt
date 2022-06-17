@@ -1,9 +1,11 @@
-package com.settlet.mangia
+package com.settlet.mangia.Adapter
 
 import android.content.res.Resources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.settlet.mangia.Fragment.FollowersFragment
+import com.settlet.mangia.Fragment.FollowsFragment
 
 class PagerAdapter(fm:FragmentActivity): FragmentStateAdapter(fm) {
 

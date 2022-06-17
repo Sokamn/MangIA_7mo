@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Model
 
 class Image {
     var imagePath: String? = null

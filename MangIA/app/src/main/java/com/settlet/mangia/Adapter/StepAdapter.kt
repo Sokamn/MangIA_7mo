@@ -1,10 +1,12 @@
-package com.settlet.mangia
+package com.settlet.mangia.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import kotlin.coroutines.coroutineContext
+import com.settlet.mangia.R
+import com.settlet.mangia.Model.Step
+import com.settlet.mangia.ViewHolder.StepViewHolder
 
 class StepAdapter(val stepList:List<Step>):RecyclerView.Adapter<StepViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder {

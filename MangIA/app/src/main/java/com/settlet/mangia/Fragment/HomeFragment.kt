@@ -1,4 +1,4 @@
-package com.settlet.mangia.ui.home
+package com.settlet.mangia.Fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,9 +13,6 @@ import com.settlet.mangia.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -24,6 +21,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         val root: View = binding.root
         return root
     }

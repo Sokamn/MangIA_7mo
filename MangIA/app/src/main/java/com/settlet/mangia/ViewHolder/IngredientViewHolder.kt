@@ -1,30 +1,37 @@
-package com.settlet.mangia
+package com.settlet.mangia.ViewHolder
 
 import android.view.View
 import android.widget.*
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.settlet.mangia.Model.Ingredient
+import com.settlet.mangia.MRecipeStep2Activity
+import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowIngredientRecyclerBinding
 import kotlinx.android.synthetic.main.activity_mrecipe_step2.*
 
 class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
     val binding = RowIngredientRecyclerBinding.bind(view)
 
-    fun render(ingredient:Ingredient){
+    fun render(ingredient: Ingredient){
         binding.txvIngredient.text = ingredient.nombre
-        val hojas =  binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.hojas)
-        val liquidos = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.liquidos)
-        val polvos = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.polvos)
-        val legumbres = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.legumbres_semillas)
-        val unidad = binding.imvIngredient.context.resources.getStringArray(com.settlet.mangia.R.array.unidad)
+        val hojas =  binding.imvIngredient.context.resources.getStringArray(R.array.hojas)
+        val liquidos = binding.imvIngredient.context.resources.getStringArray(R.array.liquidos)
+        val polvos = binding.imvIngredient.context.resources.getStringArray(R.array.polvos)
+        val legumbres = binding.imvIngredient.context.resources.getStringArray(R.array.legumbres_semillas)
+        val unidad = binding.imvIngredient.context.resources.getStringArray(R.array.unidad)
         var selectedUnity:String = ""
 
-        val arrayAdapterHojas= ArrayAdapter<String>(binding.imvIngredient.context, com.settlet.mangia.R.layout.spinner_unity_item, hojas)
-        val arrayAdapterLiquidos = ArrayAdapter<String>(binding.imvIngredient.context,com.settlet.mangia.R.layout.spinner_unity_item, liquidos)
-        val arrayAdapterPolvos = ArrayAdapter<String>(binding.imvIngredient.context, com.settlet.mangia.R.layout.spinner_unity_item, polvos)
-        val arrayAdapterLegumbresSemillas = ArrayAdapter<String>(binding.imvIngredient.context, com.settlet.mangia.R.layout.spinner_unity_item, legumbres)
-        val arrayAdapterUnidad = ArrayAdapter<String>(binding.imvIngredient.context, com.settlet.mangia.R.layout.spinner_unity_item, unidad)
+        val arrayAdapterHojas= ArrayAdapter<String>(binding.imvIngredient.context,
+            R.layout.spinner_unity_item, hojas)
+        val arrayAdapterLiquidos = ArrayAdapter<String>(binding.imvIngredient.context,
+            R.layout.spinner_unity_item, liquidos)
+        val arrayAdapterPolvos = ArrayAdapter<String>(binding.imvIngredient.context,
+            R.layout.spinner_unity_item, polvos)
+        val arrayAdapterLegumbresSemillas = ArrayAdapter<String>(binding.imvIngredient.context,
+            R.layout.spinner_unity_item, legumbres)
+        val arrayAdapterUnidad = ArrayAdapter<String>(binding.imvIngredient.context,
+            R.layout.spinner_unity_item, unidad)
         when(ingredient.tipoUnidad)
         {
             "Hojas"->binding.spnUnity.adapter = arrayAdapterHojas

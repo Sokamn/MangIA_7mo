@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Model
 
 import com.google.firebase.storage.StorageReference
 

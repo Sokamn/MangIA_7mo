@@ -13,6 +13,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.settlet.mangia.Adapter.IngredientAdapter
+import com.settlet.mangia.Adapter.StepAdapter
+import com.settlet.mangia.Model.Ingredient
+import com.settlet.mangia.Model.Step
+import com.settlet.mangia.Provider.IngredientProvider
 import com.settlet.mangia.databinding.ActivityMrecipeStep2Binding
 import com.yalantis.ucrop.UCrop
 import java.io.File

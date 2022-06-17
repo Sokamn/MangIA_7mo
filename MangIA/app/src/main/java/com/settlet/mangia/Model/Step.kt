@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Model
 
 import android.net.Uri
 

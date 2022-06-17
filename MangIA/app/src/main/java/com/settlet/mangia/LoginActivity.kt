@@ -4,11 +4,9 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
-import android.text.InputType.*
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -22,6 +20,7 @@ import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityLoginBinding
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -167,7 +166,7 @@ class LoginActivity : AppCompatActivity() {
     private fun getAllUserDocuments(userList:MutableList<User>){
         db.collection("users").get().addOnSuccessListener { result ->
             for (document in result){
-                val userObjects:User = document.toObject(User::class.java)
+                val userObjects: User = document.toObject(User::class.java)
                 userList.add(userObjects)
             }
         }

@@ -1,13 +1,12 @@
-package com.settlet.mangia
+package com.settlet.mangia.ViewHolder
 
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.RowUserBinding
 
 class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
@@ -16,7 +15,7 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     private val storageReference = FirebaseStorage.getInstance().reference
     private val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
 
-    fun render(user:User){
+    fun render(user: User){
         binding.txvNNameRU.text = user.nickName
         binding.txvUNameRU.text = user.userName
 
@@ -35,14 +34,7 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
             }
 
         binding.btnFollowRU.setOnClickListener {
-            if (binding.btnFollowRU.text.toString() == "Seguir")
-            {
 
-            }
-            else{
-
-            }
         }
-
     }
 }

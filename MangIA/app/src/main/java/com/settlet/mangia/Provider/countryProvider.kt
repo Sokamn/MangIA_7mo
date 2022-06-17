@@ -1,4 +1,4 @@
-package com.settlet.mangia
+package com.settlet.mangia.Provider
 
 import com.blongho.country_data.World
 
