@@ -26,18 +26,22 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
         viewPager.adapter = PagerAdapter(this)
         Log.d("EXTRAS", intent.extras!!.getString("vPage").toString())
 
-        TabLayoutMediator(tabLayout,viewPager){ tab,position->
-            when (extra) {
-                "Follows" -> {
-                    viewPager.setCurrentItem(2)
-                }
-                "Followers" -> {
-                    viewPager.setCurrentItem(1)
-                }
-                else -> {
-                    viewPager.setCurrentItem(1)
-                }
+        when (extra) {
+            "Follows" -> {
+                viewPager.currentItem = 1
+                Log.d("EXTRAS", "Follows")
             }
+            "Followers" -> {
+                viewPager.currentItem = 0
+                Log.d("EXTRAS", "Followers")
+            }
+            else -> {
+                viewPager.currentItem = 0
+                Log.d("EXTRAS", "else")
+            }
+        }
+
+        TabLayoutMediator(tabLayout,viewPager){ tab,position->
             tab.text = when(position){
                 0 -> "Seguidores"
                 1 -> "Seguidos"
