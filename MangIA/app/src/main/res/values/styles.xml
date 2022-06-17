@@ -21,6 +21,17 @@
 
     </style>
 
+    <style name="userImageProfile" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">19dp</item>
+        <item name="cornerSizeBottomRight">23dp</item>
+        <item name="cornerSizeTopLeft">28dp</item>
+        <item name="cornerSizeTopRight">21dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
+
     <style name="roundImageNavHeader" parent="">
 
         <item name="cornerFamily">rounded</item>

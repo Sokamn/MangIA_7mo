@@ -68,6 +68,9 @@
     <string name="ingredient">Ingrediente</string>
     <string name="plusAddStep">+ Agregar paso…</string>
     <string name="oImage"><u>Añadir imagen del paso (Opcional)</u></string>
+    <string name="Follow">Seguir</string>
+    <string name="Following">Siguiendo</string>
+
     <string-array name="continents">
         <item>Africa</item>
         <item>Asia</item>

@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FollowersFragment">
+    tools:context=".FollowersFragment"
+    android:background="@color/primaryColor">
 
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvUsersFollowers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/followers" />
+        tools:listitem="@layout/row_user"/>
+
 </FrameLayout>
