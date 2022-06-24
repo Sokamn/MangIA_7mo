@@ -126,13 +126,13 @@ class MRecipeStep1Activity : AppCompatActivity() {
             isMultiImages = !isMultiImages
             if (isMultiImages)
             {
-                //binding.crsImagesAdded.visibility = View.VISIBLE
+                binding.crdvwCarruselMR1.visibility = View.VISIBLE
                 binding.imvImageAdded.visibility = View.INVISIBLE
                 binding.imvMultiFiles.setImageResource(R.drawable.backgroundnav)
             }
             else
             {
-                //binding.crsImagesAdded.visibility = View.GONE
+                binding.crdvwCarruselMR1.visibility = View.GONE
                 binding.imvImageAdded.visibility = View.VISIBLE
                 binding.imvMultiFiles.setImageResource(R.drawable.myfiles_expand)
             }

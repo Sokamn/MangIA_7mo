@@ -70,6 +70,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage-ktx:20.0.1'
     implementation 'me.relex:circleindicator:2.1.6'
     implementation 'org.imaginativeworld.whynotimagecarousel:whynotimagecarousel:2.1.0'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
