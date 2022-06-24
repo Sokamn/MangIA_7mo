@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
@@ -98,7 +99,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         binding.cstAddIngredient.setOnClickListener {
             binding.txpSearchMRS2.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.rcvIngredients, InputMethodManager.SHOW_IMPLICIT)
+            imm.showSoftInput(binding.txpSearchMRS2.rootView, 0)
         }
         binding.cstAddStep.setOnClickListener {
             quantSteps++

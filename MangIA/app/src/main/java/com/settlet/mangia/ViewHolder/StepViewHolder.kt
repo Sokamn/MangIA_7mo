@@ -36,8 +36,7 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
         binding.txvAddOptionalmage.setOnClickListener {
             context.getContent.launch("image/*")
-
-
+            //context.activityResultRegistry.dispatchResult(,context.intent)
             binding.imvImageStepRS.setImageURI(context.auxUri)
             step.optionalImage = context.auxUri
             binding.imvImageStepRS.visibility = View.VISIBLE
