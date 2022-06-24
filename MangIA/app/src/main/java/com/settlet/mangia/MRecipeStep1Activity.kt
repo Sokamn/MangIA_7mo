@@ -18,6 +18,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.settlet.mangia.Adapter.ImageAdapter
+import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Model.Image
 import com.settlet.mangia.databinding.ActivityMrecipeStep1Binding
 import com.yalantis.ucrop.UCrop
@@ -28,8 +29,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding
     private var allPictures: ArrayList<Image>?=null
     private var isMultiImages: Boolean = false
-    //val listDefaultItem  = mutableListOf<CarouselItem>()
-    //private val listMultiImagesItem = mutableListOf<CarouselItem>()
+    private var imageList: MutableList<String> = mutableListOf()
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
         {
@@ -70,8 +70,12 @@ class MRecipeStep1Activity : AppCompatActivity() {
         {
             if(isMultiImages)
             {
-                //listMultiImagesItem.add(CarouselItem("https://browsecat.net/sites/default/files/1080-x-1080-pixels-wallpapers-97538-628163-936066.png"))
-                //binding.crsImagesAdded.setData(listMultiImagesItem)
+                if(imageList.contains("doesntexist"))
+                {
+                    imageList.remove("doesntexist")
+                }
+                imageList.add(uri.toString())
+                binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
             }
             else{
                 binding.imvImageAdded.setImageURI(null)
@@ -87,10 +91,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
         binding = ActivityMrecipeStep1Binding.inflate(layoutInflater)
         setContentView(binding.root)
         allPictures = ArrayList()
-        binding.rcvGaleryMR.layoutManager = GridLayoutManager(this,3)
+        binding.rcvGaleryMR.layoutManager = GridLayoutManager(this, 3)
         binding.rcvGaleryMR.setHasFixedSize(true)
-        //listDefaultItem.add(CarouselItem(R.drawable.profile_picture))
-        //binding.crsImagesAdded.setData(listDefaultItem)
+        imageList.add("doesntexist")
+        binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
 
 
 
@@ -101,10 +105,8 @@ class MRecipeStep1Activity : AppCompatActivity() {
 
         if(allPictures!!.isEmpty())
         {
-            //binding.pgbLoadImagesMR.visibility = View.VISIBLE
             allPictures=getAllImages()
             binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
-            //binding.pgbLoadImagesMR.visibility = View.GONE
         }
 
         binding.imvCloseMR.setOnClickListener {
@@ -126,13 +128,13 @@ class MRecipeStep1Activity : AppCompatActivity() {
             isMultiImages = !isMultiImages
             if (isMultiImages)
             {
-                binding.crdvwCarruselMR1.visibility = View.VISIBLE
+                binding.imgsldrCarruselMR1.visibility = View.VISIBLE
                 binding.imvImageAdded.visibility = View.INVISIBLE
                 binding.imvMultiFiles.setImageResource(R.drawable.backgroundnav)
             }
             else
             {
-                binding.crdvwCarruselMR1.visibility = View.GONE
+                binding.imgsldrCarruselMR1.visibility = View.GONE
                 binding.imvImageAdded.visibility = View.VISIBLE
                 binding.imvMultiFiles.setImageResource(R.drawable.myfiles_expand)
             }
