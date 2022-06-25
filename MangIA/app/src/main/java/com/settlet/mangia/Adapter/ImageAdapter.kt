@@ -68,21 +68,10 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
             .apply(RequestOptions().centerCrop())
             .into(holder.image!!)
 
-        holder.image?.setOnClickListener {
-            /*val act = context as MRecipeStep1Activity
-            val a: File = File(currentImage.imagePath!!)
-            val inputUri = Uri.fromFile(a)
-            val outputUri = File("image/","croppedImage.jpg").toUri()
-            val uCrop = UCrop.of(inputUri, outputUri)
-                .withAspectRatio(5f,5f)
-                .withMaxResultSize(1080,1080)
-            val intent = uCrop.getIntent(context)
-            UCrop.getOutput(intent!!)!!
-            act.imvImageAdded.setImageURI(outputUri)*/
+        holder.image!!.setOnClickListener {
             val con = holder.image!!.context as MRecipeStep1Activity
             val a: File = File(currentImage.imagePath!!)
-            getContent.launch(currentImage.imagePath)
-
+            getContent.launch("image/*")// GETCONTENT LAUNCH NO FUNCIONA, PERO EL MOTODO DE TENER LAS VAL ARRIBA, LO TENGO QUE APLICAR EN STEP VIEW HOLDER, ASÍ NO USAR OTROS METODOS.
     }
 }
     override fun getItemCount(): Int =imagesList.size

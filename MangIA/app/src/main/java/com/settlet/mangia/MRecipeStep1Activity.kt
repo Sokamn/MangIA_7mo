@@ -106,8 +106,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
         imageList.add("doesntexist")
         binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
 
-
-
         if(ContextCompat.checkSelfPermission(this@MRecipeStep1Activity,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         {
             ActivityCompat.requestPermissions(this@MRecipeStep1Activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
@@ -152,7 +150,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
                 binding.imvMultiFiles.setImageResource(R.drawable.myfiles_expand)
             }
         }
-
     }
 
     private fun getAllImages(): ArrayList<Image> {
@@ -174,7 +171,8 @@ class MRecipeStep1Activity : AppCompatActivity() {
             e.printStackTrace()
         }
         Glide.with(this)
-            .load(images[0].imagePath)
+            .load(images.last().imagePath)
+            .centerCrop()
             .into(binding.imvImageAdded)
         return images.reversed() as ArrayList<Image>
     }

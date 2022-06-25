@@ -20,19 +20,13 @@ class SliderAdapter(imageArray: MutableList<String>,isUri:Boolean): SliderViewAd
     override fun getCount(): Int = sliderList.size
 
     override fun onCreateViewHolder(parent: ViewGroup?): SliderAdapterVH {
-        // inside this method we are inflating our layout file for our slider view.
         val inflate: View =
             LayoutInflater.from(parent!!.context).inflate(R.layout.slider_item, null)
-
-        // on below line we are simply passing
-        // the view to our slider view holder.
         return SliderAdapterVH(inflate)
     }
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH?, position: Int) {
         if (viewHolder != null) {
-            // if view holder is not null we are simply
-            // loading the image inside our image view using glide library
             Log.d("URI" ,sliderList[position])
             if(uri) {
                 if (sliderList[position] == "doesntexist") {
@@ -53,7 +47,6 @@ class SliderAdapter(imageArray: MutableList<String>,isUri:Boolean): SliderViewAd
                     .fitCenter()
                     .into(viewHolder.imageView)
             }
-
         }
     }
 }

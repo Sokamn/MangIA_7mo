@@ -2,6 +2,7 @@ package com.settlet.mangia.ViewHolder
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.settlet.mangia.MRecipeStep2Activity
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.databinding.RowStepMrBinding
@@ -35,14 +36,16 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
 
         binding.txvAddOptionalmage.setOnClickListener {
-            context.getContent.launch("image/*")
-            //context.activityResultRegistry.dispatchResult(,context.intent)
+            context.getContent.launch("image/*")// PASAR LOS METODOS DE UCROP EN STEP VIEW HOLDER
+            Glide.with(binding.imvImageStepRS)
+                .load(context.auxUri)
+                .centerCrop()
+                .into(binding.imvImageStepRS)
             binding.imvImageStepRS.setImageURI(context.auxUri)
             step.optionalImage = context.auxUri
             binding.imvImageStepRS.visibility = View.VISIBLE
             binding.imvChangeImage.visibility = View.VISIBLE
             binding.imvRemoveImageRSMR.visibility = View.VISIBLE
-
         }
 
         binding.imvRemoveImageRSMR.setOnClickListener {
@@ -55,6 +58,10 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
         binding.imvChangeImage.setOnClickListener {
             context.getContent.launch("image/*")
+            Glide.with(binding.imvImageStepRS)
+                .load(context.auxUri)
+                .centerCrop()
+                .into(binding.imvImageStepRS)
         }
     }
 }
