@@ -34,16 +34,18 @@ class SliderAdapter(imageArray: MutableList<String>,isUri:Boolean): SliderViewAd
             // if view holder is not null we are simply
             // loading the image inside our image view using glide library
             Log.d("URI" ,sliderList[position])
-            if(uri)
-            {
-                if(sliderList[position] == "doesntexist")
-                {
-
+            if(uri) {
+                if (sliderList[position] == "doesntexist") {
+                    Glide.with(viewHolder.itemView)
+                        .load(R.drawable.backgroundnav)
+                        .centerCrop()
+                        .into(viewHolder.imageView)
+                } else {
+                    Glide.with(viewHolder.itemView)
+                        .load(sliderList[position].toUri())
+                        .fitCenter()
+                        .into(viewHolder.imageView)
                 }
-                Glide.with(viewHolder.itemView)
-                    .load(sliderList[position].toUri())
-                    .fitCenter()
-                    .into(viewHolder.imageView)
             }
             else{
                 Glide.with(viewHolder.itemView)

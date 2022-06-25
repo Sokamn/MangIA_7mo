@@ -17,6 +17,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.ImageAdapter
 import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Model.Image
@@ -27,6 +29,7 @@ import java.lang.Exception
 
 class MRecipeStep1Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep1Binding
+    private var i = 0
     private var allPictures: ArrayList<Image>?=null
     private var isMultiImages: Boolean = false
     private var imageList: MutableList<String> = mutableListOf()
@@ -34,7 +37,11 @@ class MRecipeStep1Activity : AppCompatActivity() {
         if(uri!=null)
         {
             val inputUri = uri
-            val outputUri = File(filesDir,"croppedImage.jpg").toUri()
+            while(File(filesDir,"croppedImage${i}.jpg").exists())
+            {
+                i++
+            }
+            val outputUri = File(filesDir,"croppedImage${i}.jpg").toUri()
             val listUri = listOf<Uri>(inputUri,outputUri)
             cropImage.launch(listUri)
         }
@@ -70,11 +77,14 @@ class MRecipeStep1Activity : AppCompatActivity() {
         {
             if(isMultiImages)
             {
+                Log.d("LISTIMAGE", imageList.toString())
                 if(imageList.contains("doesntexist"))
                 {
                     imageList.remove("doesntexist")
                 }
+                Log.d("LIST", imageList.toString())
                 imageList.add(uri.toString())
+                Log.d("LIST", imageList.toString())
                 binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
             }
             else{
@@ -128,6 +138,9 @@ class MRecipeStep1Activity : AppCompatActivity() {
             isMultiImages = !isMultiImages
             if (isMultiImages)
             {
+                imageList.clear()
+                imageList.add("doesntexist")
+                binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
                 binding.imgsldrCarruselMR1.visibility = View.VISIBLE
                 binding.imvImageAdded.visibility = View.INVISIBLE
                 binding.imvMultiFiles.setImageResource(R.drawable.backgroundnav)
