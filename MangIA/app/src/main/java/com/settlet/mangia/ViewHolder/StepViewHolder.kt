@@ -36,12 +36,6 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
 
         binding.txvAddOptionalmage.setOnClickListener {
-            context.getContent.launch("image/*")// PASAR LOS METODOS DE UCROP EN STEP VIEW HOLDER
-            Glide.with(binding.imvImageStepRS)
-                .load(context.auxUri)
-                .centerCrop()
-                .into(binding.imvImageStepRS)
-            binding.imvImageStepRS.setImageURI(context.auxUri)
             step.optionalImage = context.auxUri
             binding.imvImageStepRS.visibility = View.VISIBLE
             binding.imvChangeImage.visibility = View.VISIBLE

@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.settlet.mangia.Adapter.IngredientAdapter
+import com.settlet.mangia.Adapter.MyLifecycleObserver
 import com.settlet.mangia.Adapter.StepAdapter
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
@@ -30,6 +31,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep2Binding
     internal var finishedListener:Boolean = false
     internal var auxUri:Uri?=null
+    lateinit var observer : MyLifecycleObserver
     internal val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
         {
@@ -114,6 +116,8 @@ class MRecipeStep2Activity : AppCompatActivity() {
             /*val intent = Intent(this,MRecipeStep3Activity::class.java)
             startActivity(intent)*/
         }
+        observer = MyLifecycleObserver(activityResultRegistry)
+        lifecycle.addObserver(observer)
     }
 
     private fun initRCVSteps(listSteps:MutableList<Step>) {
