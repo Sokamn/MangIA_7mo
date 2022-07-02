@@ -35,27 +35,12 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
             context.rcvStepsMR2.adapter!!.notifyDataSetChanged()
         }
 
-        binding.txvAddOptionalmage.setOnClickListener {
-            step.optionalImage = context.auxUri
-            binding.imvImageStepRS.visibility = View.VISIBLE
-            binding.imvChangeImage.visibility = View.VISIBLE
-            binding.imvRemoveImageRSMR.visibility = View.VISIBLE
-        }
-
         binding.imvRemoveImageRSMR.setOnClickListener {
             binding.imvImageStepRS.visibility = View.GONE
             binding.imvChangeImage.visibility = View.GONE
             binding.imvRemoveImageRSMR.visibility = View.GONE
             binding.txvAddOptionalmage.visibility = View.VISIBLE
             step.optionalImage = null
-        }
-
-        binding.imvChangeImage.setOnClickListener {
-            context.getContent.launch("image/*")
-            Glide.with(binding.imvImageStepRS)
-                .load(context.auxUri)
-                .centerCrop()
-                .into(binding.imvImageStepRS)
         }
     }
 }

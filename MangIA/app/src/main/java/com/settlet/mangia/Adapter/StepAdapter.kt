@@ -68,6 +68,9 @@ class MyLifecycleObserver(private val registry : ActivityResultRegistry)
         }
         cropImage = registry.register("key", owner, uCropContract){ uri ->
             finishedListener = if (uri!=null) {
+                holderExt.binding.imvImageStepRS.visibility = View.VISIBLE
+                holderExt.binding.imvChangeImage.visibility = View.VISIBLE
+                holderExt.binding.imvRemoveImageRSMR.visibility = View.VISIBLE
                 Glide.with(holderExt.context)
                     .load(uri)
                     .centerCrop()
@@ -78,6 +81,9 @@ class MyLifecycleObserver(private val registry : ActivityResultRegistry)
                 false
             }
         }
+    }
+    fun selectImage() {
+        getContent.launch("image/*")
     }
 }
 
@@ -104,7 +110,7 @@ class StepAdapter(val stepList:List<Step>):RecyclerView.Adapter<StepViewHolder>(
             notifyItemChanged(position)
         }
         holder.binding.txvAddOptionalmage.setOnClickListener{
-            holder.context.observer.getContent.launch("image/*")
+            holder.context.observer.selectImage()
         }
         holder.render(item)
     }

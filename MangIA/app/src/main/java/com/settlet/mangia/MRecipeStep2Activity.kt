@@ -29,50 +29,9 @@ class MRecipeStep2Activity : AppCompatActivity() {
     internal val listStepRecipe = mutableListOf<Step>()
     var quantSteps: Int = 0
     private lateinit var binding: ActivityMrecipeStep2Binding
-    internal var finishedListener:Boolean = false
+    private var finishedListener:Boolean = false
     internal var auxUri:Uri?=null
     lateinit var observer : MyLifecycleObserver
-    internal val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
-        if(uri!=null)
-        {
-            val inputUri = uri
-            val outputUri = File(filesDir,"croppedImage.jpg").toUri()
-            val listUri = listOf<Uri>(inputUri,outputUri)
-            cropImage.launch(listUri)
-        }
-        else{
-            Toast.makeText(baseContext,"No has seleccionado ninguna imagen.", Toast.LENGTH_SHORT).show()
-            finishedListener = false
-        }
-    }
-    internal val uCropContract = object: ActivityResultContract<List<Uri>, Uri>(){
-        override fun createIntent(context: Context, input: List<Uri>): Intent {
-            val inputUri = input[0]
-            val outputUri = input[1]
-
-            val uCrop = UCrop.of(inputUri, outputUri)
-                .withAspectRatio(5f,5f)
-                .withMaxResultSize(1080,1080)
-            return uCrop.getIntent(context)
-        }
-
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            return if(intent!=null) {
-                UCrop.getOutput(intent)!!
-            } else {
-                null
-            }
-        }
-    }
-    internal val cropImage = registerForActivityResult(uCropContract){ uri ->
-        finishedListener = if (uri!=null) {
-            auxUri = uri
-            true
-        } else{
-            Toast.makeText(baseContext,"No has terminado de recortar una imagen.", Toast.LENGTH_SHORT).show()
-            false
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep2Binding.inflate(layoutInflater)
