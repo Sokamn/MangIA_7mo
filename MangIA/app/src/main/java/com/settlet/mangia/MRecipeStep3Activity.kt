@@ -10,5 +10,6 @@ class MRecipeStep3Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep3Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        //https://www.istockphoto.com/es/foto/de-pasta-italiana-verter-sobre-fondo-blanco-gm467084686-60661934
     }
 }

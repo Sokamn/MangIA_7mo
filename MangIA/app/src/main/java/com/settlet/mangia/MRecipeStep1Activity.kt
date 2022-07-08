@@ -32,6 +32,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
     private var i = 0
     private var allPictures: ArrayList<Image>?=null
     private var isMultiImages: Boolean = false
+    private var uniqueImage:String = ""
     private var imageList: MutableList<String> = mutableListOf()
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
@@ -77,7 +78,6 @@ class MRecipeStep1Activity : AppCompatActivity() {
         {
             if(isMultiImages)
             {
-                Log.d("LISTIMAGE", imageList.toString())
                 if(imageList.contains("doesntexist"))
                 {
                     imageList.remove("doesntexist")
@@ -90,6 +90,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
             else{
                 binding.imvImageAdded.setImageURI(null)
                 binding.imvImageAdded.setImageURI(uri)
+                uniqueImage = uri.toString()
             }
         }
         else{
@@ -125,7 +126,31 @@ class MRecipeStep1Activity : AppCompatActivity() {
 
         binding.imvNextStepMR.setOnClickListener {
             val intent = Intent(this, MRecipeStep2Activity::class.java)
-            startActivity(intent)
+            var count = 0
+            intent.putExtra("isMultiImages",isMultiImages)
+            if(isMultiImages){
+                if(imageList.contains("doesntexist")){
+                    Toast.makeText(this,"Seleccione una imagen para realizar la publicacion.",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    if(imageList.count()==1){
+                        Toast.makeText(this,"Le recomendamos utilizar el modo 'Imagen Unica' para publicaciones de una sola imagen.",Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        for (i in imageList)
+                        {
+                            count++
+                            intent.putExtra("image$count",i)
+                            intent.putExtra("cant",imageList.count())
+                            startActivity(intent)
+                        }
+                    }
+                }
+            }
+            else{
+                intent.putExtra("uniqueImage",uniqueImage)
+                startActivity(intent)
+            }
         }
 
         binding.imvMFiles.setOnClickListener {
@@ -174,6 +199,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
             .load(images.last().imagePath)
             .centerCrop()
             .into(binding.imvImageAdded)
+        uniqueImage = images.last().imagePath!!
         return images.reversed() as ArrayList<Image>
     }
 }

@@ -72,8 +72,8 @@ class MRecipeStep2Activity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.imvNextStepMRS2.setOnClickListener {
-            /*val intent = Intent(this,MRecipeStep3Activity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this,MRecipeStep3Activity::class.java)
+            startActivity(intent)
         }
         observer = MyLifecycleObserver(activityResultRegistry)
         lifecycle.addObserver(observer)

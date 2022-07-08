@@ -15,7 +15,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Agracejo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Agracejo.png")
