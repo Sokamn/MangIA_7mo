@@ -28,7 +28,9 @@ class MRecipeStep2Activity : AppCompatActivity() {
     internal val listIngredientRecipe = mutableListOf<Ingredient>()
     internal val listStepRecipe = mutableListOf<Step>()
     var quantSteps: Int = 0
+    private lateinit var bundle:Bundle
     private lateinit var binding: ActivityMrecipeStep2Binding
+    private var isMultiImages:Boolean = false
     private var finishedListener:Boolean = false
     internal var auxUri:Uri?=null
     lateinit var observer : MyLifecycleObserver
@@ -71,8 +73,19 @@ class MRecipeStep2Activity : AppCompatActivity() {
             val intent = Intent(this,MRecipeStep1Activity::class.java)
             startActivity(intent)
         }
-        binding.imvNextStepMRS2.setOnClickListener {
+        binding.imvNextStepMR2.setOnClickListener {
             val intent = Intent(this,MRecipeStep3Activity::class.java)
+            bundle = intent.extras!!
+            isMultiImages = bundle.getBoolean("isMultiImages")
+            if(isMultiImages){
+                for (i in 1..bundle.getString("cant")!!.toInt()){
+                    intent.putExtra("image$i",bundle.getString("image$i")!!)
+                }
+            }else{
+                intent.putExtra("uniqueImage",bundle.getString("uniqueImage")!!)
+            }
+            intent.putExtra("cant",bundle.getString("cant")!!.toInt())
+            intent.putExtra("isMultiImages",isMultiImages)
             startActivity(intent)
         }
         observer = MyLifecycleObserver(activityResultRegistry)

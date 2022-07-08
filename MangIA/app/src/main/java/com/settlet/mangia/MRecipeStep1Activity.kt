@@ -137,13 +137,13 @@ class MRecipeStep1Activity : AppCompatActivity() {
                         Toast.makeText(this,"Le recomendamos utilizar el modo 'Imagen Unica' para publicaciones de una sola imagen.",Toast.LENGTH_SHORT).show()
                     }
                     else{
+                        intent.putExtra("cant",imageList.count())
                         for (i in imageList)
                         {
                             count++
                             intent.putExtra("image$count",i)
-                            intent.putExtra("cant",imageList.count())
-                            startActivity(intent)
                         }
+                        startActivity(intent)
                     }
                 }
             }
