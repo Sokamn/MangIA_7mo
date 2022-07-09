@@ -34,12 +34,25 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             R.layout.spinner_unity_item, unidad)
         when(ingredient.tipoUnidad)
         {
-            "Hojas"->binding.spnUnity.adapter = arrayAdapterHojas
-            "Liquidos"->binding.spnUnity.adapter = arrayAdapterLiquidos
-            "Polvos"->binding.spnUnity.adapter = arrayAdapterPolvos
-            "Legumbres"->binding.spnUnity.adapter = arrayAdapterLegumbresSemillas
-            "Semillas"->binding.spnUnity.adapter = arrayAdapterLegumbresSemillas
-            "Unidad"->binding.spnUnity.adapter = arrayAdapterUnidad
+            "Hojas"-> {
+                binding.spnUnity.adapter = arrayAdapterHojas
+                ingredient.unidad = "Atd"
+            }
+            "Liquidos"->{binding.spnUnity.adapter = arrayAdapterLiquidos
+            ingredient.unidad = "Lts"
+            }
+            "Polvos"->{binding.spnUnity.adapter = arrayAdapterPolvos
+                ingredient.unidad = "Gr"
+            }
+            "Legumbres"->{binding.spnUnity.adapter = arrayAdapterLegumbresSemillas
+            ingredient.unidad = "Tz"
+            }
+            "Semillas"->{binding.spnUnity.adapter = arrayAdapterLegumbresSemillas
+            ingredient.unidad = "Tz"
+            }
+            "Unidad"->{binding.spnUnity.adapter = arrayAdapterUnidad
+            ingredient.unidad = "Un"
+            }
         }
 
         binding.spnUnity.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -60,6 +73,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                         "C/c"-> Toast.makeText(binding.spnUnity.context,"Cucharadita o Cuchara de Postre",Toast.LENGTH_SHORT).show()
                         else-> Toast.makeText(binding.spnUnity.context,"Unidad",Toast.LENGTH_SHORT).show()
                     }
+                    ingredient.unidad = selectedUnity
                 }
             }
 
@@ -94,6 +108,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 "C/c"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
                 else-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
             }
+            ingredient.cantidad = binding.txpQuantity.text.trim().toString().toInt()
         }
         binding.imbRemoveQuantity.setOnClickListener {
             if(binding.txpQuantity.text.toString() == "0")
@@ -120,6 +135,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                     else-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-1).toString())
                 }
             }
+            ingredient.cantidad = binding.txpQuantity.text.trim().toString().toInt()
         }
 
         ingredient.imgRef.downloadUrl.addOnSuccessListener { result ->

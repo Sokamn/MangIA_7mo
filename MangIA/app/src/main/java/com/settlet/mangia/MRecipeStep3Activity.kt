@@ -8,26 +8,24 @@ import com.settlet.mangia.databinding.ActivityMrecipeStep3Binding
 
 class MRecipeStep3Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep3Binding
-    private lateinit var bundle:Bundle
     private var isMultiImages:Boolean = false
-    private lateinit var listImages:MutableList<String>
+    private  var listImages = mutableListOf<String>()
     private lateinit var  uniqueImage:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep3Binding.inflate(layoutInflater)
         setContentView(binding.root)
-        bundle = intent.extras!!
-        isMultiImages = bundle.getBoolean("isMultiImages")
+        isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
         if (isMultiImages){
-            for (i in 1..bundle.getString("cant")!!.toInt()){
-                listImages.add(bundle.getString("image$i")!!)
+            for (i in 1..getIntent().getIntExtra("cant",0)){
+                listImages.add(getIntent().getStringExtra("image$i")!!)
             }
             Glide.with(this)
                 .load(listImages.first().toUri())
                 .fitCenter()
                 .into(binding.imvRecipePhotoMR3)
         }else{
-            uniqueImage = bundle.getString("uniqueImage")!!
+            uniqueImage = getIntent().getStringExtra("uniqueImage")!!
             Glide.with(this)
                 .load(uniqueImage.toUri())
                 .fitCenter()
