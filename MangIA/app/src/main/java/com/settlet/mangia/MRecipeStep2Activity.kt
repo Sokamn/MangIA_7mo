@@ -82,7 +82,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
                     for (i in listIngredientRecipe){
                         countIngr++
                         intent.putExtra("ingr$countIngr",i.nombre)
-                        intent.putExtra("cantIngr$countIngr", i.cantidad)
+                        intent.putExtra("cantIngr$countIngr", i.cant)
                         intent.putExtra("unity$countIngr", i.unidad)
                     }
                     intent.putExtra("cantIngredients", listIngredientRecipe.size)

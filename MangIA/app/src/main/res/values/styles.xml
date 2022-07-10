@@ -10,6 +10,14 @@
 
     </style>
 
+
+    <style name="roundImagePosts" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">20dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
     <style name="roundImageProfile" parent="">
 
         <item name="cornerFamily">rounded</item>

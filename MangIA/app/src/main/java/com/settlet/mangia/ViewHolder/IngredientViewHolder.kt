@@ -108,7 +108,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 "C/c"-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
                 else-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
             }
-            ingredient.cantidad = binding.txpQuantity.text.trim().toString().toInt()
+            ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
         }
         binding.imbRemoveQuantity.setOnClickListener {
             if(binding.txpQuantity.text.toString() == "0")
@@ -135,7 +135,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                     else-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()-1).toString())
                 }
             }
-            ingredient.cantidad = binding.txpQuantity.text.trim().toString().toInt()
+            ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
         }
 
         ingredient.imgRef.downloadUrl.addOnSuccessListener { result ->

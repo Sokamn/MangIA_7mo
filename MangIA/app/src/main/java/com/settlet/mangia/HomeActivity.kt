@@ -55,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             val intent = Intent(this, MRecipeStep1Activity::class.java)
             this.startActivity(intent)
-            finish()
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
