@@ -65,6 +65,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
+            //appbar include content home (contenido principal) fragment cambiar fragmento a perfil (mi perfil)
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
         }
