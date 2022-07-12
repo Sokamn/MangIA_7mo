@@ -138,7 +138,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
         }
 
-        ingredient.imgRef.downloadUrl.addOnSuccessListener { result ->
+        ingredient.imgRef!!.downloadUrl.addOnSuccessListener { result ->
             Glide.with(binding.imvIngredient.context)
                 .load(result)
                 .into(binding.imvIngredient)
