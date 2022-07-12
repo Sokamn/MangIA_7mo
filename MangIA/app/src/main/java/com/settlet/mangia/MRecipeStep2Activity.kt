@@ -92,6 +92,21 @@ class MRecipeStep2Activity : AppCompatActivity() {
                         //intent.putExtra("mayImage$countSteps",s.optionalImage)
                     }
                     intent.putExtra("cantSteps", listStepRecipe.size)
+
+                    isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
+                    Log.d("MULTIMAGE", isMultiImages.toString())
+                    if(isMultiImages){
+                        var cantImages = getIntent().getIntExtra("cant",0)
+                        for (i in 1..cantImages){
+
+                            intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
+                        }
+                        intent.putExtra("cant",cantImages)
+                    }else{
+                        intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
+                    }
+                    intent.putExtra("isMultiImages",isMultiImages)
+                    startActivity(intent)
                 }
                 else{
                     Toast.makeText(this,"Agregue pasos a la receta.",Toast.LENGTH_SHORT).show()
@@ -100,20 +115,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
                 Toast.makeText(this,"Agregue ingredientes a la receta.",Toast.LENGTH_SHORT).show()
             }
 
-            isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
-            Log.d("MULTIMAGE", isMultiImages.toString())
-            if(isMultiImages){
-                var cantImages = getIntent().getIntExtra("cant",0)
-                for (i in 1..cantImages){
 
-                    intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
-                }
-                intent.putExtra("cant",cantImages)
-            }else{
-                intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
-            }
-            intent.putExtra("isMultiImages",isMultiImages)
-            startActivity(intent)
         }
         observer = MyLifecycleObserver(activityResultRegistry)
         lifecycle.addObserver(observer)

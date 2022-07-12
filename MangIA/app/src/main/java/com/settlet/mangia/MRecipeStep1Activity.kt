@@ -89,7 +89,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
             }
             else{
                 binding.imvImageAdded.setImageURI(null)
-                binding.imvImageAdded.setImageURI(uri)
+                Glide.with(this)
+                    .load(uri)
+                    .centerCrop()
+                    .into(binding.imvImageAdded)
                 uniqueImage = uri.toString()
             }
         }
