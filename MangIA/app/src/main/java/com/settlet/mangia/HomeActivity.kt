@@ -2,6 +2,7 @@ package com.settlet.mangia
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -15,6 +16,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -27,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.activity_profile.view.*
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import kotlinx.android.synthetic.main.nav_header_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 class HomeActivity : AppCompatActivity() {
@@ -34,6 +39,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var fragment: View
     private val storageReference = FirebaseStorage.getInstance().reference
     private val db = Firebase.firestore
 
@@ -53,8 +59,13 @@ class HomeActivity : AppCompatActivity() {
             Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
         }
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
-            val intent = Intent(this, MRecipeStep1Activity::class.java)
-            this.startActivity(intent)
+            if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
+            }
+                val intent = Intent(this, MRecipeStep1Activity::class.java)
+                this.startActivity(intent)
+
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
@@ -65,7 +76,6 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
-            //appbar include content home (contenido principal) fragment cambiar fragmento a perfil (mi perfil)
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
         }

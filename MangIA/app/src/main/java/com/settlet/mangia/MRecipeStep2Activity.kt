@@ -114,8 +114,6 @@ class MRecipeStep2Activity : AppCompatActivity() {
             }else{
                 Toast.makeText(this,"Agregue ingredientes a la receta.",Toast.LENGTH_SHORT).show()
             }
-
-
         }
         observer = MyLifecycleObserver(activityResultRegistry)
         lifecycle.addObserver(observer)

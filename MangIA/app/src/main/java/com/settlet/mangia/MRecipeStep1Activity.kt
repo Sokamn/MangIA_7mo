@@ -110,9 +110,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
         imageList.add("doesntexist")
         binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
 
-        if(ContextCompat.checkSelfPermission(this@MRecipeStep1Activity,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(this@MRecipeStep1Activity, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
+
+        if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(this,"Debe de aceptar los permisos de Almacenamiento para realizar una publicación.",Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, HomeActivity::class.java))
         }
 
         if(allPictures!!.isEmpty())

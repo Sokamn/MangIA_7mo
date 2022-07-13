@@ -68,6 +68,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_home" />
+    <include android:id="@+id/content_main" layout="@layout/content_home" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
