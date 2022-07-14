@@ -199,11 +199,19 @@ class MRecipeStep1Activity : AppCompatActivity() {
         }catch (e:Exception){
             e.printStackTrace()
         }
-        Glide.with(this)
-            .load(images.last().imagePath)
-            .centerCrop()
-            .into(binding.imvImageAdded)
-        uniqueImage = images.last().imagePath!!
+        if (images.isNotEmpty()){
+            Glide.with(this)
+                .load(images.last().imagePath)
+                .centerCrop()
+                .into(binding.imvImageAdded)
+            uniqueImage = images.last().imagePath!!
+        }
+        else{
+            Glide.with(this)
+                .load(R.drawable.profile_picture)
+                .centerCrop()
+                .into(binding.imvImageAdded)
+        }
         return images.reversed() as ArrayList<Image>
     }
 }
