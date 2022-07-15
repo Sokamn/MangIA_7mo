@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultRegistry
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
@@ -104,6 +105,13 @@ class StepAdapter(val stepList:List<Step>):RecyclerView.Adapter<StepViewHolder>(
         holder.imvCloseImage.visibility = if (isExpandable) View.GONE else View.VISIBLE
         holder.imvOptionalImage.visibility = if (isExpandable) View.GONE else View.VISIBLE
         holder.imgExpand.setImageResource(if (isExpandable) R.drawable.ic_unity_collapse else R.drawable.ic_unity_expand)
+
+
+
+        /*holder.binding.txpDescriptionMR.doOnTextChanged { text, start, count, after ->
+            item.rDescription = holder.binding.txpDescriptionMR.text.toString()
+            notifyItemChanged(position)
+        }*/
 
         holder.expand.setOnClickListener{
             item.expandable = !item.expandable

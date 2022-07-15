@@ -5,6 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:id="@+id/imvStar3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imvStar2"
+        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imvStar4"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imvStar3"
+        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imvStar5"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imvStar4"
+        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        tools:srcCompat="@tools:sample/avatars" />
+
     <com.borjabravo.readmoretextview.ReadMoreTextView
         android:id="@+id/txvDescription"
         android:layout_width="0dp"
@@ -18,7 +48,7 @@
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvRate" />
+        app:layout_constraintTop_toBottomOf="@+id/imvStarOne" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/crdvwCarrusel"
@@ -91,12 +121,22 @@
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI" />
 
     <ImageView
-        android:id="@+id/imvRate"
-        android:layout_width="130dp"
+        android:id="@+id/imvStarOne"
+        android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/imvStar2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toEndOf="@+id/imvStarOne"
         app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -121,9 +161,9 @@
         android:text="123 valoraciones"
         android:textColor="@color/transSecundaryColor"
         android:textSize="10sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imvRate"
-        app:layout_constraintStart_toEndOf="@+id/imvRate"
-        app:layout_constraintTop_toTopOf="@+id/imvRate" />
+        app:layout_constraintBottom_toBottomOf="@+id/imvStarOne"
+        app:layout_constraintStart_toEndOf="@+id/imvStar5"
+        app:layout_constraintTop_toTopOf="@+id/imvStarOne" />
 
     <ImageView
         android:id="@+id/imvSave"

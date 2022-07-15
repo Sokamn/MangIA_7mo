@@ -58,7 +58,6 @@ class MRecipeStep2Activity : AppCompatActivity() {
                 }
             }
         }
-
         binding.cstAddIngredient.setOnClickListener {
             binding.txpSearchMRS2.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -124,7 +123,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         binding.rcvStepsMR2.adapter = StepAdapter(listSteps)
     }
 
-    internal fun initRCVIngredients(listIngredientRecipe:MutableList<Ingredient>) {
+    private fun initRCVIngredients(listIngredientRecipe:MutableList<Ingredient>) {
         binding.rcvIngredients.layoutManager = LinearLayoutManager(this)
         binding.rcvIngredients.adapter = IngredientAdapter(listIngredientRecipe)
     }

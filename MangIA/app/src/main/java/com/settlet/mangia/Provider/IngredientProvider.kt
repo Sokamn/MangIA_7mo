@@ -258,6 +258,8 @@ class IngredientProvider {
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Cardamomo.png")
             )
+        //Ingredientes de cocina
+
         )
         val ingredientListN = IngredientListNames()
         private fun IngredientListNames(): List<String> {

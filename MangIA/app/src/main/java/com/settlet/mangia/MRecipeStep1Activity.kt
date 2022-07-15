@@ -112,8 +112,10 @@ class MRecipeStep1Activity : AppCompatActivity() {
 
 
         if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            Toast.makeText(this,"Debe de aceptar los permisos de Almacenamiento para realizar una publicación.",Toast.LENGTH_LONG).show()
-            startActivity(Intent(this, HomeActivity::class.java))
+            if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            {
+                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
+            }
         }
 
         if(allPictures!!.isEmpty())

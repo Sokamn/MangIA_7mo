@@ -60,11 +60,7 @@ class HomeActivity : AppCompatActivity() {
         }
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             val intent = Intent(this, MRecipeStep1Activity::class.java)
-            if(ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            {
-                ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),101)
-            }
-            
+            startActivity(intent)
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
