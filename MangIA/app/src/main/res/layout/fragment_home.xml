@@ -18,6 +18,7 @@
     <include
         android:id="@+id/bottom_barH"
         layout="@layout/bottom_bar"
+        android:elevation="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
