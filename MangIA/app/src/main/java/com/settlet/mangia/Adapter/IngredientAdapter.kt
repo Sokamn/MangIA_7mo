@@ -3,6 +3,7 @@ package com.settlet.mangia.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.R
 import com.settlet.mangia.ViewHolder.IngredientViewHolder
