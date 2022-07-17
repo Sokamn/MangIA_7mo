@@ -1,11 +1,20 @@
 package com.settlet.mangia
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.net.toUri
+import androidx.core.widget.doOnTextChanged
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,6 +26,7 @@ import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityMrecipeStep3Binding
+import kotlinx.android.synthetic.main.activity_mrecipe_step3.*
 import java.util.*
 
 class MRecipeStep3Activity : AppCompatActivity() {
@@ -28,12 +38,75 @@ class MRecipeStep3Activity : AppCompatActivity() {
     private var quantIngred = 0
     private val storageReference = FirebaseStorage.getInstance().reference
     private var quantStep = 0
+    private lateinit var selectedUnity:String
     private lateinit var  uniqueImage:String
+    private var progressComplexity = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val db = Firebase.firestore
         binding = ActivityMrecipeStep3Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        val timeFormat =  resources.getStringArray(R.array.timeFormat)
+        val arrayAdapterTimeFormat = ArrayAdapter<String>(this, R.layout.spinner_unity_item, timeFormat)
+        binding.spnTimeFormat.adapter = arrayAdapterTimeFormat
+        binding.spnTimeFormat.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p0 != null) {
+                    selectedUnity = p0.getItemAtPosition(p2).toString()
+                    when(selectedUnity){
+                        "Minutos"-> binding.sldrPreparationTime.max = 60
+                        "Horas"->binding.sldrPreparationTime.max = 24
+                        "Días"->binding.sldrPreparationTime.max = 30
+                        "Meses"->binding.sldrPreparationTime.max = 12
+                        else -> Toast.makeText(baseContext, "Error al seleccionar un formato",Toast.LENGTH_SHORT).show()
+                    }
+                }
+                binding.sldrPreparationTime.progress = 0
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+            }
+
+        }
+        binding.sldrPreparationTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
+                if(p1 == 1){
+                    when(binding.spnTimeFormat.selectedItem){
+                        "Minutos"-> binding.txpPreparationTime.setText("$p1 Minuto")
+                        "Horas"-> binding.txpPreparationTime.setText("$p1 Hora")
+                        "Días"-> binding.txpPreparationTime.setText("$p1 Día")
+                        "Meses"-> binding.txpPreparationTime.setText("$p1 Mes")
+                        else -> Toast.makeText(baseContext, "Error al seleccionar un formato",Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    binding.txpPreparationTime.setText("$p1 ${binding.spnTimeFormat.selectedItem}")
+                }
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(p0: SeekBar?) {
+
+            }
+
+        })
+        binding.imvComplex0.setOnClickListener {
+            ApplyNewComplexity(0)
+        }
+        binding.imvComplex1.setOnClickListener {
+            ApplyNewComplexity(1)
+        }
+        binding.imvComplex2.setOnClickListener {
+            ApplyNewComplexity(2)
+        }
+        binding.imvComplex3.setOnClickListener {
+            ApplyNewComplexity(3)
+        }
+        binding.imvComplex4.setOnClickListener {
+            ApplyNewComplexity(4)
+        }
         isMultiImages = intent.getBooleanExtra("isMultiImages",false)
         if (isMultiImages){
             for (i in 1..intent.getIntExtra("cant",0)){
@@ -125,5 +198,57 @@ class MRecipeStep3Activity : AppCompatActivity() {
             startActivity(Intent(this,HomeActivity::class.java))
         }
         //https://www.istockphoto.com/es/foto/de-pasta-italiana-verter-sobre-fondo-blanco-gm467084686-60661934
+    }
+
+    private fun ApplyNewComplexity(i: Int) {
+        if (progressComplexity!=i){
+            progressComplexity = i
+            when(i){
+                0->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    Toast.makeText(this,"Complejidad: Principiante.",Toast.LENGTH_SHORT).show()
+                }
+                1->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    Toast.makeText(this,"Complejidad: Medio.",Toast.LENGTH_SHORT).show()
+                }
+                2->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    Toast.makeText(this,"Complejidad: Dificil.",Toast.LENGTH_SHORT).show()
+                }
+                3->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    Toast.makeText(this,"Complejidad: Ultra Dificil.",Toast.LENGTH_SHORT).show()
+                }
+                4->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_add)
+                    Toast.makeText(this,"Complejidad: Imposible.",Toast.LENGTH_SHORT).show()
+                }
+                else->{
+                    binding.imvComplex1.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    Toast.makeText(this,"Complejidad: Principiante.",Toast.LENGTH_SHORT).show()
+                }
+            }
+
+        }
+
     }
 }

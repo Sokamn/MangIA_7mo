@@ -71,6 +71,8 @@
     <string name="Follow">Seguir</string>
     <string name="Following">Siguiendo</string>
     <string name="Filters">Filtros</string>
+    <string name="complexity">Slider of Recipe Complexity</string>
+    <string name="preparation">Slider of Recipe Preparation Time</string>
 
     <string-array name="continents">
         <item>Africa</item>
@@ -109,5 +111,11 @@
     </string-array>
     <string-array name="unidad">
         <item>Un</item>
+    </string-array>
+    <string-array name="timeFormat">
+        <item>Minutos</item>
+        <item>Horas</item>
+        <item>Días</item>
+        <item>Meses</item>
     </string-array>
 </resources>

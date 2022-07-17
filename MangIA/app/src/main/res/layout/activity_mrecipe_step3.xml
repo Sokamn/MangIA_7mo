@@ -15,6 +15,74 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
 
+        <View
+            android:id="@+id/vwProgressComplexity"
+            android:layout_width="0dp"
+            android:layout_height="4dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/bg_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvComplexity" />
+
+        <EditText
+            android:id="@+id/txpPreparationTime"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:digits="1234567890"
+            android:ems="10"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:fontFamily="@font/manjarithin"
+            android:inputType="number"
+            android:paddingBottom="0dp"
+            android:text="0 Minutos"
+            android:textAlignment="center"
+            android:textSize="14dp"
+            app:layout_constraintBottom_toBottomOf="@+id/txvPreparationTime"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/spnTimeFormat" />
+
+        <Spinner
+            android:id="@+id/spnTimeFormat"
+            android:layout_width="74dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/bg_spinner_unity"
+            android:padding="0dp"
+            android:scrollbarSize="20dp"
+            android:textAlignment="textStart"
+            app:layout_constraintStart_toEndOf="@+id/txvPreparationTime"
+            app:layout_constraintTop_toTopOf="@+id/txvPreparationTime" />
+
+        <SeekBar
+            android:id="@+id/sldrPreparationTime"
+            android:layout_width="0dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:progress="0"
+            android:max="60"
+            android:progressDrawable="@drawable/bg_custom_seekbar"
+            android:thumb="@drawable/ic_clock"
+            android:splitTrack="false"
+            android:paddingBottom="17dp"
+            android:paddingTop="17dp"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvPreparationTime" />
+
+
+
+
         <TextView
             android:id="@+id/txvDescDiabetic"
             android:layout_width="0dp"
@@ -73,7 +141,7 @@
 
         <TextView
             android:id="@+id/txvPreparationTime"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="15dp"
@@ -97,7 +165,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvPreparationTime" />
+            app:layout_constraintTop_toBottomOf="@+id/sldrPreparationTime" />
 
         <TextView
             android:id="@+id/txvDescVegetarian"
@@ -256,6 +324,58 @@
             app:layout_constraintBottom_toBottomOf="@+id/txvAbleVegan"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
+
+        <ImageView
+            android:id="@+id/imvComplex0"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+        <ImageView
+            android:id="@+id/imvComplex4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_remove"
+            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+        <ImageView
+            android:id="@+id/imvComplex2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_remove"
+            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+        <ImageView
+            android:id="@+id/imvComplex3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_remove"
+            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imvComplex4"
+            app:layout_constraintStart_toEndOf="@+id/imvComplex2"
+            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+        <ImageView
+            android:id="@+id/imvComplex1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_remove"
+            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+            app:layout_constraintEnd_toStartOf="@+id/imvComplex2"
+            app:layout_constraintStart_toEndOf="@+id/imvComplex0"
+            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
