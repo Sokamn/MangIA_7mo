@@ -20,7 +20,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
         val polvos = binding.imvIngredient.context.resources.getStringArray(R.array.polvos)
         val legumbres = binding.imvIngredient.context.resources.getStringArray(R.array.legumbres_semillas)
         val unidad = binding.imvIngredient.context.resources.getStringArray(R.array.unidad)
-        var selectedUnity:String = ""
+        var selectedUnity = ""
 
         val arrayAdapterHojas= ArrayAdapter<String>(binding.imvIngredient.context,
             R.layout.spinner_unity_item, hojas)
@@ -86,6 +86,9 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             val a = binding.imvRemove.context as MRecipeStep2Activity
             binding.txpQuantity.setText("0")
             a.listIngredientRecipe.remove(ingredient)
+            Glide.with(binding.imvIngredient.context)
+                .load(R.drawable.ic_load_ingredient)
+                .into(binding.imvIngredient)
             a.rcvIngredients.adapter!!.notifyDataSetChanged()
         }
 
@@ -144,7 +147,9 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 .into(binding.imvIngredient)
 
         }.addOnFailureListener {
-
+            Glide.with(binding.imvIngredient.context)
+                .load(R.drawable.ic_load_ingredient)
+                .into(binding.imvIngredient)
         }
 
     }

@@ -1,7 +1,10 @@
 package com.settlet.mangia.Adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.Model.Ingredient
@@ -9,17 +12,28 @@ import com.settlet.mangia.R
 import com.settlet.mangia.ViewHolder.IngredientViewHolder
 
 
-class IngredientAdapter(private val ingredientList: List<Ingredient>) : RecyclerView.Adapter<IngredientViewHolder>() {
-
+class IngredientAdapter : ListAdapter<Ingredient, IngredientViewHolder>(DiffCallBack){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        return IngredientViewHolder(layoutInflater.inflate(R.layout.row_ingredient_recycler, parent, false))
+        val view: View = LayoutInflater
+            .from(parent.context)
+            .inflate(R.layout.row_ingredient_recycler,parent,false)
+        return IngredientViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
-        val item = ingredientList[position]
+        val item = getItem(position)
         holder.render(item)
     }
 
-    override fun getItemCount(): Int = ingredientList.size
+    companion object DiffCallBack: DiffUtil.ItemCallback<Ingredient>(){
+        override fun areItemsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+            return oldItem.nombre == newItem.nombre
+        }
+
+        override fun areContentsTheSame(oldItem: Ingredient, newItem: Ingredient): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+
 }

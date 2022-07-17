@@ -125,6 +125,8 @@ class MRecipeStep2Activity : AppCompatActivity() {
 
     private fun initRCVIngredients(listIngredientRecipe:MutableList<Ingredient>) {
         binding.rcvIngredients.layoutManager = LinearLayoutManager(this)
-        binding.rcvIngredients.adapter = IngredientAdapter(listIngredientRecipe)
+        val adapter = IngredientAdapter()
+        binding.rcvIngredients.adapter = adapter
+        adapter.submitList(listIngredientRecipe)
     }
 }
