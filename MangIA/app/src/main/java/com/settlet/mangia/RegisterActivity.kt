@@ -120,8 +120,7 @@ class RegisterActivity : AppCompatActivity() {
             contador--
         }
         binding.txvPLoginR.setOnClickListener { // Volver al Login
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
         }
         binding.btnContinueR2.setOnClickListener{ // Boton de finalizar registro
@@ -147,8 +146,7 @@ class RegisterActivity : AppCompatActivity() {
             db.collection("users").document(mailr).set(docUser)
         }
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
-            val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
         }
     }
@@ -283,8 +281,7 @@ class RegisterActivity : AppCompatActivity() {
         when(contador)
         {
             0 ->{
-                val intent = Intent(this, LoginActivity::class.java)
-                startActivity(intent)
+                onBackPressed()
                 finish()
             }
             1 ->{register1()}

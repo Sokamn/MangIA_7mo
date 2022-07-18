@@ -125,8 +125,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
         }
 
         binding.imvCloseMR.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
         }
 

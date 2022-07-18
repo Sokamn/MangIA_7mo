@@ -15,9 +15,11 @@
         android:theme="@style/Theme.MangIA">
         <activity
             android:name=".FollowsAndFollowersActivity"
+            android:parentActivityName=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".MRecipeStep3Activity"
+            android:parentActivityName=".MRecipeStep2Activity"
             android:exported="false" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -25,12 +27,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MRecipeStep2Activity"
+            android:parentActivityName=".MRecipeStep1Activity"
             android:exported="false" />
         <activity
             android:name=".MRecipeStep1Activity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
+            android:parentActivityName=".HomeActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
@@ -39,18 +43,22 @@
             android:theme="@style/Theme.MangIA.NoActionBar" />
         <activity
             android:name=".EditProfileActivity"
+            android:parentActivityName=".ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".FPassActivity"
+            android:parentActivityName=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".CheckMailActivity"
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneActivity"
+            android:parentActivityName=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".RegisterActivity"
+            android:parentActivityName=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

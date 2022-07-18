@@ -68,8 +68,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
             binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
         }
         binding.imvBackMRS2.setOnClickListener {
-            val intent = Intent(this,MRecipeStep1Activity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
         binding.imvNextStepMR2.setOnClickListener {
             val intent = Intent(this,MRecipeStep3Activity::class.java)

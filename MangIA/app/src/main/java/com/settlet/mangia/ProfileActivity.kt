@@ -33,10 +33,8 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.imbBackP.setOnClickListener {
-            val intent = Intent(this,HomeActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
-            //PROFILE ACTIVITY LINEA 39 COMO VOY A UN INTENT EXISTENTE
         }
         binding.btnEProfileP.setOnClickListener {
             val intent = Intent(this,EditProfileActivity::class.java)

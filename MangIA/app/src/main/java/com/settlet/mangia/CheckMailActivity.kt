@@ -66,8 +66,7 @@ class CheckMailActivity : AppCompatActivity() {
     private fun logOut()
     {
         Firebase.auth.signOut()
-        val intent = Intent(this,LoginActivity::class.java)
-        startActivity(intent)
+        onBackPressed()
         finish()
     }
 }

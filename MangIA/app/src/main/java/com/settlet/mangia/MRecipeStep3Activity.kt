@@ -107,6 +107,9 @@ class MRecipeStep3Activity : AppCompatActivity() {
         binding.imvComplex4.setOnClickListener {
             ApplyNewComplexity(4)
         }
+        binding.imvBackMR3.setOnClickListener {
+            onBackPressed()
+        }
         isMultiImages = intent.getBooleanExtra("isMultiImages",false)
         if (isMultiImages){
             for (i in 1..intent.getIntExtra("cant",0)){
@@ -154,6 +157,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
 
         binding.imvFinishRecipe.setOnClickListener{
             val user = Firebase.auth.currentUser
+            var i = 0
             if (user!=null) {
             val userRef = db.collection("users").document(user.email.toString())
                 db.collection("users").whereEqualTo("email", user.email.toString()).get()
@@ -167,8 +171,34 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                 document.getString("userName").toString())
                             userFB.cantRecipes+=1
                             userRef.update("cantRecipes",userFB.cantRecipes)
+                            val docRecipeMI = hashMapOf<String, Any>()
                                 if (isMultiImages){
+                                    listImages.forEach { img ->
+                                        i++
+                                        val fileRef = storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${userFB.cantRecipes}Image$i.jpg")
+                                        fileRef.putFile(img.toUri()).addOnSuccessListener {
+                                            Log.d("imageUpload", "Imagen subida correctamente")
+                                        }
+                                            .addOnFailureListener{
+                                                Log.d("imageUpload", "Imagen no se ha subido correctamente")
+                                            }
+                                        docRecipeMI["recipeImage$i"] = img
+                                    }
+                                    docRecipeMI["stars"] = 0
+                                    docRecipeMI["title"] = binding.txpTitle.text.toString()
+                                    docRecipeMI["description"] = binding.txpDescription.text.toString()
+                                    docRecipeMI["publisher"] = userFB.userName
+                                    docRecipeMI["listIngredients"] = listIngredient
+                                    docRecipeMI["listSteps"] = listStep
+                                    docRecipeMI["isVegetarian"] = binding.chbVegetarian.isChecked.toString()
+                                    docRecipeMI["isVegan"] = binding.chbVegan.isChecked.toString()
+                                    docRecipeMI["isDiabetic"] = binding.chbDiabetic.isChecked.toString()
+                                    docRecipeMI["isCeliac"] = binding.chbCeliac.isChecked.toString()
+                                    docRecipeMI["complexity"] = progressComplexity
+                                    docRecipeMI["preparationTime"] = binding.txpPreparationTime.text.toString()
 
+
+                                    db.collection("recipes").document(userFB.email).collection("recipe${userFB.cantRecipes}").document("recipe").set(docRecipeMI)
                                 }else{
                                     val fileRef = storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${userFB.cantRecipes}Image.jpg")
                                     fileRef.putFile(uniqueImage.toUri()).addOnSuccessListener {
@@ -177,7 +207,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         .addOnFailureListener{
                                             Log.d("imageUpload", "Imagen no se ha subido correctamente")
                                         }
-                                    val docRecipe = hashMapOf(
+                                    val docRecipeUI = hashMapOf(
                                         "stars" to 0,
                                         "title" to binding.txpTitle.text.toString(),
                                         "recipeImage" to fileRef.toString(),
@@ -188,9 +218,11 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         "isVegetarian" to binding.chbVegetarian.isChecked.toString(),
                                         "isVegan" to binding.chbVegan.isChecked.toString(),
                                         "isDiabetic" to binding.chbDiabetic.isChecked.toString(),
-                                        "isCeliac" to binding.chbCeliac.isChecked.toString()
+                                        "isCeliac" to binding.chbCeliac.isChecked.toString(),
+                                        "complexity" to progressComplexity,
+                                        "preparationTime" to binding.txpPreparationTime.text.toString()
                                     )
-                                    db.collection("recipes").document(userFB.email).collection("recipe${userFB.cantRecipes}").document("recipe").set(docRecipe)
+                                    db.collection("recipes").document(userFB.email).collection("recipe${userFB.cantRecipes}").document("recipe").set(docRecipeUI)
                                 }
 
                         }

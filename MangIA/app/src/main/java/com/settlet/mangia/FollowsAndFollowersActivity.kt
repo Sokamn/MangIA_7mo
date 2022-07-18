@@ -49,6 +49,10 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
             }
         }.attach()
 
+        binding.imbBackFF.setOnClickListener{
+            onBackPressed()
+            finish()
+        }
 
     }
 }
