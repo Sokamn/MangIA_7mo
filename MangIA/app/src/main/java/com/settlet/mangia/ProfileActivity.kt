@@ -2,14 +2,18 @@ package com.settlet.mangia
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
@@ -17,6 +21,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import com.settlet.mangia.Adapter.PagerAdapterFF
 import com.settlet.mangia.databinding.ActivityCheckMailBinding
 import com.settlet.mangia.databinding.ActivityLoginBinding
 import com.settlet.mangia.databinding.ActivityProfileBinding
@@ -28,10 +33,23 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabLayout: TabLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewPager = findViewById(R.id.vwpContentP)
+        tabLayout = findViewById(R.id.tblTabLayoutP)
+        viewPager.adapter = PagerAdapterFF(this)
+        TabLayoutMediator(tabLayout,viewPager){ tab,position->
+            tab.text = when(position){
+                0 -> "Recetas"
+                1 -> "Guardados"
+                else -> throw Resources.NotFoundException("Position Not Found")
+            }
+        }.attach()
+
 
         binding.imbBackP.setOnClickListener {
             onBackPressed()

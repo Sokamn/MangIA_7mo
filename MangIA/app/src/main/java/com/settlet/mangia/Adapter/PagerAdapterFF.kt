@@ -7,7 +7,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.settlet.mangia.Fragment.FollowersFragment
 import com.settlet.mangia.Fragment.FollowsFragment
 
-class PagerAdapter(fm:FragmentActivity): FragmentStateAdapter(fm) {
+class PagerAdapterFF(fm:FragmentActivity): FragmentStateAdapter(fm) {
 
     override fun getItemCount() = 2
 
@@ -17,7 +17,6 @@ class PagerAdapter(fm:FragmentActivity): FragmentStateAdapter(fm) {
             1 -> FollowsFragment()
             else -> throw Resources.NotFoundException("Position Not Found")
         }
-
     }
 
 }

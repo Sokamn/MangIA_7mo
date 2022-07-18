@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.settlet.mangia.Adapter.PagerAdapter
+import com.settlet.mangia.Adapter.PagerAdapterFF
 import com.settlet.mangia.databinding.ActivityFollowsAndFollowersBinding
 
 class FollowsAndFollowersActivity : AppCompatActivity() {
@@ -23,7 +23,7 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
         var extra = intent.extras!!.getString("vPage").toString()
 
 
-        viewPager.adapter = PagerAdapter(this)
+        viewPager.adapter = PagerAdapterFF(this)
         Log.d("EXTRAS", intent.extras!!.getString("vPage").toString())
 
         when (extra) {

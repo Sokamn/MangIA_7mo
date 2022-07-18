@@ -53,7 +53,7 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tblTabLayoutFF"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,10 +72,20 @@
             android:text="@string/follow" />
     </com.google.android.material.tabs.TabLayout>
 
+    <View
+        android:id="@+id/viewLineFF"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/lineColor"
+        app:layout_constraintBottom_toBottomOf="@+id/tblTabLayoutFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vwpContentFF"
-        android:layout_width="409dp"
-        android:layout_height="791dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tblTabLayoutFF" />
