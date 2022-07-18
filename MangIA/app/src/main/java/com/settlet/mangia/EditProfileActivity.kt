@@ -59,7 +59,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirebase(image: Uri) {
-        var fileRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+        var fileRef = storageReference.child("users/" + Firebase.auth.currentUser!!.email + "/profile.jpg")
         fileRef.putFile(image).addOnSuccessListener {
             val intent = Intent(this,ProfileActivity::class.java)
             startActivity(intent)
@@ -87,8 +87,7 @@ class EditProfileActivity : AppCompatActivity() {
         val arrayAdapterLEurope = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lEurope)
 
         binding.imbBackEP.setOnClickListener {
-            val intent = Intent(this,ProfileActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
         }
 
@@ -209,20 +208,13 @@ class EditProfileActivity : AppCompatActivity() {
                         Log.d("TAG", "${document.id} => ${document.data}")
                     }
                 }
-                val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+                val pImageRef = storageReference.child("users/" + currentUser.email + "/profile.jpg")
                 pImageRef.downloadUrl.addOnSuccessListener { result ->
                     Glide.with(this)
                         .load(result)
                         .into(binding.imvProfileEP)
 
                 }
-                    .addOnFailureListener {
-                        defaultPImage.downloadUrl.addOnSuccessListener { result ->
-                            Glide.with(this)
-                                .load(result)
-                                .into(binding.imvProfileEP)
-                        }
-                    }
             }
     }
 

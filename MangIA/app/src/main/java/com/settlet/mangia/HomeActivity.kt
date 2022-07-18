@@ -1,6 +1,7 @@
 package com.settlet.mangia
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -71,6 +72,9 @@ class HomeActivity : AppCompatActivity() {
         }
 
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
+            val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("profileEmail", Firebase.auth.currentUser!!.email)
+            editor.apply()
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
         }
@@ -95,7 +99,7 @@ class HomeActivity : AppCompatActivity() {
         val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
         if (currentUser!=null)
         {
-            val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+            val pImageRef = storageReference.child("users/" + currentUser.email + "/profile.jpg")
             pImageRef.downloadUrl.addOnSuccessListener { result ->
                 Glide.with(this)
                     .load(result)

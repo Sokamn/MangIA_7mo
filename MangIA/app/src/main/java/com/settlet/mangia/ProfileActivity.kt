@@ -1,5 +1,6 @@
 package com.settlet.mangia
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -36,11 +37,6 @@ class ProfileActivity : AppCompatActivity() {
             onBackPressed()
             finish()
         }
-        binding.btnEProfileP.setOnClickListener {
-            val intent = Intent(this,EditProfileActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
         binding.txvFollowersP.setOnClickListener {
             val intent = Intent(this,FollowsAndFollowersActivity::class.java)
             intent.putExtra("vPage", "Followers")
@@ -55,25 +51,28 @@ class ProfileActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
+        val prefs = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val profileEmail = prefs.getString("profileEmail","none")
+        val docFollows = hashMapOf<String, Any>()
         val currentUser = Firebase.auth.currentUser
         val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
-        if (currentUser!=null)
+        if (profileEmail!=null)
         {
-            val pImageRef = storageReference.child("users/" + FirebaseAuth.getInstance().currentUser!!.uid + "/profile.jpg")
+            if(profileEmail== currentUser!!.email){
+                binding.btnEProfileP.text = "Editar Perfil"
+            }else{
+                checkFollow()
+
+            }
+            val pImageRef = storageReference.child("users/$profileEmail/profile.jpg")
+            Log.d("PROFI",profileEmail)
             pImageRef.downloadUrl.addOnSuccessListener { result ->
                 Glide.with(this)
                     .load(result)
                     .into(binding.imvProfileP)
 
             }
-                .addOnFailureListener {
-                    defaultPImage.downloadUrl.addOnSuccessListener { result ->
-                    Glide.with(this)
-                        .load(result)
-                        .into(binding.imvProfileP)
-                    }
-                }
-            db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
+            db.collection("users").whereEqualTo("email",profileEmail).get().addOnSuccessListener{ documents ->
                 for (document in documents)
                 {
                     val uNameFB = document.getString("userName").toString()
@@ -95,5 +94,38 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
         }
+
+        binding.btnEProfileP.setOnClickListener {
+            db.collection("users").whereEqualTo("email",profileEmail).get().addOnSuccessListener{ documents ->
+                for (document in documents)
+                {
+                    val followsFB = document.getLong("cantFollows")?.toInt()
+                    val followersFB = document.getLong("cantFollowers")?.toInt()
+                    val btn = binding.btnEProfileP.text.toString()
+                    if(btn=="Editar Perfil"){
+                        startActivity(Intent(this,EditProfileActivity::class.java))
+                    }else if(btn=="Seguir"){
+                        docFollows["isFollowing"] = true.toString()
+                        val newFollowers = followersFB!! + 1
+                        val newFollows = followsFB!! + 1
+                        db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail!!).set(docFollows)
+                        db.collection("follow").document(profileEmail).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
+                        db.collection("users").document(profileEmail).update("cantFollowers", newFollowers)
+                        db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", newFollows)
+                    }else if(btn=="Siguiendo"){
+                        docFollows["isFollowing"] = false.toString()
+                        val newFollowers = followersFB!! - 1
+                        val newFollows = followsFB!! - 1
+                        db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail!!).delete()
+                        db.collection("follow").document(profileEmail).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
+                        db.collection("users").document(profileEmail).update("cantFollowers", newFollowers)
+                        db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", newFollows)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun checkFollow() {
     }
 }

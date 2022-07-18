@@ -21,21 +21,22 @@ class UserAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserV
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = userList[position]
-        holder.render(item)
         isFollowing(item.email,holder.binding.btnFollowRU)
 
-        if (item.email.equals(Firebase.auth.currentUser!!.email))
+        if (item.email == Firebase.auth.currentUser!!.email)
         {
             holder.binding.btnFollowRU.visibility = View.GONE
         }
 
-
+        holder.render(item)
     }
 
     override fun getItemCount(): Int = userList.size
+
+
 }
 private fun isFollowing(email:String, button: Button){
-    val col = db.collection("Follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("Following")
+    val col = db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following")
     col.document(email).get().addOnSuccessListener { document ->
         if (document.exists())
         {

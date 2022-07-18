@@ -1,12 +1,18 @@
 package com.settlet.mangia.ViewHolder
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.User
+import com.settlet.mangia.ProfileActivity
+import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowUserBinding
 
 class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
@@ -30,11 +36,31 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
                     Glide.with(itemView.context)
                         .load(result)
                         .into(binding.imvProfilePictureRU)
+                }.addOnFailureListener {
+                    Glide.with(itemView.context)
+                        .load(R.drawable.profile_picture)
+                        .into(binding.imvProfilePictureRU)
                 }
             }
 
-        binding.btnFollowRU.setOnClickListener {
-
+        itemView.setOnClickListener {
+            val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("profileEmail", user.email)
+            editor.apply()
+            itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
+        }
+        binding.btnFollowRU.setOnClickListener{
+            val docFollows = hashMapOf<String, Any>()
+            if(binding.btnFollowRU.text == "Seguir"){
+                docFollows["isFollowing"] = true.toString()
+                db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(user.email).set(docFollows)
+                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
+            }
+            else{
+                docFollows["isFollowing"] = false.toString()
+                db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(user.email).set(docFollows)
+                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
+            }
         }
     }
 }
