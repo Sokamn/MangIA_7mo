@@ -43,6 +43,7 @@
             android:background="@drawable/outline_box"
             android:ems="10"
             android:fontFamily="@font/manjariregular"
+            android:text=""
             android:hint="Describe el paso a paso"
             android:inputType="textMultiLine"
             android:textColor="@color/quaternaryColor"

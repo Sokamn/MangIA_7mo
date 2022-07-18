@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.settlet.mangia.Adapter.IngredientAdapter
-import com.settlet.mangia.Adapter.MyLifecycleObserver
 import com.settlet.mangia.Adapter.StepAdapter
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
@@ -33,7 +32,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
     private var isMultiImages:Boolean = false
     private var finishedListener:Boolean = false
     internal var auxUri:Uri?=null
-    lateinit var observer : MyLifecycleObserver
+    //lateinit var observer : MyLifecycleObserver
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep2Binding.inflate(layoutInflater)
@@ -65,7 +64,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         }
         binding.cstAddStep.setOnClickListener {
             quantSteps++
-            listStepRecipe.add(Step(quantSteps,"",false))
+            listStepRecipe.add(Step(quantSteps,true))
             binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
         }
         binding.imvBackMRS2.setOnClickListener {
@@ -87,7 +86,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
                     intent.putExtra("cantIngredients", listIngredientRecipe.size)
                     for (s in listStepRecipe){
                         countSteps++
-                        intent.putExtra("step$countSteps",s.rDescription)
+                        intent.putExtra("step$countSteps",s.sDescription)
                         //intent.putExtra("mayImage$countSteps",s.optionalImage)
                     }
                     intent.putExtra("cantSteps", listStepRecipe.size)
@@ -114,13 +113,16 @@ class MRecipeStep2Activity : AppCompatActivity() {
                 Toast.makeText(this,"Agregue ingredientes a la receta.",Toast.LENGTH_SHORT).show()
             }
         }
-        observer = MyLifecycleObserver(activityResultRegistry)
-        lifecycle.addObserver(observer)
+        //observer = MyLifecycleObserver(activityResultRegistry)
+        //lifecycle.addObserver(observer)
     }
 
     private fun initRCVSteps(listSteps:MutableList<Step>) {
         binding.rcvStepsMR2.layoutManager = LinearLayoutManager(this)
-        binding.rcvStepsMR2.adapter = StepAdapter(listSteps)
+        val adapter = StepAdapter()
+        binding.rcvStepsMR2.adapter = adapter
+        adapter.submitList(listSteps)
+
     }
 
     private fun initRCVIngredients(listIngredientRecipe:MutableList<Ingredient>) {

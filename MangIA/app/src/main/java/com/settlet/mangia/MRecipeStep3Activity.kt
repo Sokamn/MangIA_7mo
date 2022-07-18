@@ -129,7 +129,9 @@ class MRecipeStep3Activity : AppCompatActivity() {
             listIngredient.add(Ingredient(intent.getStringExtra("ingr$i")!!,intent.getStringExtra("unity$i")!!,0F,intent.getIntExtra("ingr$i",0),null))
         }
         for(i in 1..quantStep){
-            listStep.add(Step(i,intent.getStringExtra("step$i")!!))
+            val s = Step(i,true)
+            s.sDescription = intent.getStringExtra("step$i")!!
+            listStep.add(s)
         }
 
         binding.chbVegan.setOnClickListener {

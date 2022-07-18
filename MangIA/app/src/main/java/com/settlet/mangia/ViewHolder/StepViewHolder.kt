@@ -1,6 +1,10 @@
 package com.settlet.mangia.ViewHolder
 
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.MRecipeStep2Activity
@@ -23,7 +27,8 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
     fun render(step: Step){
         //context.rcvStepsMR2.post(runn)
         //OJOOOOOO POSIBLE ERROR STEP ADAPTER, RECORDAR LO QUE DIJO JUAN PABLO EN LOS ADAPTER; HAY OTrA FORMA DE HACERLOS; ESOS FUNCIONAN DINAMICAMENTE? CREO
-        //binding.txpDescriptionMR.setText(step.rDescription)
+        binding.txpDescriptionMR.setText(step.sDescription)
+
         binding.txvStepNumber.text = "Paso ${step.nStep}"
         binding.imvRemove.setOnClickListener {
             context.listStepRecipe.remove(step)
@@ -44,5 +49,11 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
             binding.txvAddOptionalmage.visibility = View.VISIBLE
             step.optionalImage = null
         }
+
+        binding.txpDescriptionMR.doOnTextChanged { text, start, before, count ->  step.sDescription = binding.txpDescriptionMR.text.toString()
+        Log.d("STEP${step.nStep}",step.sDescription)
+        Log.d("STEPVIEW",step.toString())}
+
+
     }
 }

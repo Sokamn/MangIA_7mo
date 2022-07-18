@@ -2,6 +2,7 @@ package com.settlet.mangia.ViewHolder
 
 import android.view.View
 import android.widget.*
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.Model.Ingredient
@@ -139,6 +140,14 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 }
             }
             ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
+        }
+
+        binding.txpQuantity.doOnTextChanged{ text, start, count, after ->
+            if(binding.txpQuantity.text.toString() != ""){
+                ingredient.cant = binding.txpQuantity.text.toString().trim().toInt()
+            }else{
+                binding.txpQuantity.setText("0")
+            }
         }
 
         ingredient.imgRef!!.downloadUrl.addOnSuccessListener { result ->
