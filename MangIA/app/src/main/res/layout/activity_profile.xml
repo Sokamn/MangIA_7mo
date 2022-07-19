@@ -51,23 +51,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tblTabLayoutP" />
 
-
             <Button
                 android:id="@+id/btnEProfileP"
                 android:layout_width="0dp"
-                android:layout_height="25dp"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/button_profile"
+                android:layout_height="30dp"
+                android:background="@drawable/button_profile_follow"
                 android:fontFamily="@font/manjaribold"
                 android:padding="0dp"
-                android:text="@string/eProfile"
-                android:textAlignment="center"
+                android:text="@string/Following"
                 android:textAllCaps="false"
-                android:textColor="#69A165"
-                android:textSize="10sp"
+                android:textColor="@color/colorButtonFollow"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toTopOf="@+id/txvBioP"
                 app:layout_constraintEnd_toEndOf="@+id/txvFollowsP"
-                app:layout_constraintStart_toStartOf="@+id/txvRecipesP" />
+                app:layout_constraintStart_toStartOf="@+id/txvRecipesP"
+                app:layout_constraintTop_toBottomOf="@+id/txvFollowersP" />
 
             <TextView
                 android:id="@+id/txvBioP"

@@ -3,34 +3,22 @@ package com.settlet.mangia
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.ktx.storage
 import com.settlet.mangia.Adapter.PagerAdapterFF
-import com.settlet.mangia.databinding.ActivityCheckMailBinding
-import com.settlet.mangia.databinding.ActivityLoginBinding
 import com.settlet.mangia.databinding.ActivityProfileBinding
-import kotlinx.android.synthetic.main.activity_edit_profile.*
-import kotlinx.android.synthetic.main.activity_home.view.*
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -124,8 +112,6 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 "Seguir" -> {
                     docFollows["isFollowing"] = true.toString()
-                    val newFollowers = cantFollowersActual + 1
-                    val newFollows = cantFollowsActual + 1
                     db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(profileEmail.toString()).set(docFollows)
                     db.collection("follow").document(profileEmail.toString()).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
                     db.collection("users").document(profileEmail.toString()).update("cantFollowers", FieldValue.increment(1))
@@ -133,11 +119,6 @@ class ProfileActivity : AppCompatActivity() {
                 }
                 "Siguiendo" -> {
                     docFollows["isFollowing"] = false.toString()
-                    Log.d("FOLLOWS", cantFollowsActual.toString())
-                    Log.d("FOLLOWERS", cantFollowsActual.toString())
-
-                    val newFollowers = cantFollowersActual - 1
-                    val newFollows = cantFollowsActual - 1
                     db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(
                         profileEmail.toString()
                     ).delete()
@@ -159,8 +140,12 @@ class ProfileActivity : AppCompatActivity() {
             }
             if (value != null) {
                 if (value.exists()){
+                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
+                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
                     binding.btnEProfileP.text = "Siguiendo"
                 }else{
+                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_follow))
+                    binding.btnEProfileP.setTextColor(getColor(R.color.colorButtonFollow))
                     binding.btnEProfileP.text = "Seguir"
                 }
             }

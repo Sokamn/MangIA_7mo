@@ -3,6 +3,7 @@
         <color name="primaryColor">#ECE9E0</color>
     <color name="transPrimaryColor">#D6CFB9</color>
     <color name="secundaryColor">#41803C</color>
+    <color name="colorButtonFollow">#69A165</color>
     <color name="transSecundaryColor">#AABF9D</color>
     <color name="tertiaryColor">#ACB992</color>
     <color name="quaternaryColor">#5A3921</color>

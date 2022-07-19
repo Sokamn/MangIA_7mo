@@ -7,6 +7,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -31,17 +32,6 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
                 .load(result)
                 .into(binding.imvProfilePictureRU)
         }
-            .addOnFailureListener {
-                defaultPImage.downloadUrl.addOnSuccessListener { result ->
-                    Glide.with(itemView.context)
-                        .load(result)
-                        .into(binding.imvProfilePictureRU)
-                }.addOnFailureListener {
-                    Glide.with(itemView.context)
-                        .load(R.drawable.profile_picture)
-                        .into(binding.imvProfilePictureRU)
-                }
-            }
 
         itemView.setOnClickListener {
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
@@ -53,13 +43,17 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
             val docFollows = hashMapOf<String, Any>()
             if(binding.btnFollowRU.text == "Seguir"){
                 docFollows["isFollowing"] = true.toString()
-                db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(user.email).set(docFollows)
+                db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(user.email).set(docFollows)
                 db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
+                db.collection("users").document(user.email).update("cantFollowers", FieldValue.increment(1))
+                db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(1))
             }
             else{
                 docFollows["isFollowing"] = false.toString()
-                db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(user.email).set(docFollows)
-                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
+                db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(user.email).delete()
+                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
+                db.collection("users").document(user.email).update("cantFollowers", FieldValue.increment(-1))
+                db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(-1))
             }
         }
     }
