@@ -17,7 +17,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.settlet.mangia.Adapter.PagerAdapterFF
+import com.settlet.mangia.Adapter.PagerAdapterP
 import com.settlet.mangia.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
@@ -35,7 +35,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewPager = findViewById(R.id.vwpContentP)
         tabLayout = findViewById(R.id.tblTabLayoutP)
-        viewPager.adapter = PagerAdapterFF(this)
+        viewPager.adapter = PagerAdapterP(this)
         TabLayoutMediator(tabLayout,viewPager){ tab,position->
             tab.text = when(position){
                 0 -> "Recetas"
