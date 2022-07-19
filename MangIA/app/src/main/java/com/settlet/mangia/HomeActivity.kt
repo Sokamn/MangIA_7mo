@@ -24,8 +24,10 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
@@ -117,13 +119,13 @@ class HomeActivity : AppCompatActivity() {
                             .into(nav_view.imvProfileNH)
                     }
                 }
-            db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
-                for (document in documents)
-                {
-                    val uNameFB = document.getString("userName").toString()
-                    val nNameFB = document.getString("nickName").toString()
-                    val followsFB = "${document.getLong("cantFollows")?.toInt()} Seguidos"
-                    val followersFB = "${document.getLong("cantFollowers")?.toInt()} Seguidores"
+            db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
+                val user = document.toObject<User>()
+                if(user!=null){
+                    val uNameFB = user.userName
+                    val nNameFB = user.nickName
+                    val followsFB = "${user.cantFollows} Seguidos"
+                    val followersFB = "${user.cantFollowers} Seguidores"
 
                     val uName = binding.navView.nav_view.getHeaderView(0).findViewById<TextView>(R.id.txvUNameNH)
                     val nName = binding.navView.nav_view.getHeaderView(0).findViewById<TextView>(R.id.txvNNameNH)

@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.DatePickerFragment
@@ -164,16 +165,10 @@ class EditProfileActivity : AppCompatActivity() {
         binding.imbSaveEP.setOnClickListener{
             val user = Firebase.auth.currentUser
             if (user!=null) {
-                db.collection("users").whereEqualTo("email", user.email.toString()).get()
-                    .addOnSuccessListener { documents ->
-                        for (document in documents) {
-                            val userFB = User(0,document.getString("biography").toString(),
-                                0,0,0,0,document.getString("country").toString(),
-                                document.getString("dateBirth").toString(),"",document.getString("email").toString(),
-                                document.getString("nickName").toString(),"","",document.get("region").toString(),
-                                document.getString("userName").toString())
-                            updateProfile(binding.txpUNameEP.text.toString(), userFB)
-                        }
+                db.collection("users").document( user.email.toString()).get()
+                    .addOnSuccessListener { document ->
+                            val userFB = document.toObject<User>()
+                            updateProfile(binding.txpUNameEP.text.toString(), userFB!!)
                     }
             }
         }
@@ -187,33 +182,25 @@ class EditProfileActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         val currentUser = Firebase.auth.currentUser
-        val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
         if (currentUser!=null)
             {
-                db.collection("users").whereEqualTo("email",currentUser.email.toString()).get().addOnSuccessListener{ documents ->
-                    for (document in documents)
-                    {
-                        val uName = document.getString("userName")
-                        val nName = document.getString("nickName")
-                        val bio = document.getString("biography")
-                        val country = document.getString("country")
-                        val region = document.getString("region")
-                        val dBirth = document.getString("dateBirth")
-                        binding.txpUNameEP.setText(uName)
-                        binding.txpNNameEP.setText(nName)
-                        binding.txpBioEP.setText(bio)
-                        binding.txpDBirthEP.setText(dBirth)
-                        binding.txpCountryEP.setText(country)
-                        binding.txpRegionEP.setText(region)
+                db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
+                    val user = document.toObject<User>()
+                    if (user!=null){
+                        binding.txpUNameEP.setText(user.userName)
+                        binding.txpNNameEP.setText(user.nickName)
+                        binding.txpBioEP.setText(user.biography)
+                        binding.txpCountryEP.setText(user.country)
+                        binding.txpRegionEP.setText(user.region)
+                        binding.txpDBirthEP.setText(user.dateBirth)
                         Log.d("TAG", "${document.id} => ${document.data}")
                     }
                 }
-                val pImageRef = storageReference.child("users/" + currentUser.email + "/profile.jpg")
+                val pImageRef = storageReference.child("users/${currentUser.email}/profile.jpg")
                 pImageRef.downloadUrl.addOnSuccessListener { result ->
                     Glide.with(this)
                         .load(result)
                         .into(binding.imvProfileEP)
-
                 }
             }
     }
