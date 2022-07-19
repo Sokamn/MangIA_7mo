@@ -57,7 +57,12 @@ class HomeActivity : AppCompatActivity() {
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
         homeView.bottom_barH.imbScanBB.setOnClickListener {
-            Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
+            val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("profileEmail", "isayleon6@gmail.com")
+            editor.apply()
+            val intent = Intent(this, ProfileActivity::class.java)
+            this.startActivity(intent)
         }
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             val intent = Intent(this, MRecipeStep1Activity::class.java)

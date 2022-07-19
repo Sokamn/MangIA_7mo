@@ -17,7 +17,10 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -76,11 +79,10 @@ class ProfileActivity : AppCompatActivity() {
         val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
         if (profileEmail!=null)
         {
-            if(profileEmail== currentUser!!.email){
+            if(profileEmail == currentUser!!.email){
                 binding.btnEProfileP.text = "Editar Perfil"
             }else{
-                checkFollow()
-
+                checkFollow(profileEmail)
             }
             val pImageRef = storageReference.child("users/$profileEmail/profile.jpg")
             Log.d("PROFI",profileEmail)
@@ -90,7 +92,7 @@ class ProfileActivity : AppCompatActivity() {
                     .into(binding.imvProfileP)
 
             }
-            db.collection("users").whereEqualTo("email",profileEmail).get().addOnSuccessListener{ documents ->
+            /*db.collection("users").whereEqualTo("email",profileEmail).get().addOnSuccessListener{ documents ->
                 for (document in documents)
                 {
                     val uNameFB = document.getString("userName").toString()
@@ -110,6 +112,24 @@ class ProfileActivity : AppCompatActivity() {
 
                     Log.d("TAG", "${document.id} => ${document.data}")
                 }
+            }*/
+            val docRef = db.collection("users").document(profileEmail)
+            docRef.addSnapshotListener { value, error ->
+                if(error!=null){
+                    Log.w("TAG","Listen Failed")
+                    return@addSnapshotListener
+                }
+                if(value!=null && value.exists()) {
+                    val user = value.toObject<com.settlet.mangia.Model.User>()
+                    if (user != null) {
+                        binding.txvUNameP.text = user.userName
+                        binding.txvNNameP.text = user.nickName
+                        binding.txvFollowersP.text = "${user.cantFollowers}\nSeguidores"
+                        binding.txvFollowsP.text = "${user.cantFollows}\nSeguidos"
+                        binding.txvRecipesP.text = "${user.cantRecipes}\nRecetas"
+                        binding.txvBioP.text = user.biography
+                    }
+                }
             }
         }
 
@@ -125,15 +145,18 @@ class ProfileActivity : AppCompatActivity() {
                     }else if(btn=="Seguir"){
                         docFollows["isFollowing"] = true.toString()
                         val newFollowers = followersFB!! + 1
-                        val newFollows = followsFB!! + 1
+                        val newFollows = followsFB!! + 1 //Preguntarle a Juan si usar Firestore estuvo bien o mal
+                        //binding.txvFollowsP.text = (binding.txvFollowsP.text.toString().toInt()+1).toString()
                         db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail!!).set(docFollows)
                         db.collection("follow").document(profileEmail).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
                         db.collection("users").document(profileEmail).update("cantFollowers", newFollowers)
                         db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", newFollows)
+
                     }else if(btn=="Siguiendo"){
                         docFollows["isFollowing"] = false.toString()
                         val newFollowers = followersFB!! - 1
                         val newFollows = followsFB!! - 1
+                        //binding.txvFollowsP.text = (binding.txvFollowsP.text.toString().toInt()-1).toString()
                         db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail!!).delete()
                         db.collection("follow").document(profileEmail).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
                         db.collection("users").document(profileEmail).update("cantFollowers", newFollowers)
@@ -144,6 +167,18 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkFollow() {
+    private fun checkFollow(profileEmail: String) {
+        val a = db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail).get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val document = task.result
+                Log.d("DOC",document.exists().toString())
+                if (document.exists()){
+                    binding.btnEProfileP.text = "Siguiendo"
+                }else{
+                    binding.btnEProfileP.text = "Seguir"
+                }
+            }
+        }
+
     }
 }
