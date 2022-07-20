@@ -39,7 +39,7 @@ class FollowersFragment : Fragment() {
         {
             db.collection("follow").document(profileEmail!!).collection("followers").get().addOnSuccessListener{ documents ->
                 for (document in documents){
-                    userList.add(document.toObject())
+                    userList.add(document.toObject<com.settlet.mangia.Model.User>())
                 }
                 val userAdapter = UserAdapter(userList)
                 binding.rcvUsersFollowers.adapter = userAdapter
@@ -52,9 +52,13 @@ class FollowersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFollowersBinding.inflate(inflater, container, true)
+        _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         return root
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

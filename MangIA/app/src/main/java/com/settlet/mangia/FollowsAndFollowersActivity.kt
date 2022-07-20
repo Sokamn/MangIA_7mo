@@ -20,11 +20,9 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewPager = findViewById(R.id.vwpContentFF)
         tabLayout = findViewById(R.id.tblTabLayoutFF)
-        var extra = intent.extras!!.getString("vPage").toString()
-
+        val extra = intent.extras!!.getString("vPage").toString()
 
         viewPager.adapter = PagerAdapterFF(this)
-        Log.d("EXTRAS", intent.extras!!.getString("vPage").toString())
 
         when (extra) {
             "Follows" -> {

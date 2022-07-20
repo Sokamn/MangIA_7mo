@@ -224,7 +224,6 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                     )
                                     db.collection("recipes").document(userFB.email).collection("recipe${userFB.cantRecipes}").document("recipe").set(docRecipeUI)
                                 }
-
                         }
                     }
             }
