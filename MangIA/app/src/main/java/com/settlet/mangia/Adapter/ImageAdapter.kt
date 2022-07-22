@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
@@ -23,7 +24,7 @@ import java.io.File
 
 class ImageAdapter (private var context: Context, private var imagesList:ArrayList<Image>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     val con = context as MRecipeStep1Activity
-    val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
+    private val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
         override fun createIntent(context: Context, input: List<Uri>): Intent {
             val inputUri = input[0]
             val outputUri = input[1]
@@ -35,12 +36,43 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
             return uCrop.getIntent(context)
         }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri {
-            return UCrop.getOutput(intent!!)!!
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            if(intent!=null)
+            {
+                return UCrop.getOutput(intent)!!
+            }
+            else
+            {
+                return null
+            }
         }
     }
-    val cropImage = con.registerForActivityResult(uCropContract){ uri ->
-        con.imvImageAdded.setImageURI(uri)
+    private val cropImage = con.registerForActivityResult(uCropContract){ uri ->
+        if (uri!=null)
+        {
+            if(con.isMultiImages)
+            {
+                if(con.imageList.contains("doesntexist"))
+                {
+                    con.imageList.remove("doesntexist")
+                }
+                Log.d("LIST", con.imageList.toString())
+                con.imageList.add(uri.toString())
+                Log.d("LIST", con.imageList.toString())
+                con.binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(con.imageList,true))
+            }
+            else{
+                con.binding.imvImageAdded.setImageURI(null)
+                Glide.with(con)
+                    .load(uri)
+                    .centerCrop()
+                    .into(con.binding.imvImageAdded)
+                con.uniqueImage = uri.toString()
+            }
+        }
+        else{
+            Toast.makeText(con.baseContext,"No has terminado de recortar una imagen.", Toast.LENGTH_SHORT).show()
+        }
     }
     class ImageViewHolder (itemView: View):RecyclerView.ViewHolder(itemView) {
         var image:ImageView?=null
@@ -65,7 +97,11 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
         holder.image!!.setOnClickListener {
             val con = holder.image!!.context as MRecipeStep1Activity
             val inputUri = Uri.fromFile(File(currentImage.imagePath!!))
-            val outputUri = File(con.filesDir,"croppedImage.jpg").toUri()
+            while(File(con.filesDir,"croppedImage${con.i}.jpg").exists())
+            {
+                con.i++
+            }
+            val outputUri = File(con.filesDir,"croppedImage${con.i}.jpg").toUri()
             val listUri = listOf<Uri>(inputUri,outputUri)
             cropImage.launch(listUri)
     }

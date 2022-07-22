@@ -28,12 +28,12 @@ import java.io.File
 import java.lang.Exception
 
 class MRecipeStep1Activity : AppCompatActivity() {
-    private lateinit var binding: ActivityMrecipeStep1Binding
-    private var i = 0
+    internal lateinit var binding: ActivityMrecipeStep1Binding
+    internal var i = 0
     private var allPictures: ArrayList<Image>?=null
-    private var isMultiImages: Boolean = false
-    private var uniqueImage:String = ""
-    private var imageList: MutableList<String> = mutableListOf()
+    internal var isMultiImages: Boolean = false
+    internal var uniqueImage:String = ""
+    internal var imageList: MutableList<String> = mutableListOf()
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
         {
@@ -121,7 +121,13 @@ class MRecipeStep1Activity : AppCompatActivity() {
         if(allPictures!!.isEmpty())
         {
             allPictures=getAllImages()
-            binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
+            if(allPictures!=null){
+                binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
+            }else{
+                Toast.makeText(this, "No puedes crear una receta sin imagenes en tu galería.",Toast.LENGTH_SHORT).show()
+                onBackPressed()
+                finish()
+            }
         }
 
         binding.imvCloseMR.setOnClickListener {
@@ -182,7 +188,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
         }
     }
 
-    private fun getAllImages(): ArrayList<Image> {
+    private fun getAllImages(): ArrayList<Image>? {
         val images = ArrayList<Image>()
         val allImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
         val projection = arrayOf(MediaStore.Images.ImageColumns.DATA,MediaStore.Images.Media.DISPLAY_NAME)
@@ -205,14 +211,15 @@ class MRecipeStep1Activity : AppCompatActivity() {
                 .load(images.last().imagePath)
                 .centerCrop()
                 .into(binding.imvImageAdded)
-            uniqueImage = images.last().imagePath!!
+            uniqueImage = Uri.fromFile(File(images.last().imagePath!!)).toString()
+            return images.reversed() as ArrayList<Image>
         }
         else{
             Glide.with(this)
                 .load(R.drawable.profile_picture)
                 .centerCrop()
                 .into(binding.imvImageAdded)
+            return null
         }
-        return images.reversed() as ArrayList<Image>
     }
 }
