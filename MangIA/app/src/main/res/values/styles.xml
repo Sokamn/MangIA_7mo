@@ -10,6 +10,13 @@
 
     </style>
 
+    <style name="roundImageThirdStepMRecipe" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">5dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
 
     <style name="roundImagePosts" parent="">
 

@@ -7,471 +7,491 @@
     tools:context=".MRecipeStep3Activity"
     android:background="@color/primaryColor">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="1200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-
-        <View
-            android:id="@+id/vwProgressComplexity"
-            android:layout_width="0dp"
-            android:layout_height="4dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="30dp"
-            android:background="@drawable/bg_progress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvComplexity" />
-
-        <EditText
-            android:id="@+id/txpPreparationTime"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="10dp"
-            android:digits="1234567890"
-            android:ems="10"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:fontFamily="@font/manjarithin"
-            android:inputType="number"
-            android:paddingBottom="0dp"
-            android:text="0 Minutos"
-            android:textAlignment="center"
-            android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txvPreparationTime"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/spnTimeFormat" />
-
-        <Spinner
-            android:id="@+id/spnTimeFormat"
-            android:layout_width="74dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/bg_spinner_unity"
-            android:padding="0dp"
-            android:scrollbarSize="20dp"
-            android:textAlignment="textStart"
-            app:layout_constraintStart_toEndOf="@+id/txvPreparationTime"
-            app:layout_constraintTop_toTopOf="@+id/txvPreparationTime" />
-
-        <SeekBar
-            android:id="@+id/sldrPreparationTime"
-            android:layout_width="0dp"
-            android:layout_height="39dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:progress="0"
-            android:max="60"
-            android:progressDrawable="@drawable/bg_custom_seekbar"
-            android:thumb="@drawable/ic_clock"
-            android:splitTrack="false"
-            android:paddingBottom="17dp"
-            android:paddingTop="17dp"
-            android:paddingEnd="20dp"
-            android:paddingStart="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvPreparationTime" />
-
-
-
-
-        <TextView
-            android:id="@+id/txvDescDiabetic"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manjarithin"
-            android:text="(Bajo contenido en azucares. Light/diet)"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/txvAbleDiabetic"
-            app:layout_constraintStart_toEndOf="@+id/txvAbleDiabetic"
-            app:layout_constraintTop_toTopOf="@+id/txvAbleDiabetic" />
-
-        <TextView
-            android:id="@+id/txvAbleVegetarian"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Apto Vegetariano"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine2"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txvAbleCeliac"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Apto Celíaco"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine4"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txvAbleDiabetic"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Apto Diabético"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txvPreparationTime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Tiempo de Preparación"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txvRecipeFeatures" />
-
-        <TextView
-            android:id="@+id/txvComplexity"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Complejidad"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sldrPreparationTime" />
-
-        <TextView
-            android:id="@+id/txvDescVegetarian"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjarithin"
-            android:text="(No contiene animales, contiene derivados)"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine2"
-            app:layout_constraintStart_toEndOf="@+id/txvAbleVegetarian"
-            app:layout_constraintTop_toTopOf="@+id/txvAbleVegetarian" />
-
-        <TextView
-            android:id="@+id/txvDescCeliac"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manjarithin"
-            android:text="(Sin TACC, trigo, avena, cebada, centeno)"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/txvAbleCeliac"
-            app:layout_constraintStart_toEndOf="@+id/txvAbleCeliac"
-            app:layout_constraintTop_toTopOf="@+id/txvAbleCeliac" />
-
-        <View
-            android:id="@+id/viewTopLine2"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="50dp"
-            android:background="@color/lineColor"
-            app:layout_constraintTop_toBottomOf="@+id/viewTopLine"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <View
-            android:id="@+id/viewTopLine4"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="50dp"
-            android:background="@color/lineColor"
-            app:layout_constraintTop_toBottomOf="@+id/viewTopLine2"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <View
-            android:id="@+id/viewTopLine5"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="50dp"
-            android:background="@color/lineColor"
-            app:layout_constraintTop_toBottomOf="@+id/viewTopLine4"
-            tools:layout_editor_absoluteX="0dp" />
-
-        <CheckBox
-            android:id="@+id/chbVegetarian"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txvDescVegetarian"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txvDescVegetarian" />
-
-        <CheckBox
-            android:id="@+id/chbCeliac"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txvDescCeliac"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txvDescCeliac" />
-
-        <CheckBox
-            android:id="@+id/chbDiabetic"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txvDescDiabetic"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txvDescDiabetic" />
-
-        <View
-            android:id="@+id/viewTopLine"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginTop="50dp"
-            android:background="@color/lineColor"
-            app:layout_constraintTop_toBottomOf="@+id/txvFilter" />
-
-
-        <TextView
-            android:id="@+id/txvAbleVegan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Apto Vegano"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/txvDescVegan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:fontFamily="@font/manjarithin"
-            android:text="(No contiene animales ni derivados)"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
-            app:layout_constraintStart_toEndOf="@+id/txvAbleVegan"
-            app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
-
-        <TextView
-            android:id="@+id/txvFilter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="@string/Filters"
-            android:textColor="@color/secundaryColor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/txvRecipeFeatures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Características de la Receta"
-            android:textColor="@color/secundaryColor"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/viewTopLine5" />
-
-        <CheckBox
-            android:id="@+id/chbVegan"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="@+id/txvAbleVegan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
-
-        <ImageView
-            android:id="@+id/imvComplex0"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
-
-        <ImageView
-            android:id="@+id/imvComplex4"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/ic_remove"
-            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
-
-        <ImageView
-            android:id="@+id/imvComplex2"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_remove"
-            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
-
-        <ImageView
-            android:id="@+id/imvComplex3"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_remove"
-            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imvComplex4"
-            app:layout_constraintStart_toEndOf="@+id/imvComplex2"
-            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
-
-        <ImageView
-            android:id="@+id/imvComplex1"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_remove"
-            app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
-            app:layout_constraintEnd_toStartOf="@+id/imvComplex2"
-            app:layout_constraintStart_toEndOf="@+id/imvComplex0"
-            app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AppBarMRS2">
 
-        <EditText
-            android:id="@+id/txpDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/quaternaryColor"
-            android:ems="10"
-            android:fontFamily="@font/manjariregular"
-            android:hint="Descripcion"
-            android:inputType="textMultiLine"
-            android:padding="0dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textColor="@color/quaternaryColor"
-            android:textColorHint="@color/transQuaternaryColor"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txvDescription"
-            app:layout_constraintTop_toBottomOf="@+id/txpTitle" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="1200dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
-        <EditText
-            android:id="@+id/txpTitle"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="10dp"
-            android:backgroundTint="@color/quaternaryColor"
-            android:ems="10"
-            android:fontFamily="@font/manjariregular"
-            android:hint="Titulo"
-            android:inputType="textPersonName"
-            android:maxLength="40"
-            android:padding="0dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:textColor="@color/quaternaryColor"
-            android:textColorHint="@color/transQuaternaryColor"
-            android:textSize="15sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/txvTitle"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Título:"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/txpTitle"
-            app:layout_constraintStart_toEndOf="@+id/imvRecipePhotoMR3"
-            app:layout_constraintTop_toTopOf="@+id/txpTitle" />
+                <View
+                    android:id="@+id/vwProgressComplexity"
+                    android:layout_width="0dp"
+                    android:layout_height="4dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/bg_progress"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvComplexity" />
 
-        <TextView
-            android:id="@+id/txvDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="Descripción:"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/txpDescription"
-            app:layout_constraintStart_toEndOf="@+id/imvRecipePhotoMR3"
-            app:layout_constraintTop_toTopOf="@+id/txpDescription" />
+                <EditText
+                    android:id="@+id/txpPreparationTime"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="10dp"
+                    android:digits="1234567890"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:fontFamily="@font/manjarithin"
+                    android:inputType="number"
+                    android:paddingBottom="0dp"
+                    android:text="0 Minutos"
+                    android:textAlignment="center"
+                    android:textSize="14dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvPreparationTime"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/spnTimeFormat" />
 
-        <ImageView
-            android:id="@+id/imvRecipePhotoMR3"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="10dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/profile_picture" />
+                <Spinner
+                    android:id="@+id/spnTimeFormat"
+                    android:layout_width="74dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/bg_spinner_unity"
+                    android:padding="0dp"
+                    android:scrollbarSize="20dp"
+                    android:textAlignment="textStart"
+                    app:layout_constraintStart_toEndOf="@+id/txvPreparationTime"
+                    app:layout_constraintTop_toTopOf="@+id/txvPreparationTime" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <SeekBar
+                    android:id="@+id/sldrPreparationTime"
+                    android:layout_width="0dp"
+                    android:layout_height="39dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:max="60"
+                    android:paddingStart="20dp"
+                    android:paddingTop="17dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="17dp"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/bg_custom_seekbar"
+                    android:splitTrack="false"
+                    android:thumb="@drawable/ic_clock"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvPreparationTime" />
+
+
+                <TextView
+                    android:id="@+id/txvDescDiabetic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="(Bajo contenido en azucares. Light/diet)"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvAbleDiabetic"
+                    app:layout_constraintStart_toEndOf="@+id/txvAbleDiabetic"
+                    app:layout_constraintTop_toTopOf="@+id/txvAbleDiabetic" />
+
+                <TextView
+                    android:id="@+id/txvAbleVegetarian"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Apto Vegetariano"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine2"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvAbleCeliac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Apto Celíaco"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine4"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvAbleDiabetic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Apto Diabético"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvPreparationTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Tiempo de Preparación"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txvRecipeFeatures" />
+
+                <TextView
+                    android:id="@+id/txvComplexity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Complejidad"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/sldrPreparationTime" />
+
+                <TextView
+                    android:id="@+id/txvDescVegetarian"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="(No contiene animales, contiene derivados)"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine2"
+                    app:layout_constraintStart_toEndOf="@+id/txvAbleVegetarian"
+                    app:layout_constraintTop_toTopOf="@+id/txvAbleVegetarian" />
+
+                <TextView
+                    android:id="@+id/txvDescCeliac"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="(Sin TACC, trigo, avena, cebada, centeno)"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvAbleCeliac"
+                    app:layout_constraintStart_toEndOf="@+id/txvAbleCeliac"
+                    app:layout_constraintTop_toTopOf="@+id/txvAbleCeliac" />
+
+                <View
+                    android:id="@+id/viewTopLine2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTopLine"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <View
+                    android:id="@+id/viewTopLine4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTopLine2"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <View
+                    android:id="@+id/viewTopLine5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTopLine4"
+                    tools:layout_editor_absoluteX="0dp" />
+
+                <CheckBox
+                    android:id="@+id/chbVegetarian"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvDescVegetarian"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txvDescVegetarian" />
+
+                <CheckBox
+                    android:id="@+id/chbCeliac"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvDescCeliac"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txvDescCeliac" />
+
+                <CheckBox
+                    android:id="@+id/chbDiabetic"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvDescDiabetic"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txvDescDiabetic" />
+
+                <View
+                    android:id="@+id/viewTopLine"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginTop="50dp"
+                    android:background="@color/lineColor"
+                    app:layout_constraintTop_toBottomOf="@+id/txvFilter" />
+
+
+                <TextView
+                    android:id="@+id/txvAbleVegan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Apto Vegano"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvDescVegan"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/manjarithin"
+                    android:text="(No contiene animales ni derivados)"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
+                    app:layout_constraintStart_toEndOf="@+id/txvAbleVegan"
+                    app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
+
+                <TextView
+                    android:id="@+id/txvFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="@string/Filters"
+                    android:textColor="@color/secundaryColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txvRecipeFeatures"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Características de la Receta"
+                    android:textColor="@color/secundaryColor"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewTopLine5" />
+
+                <CheckBox
+                    android:id="@+id/chbVegan"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txvAbleVegan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
+
+                <ImageView
+                    android:id="@+id/imvComplex0"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/ic_add"
+                    app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+                <ImageView
+                    android:id="@+id/imvComplex4"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+                <ImageView
+                    android:id="@+id/imvComplex2"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+                <ImageView
+                    android:id="@+id/imvComplex3"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imvComplex4"
+                    app:layout_constraintStart_toEndOf="@+id/imvComplex2"
+                    app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+                <ImageView
+                    android:id="@+id/imvComplex1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_remove"
+                    app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
+                    app:layout_constraintEnd_toStartOf="@+id/imvComplex2"
+                    app:layout_constraintStart_toEndOf="@+id/imvComplex0"
+                    app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <EditText
+                    android:id="@+id/txpDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:backgroundTint="@color/quaternaryColor"
+                    android:ems="10"
+                    android:fontFamily="@font/manjariregular"
+                    android:hint="Descripcion"
+                    android:inputType="textMultiLine"
+                    android:padding="0dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/quaternaryColor"
+                    android:textColorHint="@color/transQuaternaryColor"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txvDescription"
+                    app:layout_constraintTop_toTopOf="@+id/txvDescription" />
+
+                <EditText
+                    android:id="@+id/txpTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@color/quaternaryColor"
+                    android:ems="10"
+                    android:fontFamily="@font/manjariregular"
+                    android:hint="Titulo"
+                    android:inputType="textPersonName"
+                    android:maxLength="40"
+                    android:padding="0dp"
+                    android:paddingStart="5dp"
+                    android:paddingEnd="5dp"
+                    android:textColor="@color/quaternaryColor"
+                    android:textColorHint="@color/transQuaternaryColor"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/txvTitle"
+                    app:layout_constraintTop_toTopOf="@+id/txvTitle" />
+
+                <TextView
+                    android:id="@+id/txvTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="-10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Título:"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/imvRecipePhotoMR3"
+                    app:layout_constraintTop_toTopOf="@+id/imvRecipePhotoMR3" />
+
+                <TextView
+                    android:id="@+id/txvDescription"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="-10dp"
+                    android:fontFamily="@font/manjaribold"
+                    android:text="Descripción:"
+                    android:textColor="@color/quaternaryColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/imvRecipePhotoMR3"
+                    app:layout_constraintStart_toEndOf="@+id/imvRecipePhotoMR3" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imvRecipePhotoMR3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:adjustViewBounds="true"
+                    android:elevation="10dp"
+                    android:padding="0dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:shapeAppearanceOverlay="@style/roundImageThirdStepMRecipe"
+                    app:srcCompat="@drawable/profile_picture" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/AppBarMRS2"
