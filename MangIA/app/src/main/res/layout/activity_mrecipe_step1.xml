@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         tools:listitem="@layout/row_gallery_recycler"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,7 +116,7 @@
 
         <ImageView
             android:id="@+id/imvGalleryMR"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -126,7 +127,7 @@
 
         <ImageView
             android:id="@+id/imvCameraMR"
-            android:layout_width="150dp"
+            android:layout_width="0dp"
             android:layout_height="50dp"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"

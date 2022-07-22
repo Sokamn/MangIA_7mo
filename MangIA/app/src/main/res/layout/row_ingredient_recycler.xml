@@ -39,7 +39,8 @@
         android:textAlignment="textStart"
         app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
         app:layout_constraintEnd_toStartOf="@+id/imbAddQuantity" />
-    <ImageView
+
+    <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/imvIngredient"
         android:layout_width="40dp"
         android:layout_height="40dp"
