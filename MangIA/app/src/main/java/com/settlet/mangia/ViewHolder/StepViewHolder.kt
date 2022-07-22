@@ -25,9 +25,7 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val imvCloseImage = binding.imvRemoveImageRSMR
 
     fun render(step: Step){
-        //context.rcvStepsMR2.post(runn)
-        //OJOOOOOO POSIBLE ERROR STEP ADAPTER, RECORDAR LO QUE DIJO JUAN PABLO EN LOS ADAPTER; HAY OTrA FORMA DE HACERLOS; ESOS FUNCIONAN DINAMICAMENTE? CREO
-        binding.txpDescriptionMR.setText(step.sDescription)
+       binding.txpDescriptionMR.setText(step.sDescription)
 
         binding.txvStepNumber.text = "Paso ${step.nStep}"
         binding.imvRemove.setOnClickListener {
@@ -50,10 +48,11 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
             step.optionalImage = null
         }
 
-        binding.txpDescriptionMR.doOnTextChanged { text, start, before, count ->  step.sDescription = binding.txpDescriptionMR.text.toString()
-        Log.d("STEP${step.nStep}",step.sDescription)
-        Log.d("STEPVIEW",step.toString())}
-
-
+        binding.txpDescriptionMR.doOnTextChanged { text, start, before, count ->
+            step.sDescription = binding.txpDescriptionMR.text.toString()
+            context.rcvStepsMR2.adapter!!.notifyDataSetChanged()
+            Log.d("STEP${step.nStep}",step.sDescription)
+            Log.d("STEPVIEW",step.toString())
+        }
     }
 }

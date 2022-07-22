@@ -23,12 +23,6 @@ import java.io.File
 
 class ImageAdapter (private var context: Context, private var imagesList:ArrayList<Image>) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
     val con = context as MRecipeStep1Activity
-    val getContent = con.registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
-        val inputUri = uri
-        val outputUri = File(con.filesDir,"croppedImage.jpg").toUri()
-        val listUri = listOf<Uri>(inputUri,outputUri)
-        cropImage.launch(listUri)
-    }
     val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
         override fun createIntent(context: Context, input: List<Uri>): Intent {
             val inputUri = input[0]
@@ -70,8 +64,10 @@ class ImageAdapter (private var context: Context, private var imagesList:ArrayLi
 
         holder.image!!.setOnClickListener {
             val con = holder.image!!.context as MRecipeStep1Activity
-            val a: File = File(currentImage.imagePath!!)
-            getContent.launch("image/*")// GETCONTENT LAUNCH NO FUNCIONA, PERO EL MOTODO DE TENER LAS VAL ARRIBA, LO TENGO QUE APLICAR EN STEP VIEW HOLDER, ASÍ NO USAR OTROS METODOS.
+            val inputUri = Uri.fromFile(File(currentImage.imagePath!!))
+            val outputUri = File(con.filesDir,"croppedImage.jpg").toUri()
+            val listUri = listOf<Uri>(inputUri,outputUri)
+            cropImage.launch(listUri)
     }
 }
     override fun getItemCount(): Int =imagesList.size
