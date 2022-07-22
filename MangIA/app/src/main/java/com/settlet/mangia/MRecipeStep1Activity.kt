@@ -1,31 +1,38 @@
 package com.settlet.mangia
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.ImageAdapter
 import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Model.Image
 import com.settlet.mangia.databinding.ActivityMrecipeStep1Binding
 import com.yalantis.ucrop.UCrop
+import java.io.ByteArrayOutputStream
 import java.io.File
-import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MRecipeStep1Activity : AppCompatActivity() {
     internal lateinit var binding: ActivityMrecipeStep1Binding
@@ -34,6 +41,21 @@ class MRecipeStep1Activity : AppCompatActivity() {
     internal var isMultiImages: Boolean = false
     internal var uniqueImage:String = ""
     internal var imageList: MutableList<String> = mutableListOf()
+    private lateinit var photoFile: File
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK){
+            val intent = it.data
+            val imgBitmap = intent?.extras?.get("data")
+            val inputUri = photoFile.toUri()
+            while(File(filesDir,"croppedImage${i}.jpg").exists())
+            {
+                i++
+            }
+            val outputUri = File(filesDir,"croppedImage${i}.jpg").toUri()
+            val listUri = listOf<Uri>(inputUri,outputUri)
+            cropImage.launch(listUri)
+        }
+    }
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
         {
@@ -104,6 +126,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        photoFile = getPhotoFile(FILE_NAME)
         allPictures = ArrayList()
         binding.rcvGaleryMR.layoutManager = GridLayoutManager(this, 3)
         binding.rcvGaleryMR.setHasFixedSize(true)
@@ -133,6 +156,9 @@ class MRecipeStep1Activity : AppCompatActivity() {
         binding.imvCloseMR.setOnClickListener {
             onBackPressed()
             finish()
+        }
+        binding.imvCameraMR.setOnClickListener {
+            takePicture()
         }
 
         binding.imvNextStepMR.setOnClickListener {
@@ -188,6 +214,27 @@ class MRecipeStep1Activity : AppCompatActivity() {
         }
     }
 
+    private fun takePicture() {
+        val intentCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        photoFile = createPhotoFile()
+        val fileProvider = FileProvider.getUriForFile(this, "com.settlet.mangia.fileprovider",photoFile)
+        intentCamera.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
+        startForResult.launch(intentCamera)
+    }
+
+    private fun createPhotoFile(): File {
+        val timeStamp:String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir:File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}",".jpg",storageDir.apply {
+
+        })
+    }
+
+    private fun getPhotoFile(fileName: String): File {
+        val storageDirectory = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile(fileName,".jpg", storageDirectory)
+    }
+
     private fun getAllImages(): ArrayList<Image>? {
         val images = ArrayList<Image>()
         val allImageUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI
@@ -221,5 +268,16 @@ class MRecipeStep1Activity : AppCompatActivity() {
                 .into(binding.imvImageAdded)
             return null
         }
+    }
+    private fun getImageUri(inContext: Context, inImage: Bitmap): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path =
+            MediaStore.Images.Media.insertImage(inContext.contentResolver, inImage, "Title", null)
+        return Uri.parse(path)
+    }
+
+    companion object {
+        private const val FILE_NAME = "photo.jpg"
     }
 }
