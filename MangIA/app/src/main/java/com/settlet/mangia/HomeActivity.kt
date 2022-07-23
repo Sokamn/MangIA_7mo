@@ -44,7 +44,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = getColor(R.color.quaternaryColor)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
 
         binding = ActivityHomeBinding.inflate(layoutInflater)

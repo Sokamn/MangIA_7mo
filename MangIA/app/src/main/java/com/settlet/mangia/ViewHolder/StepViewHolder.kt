@@ -1,16 +1,16 @@
 package com.settlet.mangia.ViewHolder
 
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.settlet.mangia.MRecipeStep2Activity
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.databinding.RowStepMrBinding
 import kotlinx.android.synthetic.main.activity_mrecipe_step2.*
+
 
 class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val binding = RowStepMrBinding.bind(view)
@@ -48,11 +48,15 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
             step.optionalImage = null
         }
 
-        binding.txpDescriptionMR.doOnTextChanged { text, start, before, count ->
-            step.sDescription = binding.txpDescriptionMR.text.toString()
-            context.rcvStepsMR2.adapter!!.notifyDataSetChanged()
-            Log.d("STEP${step.nStep}",step.sDescription)
-            Log.d("STEPVIEW",step.toString())
+        binding.imbApplyChanges.setOnClickListener {
+            if(step.sDescription == binding.txpDescriptionMR.text.toString()){
+                Toast.makeText(context.baseContext,"No hay cambios en el paso ${step.nStep}",Toast.LENGTH_SHORT).show()
+            }else{
+                step.sDescription = binding.txpDescriptionMR.text.toString()
+                context.rcvStepsMR2.adapter!!.notifyDataSetChanged()
+                binding.imvAlert.visibility = View.GONE
+                Toast.makeText(context.baseContext,"Cambios aplicados en el paso ${step.nStep}",Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

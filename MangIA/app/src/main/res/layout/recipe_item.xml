@@ -5,34 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imvProfilePictureRI"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/userImageProfile"
+            app:srcCompat="@drawable/profile_picture" />
+
+        <TextView
+            android:id="@+id/txvUserNameRI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/manjaribold"
+            android:text="\@Cesar_Ok"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI"
+            app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI" />
+
+        <TextView
+            android:id="@+id/txvUserCountryRI"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manjarithin"
+            android:text="Mexico"
+            android:textColor="@color/transQuaternaryColor"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureRI"
+            app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI" />
+
+        <ImageView
+            android:id="@+id/imvOptions"
+            android:layout_width="40dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureRI"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI"
+            tools:srcCompat="@tools:sample/avatars" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/cstTopBar">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imvUniquePost"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:adjustViewBounds="true"
+            android:elevation="15dp"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundImagePosts"
+            tools:srcCompat="@drawable/profile_picture" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <ImageView
         android:id="@+id/imvStar3"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvStar2"
         app:layout_constraintStart_toEndOf="@+id/imvStar2"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvStar2"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/imvStar4"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvStar3"
         app:layout_constraintStart_toEndOf="@+id/imvStar3"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvStar3"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/imvStar5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvStar4"
         app:layout_constraintStart_toEndOf="@+id/imvStar4"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvStar4"
         tools:srcCompat="@tools:sample/avatars" />
 
     <com.borjabravo.readmoretextview.ReadMoreTextView
@@ -50,94 +133,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imvStarOne" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/crdvwCarrusel"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible"
-        app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imvUniquePost"
-        app:layout_constraintEnd_toEndOf="@+id/imvUniquePost"
-        app:layout_constraintStart_toStartOf="@+id/imvUniquePost"
-        app:layout_constraintTop_toBottomOf="@+id/txvUserCountryRI">
-
-        <com.smarteist.autoimageslider.SliderView
-            android:id="@+id/imgsldrCarruselRI"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:sliderAnimationDuration="600"
-            app:sliderAutoCycleDirection="back_and_forth"
-            app:sliderAutoCycleEnabled="false"
-            app:sliderIndicatorAnimationDuration="600"
-            app:sliderIndicatorGravity="center_horizontal|bottom"
-            app:sliderIndicatorMargin="15dp"
-            app:sliderIndicatorOrientation="horizontal"
-            app:sliderIndicatorPadding="3dp"
-            app:sliderIndicatorRadius="2dp"
-            app:sliderIndicatorSelectedColor="#5A5A5A"
-            app:sliderIndicatorUnselectedColor="#FFF"
-            app:sliderScrollTimeInSec="1"
-            app:sliderStartAutoCycle="false" />
-
-    </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imvProfilePictureRI"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/userImageProfile"
-        app:srcCompat="@drawable/profile_picture" />
-
-    <TextView
-        android:id="@+id/txvUserNameRI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/manjaribold"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:text="\@Cesar_Ok"
-        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI"
-        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI" />
-
-    <TextView
-        android:id="@+id/txvUserCountryRI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/manjarithin"
-        android:textColor="@color/transQuaternaryColor"
-        android:textSize="15sp"
-        android:text="Mexico"
-        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureRI"
-        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI" />
 
     <ImageView
         android:id="@+id/imvStarOne"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toBottomOf="@+id/cstPost"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/imvStar2"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvStarOne"
         app:layout_constraintStart_toEndOf="@+id/imvStarOne"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvStarOne"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
@@ -170,61 +184,32 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/crdvwCarrusel"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cstPost"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/imvOptions"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="-30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/crdvwCarrusel"
-        app:layout_constraintEnd_toEndOf="@+id/crdvwCarrusel"
-        app:layout_constraintStart_toEndOf="@+id/crdvwCarrusel"
-        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/imvComment"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/crdvwCarrusel"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvSave"
         app:layout_constraintEnd_toStartOf="@+id/imvSave"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvSave"
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
         android:id="@+id/imvShare"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/crdvwCarrusel"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvComment"
         app:layout_constraintEnd_toStartOf="@+id/imvComment"
-        app:layout_constraintTop_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvComment"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/imvUniquePost"
-        android:elevation="15dp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:adjustViewBounds="true"
-        android:padding="0dp"
-        android:scaleType="centerCrop"
-        app:shapeAppearanceOverlay="@style/roundImagePosts"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvProfilePictureRI"
-        tools:srcCompat="@drawable/profile_picture" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

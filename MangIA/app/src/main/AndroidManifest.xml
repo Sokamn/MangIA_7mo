@@ -5,7 +5,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true"/>
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -14,30 +17,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
-
+        <activity
+            android:name=".RecipeActivity"
+            android:exported="false" />
         <activity
             android:name=".FollowsAndFollowersActivity"
-            android:parentActivityName=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ProfileActivity" />
         <activity
             android:name=".MRecipeStep3Activity"
-            android:parentActivityName=".MRecipeStep2Activity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MRecipeStep2Activity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MRecipeStep2Activity"
-            android:parentActivityName=".MRecipeStep1Activity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MRecipeStep1Activity" />
         <activity
             android:name=".MRecipeStep1Activity"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
-            android:parentActivityName=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
@@ -45,23 +50,23 @@
             android:theme="@style/Theme.MangIA.NoActionBar" />
         <activity
             android:name=".EditProfileActivity"
-            android:parentActivityName=".ProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ProfileActivity" />
         <activity
             android:name=".FPassActivity"
-            android:parentActivityName=".LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".CheckMailActivity"
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneActivity"
-            android:parentActivityName=".LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName=".LoginActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -71,14 +76,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:authorities="com.settlet.mangia.fileprovider"
             android:name="androidx.core.content.FileProvider"
+            android:authorities="com.settlet.mangia.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/fileprovider"/>
+                android:resource="@xml/fileprovider" />
         </provider>
     </application>
 

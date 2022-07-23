@@ -64,7 +64,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         }
         binding.cstAddStep.setOnClickListener {
             quantSteps++
-            listStepRecipe.add(Step(quantSteps,true))
+            listStepRecipe.add(Step(quantSteps,false))
             binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
         }
         binding.imvBackMRS2.setOnClickListener {
@@ -74,36 +74,48 @@ class MRecipeStep2Activity : AppCompatActivity() {
             val intent = Intent(this,MRecipeStep3Activity::class.java)
             var countIngr = 0
             var countSteps = 0
+            var nullCount = 0
+            var stepsNotApplied = mutableListOf<Int>()
             if(listIngredientRecipe.isNotEmpty()){
                 if (listStepRecipe.isNotEmpty()){
-                    for (i in listIngredientRecipe){
-                        countIngr++
-                        intent.putExtra("ingr$countIngr",i.nombre)
-                        intent.putExtra("cantIngr$countIngr", i.cant)
-                        intent.putExtra("unity$countIngr", i.unidad)
-                    }
-                    intent.putExtra("cantIngredients", listIngredientRecipe.size)
-                    for (s in listStepRecipe){
-                        countSteps++
-                        intent.putExtra("step$countSteps",s.sDescription)
-                        //intent.putExtra("mayImage$countSteps",s.optionalImage)
-                    }
-                    intent.putExtra("cantSteps", listStepRecipe.size)
-
-                    isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
-                    Log.d("MULTIMAGE", isMultiImages.toString())
-                    if(isMultiImages){
-                        var cantImages = getIntent().getIntExtra("cant",0)
-                        for (i in 1..cantImages){
-
-                            intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
+                    listStepRecipe.forEach {
+                        if(it.sDescription==""){
+                            nullCount++
+                            stepsNotApplied.add(it.nStep)
                         }
-                        intent.putExtra("cant",cantImages)
-                    }else{
-                        intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
                     }
-                    intent.putExtra("isMultiImages",isMultiImages)
-                    startActivity(intent)
+                    if (nullCount>0){
+                        Toast.makeText(this,"No se han realizado cambios en los siguientes pasos: $stepsNotApplied",Toast.LENGTH_LONG).show()
+                    }else{
+                        for (i in listIngredientRecipe){
+                            countIngr++
+                            intent.putExtra("ingr$countIngr",i.nombre)
+                            intent.putExtra("cantIngr$countIngr", i.cant)
+                            intent.putExtra("unity$countIngr", i.unidad)
+                        }
+                        intent.putExtra("cantIngredients", listIngredientRecipe.size)
+                        for (s in listStepRecipe){
+                            countSteps++
+                            intent.putExtra("step$countSteps",s.sDescription)
+                            //intent.putExtra("mayImage$countSteps",s.optionalImage)
+                        }
+                        intent.putExtra("cantSteps", listStepRecipe.size)
+
+                        isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
+                        Log.d("MULTIMAGE", isMultiImages.toString())
+                        if(isMultiImages){
+                            var cantImages = getIntent().getIntExtra("cant",0)
+                            for (i in 1..cantImages){
+
+                                intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
+                            }
+                            intent.putExtra("cant",cantImages)
+                        }else{
+                            intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
+                        }
+                        intent.putExtra("isMultiImages",isMultiImages)
+                        startActivity(intent)
+                    }
                 }
                 else{
                     Toast.makeText(this,"Agregue pasos a la receta.",Toast.LENGTH_SHORT).show()
