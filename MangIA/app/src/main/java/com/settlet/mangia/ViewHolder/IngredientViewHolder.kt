@@ -1,8 +1,9 @@
 package com.settlet.mangia.ViewHolder
 
+import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.*
-import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.settlet.mangia.Model.Ingredient
@@ -113,6 +114,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 else-> binding.txpQuantity.setText((binding.txpQuantity.text.trim().toString().toInt()+1).toString())
             }
             ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
+            Log.d("INGRADDQUANT","${ingredient.nombre} : ${ingredient.cant}")
         }
         binding.imbRemoveQuantity.setOnClickListener {
             if(binding.txpQuantity.text.toString() == "0")
@@ -140,14 +142,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
                 }
             }
             ingredient.cant = binding.txpQuantity.text.trim().toString().toInt()
-        }
-
-        binding.txpQuantity.doOnTextChanged{ text, start, count, after ->
-            if(binding.txpQuantity.text.toString() != ""){
-                ingredient.cant = binding.txpQuantity.text.toString().trim().toInt()
-            }else{
-                binding.txpQuantity.setText("0")
-            }
+            Log.d("INGRREMOVEQUANT","${ingredient.nombre} : ${ingredient.cant}")
         }
 
         ingredient.imgRef!!.downloadUrl.addOnSuccessListener { result ->
@@ -159,6 +154,21 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             Glide.with(binding.imvIngredient.context)
                 .load(R.drawable.ic_load_ingredient)
                 .into(binding.imvIngredient)
+        }
+        binding.txpQuantity.setOnEditorActionListener { v, actionId, event -> // Preguntarle a Juan si existe un IME_ACTION para cuando esconde el teclado
+            val quantity = binding.txpQuantity.text.trim().toString()
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                if(quantity == ""){
+                    ingredient.cant = 0
+                    binding.txpQuantity.setText("0")
+                }else{
+                    ingredient.cant = quantity.toInt()
+                    Log.d("INGRACTIONDONE","${ingredient.nombre} : ${ingredient.cant}")
+                }
+                true
+            } else {
+                false
+            }
         }
 
     }

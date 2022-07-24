@@ -3,28 +3,19 @@ package com.settlet.mangia
 import android.R
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
 import com.settlet.mangia.Adapter.IngredientAdapter
-import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Adapter.StepAdapter
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.Provider.IngredientProvider
 import com.settlet.mangia.databinding.ActivityMrecipeStep2Binding
-import com.yalantis.ucrop.UCrop
-import java.io.File
 
 class MRecipeStep2Activity : AppCompatActivity() {
     internal val listIngredientRecipe = mutableListOf<Ingredient>()
@@ -73,47 +64,59 @@ class MRecipeStep2Activity : AppCompatActivity() {
             val intent = Intent(this,MRecipeStep3Activity::class.java)
             var countIngr = 0
             var countSteps = 0
-            var nullCount = 0
+            var nullCountS = 0
+            var nullCountI = 0
             var stepsNotApplied = mutableListOf<Int>()
+            var emptyIngredients = mutableListOf<String>()
             if(listIngredientRecipe.isNotEmpty()){
                 if (listStepRecipe.isNotEmpty()){
                     listStepRecipe.forEach {
                         if(it.sDescription==""){
-                            nullCount++
+                            nullCountS++
                             stepsNotApplied.add(it.nStep)
                         }
                     }
-                    if (nullCount>0){
+                    if (nullCountS>0){
                         Toast.makeText(this,"No se han realizado cambios en los siguientes pasos: $stepsNotApplied",Toast.LENGTH_LONG).show()
                     }else{
-                        for (i in listIngredientRecipe){
-                            countIngr++
-                            intent.putExtra("ingr$countIngr",i.nombre)
-                            intent.putExtra("cantIngr$countIngr", i.cant)
-                            intent.putExtra("unity$countIngr", i.unidad)
-                        }
-                        intent.putExtra("cantIngredients", listIngredientRecipe.size)
-                        for (s in listStepRecipe){
-                            countSteps++
-                            intent.putExtra("step$countSteps",s.sDescription)
-                            //intent.putExtra("mayImage$countSteps",s.optionalImage)
-                        }
-                        intent.putExtra("cantSteps", listStepRecipe.size)
-
-                        isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
-                        Log.d("MULTIMAGE", isMultiImages.toString())
-                        if(isMultiImages){
-                            var cantImages = getIntent().getIntExtra("cant",0)
-                            for (i in 1..cantImages){
-
-                                intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
+                        listIngredientRecipe.forEach {
+                            if(it.cant == 0){
+                                nullCountI++
+                                emptyIngredients.add(it.nombre)
                             }
-                            intent.putExtra("cant",cantImages)
-                        }else{
-                            intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
                         }
-                        intent.putExtra("isMultiImages",isMultiImages)
-                        startActivity(intent)
+                        if (nullCountI>0){
+                            Toast.makeText(this,"No hay cantidad asignada en los siguientes ingredientes: $emptyIngredients",Toast.LENGTH_LONG).show()
+                        }else{
+                            for (i in listIngredientRecipe){
+                                countIngr++
+                                intent.putExtra("ingr$countIngr",i.nombre)
+                                intent.putExtra("cantIngr$countIngr", i.cant)
+                                intent.putExtra("unity$countIngr", i.unidad)
+                            }
+                            intent.putExtra("cantIngredients", listIngredientRecipe.size)
+                            for (s in listStepRecipe){
+                                countSteps++
+                                intent.putExtra("step$countSteps",s.sDescription)
+                                intent.putExtra("mayImage$countSteps",s.optionalImage)
+                            }
+                            intent.putExtra("cantSteps", listStepRecipe.size)
+
+                            isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
+                            Log.d("MULTIMAGE", isMultiImages.toString())
+                            if(isMultiImages){
+                                var cantImages = getIntent().getIntExtra("cant",0)
+                                for (i in 1..cantImages){
+
+                                    intent.putExtra("image$i",getIntent().getStringExtra("image$i"))
+                                }
+                                intent.putExtra("cant",cantImages)
+                            }else{
+                                intent.putExtra("uniqueImage",getIntent().getStringExtra("uniqueImage")!!)
+                            }
+                            intent.putExtra("isMultiImages",isMultiImages)
+                            startActivity(intent)
+                        }
                     }
                 }
                 else{

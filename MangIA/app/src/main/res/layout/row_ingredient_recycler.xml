@@ -98,6 +98,9 @@
         android:text="0"
         android:textAlignment="center"
         android:textSize="14dp"
+        android:singleLine="true"
+        android:imeOptions="actionDone"
+
         app:layout_constraintBottom_toBottomOf="@+id/imbAddQuantity"
         app:layout_constraintEnd_toStartOf="@+id/spnUnity" />
 

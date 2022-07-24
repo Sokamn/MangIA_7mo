@@ -134,6 +134,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
         for(i in 1..quantStep){
             val s = Step(i,true)
             s.sDescription = intent.getStringExtra("step$i")!!
+            s.optionalImage = intent.getStringExtra("mayImage$i")?.toUri()
             listStep.add(s)
         }
 
@@ -158,6 +159,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
         binding.imvFinishRecipe.setOnClickListener{
             val user = Firebase.auth.currentUser
             var i = 0
+            var j = 0
             if (user!=null) {
             val userRef = db.collection("users").document(user.email.toString())
                 userRef.get()
@@ -170,6 +172,17 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                 document.getString("userName").toString())
                             val docRecipeMI = hashMapOf<String, Any>()
                             val docID = db.collection("recipes").document().id
+                            listStep.forEach { step ->
+                            if(step.optionalImage!=null){
+                                j++
+                                val fileRef = storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}OptionalImage/optionalImage$j")
+                                fileRef.putFile(step.optionalImage!!).addOnSuccessListener {
+                                    Log.d("imageUpload", "Imagen subida correctamente")
+                                }.addOnFailureListener{
+                                    Log.d("imageUpload", "Imagen no se ha subido correctamente")
+                                }
+                            }
+                        }
                         if (isMultiImages){
                                     listImages.forEach { img ->
                                         i++
