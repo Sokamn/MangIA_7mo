@@ -129,12 +129,16 @@ class MRecipeStep3Activity : AppCompatActivity() {
         quantIngred = intent.getIntExtra("cantIngredients",0)
         quantStep = intent.getIntExtra("cantSteps",0)
         for(i in 1..quantIngred){
-            listIngredient.add(Ingredient(intent.getStringExtra("ingr$i")!!,intent.getStringExtra("unity$i")!!,0F,intent.getIntExtra("ingr$i",0),null))
+            listIngredient.add(Ingredient(intent.getStringExtra("ingr$i")!!,intent.getStringExtra("unity$i")!!,0F,intent.getIntExtra("cantIngr$i",0),null))
         }
         for(i in 1..quantStep){
             val s = Step(i,true)
             s.sDescription = intent.getStringExtra("step$i")!!
-            s.optionalImage = intent.getStringExtra("mayImage$i")?.toUri()
+            if(intent.getStringExtra("mayImage$i")!! == "null"){
+                s.optionalImage = null
+            }else{
+                s.optionalImage = intent.getStringExtra("mayImage$i")!!.toUri()
+            }
             listStep.add(s)
         }
 

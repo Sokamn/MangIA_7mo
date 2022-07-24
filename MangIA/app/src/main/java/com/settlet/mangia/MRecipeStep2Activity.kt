@@ -98,7 +98,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
                             for (s in listStepRecipe){
                                 countSteps++
                                 intent.putExtra("step$countSteps",s.sDescription)
-                                intent.putExtra("mayImage$countSteps",s.optionalImage)
+                                intent.putExtra("mayImage$countSteps",s.optionalImage.toString())
                             }
                             intent.putExtra("cantSteps", listStepRecipe.size)
 
