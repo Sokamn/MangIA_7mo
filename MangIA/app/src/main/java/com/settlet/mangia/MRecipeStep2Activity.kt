@@ -15,7 +15,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.settlet.mangia.Adapter.IngredientAdapter
+import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Adapter.StepAdapter
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
@@ -30,9 +32,6 @@ class MRecipeStep2Activity : AppCompatActivity() {
     var quantSteps: Int = 0
     private lateinit var binding: ActivityMrecipeStep2Binding
     private var isMultiImages:Boolean = false
-    private var finishedListener:Boolean = false
-    internal var auxUri:Uri?=null
-    //lateinit var observer : MyLifecycleObserver
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep2Binding.inflate(layoutInflater)
@@ -124,13 +123,11 @@ class MRecipeStep2Activity : AppCompatActivity() {
                 Toast.makeText(this,"Agregue ingredientes a la receta.",Toast.LENGTH_SHORT).show()
             }
         }
-        //observer = MyLifecycleObserver(activityResultRegistry)
-        //lifecycle.addObserver(observer)
     }
 
     private fun initRCVSteps(listSteps:MutableList<Step>) {
         binding.rcvStepsMR2.layoutManager = LinearLayoutManager(this)
-        val adapter = StepAdapter()
+        val adapter = StepAdapter(this)
         binding.rcvStepsMR2.adapter = adapter
         adapter.submitList(listSteps)
 

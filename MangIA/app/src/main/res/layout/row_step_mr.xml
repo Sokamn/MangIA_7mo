@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cstExpand"
     android:background="@color/primaryColor">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -13,9 +12,9 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/viewTopLine"
+        app:layout_constraintEnd_toEndOf="@+id/cstExpand"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewTopLine">
+        app:layout_constraintTop_toBottomOf="@+id/cstExpand">
 
         <TextView
             android:id="@+id/txvAddOptionalmage"
@@ -28,7 +27,6 @@
             android:textColor="@color/quaternaryColor"
             android:textSize="12sp"
             android:textStyle="bold"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imvImageStepRS" />
 
@@ -55,22 +53,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txvAddOptionalmage" />
 
-        <View
-            android:id="@+id/viewBottomLine"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/lineColor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <ImageView
             android:id="@+id/imvImageStepRS"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="10dp"
-            android:visibility="gone"
             android:scaleType="centerCrop"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -109,59 +98,75 @@
 
         <ImageView
             android:id="@+id/imvAlert"
-            android:visibility="gone"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/cstExpand">
+
+        <View
+            android:id="@+id/viewTopLine"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/lineColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/txvStepNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/manjariregular"
+            android:text="Paso X"
+            android:textColor="@color/quaternaryColor"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imvRemove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_close" />
+
+        <ImageView
+            android:id="@+id/imvExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
+            app:layout_constraintEnd_toStartOf="@+id/imvRemove"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_unity_expand" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <View
-        android:id="@+id/viewTopLine"
+        android:id="@+id/viewBottomLine"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="50dp"
         android:background="@color/lineColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txvStepNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="Paso X"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imvRemove"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_close" />
-
-    <ImageView
-        android:id="@+id/imvExpand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
-        app:layout_constraintEnd_toStartOf="@+id/imvRemove"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_unity_expand" />
+        app:layout_constraintTop_toBottomOf="@+id/cstExpandableLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
