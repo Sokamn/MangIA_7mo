@@ -73,6 +73,8 @@
     <string name="Filters">Filtros</string>
     <string name="complexity">Slider of Recipe Complexity</string>
     <string name="preparation">Slider of Recipe Preparation Time</string>
+    <string name="readMore">Leer más…</string>
+    <string name="readLess">Leer menos…</string>
 
     <string-array name="continents">
         <item>Africa</item>

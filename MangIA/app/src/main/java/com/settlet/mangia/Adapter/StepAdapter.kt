@@ -89,7 +89,7 @@ class StepAdapter(con:Context) : ListAdapter<Step, StepViewHolder>(DiffCallBack)
             imgAdded!!.setImageURI(null)
             context.listStepRecipe.forEach {
                 if(it.nStep == externalStep!!.nStep){
-                    it.optionalImage = uri
+                    it.optionalImage = uri.toString()
                 }
             }
             Glide.with(context)

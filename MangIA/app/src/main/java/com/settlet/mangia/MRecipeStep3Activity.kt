@@ -129,7 +129,10 @@ class MRecipeStep3Activity : AppCompatActivity() {
         quantIngred = intent.getIntExtra("cantIngredients",0)
         quantStep = intent.getIntExtra("cantSteps",0)
         for(i in 1..quantIngred){
-            listIngredient.add(Ingredient(intent.getStringExtra("ingr$i")!!,intent.getStringExtra("unity$i")!!,0F,intent.getIntExtra("cantIngr$i",0),null))
+            val ing = Ingredient(intent.getStringExtra("ingr$i")!!,intent.getStringExtra("unity$i")!!,0F,intent.getIntExtra("cantIngr$i",0),null)
+            ing.unidad = intent.getStringExtra("unity$i")!!
+            ing.cant = intent.getIntExtra("cantIngr$i",0)
+            listIngredient.add(ing)
         }
         for(i in 1..quantStep){
             val s = Step(i,true)
@@ -137,7 +140,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
             if(intent.getStringExtra("mayImage$i")!! == "null"){
                 s.optionalImage = null
             }else{
-                s.optionalImage = intent.getStringExtra("mayImage$i")!!.toUri()
+                s.optionalImage = intent.getStringExtra("mayImage$i")!!
             }
             listStep.add(s)
         }
@@ -169,18 +172,19 @@ class MRecipeStep3Activity : AppCompatActivity() {
                 userRef.get()
                     .addOnSuccessListener { document ->
                             val userFB = User(0,document.getString("biography").toString(),
-                                0,0,0,
-                                document.getLong("cantRecipes")!!.toInt(),document.getString("country").toString(),
+                                0,0,document.getLong("cantRecipes")!!.toInt(),0,document.getString("country").toString(),
                                 document.getString("dateBirth").toString(),"",document.getString("email").toString(),
                                 document.getString("nickName").toString(),"","",document.get("region").toString(),
                                 document.getString("userName").toString())
+                                userFB.cantRecipes+=1
+                                userRef.update("cantRecipes",userFB.cantRecipes)
                             val docRecipeMI = hashMapOf<String, Any>()
                             val docID = db.collection("recipes").document().id
                             listStep.forEach { step ->
                             if(step.optionalImage!=null){
                                 j++
                                 val fileRef = storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}OptionalImage/optionalImage$j")
-                                fileRef.putFile(step.optionalImage!!).addOnSuccessListener {
+                                fileRef.putFile(step.optionalImage!!.toUri()).addOnSuccessListener {
                                     Log.d("imageUpload", "Imagen subida correctamente")
                                 }.addOnFailureListener{
                                     Log.d("imageUpload", "Imagen no se ha subido correctamente")
@@ -197,8 +201,10 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                             .addOnFailureListener{
                                                 Log.d("imageUpload", "Imagen no se ha subido correctamente")
                                             }
-                                        docRecipeMI["recipeImage$i"] = img
                                     }
+                                    docRecipeMI["recipeID"] = docID
+                                    docRecipeMI["numberTimesValored"] = 0
+                                    docRecipeMI["listImages"] = listImages
                                     docRecipeMI["stars"] = 0
                                     docRecipeMI["title"] = binding.txpTitle.text.toString()
                                     docRecipeMI["description"] = binding.txpDescription.text.toString()
@@ -221,10 +227,14 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         .addOnFailureListener{
                                             Log.d("imageUpload", "Imagen no se ha subido correctamente")
                                         }
+                                    listImages.clear()
+                                    listImages.add(fileRef.toString())
                                     val docRecipeUI = hashMapOf(
+                                        "recipeID" to docID,
                                         "stars" to 0,
+                                        "numberTimesValored" to 0,
                                         "title" to binding.txpTitle.text.toString(),
-                                        "recipeImage" to fileRef.toString(),
+                                        "listImages" to listImages,
                                         "description" to binding.txpDescription.text.toString(),
                                         "publisher" to userFB.email,
                                         "listIngredients" to listIngredient,
@@ -240,7 +250,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                 }
                     }
             }
-            finish()
+            this.finish()
             startActivity(Intent(this,HomeActivity::class.java))
         }
         //https://www.istockphoto.com/es/foto/de-pasta-italiana-verter-sobre-fondo-blanco-gm467084686-60661934

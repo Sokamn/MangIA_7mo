@@ -39,7 +39,7 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
             binding.imvRemoveImageRSMR.visibility = View.GONE
             binding.imvChangeImage.visibility = View.GONE
         }else{
-            binding.imvImageStepRS.setImageURI(step.optionalImage)
+            binding.imvImageStepRS.setImageURI(step.optionalImage!!.toUri())
         }
 
         binding.txvStepNumber.text = "Paso ${step.nStep}"
