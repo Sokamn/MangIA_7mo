@@ -22,6 +22,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.MRecipeStep1Activity
+import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
 import com.settlet.mangia.databinding.FragmentHomeBinding
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
             Toast.makeText(it.context,"Buscar",Toast.LENGTH_SHORT).show()
         }
 
-        addReadMore("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",binding.textView)
+        addReadMore("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",binding.textView, 5)
 
         val root: View = binding.root
         return root
@@ -62,13 +63,13 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun addReadMore(text: String, textView: TextView) {
+    private fun addReadMore(text: String, textView: TextView, titleCharacters: Int) {
         val ss = SpannableString(text.substring(0, 270) + "... Leer más")
         val manjariBold = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjaribold.ttf")
         val manjariThin = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjarithin.ttf")
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                addReadLess(text, textView)
+                addReadLess(text, textView,titleCharacters)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -79,18 +80,20 @@ class HomeFragment : Fragment() {
                 }
             }
         }
-        ss.setSpan(clickableSpan, ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    private fun addReadLess(text: String, textView: TextView) {
-        //val manjariBold = Typeface.createFromAsset(context!!.applicationContext.assets, "font/manjaribold.ttf")
-        //val manjariThin =Typeface.createFromAsset(context!!.applicationContext.assets, "font/manjarithin.ttf")
+    private fun addReadLess(text: String, textView: TextView, titleCharacters:Int) {
+        val manjariBold = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjaribold.ttf")
+        val manjariThin = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjarithin.ttf")
         val ss = SpannableString("$text leer menos")
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
-                addReadMore(text, textView)
+                addReadMore(text, textView,titleCharacters)
             }
 
             override fun updateDrawState(ds: TextPaint) {
@@ -102,6 +105,8 @@ class HomeFragment : Fragment() {
             }
         }
         ss.setSpan(clickableSpan, ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
