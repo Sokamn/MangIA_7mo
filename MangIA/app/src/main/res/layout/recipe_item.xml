@@ -153,7 +153,7 @@
         app:layout_constraintStart_toEndOf="@+id/imvStar4"
         app:layout_constraintTop_toTopOf="@+id/imvStar4" />
 
-    <com.borjabravo.readmoretextview.ReadMoreTextView
+    <TextView
         android:id="@+id/txvDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -164,11 +164,6 @@
         android:text="Descripcion"
         android:textColor="@color/black"
         android:textSize="13sp"
-        app:trimExpandedText="@string/readMore"
-        app:trimCollapsedText="@string/readLess"
-        app:trimMode="trimModeLine"
-        app:trimLines="3"
-        app:colorClickableText="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imvStarOne" />
