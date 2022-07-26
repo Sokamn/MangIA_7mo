@@ -27,6 +27,8 @@ import com.settlet.mangia.Model.Step
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityMrecipeStep3Binding
 import kotlinx.android.synthetic.main.activity_mrecipe_step3.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MRecipeStep3Activity : AppCompatActivity() {
@@ -41,6 +43,8 @@ class MRecipeStep3Activity : AppCompatActivity() {
     private lateinit var selectedUnity:String
     private lateinit var  uniqueImage:String
     private var progressComplexity = 0
+    private var listimagePath: MutableList<String> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val db = Firebase.firestore
@@ -192,6 +196,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                             }
                         }
                         if (isMultiImages){
+                                    listimagePath.clear()
                                     listImages.forEach { img ->
                                         i++
                                         val fileRef = storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image$i.jpg")
@@ -201,11 +206,14 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                             .addOnFailureListener{
                                                 Log.d("imageUpload", "Imagen no se ha subido correctamente")
                                             }
+                                        listimagePath.add(fileRef.path)
+                                        docRecipeMI["listImages"] = listimagePath
                                     }
                                     docRecipeMI["recipeID"] = docID
                                     docRecipeMI["numberTimesValored"] = 0
-                                    docRecipeMI["listImages"] = listImages
                                     docRecipeMI["stars"] = 0
+                                    docRecipeMI["timeLaunch"] = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString()
+                                    docRecipeMI["cantComments"] = 0
                                     docRecipeMI["title"] = binding.txpTitle.text.toString()
                                     docRecipeMI["description"] = binding.txpDescription.text.toString()
                                     docRecipeMI["publisher"] = userFB.email
@@ -227,14 +235,15 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         .addOnFailureListener{
                                             Log.d("imageUpload", "Imagen no se ha subido correctamente")
                                         }
-                                    listImages.clear()
-                                    listImages.add(fileRef.toString())
+                                    listimagePath.clear()
+                                    listimagePath.add(fileRef.path)
                                     val docRecipeUI = hashMapOf(
                                         "recipeID" to docID,
                                         "stars" to 0,
                                         "numberTimesValored" to 0,
+                                        "timeLaunch" to LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")).toString(),
                                         "title" to binding.txpTitle.text.toString(),
-                                        "listImages" to listImages,
+                                        "listImages" to listimagePath,
                                         "description" to binding.txpDescription.text.toString(),
                                         "publisher" to userFB.email,
                                         "listIngredients" to listIngredient,
@@ -244,6 +253,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         "isDiabetic" to binding.chbDiabetic.isChecked.toString(),
                                         "isCeliac" to binding.chbCeliac.isChecked.toString(),
                                         "complexity" to progressComplexity,
+                                        "cantComments" to 0,
                                         "preparationTime" to binding.txpPreparationTime.text.toString()
                                     )
                                     db.collection("recipes").document(docID).set(docRecipeUI)

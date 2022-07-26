@@ -23,5 +23,4 @@ class PreviewRecipeAdapter (private var context: Context, private var recipeList
     }
 
     override fun getItemCount() = recipeList.size
-
 }

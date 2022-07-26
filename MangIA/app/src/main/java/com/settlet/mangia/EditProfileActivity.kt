@@ -62,8 +62,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun uploadImageToFirebase(image: Uri) {
         var fileRef = storageReference.child("users/" + Firebase.auth.currentUser!!.email + "/profile.jpg")
         fileRef.putFile(image).addOnSuccessListener {
-            val intent = Intent(this,ProfileActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
             finish()
             Log.d("imageUpload", "Imagen subida correctamente")
         }

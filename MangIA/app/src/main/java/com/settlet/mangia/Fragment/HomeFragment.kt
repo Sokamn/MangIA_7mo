@@ -9,26 +9,40 @@ import android.text.Spanned
 import android.text.TextPaint
 import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.Adapter.PreviewRecipeAdapter
 import com.settlet.mangia.MRecipeStep1Activity
 import com.settlet.mangia.Model.CustomTypefaceSpan
+import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
 import com.settlet.mangia.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import java.time.Duration
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.Period
+import java.time.format.DateTimeFormatter
+import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore
+    private val recipeList = mutableListOf<Recipe>()
+    private val followingList = mutableListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +50,16 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        binding.rcvIngredients.setHasFixedSize(true)
+        val linearLayoutManager = LinearLayoutManager(requireActivity())
+        linearLayoutManager.reverseLayout = true
+        linearLayoutManager.stackFromEnd = true
+        binding.rcvIngredients.layoutManager = linearLayoutManager
+        binding.rcvIngredients.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
+        CheckFollowing()
+
+
         binding.bottomBarH.imbScanBB.setOnClickListener {
             Toast.makeText(it.context,"Escanear",Toast.LENGTH_SHORT).show()
         }
@@ -47,8 +71,6 @@ class HomeFragment : Fragment() {
             Toast.makeText(it.context,"Buscar",Toast.LENGTH_SHORT).show()
         }
 
-        addReadMore("Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. \nLorem Ipsum ha sido el texto de relleno estándar\n de las \nindustrias \ndesde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas \"Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.",binding.textView, 5)
-
         val root: View = binding.root
         return root
     }
@@ -58,74 +80,42 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private fun addReadMore(text: String, textView: TextView, titleCharacters: Int) {
-        val manjariBold = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjaribold.ttf")
-        val manjariThin = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjarithin.ttf")
-        val lines = text.split("\r\n","\r","\n")
-        var aaaa = 0
-        val clickableSpan: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                addReadLess(text, textView,titleCharacters)
+    private fun CheckFollowing(){
+        val docRef = db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following")
+        docRef.addSnapshotListener { value, error ->
+            if(error!=null){
+                Log.w("TAG","Listen Failed")
+                return@addSnapshotListener
             }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ds.color = resources.getColor(R.color.black)
+            if(value!=null) {
+                followingList.clear()
+                value.forEach { user ->
+                    followingList.add(user.id)
                 }
+                ReadRecipes()
             }
         }
-        if(lines.size > 3){
-            var count = 0
-            text.forEach {
-                count++
-                if(it == '\n'){
-                    if(aaaa==0){
-                        aaaa = count
-                    }
-                }
-            }
-            val ss = SpannableString(text.substring(0, aaaa-1) + "... Leer más")
-            ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            textView.text = ss
-        }
-        else{
-            val ss = SpannableString(text.substring(0, 70) + "... Leer más")
-            ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            textView.text = ss
-        }
-
-
-        textView.movementMethod = LinkMovementMethod.getInstance()
     }
 
-    private fun addReadLess(text: String, textView: TextView, titleCharacters:Int) {
-        val manjariBold = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjaribold.ttf")
-        val manjariThin = Typeface.createFromAsset(requireActivity().applicationContext.assets, "font/manjarithin.ttf")
-        val ss = SpannableString("$text leer menos")
-        val clickableSpan: ClickableSpan = object : ClickableSpan() {
-            override fun onClick(view: View) {
-                addReadMore(text, textView,titleCharacters)
+    private fun ReadRecipes(){
+        val docRef = db.collection("recipes")
+        docRef.addSnapshotListener { value, error ->
+            if(error!=null){
+                Log.w("TAG","Listen Failed")
+                return@addSnapshotListener
             }
-
-            override fun updateDrawState(ds: TextPaint) {
-                super.updateDrawState(ds)
-                ds.isUnderlineText = false
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ds.color = resources.getColor(R.color.black)
+            if(value!=null) {
+                recipeList.clear()
+                value.forEach { recipe ->
+                    followingList.forEach { userFollowed ->
+                        if (recipe["publisher"] == userFollowed) {
+                            recipeList.add(recipe.toObject())
+                        }
+                    }
                 }
+                binding.rcvIngredients.adapter!!.notifyDataSetChanged()
             }
         }
-        ss.setSpan(clickableSpan, ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        textView.text = ss
-        textView.movementMethod = LinkMovementMethod.getInstance()
     }
 }
 

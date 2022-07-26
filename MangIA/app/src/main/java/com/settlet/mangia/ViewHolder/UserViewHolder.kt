@@ -20,7 +20,6 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     val binding = RowUserBinding.bind(view)
     val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
-    private val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
 
     fun render(user: User){
         binding.txvNNameRU.text = user.nickName

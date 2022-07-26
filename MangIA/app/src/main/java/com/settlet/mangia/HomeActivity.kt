@@ -8,15 +8,16 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.navigation.NavigationView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -30,6 +31,7 @@ import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -70,6 +72,25 @@ class HomeActivity : AppCompatActivity() {
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
             Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
         }
+
+        binding.drawerLayout.addDrawerListener(object : DrawerListener {
+            override fun onDrawerSlide(view: View, v: Float) {
+                if (binding.drawerLayout.isDrawerOpen(view)) {
+                    window.statusBarColor = getColor(R.color.primaryColor)
+                }else{
+                    window.statusBarColor = getColor(R.color.lightFont)
+                }
+            }
+            override fun onDrawerOpened(view: View) {
+                window.statusBarColor = getColor(R.color.lightFont)
+            }
+            override fun onDrawerClosed(view: View) {
+                window.statusBarColor = getColor(R.color.primaryColor)
+            }
+            override fun onDrawerStateChanged(i: Int) {}
+        })
+
+
 
         binding.btnCSesionH.setOnClickListener {
             logOut()

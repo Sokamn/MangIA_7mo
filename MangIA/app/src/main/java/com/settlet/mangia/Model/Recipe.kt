@@ -1,6 +1,7 @@
 package com.settlet.mangia.Model
 
 class Recipe (var complexity: Int = 0,
+              var cantComments: Int = 0,
               var description: String = "",
               var isCeliac: Boolean = false,
               var isDiabetic: Boolean = false,
@@ -14,6 +15,7 @@ class Recipe (var complexity: Int = 0,
               var recipeID: String = "",
               var listImages: List<String> = emptyList(),
               var stars: Float = 0F,
+              var timeLaunch: String = "",
               var title: String = ""){
 
 }
