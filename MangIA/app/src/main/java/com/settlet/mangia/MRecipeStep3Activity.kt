@@ -8,6 +8,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -50,6 +51,9 @@ class MRecipeStep3Activity : AppCompatActivity() {
         val db = Firebase.firestore
         binding = ActivityMrecipeStep3Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         val timeFormat =  resources.getStringArray(R.array.timeFormat)
         val arrayAdapterTimeFormat = ArrayAdapter<String>(this, R.layout.spinner_unity_item, timeFormat)
         binding.spnTimeFormat.adapter = arrayAdapterTimeFormat

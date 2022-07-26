@@ -252,13 +252,6 @@ class IngredientProvider {
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Hierbabuena.png")
             ),
-            Ingredient(
-                "Cardamomo",
-                "Gramos",
-                0F,
-                0,
-                FirebaseStorage.getInstance().reference.child("ingredients/Cardamomo.png")
-            ),
         //Ingredientes de cocina
              Ingredient(
                  "Zaatar",

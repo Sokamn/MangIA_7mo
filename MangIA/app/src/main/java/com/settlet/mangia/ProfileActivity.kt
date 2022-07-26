@@ -6,6 +6,8 @@ import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -33,6 +35,9 @@ class ProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         viewPager = findViewById(R.id.vwpContentP)
         tabLayout = findViewById(R.id.tblTabLayoutP)
         viewPager.adapter = PagerAdapterP(this)
@@ -140,12 +145,12 @@ class ProfileActivity : AppCompatActivity() {
             }
             if (value != null) {
                 if (value.exists()){
-                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
-                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
-                    binding.btnEProfileP.text = "Siguiendo"
-                }else{
                     binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_follow))
                     binding.btnEProfileP.setTextColor(getColor(R.color.colorButtonFollow))
+                    binding.btnEProfileP.text = "Siguiendo"
+                }else{
+                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
+                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
                     binding.btnEProfileP.text = "Seguir"
                 }
             }

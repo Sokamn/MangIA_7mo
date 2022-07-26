@@ -12,6 +12,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContract
@@ -126,6 +127,9 @@ class MRecipeStep1Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMrecipeStep1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         photoFile = getPhotoFile(FILE_NAME)
         allPictures = ArrayList()
         binding.rcvGaleryMR.layoutManager = GridLayoutManager(this, 3)

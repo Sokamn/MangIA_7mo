@@ -75,7 +75,12 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                 .into(binding.imvProfilePictureRI)
         }
         val txtDescription = recipe.title + " " + recipe.description
-        addReadMore(txtDescription,binding.txvDescription,recipe.title.length)
+        if(txtDescription.length > 70){
+            addReadMore(txtDescription,binding.txvDescription,recipe.title.length)
+        }
+        else{
+            binding.txvDescription.text = txtDescription
+        }
         binding.txvValoration.text = recipe.numberTimesValored.toString() + " valoraciones"
         val docRef = db.collection("users").document(recipe.publisher)
         docRef.addSnapshotListener { value, error ->
@@ -336,14 +341,21 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             textView.text = ss
         }
         else{
-            val ss = SpannableString(text.substring(0, 70) + "... Leer más")
-            ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            textView.text = ss
+            if(text.length > 70){
+                val ss = SpannableString(text.substring(0, 70) + "... Leer más")
+                ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                textView.text = ss
+            }else{
+                val ss = SpannableString(text)
+                ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                textView.text = ss
+            }
+
         }
-
-
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
 
