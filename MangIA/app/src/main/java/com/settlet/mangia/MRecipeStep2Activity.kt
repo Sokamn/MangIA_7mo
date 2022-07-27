@@ -18,6 +18,7 @@ import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.Provider.IngredientProvider
 import com.settlet.mangia.databinding.ActivityMrecipeStep2Binding
+import java.text.Normalizer
 
 class MRecipeStep2Activity : AppCompatActivity() {
     internal val listIngredientRecipe = mutableListOf<Ingredient>()
@@ -106,7 +107,6 @@ class MRecipeStep2Activity : AppCompatActivity() {
                                 intent.putExtra("mayImage$countSteps",s.optionalImage.toString())
                             }
                             intent.putExtra("cantSteps", listStepRecipe.size)
-
                             isMultiImages = getIntent().getBooleanExtra("isMultiImages",false)
                             Log.d("MULTIMAGE", isMultiImages.toString())
                             if(isMultiImages){

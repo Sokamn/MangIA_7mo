@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
         linearLayoutManager.stackFromEnd = true
         binding.rcvIngredients.layoutManager = linearLayoutManager
         binding.rcvIngredients.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
+        recipeList.clear()
         CheckFollowing()
 
 
@@ -105,7 +106,6 @@ class HomeFragment : Fragment() {
                 return@addSnapshotListener
             }
             if(value!=null) {
-                recipeList.clear()
                 value.forEach { recipe ->
                     followingList.forEach { userFollowed ->
                         if (recipe["publisher"] == userFollowed) {

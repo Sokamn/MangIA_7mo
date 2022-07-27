@@ -79,7 +79,10 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             addReadMore(txtDescription,binding.txvDescription,recipe.title.length)
         }
         else{
-            binding.txvDescription.text = txtDescription
+            val ss = SpannableString(txtDescription)
+            val manjariBold = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjaribold.ttf")
+            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, recipe.title.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.txvDescription.text = ss
         }
         binding.txvValoration.text = recipe.numberTimesValored.toString() + " valoraciones"
         val docRef = db.collection("users").document(recipe.publisher)
@@ -168,6 +171,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         binding.txvComments.text = if (recipe.cantComments == 1) "Ver 1 comentario" else "Ver los ${recipe.cantComments} comentarios"
         binding.txvValoration.text = if (recipe.numberTimesValored == 1) "1 valoración" else "${recipe.numberTimesValored} valoraciones"
         isLiked(recipe)
+
 
         binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
@@ -341,20 +345,11 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             textView.text = ss
         }
         else{
-            if(text.length > 70){
                 val ss = SpannableString(text.substring(0, 70) + "... Leer más")
                 ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 textView.text = ss
-            }else{
-                val ss = SpannableString(text)
-                ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                textView.text = ss
-            }
-
         }
         textView.movementMethod = LinkMovementMethod.getInstance()
     }
