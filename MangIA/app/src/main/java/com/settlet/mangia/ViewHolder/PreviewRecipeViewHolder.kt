@@ -25,11 +25,14 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.settlet.mangia.Adapter.SliderAdapter
+import com.settlet.mangia.Fragment.HomeFragment
 import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.ProfileActivity
 import com.settlet.mangia.R
+import com.settlet.mangia.UserRateActivity
 import com.settlet.mangia.databinding.RecipeItemBinding
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -210,7 +213,9 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             Toast.makeText(binding.imvShare.context,"Compartir recetas aún no está implementado.",Toast.LENGTH_SHORT).show()
         }
         binding.txvValoration.setOnClickListener {  // Mostrar todos los usuarios que valoraron la receta, y cual fue su valoración.
-
+            val intent = Intent(binding.imvStar1.context, UserRateActivity::class.java )
+            intent.putExtra("recipeID",recipe.recipeID)
+            binding.imvStar1.context.startActivity(intent)
         }
     }
 
@@ -263,6 +268,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     updateRate(rate)
                     db.collection("recipes").document(recipe.recipeID).update("numberTimesValored", FieldValue.increment(1))
                     docRef.set(docFollows)
+
                 }
             }
         }
@@ -323,9 +329,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = false
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ds.color = binding.txvDescription.context.resources.getColor(R.color.black)
-                }
+                ds.color = binding.txvDescription.context.resources.getColor(R.color.black)
             }
         }
         if(lines.size > 3){

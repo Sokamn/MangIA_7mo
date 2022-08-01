@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserRateActivity"
+    android:background="@color/primaryColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:backgroundTint="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/btnback" />
+
+
+        <TextView
+            android:id="@+id/txvRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:fontFamily="@font/manjaribold"
+            android:text="@string/valorations"
+            android:textColor="@color/quaternaryColor"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageButton"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/txpSearchMRS"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/search_btn"
+                android:elevation="10dp"
+                android:ems="10"
+                android:focusableInTouchMode="true"
+                android:fontFamily="@font/manjarithin"
+                android:hint="@string/search"
+                android:inputType="textEmailAddress"
+                android:padding="0dp"
+                android:paddingStart="55dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/quaternaryColor"
+                android:textColorHint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/imvSearchUR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:elevation="11dp"
+                android:src="@drawable/ic_search_black"
+                app:layout_constraintBottom_toBottomOf="@+id/txpSearchMRS"
+                app:layout_constraintStart_toStartOf="@+id/txpSearchMRS"
+                app:layout_constraintTop_toTopOf="@+id/txpSearchMRS" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvUsersUR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                tools:listitem="@layout/row_user"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txpSearchMRS" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

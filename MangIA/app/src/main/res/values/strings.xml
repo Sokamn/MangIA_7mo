@@ -75,6 +75,7 @@
     <string name="preparation">Slider of Recipe Preparation Time</string>
     <string name="readMore">Leer más…</string>
     <string name="readLess">Leer menos…</string>
+    <string name="valorations">Valoraciones</string>
 
     <string-array name="continents">
         <item>Africa</item>

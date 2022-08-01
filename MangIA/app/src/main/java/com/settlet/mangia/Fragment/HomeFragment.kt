@@ -1,5 +1,6 @@
 package com.settlet.mangia.Fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Typeface
 import android.os.Build
@@ -51,12 +52,12 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.rcvIngredients.setHasFixedSize(true)
+        binding.rcvPreviewRecipe.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
-        binding.rcvIngredients.layoutManager = linearLayoutManager
-        binding.rcvIngredients.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
+        binding.rcvPreviewRecipe.layoutManager = linearLayoutManager
+        binding.rcvPreviewRecipe.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
         recipeList.clear()
         CheckFollowing()
 
@@ -113,7 +114,7 @@ class HomeFragment : Fragment() {
                         }
                     }
                 }
-                binding.rcvIngredients.adapter!!.notifyDataSetChanged()
+                binding.rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
             }
         }
     }

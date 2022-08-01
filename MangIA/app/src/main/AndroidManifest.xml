@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
+            android:name=".UserRateActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecipeActivity"
             android:exported="false" />
         <activity
