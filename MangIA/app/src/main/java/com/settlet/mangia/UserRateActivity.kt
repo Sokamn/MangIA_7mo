@@ -33,7 +33,7 @@ class UserRateActivity : AppCompatActivity() {
             val adapter = UserRateAdapter()
             binding.rcvUsersUR.adapter = adapter
             adapter.submitList(listRate)
-            // LANZAR EL ADAPTER
+            // LANZAR EL ADAPTER (ANALIZAR SI DEBE SER SNAPSHOT O SOLAMENTE CARGAR DATOS; ESTO DEPENDE DE SI SE VA A PODER SEGUIR AL USUARIO DESDE ESTA SECCION O NO.)
         }
     }
 
