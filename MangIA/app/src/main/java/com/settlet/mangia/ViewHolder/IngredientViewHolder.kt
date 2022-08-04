@@ -16,6 +16,9 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
     val binding = RowIngredientRecyclerBinding.bind(view)
 
     fun render(ingredient: Ingredient){
+        if(ingredient.nombre.length>16){
+            binding.txvIngredient.isSelected = true
+        }
         binding.txvIngredient.text = ingredient.nombre
         val hojas =  binding.imvIngredient.context.resources.getStringArray(R.array.hojas)
         val liquidos = binding.imvIngredient.context.resources.getStringArray(R.array.liquidos)

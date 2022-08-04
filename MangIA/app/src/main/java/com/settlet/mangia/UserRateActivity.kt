@@ -3,6 +3,8 @@ package com.settlet.mangia
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.firestore
@@ -22,6 +24,9 @@ class UserRateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityUserRateBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         val recID = intent.getStringExtra("recipeID")
         LoadRates(recID.toString())
         binding.imbBackUR.setOnClickListener {

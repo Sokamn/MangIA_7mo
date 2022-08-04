@@ -1,20 +1,11 @@
 package com.settlet.mangia.Fragment
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Typeface
-import android.os.Build
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.TextPaint
-import android.text.method.LinkMovementMethod
-import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,18 +16,8 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.PreviewRecipeAdapter
 import com.settlet.mangia.MRecipeStep1Activity
-import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
-import com.settlet.mangia.R
 import com.settlet.mangia.databinding.FragmentHomeBinding
-import kotlinx.android.synthetic.main.bottom_bar.view.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
-import java.time.Duration
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.Period
-import java.time.format.DateTimeFormatter
-import kotlin.math.roundToInt
 
 class HomeFragment : Fragment() {
 

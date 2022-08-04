@@ -304,11 +304,12 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                     db.collection("recipes").document(docID).set(docRecipeUI)
                                 }
                             }
+                        this.finish()
+                        startActivity(Intent(this,HomeActivity::class.java))
                     }
                 }
             }
-            this.finish()
-            startActivity(Intent(this,HomeActivity::class.java))
+
         }
         //https://www.istockphoto.com/es/foto/de-pasta-italiana-verter-sobre-fondo-blanco-gm467084686-60661934
     }

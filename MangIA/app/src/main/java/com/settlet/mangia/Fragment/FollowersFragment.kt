@@ -25,7 +25,7 @@ class FollowersFragment : Fragment() {
     private val binding get() = _binding!!
     private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
-    private val prefs = requireActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+    private val prefs = requireContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
     private val profileEmail = prefs.getString("profileEmail","none")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +33,7 @@ class FollowersFragment : Fragment() {
 
         val userList = mutableListOf<com.settlet.mangia.Model.User>()
         binding.rcvUsersFollowers.setHasFixedSize(true)
-        binding.rcvUsersFollowers.layoutManager = LinearLayoutManager(requireActivity())
+        binding.rcvUsersFollowers.layoutManager = LinearLayoutManager(requireContext())
         val currentUser = Firebase.auth.currentUser
         if (currentUser!=null)
         {
