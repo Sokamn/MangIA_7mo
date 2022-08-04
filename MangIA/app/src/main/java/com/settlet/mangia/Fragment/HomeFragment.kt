@@ -18,6 +18,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -44,6 +45,8 @@ class HomeFragment : Fragment() {
     private val db = Firebase.firestore
     private val recipeList = mutableListOf<Recipe>()
     private val followingList = mutableListOf<String>()
+    private lateinit var rcvPreviewRecipe: RecyclerView
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,14 +54,13 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-        binding.rcvPreviewRecipe.setHasFixedSize(true)
+        rcvPreviewRecipe = binding.rcvPreviewRecipe
+        rcvPreviewRecipe.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
-        binding.rcvPreviewRecipe.layoutManager = linearLayoutManager
-        binding.rcvPreviewRecipe.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
-        recipeList.clear()
+        rcvPreviewRecipe.layoutManager = linearLayoutManager
+        rcvPreviewRecipe.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
         CheckFollowing()
 
 
@@ -102,6 +104,7 @@ class HomeFragment : Fragment() {
     private fun ReadRecipes(){
         val docRef = db.collection("recipes")
         docRef.addSnapshotListener { value, error ->
+            recipeList.clear()
             if(error!=null){
                 Log.w("TAG","Listen Failed")
                 return@addSnapshotListener
@@ -113,9 +116,13 @@ class HomeFragment : Fragment() {
                             recipeList.add(recipe.toObject())
                         }
                     }
+                    Log.i("recipeList",recipeList.toString())
+
                 }
-                binding.rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
+                Log.i("recipeList",recipeList.toString())
             }
+            Log.i("recipeLista",recipeList.toString())
+            rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
         }
     }
 }

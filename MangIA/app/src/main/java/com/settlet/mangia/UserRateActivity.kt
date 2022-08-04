@@ -1,40 +1,79 @@
 package com.settlet.mangia
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.TextView
+import android.text.Editable
+import android.text.TextWatcher
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.settlet.mangia.Adapter.IngredientAdapter
 import com.settlet.mangia.Adapter.UserRateAdapter
-import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityUserRateBinding
-import kotlinx.android.synthetic.main.activity_home.view.*
+
 
 class UserRateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserRateBinding
     private val db = Firebase.firestore
     private var listRate: MutableList<Array<String>> = mutableListOf()
+    private var listRateFilter: MutableList<Array<String>> = mutableListOf()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityUserRateBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val recID = intent.getStringExtra("recipeID")
-        db.collection("likes").document(recID.toString()).collection("isLiked").get().addOnSuccessListener{ documents ->
-            for (document in documents){
-                val a = arrayOf(document.id,document["rate"].toString())
-                listRate.add(a)
+        LoadRates(recID.toString())
+        binding.imbBackUR.setOnClickListener {
+            onBackPressed()
+            this.finish()
+        }
+        binding.txpSearchUR.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(
+                s: CharSequence, start: Int, before: Int,
+                count: Int
+            ) {
             }
-            binding.rcvUsersUR.layoutManager = LinearLayoutManager(this)
+
+            override fun beforeTextChanged(
+                s: CharSequence, start: Int, count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if(binding.txpSearchUR.text.isNotEmpty()){
+                    listRateFilter.clear()
+                    listRate.forEach { arrayUserRate ->
+                        if(arrayUserRate[1].lowercase().trim().contains(binding.txpSearchUR.text.toString().lowercase().trim())||arrayUserRate[2].lowercase().trim().contains(binding.txpSearchUR.text.toString().lowercase().trim())){
+                            listRateFilter.add(arrayUserRate)
+                        }
+                    }
+                    val adapter = UserRateAdapter()
+                    binding.rcvUsersUR.adapter = adapter
+                    adapter.submitList(listRateFilter)
+                }  else{
+                    val adapter = UserRateAdapter()
+                    binding.rcvUsersUR.adapter = adapter
+                    adapter.submitList(listRate)
+                }
+            }
+        })
+
+
+    }
+    private fun LoadRates(recID: String){
+        db.collection("likes").document(recID).collection("isLiked").get().addOnSuccessListener{ documents ->
             val adapter = UserRateAdapter()
-            binding.rcvUsersUR.adapter = adapter
-            adapter.submitList(listRate)
-            // LANZAR EL ADAPTER (ANALIZAR SI DEBE SER SNAPSHOT O SOLAMENTE CARGAR DATOS; ESTO DEPENDE DE SI SE VA A PODER SEGUIR AL USUARIO DESDE ESTA SECCION O NO.)
+            binding.rcvUsersUR.layoutManager = LinearLayoutManager(this)
+            for (document in documents){
+                db.collection("users").document(document.id).get().addOnSuccessListener{ doc ->
+                    val docUser = arrayOf(doc.id,doc["userName"].toString(),doc["nickName"].toString(),document["rate"].toString())
+                    listRate.add(docUser)
+                    binding.rcvUsersUR.adapter = adapter
+                    adapter.submitList(listRate)
+                }
+            }
         }
     }
-
 }

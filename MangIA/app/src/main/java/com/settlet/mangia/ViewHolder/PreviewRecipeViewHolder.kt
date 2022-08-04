@@ -268,10 +268,10 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     updateRate(rate)
                     db.collection("recipes").document(recipe.recipeID).update("numberTimesValored", FieldValue.increment(1))
                     docRef.set(docFollows)
-
                 }
             }
         }
+
     }
 
     private fun updateRate(rate: Int) {
