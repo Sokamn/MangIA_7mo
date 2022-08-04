@@ -76,6 +76,8 @@
     <string name="readMore">Leer más…</string>
     <string name="readLess">Leer menos…</string>
     <string name="valorations">Valoraciones</string>
+    <string name="answer">Responder</string>
+
 
     <string-array name="continents">
         <item>Africa</item>

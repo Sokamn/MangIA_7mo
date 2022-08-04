@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
+            android:name=".CommentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".UserRateActivity"
             android:exported="false" />
         <activity
