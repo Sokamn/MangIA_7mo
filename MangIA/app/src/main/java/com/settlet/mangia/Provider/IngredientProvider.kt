@@ -2327,28 +2327,6 @@ class IngredientProvider {
         FirebaseStorage.getInstance().reference.child("ingredients/ChileAncho.png")
         ),
         Ingredient(
-        "Chatni",
-        "Unidad",
-        0F,
-        0,
-        FirebaseStorage.getInstance().reference.child("ingredients/Chatni.png")
-        ),
-
-        Ingredient(
-        "Achaar",
-        "Unidad",
-        0F,
-        0,
-        FirebaseStorage.getInstance().reference.child("ingredients/Achaar.png")
-        ),
-        Ingredient(
-        "Raita",
-        "Unidad",
-        0F,
-        0,
-        FirebaseStorage.getInstance().reference.child("ingredients/Raita.png")
-        ),
-        Ingredient(
         "Chalotas",
         "Unidad",
         0F,
