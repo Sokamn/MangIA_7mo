@@ -60,7 +60,7 @@ class HomeFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         rcvPreviewRecipe.layoutManager = linearLayoutManager
-        rcvPreviewRecipe.adapter = PreviewRecipeAdapter(requireActivity(),recipeList)
+        rcvPreviewRecipe.adapter = PreviewRecipeAdapter(recipeList)
         CheckFollowing()
 
 
@@ -120,9 +120,8 @@ class HomeFragment : Fragment() {
 
                 }
                 Log.i("recipeList",recipeList.toString())
+                rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
             }
-            Log.i("recipeLista",recipeList.toString())
-            rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
         }
     }
 }

@@ -8,7 +8,7 @@ import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
 import com.settlet.mangia.ViewHolder.PreviewRecipeViewHolder
 
-class PreviewRecipeAdapter (private var context: Context, private var recipeList:MutableList<Recipe>) : RecyclerView.Adapter<PreviewRecipeViewHolder>() {
+class PreviewRecipeAdapter (private var recipeList:MutableList<Recipe>) : RecyclerView.Adapter<PreviewRecipeViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int

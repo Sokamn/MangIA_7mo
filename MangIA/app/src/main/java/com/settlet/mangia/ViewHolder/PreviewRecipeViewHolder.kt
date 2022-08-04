@@ -3,8 +3,6 @@ package com.settlet.mangia.ViewHolder
 import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
-import android.net.Uri
-import android.os.Build
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
@@ -14,7 +12,6 @@ import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
@@ -23,9 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.settlet.mangia.Adapter.SliderAdapter
-import com.settlet.mangia.Fragment.HomeFragment
 import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.ProfileActivity
@@ -86,6 +81,11 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             val manjariBold = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjaribold.ttf")
             ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, recipe.title.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.txvDescription.text = ss
+        }
+        if(recipe.numberTimesValored==0){
+            binding.txvValoration.visibility = View.GONE
+        }else{
+            binding.txvValoration.visibility = View.VISIBLE
         }
         binding.txvValoration.text = recipe.numberTimesValored.toString() + " valoraciones"
         val docRef = db.collection("users").document(recipe.publisher)
@@ -230,7 +230,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             if (value != null) {
                 if (value.exists()) {
                     val rateUser = value["rate"]
-                    updateRate(rateUser.toString().toFloat().roundToInt())
+                    updateMyRate(rateUser.toString().toFloat().roundToInt())
                 }
                 else{
                     binding.imvStar1.setImageResource(R.drawable.ic_add)
@@ -260,21 +260,36 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                         docRef.delete()
                     }
                     else{
-                        updateRate(rate)
+                        updateMyRate(rate)
                         docRef.update("rate", rate)
                     }
                 }
                 else{
-                    updateRate(rate)
+                    updateMyRate(rate)
                     db.collection("recipes").document(recipe.recipeID).update("numberTimesValored", FieldValue.increment(1))
                     docRef.set(docFollows)
                 }
+                updateRecipeRate(recipe)
             }
         }
-
     }
 
-    private fun updateRate(rate: Int) {
+    private fun updateRecipeRate(recipe: Recipe) {
+        db.collection("likes").document(recipe.recipeID).collection("isLiked").get().addOnSuccessListener(){ documents ->
+            var ratePlus = 0
+            documents.forEach { doc ->
+                ratePlus+=doc["rate"].toString().toInt()
+            }
+            if (recipe.numberTimesValored==0){
+                db.collection("recipes").document(recipe.recipeID).update("stars", 0)
+            }else{
+                val promRecipeRate = ratePlus/recipe.numberTimesValored
+                db.collection("recipes").document(recipe.recipeID).update("stars", promRecipeRate)
+            }
+        }
+    }
+
+    private fun updateMyRate(rate: Int) {
         when(rate){
             1-> {
                 binding.imvStar1.setImageResource(R.drawable.ic_remove)
@@ -370,9 +385,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             override fun updateDrawState(ds: TextPaint) {
                 super.updateDrawState(ds)
                 ds.isUnderlineText = false
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    ds.color = binding.txvDescription.context.resources.getColor(R.color.black)
-                }
+                ds.color = binding.txvDescription.context.resources.getColor(R.color.black)
             }
         }
         ss.setSpan(clickableSpan, ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
