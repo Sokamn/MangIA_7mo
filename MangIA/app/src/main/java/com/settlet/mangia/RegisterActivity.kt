@@ -23,12 +23,12 @@ import java.util.regex.Pattern
 class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityRegisterBinding
+    private val db = Firebase.firestore
+    private var contador: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
         World.init(applicationContext)
-        val db = Firebase.firestore
-        var contador: Int = 0
         val continents = resources.getStringArray(R.array.continents)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -190,10 +190,10 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
     }
-    private fun checkValue(contador:Int):Boolean{
+    private fun checkValue(count:Int):Boolean{
         val passwordRegex = Pattern.compile("^" + "(?=.*[A-Z])" + "(?=.*[0-9])" + ".{6,}" + "$")
         val badWords = arrayListOf<String>("sorete","imbecil","tarado","pelotudo","pajero","pajera","pelotuda","tarada","puto","puta","concha","culo","poronga","verga","pito","pene" + "nigga" , "trola" , "trolo" , "caca" , "down" , "mierda" , "nazi" , "hitler" , "estupido" , "coger" , "cojer" , "pendejo " , "pendeja" , "porno" , "orto" , "sexo" , "pinche" , "pinchi" , "cojo" , "cabrón" , "cabrona" , "mames" , "pendejos" , "pendejas" , "chinga" , "mamadas" , "pendejadas" , "mama huevo" , "pete" , "wueon" , "xuxa" , "weon" , "weonado" , "weona" , "coño" , "aguevoniado" , "guevon" , "pajuo" , "marica", "monda" , "marrana" , "marrano" ,"monda" , "pijudo" , "hijueputa" , "cotopla" , "pichurria" , "picha" , "mother fucker" , "fuck" , "ass" , "orgy" , "bitch" , "suck" , "my balls" , "slut " , "whore" , "hoe" , "chupamela" , "culito" , "cojida" , "cojiendo" , "zoofilia" , "putito" , "reputo" , "free viagra" , "taradito", "taradita" , "pelotudito" , "pelotudita" , "pelotuditos", "pelotuditas" , "putita" , "poronguita" , "verguita" , "pitito" , "trolito" , "trolita" , "caquita" , "estupidito" , "estupidita" , "pendejito" , "pendejita" , "putitos" , "putitas" , "poronguitas" , "porongotas" , "porongota" , "porongon" , "verguitas", "vergotas" , "vergota" , "pititos" , "pitotes" , "pitote" , "trolitos" , "trolitas" , "caquitas" , "cacotas" , "estupiditos" , "estupiditas" , "pendejitos" , "pendejitas" , "feto" , "cigoto" , "caka" , "kaka" , "kk" , "joto" , "jota" , "kaco" , "kago" , "kojo" , "kulo" , "mamo" , "meaas" , "mion" , "mula" , "pedo" , "qulo" , "buey" , "caco" , "cago" , "cako" , "coja" , "coji" , "guey" , "kaca" , "kaga" , "koge" , "mame" , "mear" , "meon" , "moco")
-        when(contador){
+        when(count){
             0 -> {
                 if(binding.txpMailR.text.isEmpty()||!Patterns.EMAIL_ADDRESS.matcher(binding.txpMailR.text.toString()).matches())
                 {
@@ -203,8 +203,24 @@ class RegisterActivity : AppCompatActivity() {
                 if(binding.txpTelR.text.isNotEmpty()&&binding.txpUserNameR.text.isNotEmpty()&&binding.txpNNameR.text.isNotEmpty()){
                     if(verifyUserNames(badWords,binding.txpUserNameR.text.toString(),binding.txpNNameR.text.toString()))
                     {
-                        //whereEqualTo(email, con email que se registra, si es verdadero y encuentra el documento, que tire un Toast diciendo "Email ya registrado, por favor, ingrese otro mail."
-                        register2()
+                        db.collection("users").document(binding.txpMailR.text.toString()).addSnapshotListener { value, error ->
+                            if(error!=null){
+                                Log.d("ERROR",error.toString())
+                            }else{
+                                if(value!=null) {
+                                    if (value.exists()) {
+                                        Toast.makeText(
+                                            this,
+                                            "Este correo ya ha sido utilizado en otra cuenta",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        contador -= 1
+                                    } else {
+                                        register2()
+                                    }
+                                }
+                            }
+                        }
                         return true
                     }
                     else{

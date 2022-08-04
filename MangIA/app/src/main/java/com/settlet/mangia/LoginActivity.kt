@@ -183,9 +183,8 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
-                    Toast.makeText(this,"Bienvenido. No olvides rellenar tus datos extras desde 'Editar Perfil'",Toast.LENGTH_LONG).show()
                     val user = auth.currentUser
-                    var existUser: Boolean = false
+                    var existUser = false
                     if (user != null) {
                         db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener{ documents ->
                             for(document in documents)
@@ -193,7 +192,7 @@ class LoginActivity : AppCompatActivity() {
                                 Log.d("TAG", "${document.id} => ${document.data}")
                                 existUser = true
                             }
-                            if (existUser == false) {
+                            if (!existUser) {
                                 val docUser = hashMapOf("email" to user.email.toString(),
                                     "phoneNumber" to user.phoneNumber.toString(),
                                     "userName" to user.displayName.toString(),
