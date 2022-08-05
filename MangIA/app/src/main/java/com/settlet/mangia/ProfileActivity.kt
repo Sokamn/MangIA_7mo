@@ -50,6 +50,7 @@ class ProfileActivity : AppCompatActivity() {
         }.attach()
 
 
+
         binding.imbBackP.setOnClickListener {
             onBackPressed()
             finish()

@@ -174,6 +174,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         binding.txvComments.text = if (recipe.cantComments == 1) "Ver 1 comentario" else "Ver los ${recipe.cantComments} comentarios"
         binding.txvValoration.text = if (recipe.numberTimesValored == 1) "1 valoración" else "${recipe.numberTimesValored} valoraciones"
         isLiked(recipe)
+        isSaved(recipe)
 
 
         binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
@@ -201,6 +202,13 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             IsLikedBTN(recipe,5)
         }
         binding.imvSave.setOnClickListener { // Guardar en mis recetas favoritas
+            val docSaved = hashMapOf<String, Any>()
+            if(binding.imvSave.tag.equals("save")){
+                docSaved["isSaved"] = true.toString()
+                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
+            }else{
+                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
+            }
 
         }
         binding.imvComment.setOnClickListener { // Mandar a comentar
@@ -216,6 +224,26 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             val intent = Intent(binding.imvStar1.context, UserRateActivity::class.java )
             intent.putExtra("recipeID",recipe.recipeID)
             binding.imvStar1.context.startActivity(intent)
+        }
+    }
+
+    private fun isSaved(recipe: Recipe){
+        db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).addSnapshotListener { value, error ->
+            if (error!=null){
+                Log.w("TAG", "Listen Failed")
+                return@addSnapshotListener
+            }
+            else{
+                if (value!=null){
+                    if (value.exists()){
+                        binding.imvSave.setImageResource(R.drawable.ic_close)
+                        binding.imvSave.tag = "saved"
+                    }else{
+                        binding.imvSave.setImageResource(R.drawable.ic_check_recipe)
+                        binding.imvSave.tag = "save"
+                    }
+                }
+            }
         }
     }
 

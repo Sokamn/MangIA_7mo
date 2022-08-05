@@ -23,7 +23,6 @@ class RecipesFragment : Fragment() {
     private lateinit var rcvMyRecipes:RecyclerView
     private val listRecipes = mutableListOf<Recipe>()
     private val db = Firebase.firestore
-    private val storageReference = FirebaseStorage.getInstance().reference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
