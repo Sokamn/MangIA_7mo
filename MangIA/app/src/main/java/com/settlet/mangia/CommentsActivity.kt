@@ -15,5 +15,10 @@ class CommentsActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        binding.imbBackAC.setOnClickListener {
+            onBackPressed()
+            finish()
+        }
     }
 }

@@ -21,6 +21,7 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.SliderAdapter
+import com.settlet.mangia.CommentsActivity
 import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.ProfileActivity
@@ -212,7 +213,9 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
         }
         binding.imvComment.setOnClickListener { // Mandar a comentar
-
+            val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
+            intent.putExtra("recipeID",recipe.recipeID)
+            binding.imvStar1.context.startActivity(intent)
         }
         binding.imvOptions.setOnClickListener { // Lanzar popup con las posibilidades de la receta
 
