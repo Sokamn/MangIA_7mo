@@ -1,8 +1,10 @@
 package com.settlet.mangia
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.util.Patterns
 import android.view.View
@@ -35,6 +37,36 @@ class RegisterActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+        val pNumber = intent.getStringExtra("pNumber").toString()
+        val nName = intent.getStringExtra("nName").toString()
+        val gMail = intent.getStringExtra("email").toString()
+        val loginMethod = intent.getStringExtra("logIn").toString()
+
+        if(loginMethod=="Google"){
+            if (pNumber!="null"&&pNumber.isNotEmpty()){
+                binding.txpMailR.setText(pNumber)
+            }
+            if(nName.isNotEmpty()){
+                binding.txpNNameR.setText(nName)
+            }
+            if(gMail.isNotEmpty()){
+                binding.txpMailR.setText(gMail)
+                binding.txpMailR.inputType = InputType.TYPE_NULL
+                binding.txpMailR.isEnabled = false
+                binding.txpMailR.isFocusableInTouchMode = false
+            }
+            binding.txpPassR.isFocusableInTouchMode = false
+            binding.txpPassR.isEnabled = false
+            binding.txpPassR.isCursorVisible = false
+            binding.txpPassR.keyListener = null
+            binding.txpRepeatPassR.isFocusableInTouchMode = false
+            binding.txpRepeatPassR.isEnabled = false
+            binding.txpRepeatPassR.isCursorVisible = false
+            binding.txpRepeatPassR.keyListener = null
+        }
+
+
         val arrayAdapterC = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, continents)
         val arrayAdapterLAfrica = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAfrican)
         val arrayAdapterLAsia = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAsia)
@@ -116,41 +148,83 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.setOnClickListener { showDatePickerDialog() }
         binding.btnContinueR.setOnClickListener{ // Boton de continuar inicial
             if(checkValue(contador)) {
+                if (loginMethod=="Google"&&contador==1) {
+                    contador++
+                    register4()
+                }
                 contador++
+                Log.d("NUM",contador.toString())
+                Log.d("NUMB",contador.toString())
             }
         }
         binding.imbBackR.setOnClickListener{ // Boton de volver
-            checkBack(contador)
+            checkBack(contador,loginMethod)
+            if (contador==3){
+                contador--
+            }
             contador--
+            Log.d("NUMBBACK", contador.toString())
         }
         binding.txvPLoginR.setOnClickListener { // Volver al Login
             onBackPressed()
+            Firebase.auth.signOut()
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
         binding.btnContinueR2.setOnClickListener{ // Boton de finalizar registro
             val mailr = binding.txpMailR.text.toString()
             val passr = binding.txpPassR.text.toString()
-            createAccount(mailr,passr)
-            val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
-                "biography" to "",
-                "cantFollowers" to 0,
-                "cantFollows" to 0,
-                "cantRecipes" to 0,
-                "cantReports" to 0,
-                "country" to binding.txpCountryR.text.toString(),
-                "dateBirth" to binding.txpDateBirthR.text.toString(),
-                "dateCreationAccount" to Calendar.getInstance().time.toString(),
-                "email" to binding.txpMailR.text.toString(),
-                "nickName" to binding.txpNNameR.text.toString(),
-                "password" to passr,
-                "phoneNumber" to binding.txpTelR.text.toString(),
-                "region" to binding.txpRegionR.text.toString(),
-                "userName" to binding.txpUserNameR.text.toString()
-            )
-            db.collection("users").document(mailr).set(docUser)
+            when(loginMethod){
+                "Google"->{
+                    val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                        "biography" to "",
+                        "cantFollowers" to 0,
+                        "cantFollows" to 0,
+                        "cantRecipes" to 0,
+                        "cantReports" to 0,
+                        "country" to binding.txpCountryR.text.toString(),
+                        "dateBirth" to binding.txpDateBirthR.text.toString(),
+                        "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                        "email" to binding.txpMailR.text.toString(),
+                        "nickName" to binding.txpNNameR.text.toString(),
+                        "password" to passr,
+                        "phoneNumber" to binding.txpTelR.text.toString(),
+                        "region" to binding.txpRegionR.text.toString(),
+                        "userName" to binding.txpUserNameR.text.toString()
+                    )
+                    db.collection("users").document(mailr).set(docUser)
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                else ->{
+                    createAccount(mailr,passr)
+                    val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                        "biography" to "",
+                        "cantFollowers" to 0,
+                        "cantFollows" to 0,
+                        "cantRecipes" to 0,
+                        "cantReports" to 0,
+                        "country" to binding.txpCountryR.text.toString(),
+                        "dateBirth" to binding.txpDateBirthR.text.toString(),
+                        "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                        "email" to binding.txpMailR.text.toString(),
+                        "nickName" to binding.txpNNameR.text.toString(),
+                        "password" to passr,
+                        "phoneNumber" to binding.txpTelR.text.toString(),
+                        "region" to binding.txpRegionR.text.toString(),
+                        "userName" to binding.txpUserNameR.text.toString()
+                    )
+                    db.collection("users").document(mailr).set(docUser)
+                }
+            }
         }
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
             onBackPressed()
+            Firebase.auth.signOut()
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
             finish()
         }
     }
@@ -159,7 +233,10 @@ class RegisterActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if(currentUser != null){
             if(currentUser.isEmailVerified){
-                reload()
+                val lMethod = intent.getStringExtra("logIn").toString()
+                if (lMethod != "Google"){
+                    reload()
+                }
             } else{
                 val intent = Intent(this, CheckMailActivity::class.java)
                 startActivity(intent)
@@ -203,24 +280,19 @@ class RegisterActivity : AppCompatActivity() {
                 if(binding.txpTelR.text.isNotEmpty()&&binding.txpUserNameR.text.isNotEmpty()&&binding.txpNNameR.text.isNotEmpty()){
                     if(verifyUserNames(badWords,binding.txpUserNameR.text.toString(),binding.txpNNameR.text.toString()))
                     {
-                        db.collection("users").document(binding.txpMailR.text.toString()).addSnapshotListener { value, error ->
-                            if(error!=null){
-                                Log.d("ERROR",error.toString())
-                            }else{
-                                if(value!=null) {
-                                    if (value.exists()) {
-                                        Toast.makeText(
-                                            this,
-                                            "Este correo ya ha sido utilizado en otra cuenta",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        contador -= 1
-                                    } else {
-                                        register2()
-                                    }
+                        db.collection("users").document(binding.txpMailR.text.toString()).get()
+                            .addOnSuccessListener { doc ->
+                                if (doc.exists()) {
+                                    Toast.makeText(
+                                        this,
+                                        "Este correo ya ha sido utilizado en otra cuenta",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    contador -= 1
+                                } else {
+                                    register2()
                                 }
                             }
-                        }
                         return true
                     }
                     else{
@@ -297,16 +369,26 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
-    private fun checkBack(contador: Int){//si contador es 0 se vuelve al intent de Login, si es 1 vuelve al registro 1
+    private fun checkBack(contador: Int,loginMethod:String){//si contador es 0 se vuelve al intent de Login, si es 1 vuelve al registro 1
         when(contador)
         {
             0 ->{
                 onBackPressed()
+                Firebase.auth.signOut()
+                val intent = Intent(this,LoginActivity::class.java)
+                startActivity(intent)
                 finish()
             }
             1 ->{register1()}
             2 ->{register2()}
-            3 ->{register3()}
+            3 ->{
+                if (loginMethod=="Google"){
+                    register2()
+                }
+                else{
+                    register3()
+                }
+            }
             else->{Toast.makeText(this,"ERROR",Toast.LENGTH_SHORT).show()}
         }
     }

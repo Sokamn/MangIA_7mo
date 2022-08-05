@@ -124,6 +124,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.txvPRegisterL.setOnClickListener{
             val intent = Intent(this, RegisterActivity::class.java)
+            intent.putExtra("logIn","mail")
             startActivity(intent)
         }
         binding.txvForgotPassL.setOnClickListener {
@@ -167,15 +168,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-    private fun getAllUserDocuments(userList:MutableList<User>){
-        db.collection("users").get().addOnSuccessListener { result ->
-            for (document in result){
-                val userObjects: User = document.toObject(User::class.java)
-                userList.add(userObjects)
-            }
-        }
 
-    }
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -184,36 +177,17 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("TAG", "signInWithCredential:success")
                     val user = auth.currentUser
-                    var existUser = false
                     if (user != null) {
-                        db.collection("users").whereEqualTo("email",user.email.toString()).get().addOnSuccessListener{ documents ->
-                            for(document in documents)
-                            {
-                                Log.d("TAG", "${document.id} => ${document.data}")
-                                existUser = true
+                        db.collection("users").document(user.email.toString()).get().addOnSuccessListener{ doc ->
+                            if (doc.exists()) {
+                                updateUI(user)
+                            }else{
+                                loadRegister(user)
                             }
-                            if (!existUser) {
-                                val docUser = hashMapOf("email" to user.email.toString(),
-                                    "phoneNumber" to user.phoneNumber.toString(),
-                                    "userName" to user.displayName.toString(),
-                                    "nickName" to "",
-                                    "country" to "",
-                                    "region" to "",
-                                    "dateBirth" to "",
-                                    "dateCreationAccount" to Calendar.getInstance().time.toString(),
-                                    "password" to "",
-                                    "cantReports" to 0,
-                                    "age" to 0,
-                                    "cantFollows" to 0,
-                                    "cantRecipes" to 0,
-                                    "cantFollowers" to 0,
-                                    "biography" to ""
-                                )
-                                db.collection("users").document(user.email.toString()).set(docUser)
-                            }
-                        }// Cuando le das al login, fijarte las cuenas pueden acceder, Ventanas emergentes para los Toast.makeText()
+                        }
+
                     }
-                    updateUI(user)
+
                 } else {
                     Log.w("TAG", "signInWithCredential:failure", task.exception)
                     Toast.makeText(this,"Ocurrió un error inesperado. Por favor, intentelo más tarde...",Toast.LENGTH_SHORT).show()
@@ -222,10 +196,23 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    private fun loadRegister(user: FirebaseUser?) {
+        if(user!=null)
+        {
+            val intentReg = Intent(baseContext, RegisterActivity::class.java)
+            intentReg.putExtra("pNumber",user.phoneNumber.toString())
+            intentReg.putExtra("nName",user.displayName.toString())
+            intentReg.putExtra("email",user.email.toString())
+            intentReg.putExtra("logIn","Google")
+            startActivity(intentReg)
+            finish()
+        }
+    }
+
     private fun updateUI(user: FirebaseUser?) {
         if(user!=null)
         {
-            val intent = Intent(this,HomeActivity::class.java)
+            val intent = Intent(baseContext,HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
