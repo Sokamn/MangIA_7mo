@@ -2,7 +2,6 @@ package com.settlet.mangia.ViewHolder
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,7 +12,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.ProfileActivity
-import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowUserBinding
 
 class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {

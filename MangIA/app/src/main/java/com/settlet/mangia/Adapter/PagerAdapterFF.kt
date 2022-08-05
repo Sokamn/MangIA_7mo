@@ -8,7 +8,6 @@ import com.settlet.mangia.Fragment.FollowersFragment
 import com.settlet.mangia.Fragment.FollowsFragment
 
 class PagerAdapterFF(fm:FragmentActivity): FragmentStateAdapter(fm) {
-
     override fun getItemCount() = 2
 
     override fun createFragment(position: Int):Fragment{

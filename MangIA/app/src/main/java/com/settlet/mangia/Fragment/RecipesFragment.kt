@@ -6,19 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.settlet.mangia.Adapter.MyRecipesAdapter
+import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
 
 class RecipesFragment : Fragment() {
 
     private lateinit var rcvMyRecipes:RecyclerView
-    private val listRecipes = mutableListOf<StorageReference>()
+    private val listRecipes = mutableListOf<Recipe>()
     private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
 
@@ -42,10 +45,11 @@ class RecipesFragment : Fragment() {
     private fun getImages(email: String) {
         db.collection("recipes").whereEqualTo("publisher", email).get().addOnSuccessListener { documents ->
             documents.forEach { doc ->
-                val a : List<String> = doc["listImages"] as List<String>
-                val fileRef = storageReference.child(a.first())
-                listRecipes.add(fileRef)
+                val recipe = doc.toObject<Recipe>()
+                listRecipes.add(recipe)
             }
+            rcvMyRecipes.setHasFixedSize(true)
+            rcvMyRecipes.layoutManager = GridLayoutManager(requireActivity(), 3)
             val adapter = MyRecipesAdapter()
             rcvMyRecipes.adapter = adapter
             adapter.submitList(listRecipes)

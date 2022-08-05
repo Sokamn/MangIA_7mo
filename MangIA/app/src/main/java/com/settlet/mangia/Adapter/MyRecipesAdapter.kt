@@ -9,12 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.storage.StorageReference
-import com.settlet.mangia.Model.Ingredient
+import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
-import com.settlet.mangia.ViewHolder.IngredientViewHolder
 
-class MyRecipesAdapter : ListAdapter<StorageReference, MyRecipesAdapter.MyRecipesViewHolder>(DiffCallBack){
+class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolder>(DiffCallBack){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRecipesViewHolder {
         val view: View = LayoutInflater
             .from(parent.context)
@@ -28,9 +27,10 @@ class MyRecipesAdapter : ListAdapter<StorageReference, MyRecipesAdapter.MyRecipe
     }
 
     class MyRecipesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val storageReference = FirebaseStorage.getInstance().reference
 
-        fun render(picture:StorageReference){
-            picture.downloadUrl.addOnSuccessListener {
+        fun render(recipe: Recipe){
+            storageReference.child(recipe.listImages.first()).downloadUrl.addOnSuccessListener {
                 val recipeImage = itemView.findViewById<ImageView>(R.id.row_image)
                 Glide.with(itemView.context)
                     .load(it)
@@ -40,13 +40,13 @@ class MyRecipesAdapter : ListAdapter<StorageReference, MyRecipesAdapter.MyRecipe
         }
     }
 
-    companion object DiffCallBack: DiffUtil.ItemCallback<StorageReference>(){
-        override fun areItemsTheSame(oldItem: StorageReference, newItem: StorageReference): Boolean {
-            return oldItem.path == newItem.path
+    companion object DiffCallBack: DiffUtil.ItemCallback<Recipe>(){
+        override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem.recipeID == newItem.recipeID
         }
 
-        override fun areContentsTheSame(oldItem: StorageReference, newItem: StorageReference): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
+            return oldItem.equals(newItem)
         }
 
     }

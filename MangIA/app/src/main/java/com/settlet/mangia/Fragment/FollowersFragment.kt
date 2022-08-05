@@ -7,58 +7,59 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.UserAdapter
-import com.settlet.mangia.databinding.FragmentFollowersBinding
+import com.settlet.mangia.R
 
 class FollowersFragment : Fragment() {
-
-    private var _binding: FragmentFollowersBinding? = null
-    private val binding get() = _binding!!
     private val db = Firebase.firestore
-    private val storageReference = FirebaseStorage.getInstance().reference
-    private val prefs = requireContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-    private val profileEmail = prefs.getString("profileEmail","none")
-
+    private val userList = mutableListOf<com.settlet.mangia.Model.User>()
+    private lateinit var rcvFollowers: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val userList = mutableListOf<com.settlet.mangia.Model.User>()
-        binding.rcvUsersFollowers.setHasFixedSize(true)
-        binding.rcvUsersFollowers.layoutManager = LinearLayoutManager(requireContext())
-        val currentUser = Firebase.auth.currentUser
-        if (currentUser!=null)
-        {
-            db.collection("follow").document(profileEmail!!).collection("followers").get().addOnSuccessListener{ documents ->
-                for (document in documents){
-                    userList.add(document.toObject<com.settlet.mangia.Model.User>())
-                }
-                val userAdapter = UserAdapter(userList)
-                binding.rcvUsersFollowers.adapter = userAdapter
-            }
-        }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentFollowersBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        return root
-    }
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        // Inflate the layout for this fragment
+        val myView = inflater.inflate(R.layout.fragment_followers, container, false)
+        val prefs = requireActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val profileEmail = prefs.getString("profileEmail","none")
+        rcvFollowers = myView.findViewById(R.id.rcvUsersFollowers)
+        rcvFollowers.setHasFixedSize(true)
+        rcvFollowers.layoutManager = LinearLayoutManager(requireActivity())
+        val currentUser = Firebase.auth.currentUser
+        if (currentUser!=null)
+        {
+            val userAdapter = UserAdapter()
+            rcvFollowers.adapter = userAdapter
+            db.collection("follow").document(profileEmail!!).collection("followers").get().addOnSuccessListener{ documents ->
+                userList.clear()
+                for (document in documents){
+                    db.collection("users").document(document.id).addSnapshotListener { value, error ->
+                        if (error!=null) {
+                            Log.w("TAG","Listen Failed")
+                            return@addSnapshotListener
+                        }
+                        if (value != null) {
+                            if (value.exists()){
+                                val us: com.settlet.mangia.Model.User = value.toObject()!!
+                                userList.add(us)
+                                userAdapter.submitList(userList)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return myView
     }
 }
