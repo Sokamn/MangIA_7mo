@@ -239,10 +239,10 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             else{
                 if (value!=null){
                     if (value.exists()){
-                        binding.imvSave.setImageResource(R.drawable.ic_close)
+                        binding.imvSave.setImageResource(R.drawable.ic_unsave_recipe)
                         binding.imvSave.tag = "saved"
                     }else{
-                        binding.imvSave.setImageResource(R.drawable.ic_check_recipe)
+                        binding.imvSave.setImageResource(R.drawable.ic_save_recipe)
                         binding.imvSave.tag = "save"
                     }
                 }

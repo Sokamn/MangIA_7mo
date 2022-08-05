@@ -27,12 +27,12 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Publicaciones" />
+                    android:icon="@drawable/ic_my_recipes" />
 
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Guardados" />
+                    android:icon="@drawable/ic_save_recipe" />
             </com.google.android.material.tabs.TabLayout>
 
             <View
