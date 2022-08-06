@@ -17,7 +17,7 @@ class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolde
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRecipesViewHolder {
         val view: View = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.row_gallery_recycler,parent,false)
+            .inflate(R.layout.row_gallery_recipe_recycler,parent,false)
         return MyRecipesViewHolder(view)
     }
 
