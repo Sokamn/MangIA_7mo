@@ -42,67 +42,78 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     private val listImages = mutableListOf<String>()
 
     fun render(recipe:Recipe){
-        if (recipe.listImages.size == 1){
-            val fileRef = storageReference.child(recipe.listImages.first())
-            fileRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(binding.imvUniquePost.context)
-                    .load(result)
-                    .into(binding.imvUniquePost)
+        loadPostImages(recipe)
+        loadDescriptionDesign(recipe.title, recipe.description)
+        loadDesignValorations(recipe.numberTimesValored)
+        loadTopBarRecipe(recipe.publisher)
+        loadTimeLaunch(recipe)
+        loadDesignComments(recipe.cantComments)
+        isLiked(recipe)
+        isSaved(recipe)
+
+        binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
+            val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("profileEmail", recipe.publisher)
+            editor.apply()
+            itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
+        }
+        binding.cstPost.setOnClickListener { // Mandar a la receta completa
+
+        }
+        binding.imvStar1.setOnClickListener { // Dar una estrella
+            IsLikedBTN(recipe,1)
+        }
+        binding.imvStar2.setOnClickListener { // Dar dos estrella
+            IsLikedBTN(recipe,2)
+        }
+        binding.imvStar3.setOnClickListener { // Dar tres estrella
+            IsLikedBTN(recipe,3)
+        }
+        binding.imvStar4.setOnClickListener { // Dar cuatro estrella
+            IsLikedBTN(recipe,4)
+        }
+        binding.imvStar5.setOnClickListener { // Dar cinco estrella
+            IsLikedBTN(recipe,5)
+        }
+        binding.imvSave.setOnClickListener { // Guardar en mis recetas favoritas
+            val docSaved = hashMapOf<String, Any>()
+            if(binding.imvSave.tag.equals("save")){
+                docSaved["isSaved"] = true.toString()
+                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
+            }else{
+                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
             }
-            binding.crdvwSliderRI.visibility = View.GONE
-        }else{
-            recipe.listImages.forEach {
-                val fileRef = storageReference.child(it)
-                fileRef.downloadUrl.addOnSuccessListener { result ->
-                    listImages.add(result.toString())
-                    if (listImages.size == recipe.listImages.size){
-                        Log.d("IMAGE",listImages.toString())
-                        binding.imgsldrCarruselRI.setSliderAdapter(SliderAdapter(listImages,false))
-                    }
-                }.addOnFailureListener {
-                    Log.d("IMAGE","No se ha podido cargar la imagen")
-                }
-            }
-            binding.imvUniquePost.visibility = View.INVISIBLE
-            binding.imvUniquePost.setImageResource(R.drawable.profile_picture)
-            binding.imgsldrCarruselRI.visibility = View.VISIBLE
+
         }
-        val pImageRef = storageReference.child("users/${recipe.publisher}/profile.jpg")
-        pImageRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(binding.imvProfilePictureRI.context)
-                .load(result)
-                .into(binding.imvProfilePictureRI)
+        binding.imvComment.setOnClickListener { // Mandar a comentar
+            val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
+            intent.putExtra("recipeID",recipe.recipeID)
+            binding.imvStar1.context.startActivity(intent)
         }
-        val txtDescription = recipe.title + " " + recipe.description
-        if(txtDescription.length > 70){
-            addReadMore(txtDescription,binding.txvDescription,recipe.title.length)
+        binding.imvOptions.setOnClickListener { // Lanzar popup con las posibilidades de la receta
+
         }
-        else{
-            val ss = SpannableString(txtDescription)
-            val manjariBold = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjaribold.ttf")
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, recipe.title.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            binding.txvDescription.text = ss
+        binding.imvShare.setOnClickListener { // Compartir la receta
+            Toast.makeText(binding.imvShare.context,"Compartir recetas aún no está implementado.",Toast.LENGTH_SHORT).show()
         }
-        if(recipe.numberTimesValored==0){
-            binding.txvValoration.visibility = View.GONE
-        }else{
-            binding.txvValoration.visibility = View.VISIBLE
+        binding.txvValoration.setOnClickListener {  // Mostrar todos los usuarios que valoraron la receta, y cual fue su valoración.
+            val intent = Intent(binding.imvStar1.context, UserRateActivity::class.java )
+            intent.putExtra("recipeID",recipe.recipeID)
+            intent.putExtra("publisherID",recipe.publisher)
+            binding.imvStar1.context.startActivity(intent)
         }
-        binding.txvValoration.text = recipe.numberTimesValored.toString() + " valoraciones"
-        val docRef = db.collection("users").document(recipe.publisher)
-        docRef.addSnapshotListener { value, error ->
-            if(error!=null){
-                Log.w("TAG","Listen Failed")
-                return@addSnapshotListener
-            }
-            if(value!=null && value.exists()) {
-                val user = value.toObject<com.settlet.mangia.Model.User>()
-                if (user != null) {
-                    binding.txvUserNameRI.text = user.userName
-                    binding.txvUserCountryRI.text = user.country
-                }
-            }
+    }
+
+    private fun loadDesignComments(cantComments: Int) {
+        when(cantComments){
+            0-> binding.txvComments.visibility = View.GONE
+            1-> binding.txvComments.text = "Ver 1 comentario"
+            else -> binding.txvComments.text = "Ver los ${cantComments} comentarios"
         }
+        binding.txvComments.text = if (cantComments == 1) "Ver 1 comentario" else "Ver los $cantComments comentarios"
+    }
+
+    private fun loadTimeLaunch(recipe: Recipe) {
         val timeLaunch = LocalDateTime.parse(recipe.timeLaunch, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         val timeNow = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")),DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         val diffTime = Duration.between(timeLaunch,timeNow)
@@ -167,66 +178,78 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                 binding.txvLaunchTime.text = "Hace $diffMinutes minutos"
             }
         }
-        when(recipe.cantComments){
-            0-> binding.txvComments.visibility = View.GONE
-            1-> binding.txvComments.text = "Ver 1 comentario"
-            else -> binding.txvComments.text = "Ver los ${recipe.cantComments} comentarios"
-        }
-        binding.txvComments.text = if (recipe.cantComments == 1) "Ver 1 comentario" else "Ver los ${recipe.cantComments} comentarios"
-        binding.txvValoration.text = if (recipe.numberTimesValored == 1) "1 valoración" else "${recipe.numberTimesValored} valoraciones"
-        isLiked(recipe)
-        isSaved(recipe)
+    }
 
-
-        binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
-            val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", recipe.publisher)
-            editor.apply()
-            itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
-        }
-        binding.cstPost.setOnClickListener { // Mandar a la receta completa
-
-        }
-        binding.imvStar1.setOnClickListener { // Dar una estrella
-            IsLikedBTN(recipe,1)
-        }
-        binding.imvStar2.setOnClickListener { // Dar dos estrella
-            IsLikedBTN(recipe,2)
-        }
-        binding.imvStar3.setOnClickListener { // Dar tres estrella
-            IsLikedBTN(recipe,3)
-        }
-        binding.imvStar4.setOnClickListener { // Dar cuatro estrella
-            IsLikedBTN(recipe,4)
-        }
-        binding.imvStar5.setOnClickListener { // Dar cinco estrella
-            IsLikedBTN(recipe,5)
-        }
-        binding.imvSave.setOnClickListener { // Guardar en mis recetas favoritas
-            val docSaved = hashMapOf<String, Any>()
-            if(binding.imvSave.tag.equals("save")){
-                docSaved["isSaved"] = true.toString()
-                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
-            }else{
-                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
+    private fun loadTopBarRecipe(publisher:String) {
+        db.collection("users").document(publisher).get().addOnSuccessListener { doc ->
+            if(doc!=null){
+                val user = doc.toObject<com.settlet.mangia.Model.User>()
+                if (user!=null){
+                    binding.txvUserNameRI.text = user.userName
+                    binding.txvUserCountryRI.text = user.country
+                }
             }
+        }
+        loadProfileImage(publisher)
+    }
 
+    private fun loadDesignValorations(nValorations: Int) {
+        if(nValorations==0){
+            binding.txvValoration.visibility = View.GONE
+        }else{
+            binding.txvValoration.visibility = View.VISIBLE
         }
-        binding.imvComment.setOnClickListener { // Mandar a comentar
-            val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
-            intent.putExtra("recipeID",recipe.recipeID)
-            binding.imvStar1.context.startActivity(intent)
-        }
-        binding.imvOptions.setOnClickListener { // Lanzar popup con las posibilidades de la receta
+        binding.txvValoration.text = "$nValorations valoraciones"
+        binding.txvValoration.text = if (nValorations == 1) "1 valoración" else "$nValorations valoraciones"
+    }
 
+    private fun loadDescriptionDesign(title: String, description: String) {
+        val txtDescription = "$title $description"
+        if(txtDescription.length > 70){
+            addReadMore(txtDescription,binding.txvDescription,title.length)
         }
-        binding.imvShare.setOnClickListener { // Compartir la receta
-            Toast.makeText(binding.imvShare.context,"Compartir recetas aún no está implementado.",Toast.LENGTH_SHORT).show()
+        else{
+            val ss = SpannableString(txtDescription)
+            val manjariBold = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjaribold.ttf")
+            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, title.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            binding.txvDescription.text = ss
         }
-        binding.txvValoration.setOnClickListener {  // Mostrar todos los usuarios que valoraron la receta, y cual fue su valoración.
-            val intent = Intent(binding.imvStar1.context, UserRateActivity::class.java )
-            intent.putExtra("recipeID",recipe.recipeID)
-            binding.imvStar1.context.startActivity(intent)
+    }
+
+    private fun loadProfileImage(email: String) {
+        val pImageRef = storageReference.child("users/$email/profile.jpg")
+        pImageRef.downloadUrl.addOnSuccessListener { result ->
+            Glide.with(binding.imvProfilePictureRI.context)
+                .load(result)
+                .into(binding.imvProfilePictureRI)
+        }
+    }
+
+    private fun loadPostImages(recipe: Recipe) {
+        if (recipe.listImages.size == 1){
+            val fileRef = storageReference.child(recipe.listImages.first())
+            fileRef.downloadUrl.addOnSuccessListener { result ->
+                Glide.with(binding.imvUniquePost.context)
+                    .load(result)
+                    .into(binding.imvUniquePost)
+            }
+            binding.crdvwSliderRI.visibility = View.GONE
+        }else{
+            recipe.listImages.forEach {
+                val fileRef = storageReference.child(it)
+                fileRef.downloadUrl.addOnSuccessListener { result ->
+                    listImages.add(result.toString())
+                    if (listImages.size == recipe.listImages.size){
+                        Log.d("IMAGE",listImages.toString())
+                        binding.imgsldrCarruselRI.setSliderAdapter(SliderAdapter(listImages,false))
+                    }
+                }.addOnFailureListener {
+                    Log.d("IMAGE","No se ha podido cargar la imagen")
+                }
+            }
+            binding.imvUniquePost.visibility = View.INVISIBLE
+            binding.imvUniquePost.setImageResource(R.drawable.profile_picture)
+            binding.imgsldrCarruselRI.visibility = View.VISIBLE
         }
     }
 
@@ -395,11 +418,11 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             textView.text = ss
         }
         else{
-                val ss = SpannableString(text.substring(0, 70) + "... Leer más")
-                ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                textView.text = ss
+            val ss = SpannableString(text.substring(0, 70) + "... Leer más")
+            ss.setSpan(clickableSpan, ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 12, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            textView.text = ss
         }
         textView.movementMethod = LinkMovementMethod.getInstance()
     }

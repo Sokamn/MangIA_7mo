@@ -25,7 +25,7 @@ class CommentAdapter : ListAdapter<Comment, CommentViewHolder>(DiffCallBack){
         holder.render(item)
     }
 
-    companion object DiffCallBack: DiffUtil.ItemCallback<Comment>(){
+    companion object DiffCallBack: DiffUtil.ItemCallback<Comment>() {
         override fun areItemsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem.commentID == newItem.commentID
         }
@@ -33,7 +33,5 @@ class CommentAdapter : ListAdapter<Comment, CommentViewHolder>(DiffCallBack){
         override fun areContentsTheSame(oldItem: Comment, newItem: Comment): Boolean {
             return oldItem == newItem
         }
-
     }
-
 }
