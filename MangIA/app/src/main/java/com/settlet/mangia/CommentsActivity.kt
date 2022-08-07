@@ -19,7 +19,6 @@ class CommentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommentsBinding
     private var listComments = mutableListOf<String>()
     private var db = Firebase.firestore
-    private val recipeID = intent.getStringExtra("recipeID")
     private val user = Firebase.auth.currentUser!!
     private val storageReference = FirebaseStorage.getInstance().reference
 
@@ -31,6 +30,8 @@ class CommentsActivity : AppCompatActivity() {
         window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         setImageProfile()
+        val recID = intent.getStringExtra("recipeID").toString()
+
 
         binding.imbBackAC.setOnClickListener {
             onBackPressed()
@@ -41,7 +42,7 @@ class CommentsActivity : AppCompatActivity() {
             if(binding.txpAddCommentAC.text.isEmpty()){
                 Toast.makeText(this,"No puedes enviar un mensaje vacio.",Toast.LENGTH_SHORT).show()
             }else{
-                addComment()
+                addComment(recID)
             }
         }
     }
@@ -55,14 +56,14 @@ class CommentsActivity : AppCompatActivity() {
         }
     }
 
-    private fun addComment() {
+    private fun addComment(recipeID: String) {
         val docComment = hashMapOf<String, Any>()
         docComment["comment"] = binding.txpAddCommentAC.text.toString()
         docComment["publisher"] = user.email.toString()
         docComment["likes"] = 0
         docComment["timeLaunch"] = LocalDateTime.now()
-        db.collection("comments").document("comments").collection(recipeID.toString()).document().set(docComment).addOnSuccessListener {
-            db.collection("recipes").document(recipeID.toString()).update("cantComments", FieldValue.increment(1))
+        db.collection("comments").document("comments").collection(recipeID).document().set(docComment).addOnSuccessListener {
+            db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
         }
         binding.txpAddCommentAC.setText("")
     }

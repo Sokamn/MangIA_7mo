@@ -20,14 +20,13 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.*
 import com.settlet.mangia.Adapter.SliderAdapter
-import com.settlet.mangia.CommentsActivity
+import com.settlet.mangia.Fragment.HomeFragment
 import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
-import com.settlet.mangia.ProfileActivity
-import com.settlet.mangia.R
-import com.settlet.mangia.UserRateActivity
 import com.settlet.mangia.databinding.RecipeItemBinding
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,16 +38,31 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
     private val listImages = mutableListOf<String>()
-
     fun render(recipe:Recipe){
         loadPostImages(recipe)
         loadDescriptionDesign(recipe.title, recipe.description)
-        loadDesignValorations(recipe.numberTimesValored)
         loadTopBarRecipe(recipe.publisher)
         loadTimeLaunch(recipe)
         loadDesignComments(recipe.cantComments)
         isLiked(recipe)
         isSaved(recipe)
+
+        db.collection("recipes").document(recipe.recipeID).addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.w("TAG", "Listen Failed")
+                return@addSnapshotListener
+            } else {
+                if (value != null) {
+                    if (value["numberTimesValored"].toString().toInt() == 0) {
+                        binding.txvValoration.visibility = View.GONE
+                    } else {
+                        binding.txvValoration.visibility = View.VISIBLE
+                    }
+                    binding.txvValoration.text =
+                        if (value["numberTimesValored"].toString().toInt() == 1) "1 valoración" else "${value["numberTimesValored"].toString().toInt()} valoraciones"
+                }
+            }
+        }
 
         binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
@@ -191,16 +205,6 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         loadProfileImage(publisher)
     }
 
-    private fun loadDesignValorations(nValorations: Int) {
-        if(nValorations==0){
-            binding.txvValoration.visibility = View.GONE
-        }else{
-            binding.txvValoration.visibility = View.VISIBLE
-        }
-        binding.txvValoration.text = "$nValorations valoraciones"
-        binding.txvValoration.text = if (nValorations == 1) "1 valoración" else "$nValorations valoraciones"
-    }
-
     private fun loadDescriptionDesign(title: String, description: String) {
         val txtDescription = "$title $description"
         if(txtDescription.length > 70){
@@ -297,11 +301,22 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         if(binding.imvStar1.tag == rate){
             binding.imvStar1.tag = 0
             db.collection("likes").document(recipeID).collection("isLiked")
-                .document(Firebase.auth.currentUser!!.email.toString()).delete()
+                .document(Firebase.auth.currentUser!!.email.toString()).delete().addOnSuccessListener {
+                    db.collection("recipes").document(recipeID).update("numberTimesValored",FieldValue.increment(-1))
+                }
         }else{
-            docValoration["rate"] = rate
-            db.collection("likes").document(recipeID).collection("isLiked")
-                .document(Firebase.auth.currentUser!!.email.toString()).set(docValoration)
+            val docLikesRef = db.collection("likes").document(recipeID).collection("isLiked")
+                .document(Firebase.auth.currentUser!!.email.toString())
+            docLikesRef.get().addOnSuccessListener { doc ->
+                docValoration["rate"] = rate
+                if(doc.exists()){
+                    docLikesRef.set(docValoration)
+                }else{
+                    docLikesRef.set(docValoration).addOnSuccessListener {
+                        db.collection("recipes").document(recipeID).update("numberTimesValored",FieldValue.increment(1))
+                    }
+                }
+            }
         }
     }
 
