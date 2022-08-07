@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imvProfilePictureRCA"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/userImageProfile"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <TextView
+        android:id="@+id/txvCommentRCA"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="40dp"
+        android:fontFamily="@font/manjariregular"
+        android:text="@string/comments"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toStartOf="@+id/imvLikeRCA"
+        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRCA"
+        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRCA" />
+
+    <TextView
+        android:id="@+id/txvTimePostRCA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/manjarithin"
+        android:text="2 h"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRCA"
+        app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
+
+    <TextView
+        android:id="@+id/txvResponderRCA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/manjarithin"
+        android:text="@string/answer"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txvLikesRCA"
+        app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
+
+    <TextView
+        android:id="@+id/txvLikesRCA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/manjarithin"
+        android:text="1234 Me gusta"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@+id/txvTimePostRCA"
+        app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
+
+    <ImageView
+        android:id="@+id/imvLikeRCA"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureRCA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRCA"
+        app:srcCompat="@drawable/ic_like_comment" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
