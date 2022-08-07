@@ -3,10 +3,8 @@ package com.settlet.mangia.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.settlet.mangia.Model.Comment
 import com.settlet.mangia.R
 import com.settlet.mangia.ViewHolder.CommentViewHolder

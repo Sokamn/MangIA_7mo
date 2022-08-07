@@ -28,7 +28,6 @@ import com.settlet.mangia.ProfileActivity
 import com.settlet.mangia.R
 import com.settlet.mangia.UserRateActivity
 import com.settlet.mangia.databinding.RecipeItemBinding
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -61,19 +60,19 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
         }
         binding.imvStar1.setOnClickListener { // Dar una estrella
-            IsLikedBTN(recipe,1)
+            LoadLike(recipe.recipeID,1)
         }
         binding.imvStar2.setOnClickListener { // Dar dos estrella
-            IsLikedBTN(recipe,2)
+            LoadLike(recipe.recipeID,2)
         }
         binding.imvStar3.setOnClickListener { // Dar tres estrella
-            IsLikedBTN(recipe,3)
+            LoadLike(recipe.recipeID,3)
         }
         binding.imvStar4.setOnClickListener { // Dar cuatro estrella
-            IsLikedBTN(recipe,4)
+            LoadLike(recipe.recipeID,4)
         }
         binding.imvStar5.setOnClickListener { // Dar cinco estrella
-            IsLikedBTN(recipe,5)
+            LoadLike(recipe.recipeID,5)
         }
         binding.imvSave.setOnClickListener { // Guardar en mis recetas favoritas
             val docSaved = hashMapOf<String, Any>()
@@ -83,7 +82,6 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }else{
                 db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
             }
-
         }
         binding.imvComment.setOnClickListener { // Mandar a comentar
             val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
@@ -283,53 +281,32 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }
             if (value != null) {
                 if (value.exists()) {
-                    val rateUser = value["rate"]
-                    updateMyRate(rateUser.toString().toFloat().roundToInt())
-                }
-                else{
-                    binding.imvStar1.setImageResource(R.drawable.ic_add)
-                    binding.imvStar2.setImageResource(R.drawable.ic_add)
-                    binding.imvStar3.setImageResource(R.drawable.ic_add)
-                    binding.imvStar4.setImageResource(R.drawable.ic_add)
-                    binding.imvStar5.setImageResource(R.drawable.ic_add)
+                    val rateUser = value["rate"].toString().toInt()
+                    updateMyRate(rateUser)
+                    binding.imvStar1.tag = rateUser
+                }else{
+                    binding.imvStar1.tag = 0
+                    updateMyRate(0)
                 }
             }
         }
     }
 
-    private fun IsLikedBTN(recipe: Recipe,rate:Int) {
-        val docFollows = hashMapOf<String, Any>()
-        docFollows["rate"] = rate
-        val docRef = db.collection("likes").document(recipe.recipeID).collection("isLiked").document(Firebase.auth.currentUser!!.email.toString())
-        docRef.get().addOnSuccessListener { doc ->
-            if(doc!=null) {
-                if(doc.exists()){
-                    if(rate == doc["rate"].toString().toFloat().roundToInt()){
-                        binding.imvStar1.setImageResource(R.drawable.ic_add)
-                        binding.imvStar2.setImageResource(R.drawable.ic_add)
-                        binding.imvStar3.setImageResource(R.drawable.ic_add)
-                        binding.imvStar4.setImageResource(R.drawable.ic_add)
-                        binding.imvStar5.setImageResource(R.drawable.ic_add)
-                        db.collection("recipes").document(recipe.recipeID).update("numberTimesValored", FieldValue.increment(-1))
-                        docRef.delete()
-                    }
-                    else{
-                        updateMyRate(rate)
-                        docRef.update("rate", rate)
-                    }
-                }
-                else{
-                    updateMyRate(rate)
-                    db.collection("recipes").document(recipe.recipeID).update("numberTimesValored", FieldValue.increment(1))
-                    docRef.set(docFollows)
-                }
-                updateRecipeRate(recipe)
-            }
+    private fun LoadLike(recipeID:String, rate: Int) {
+        val docValoration = hashMapOf<String, Any>()
+        if(binding.imvStar1.tag == rate){
+            binding.imvStar1.tag = 0
+            db.collection("likes").document(recipeID).collection("isLiked")
+                .document(Firebase.auth.currentUser!!.email.toString()).delete()
+        }else{
+            docValoration["rate"] = rate
+            db.collection("likes").document(recipeID).collection("isLiked")
+                .document(Firebase.auth.currentUser!!.email.toString()).set(docValoration)
         }
     }
 
-    private fun updateRecipeRate(recipe: Recipe) {
-        db.collection("likes").document(recipe.recipeID).collection("isLiked").get().addOnSuccessListener(){ documents ->
+    /*private fun updateRecipeRate(recipe: Recipe) {
+        db.collection("likes").document(recipe.recipeID).collection("isLiked").get().addOnSuccessListener{ documents ->
             var ratePlus = 0
             documents.forEach { doc ->
                 ratePlus+=doc["rate"].toString().toInt()
@@ -341,10 +318,17 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                 db.collection("recipes").document(recipe.recipeID).update("stars", promRecipeRate)
             }
         }
-    }
+    }*/
 
     private fun updateMyRate(rate: Int) {
         when(rate){
+            0-> {
+                binding.imvStar1.setImageResource(R.drawable.ic_add)
+                binding.imvStar2.setImageResource(R.drawable.ic_add)
+                binding.imvStar3.setImageResource(R.drawable.ic_add)
+                binding.imvStar4.setImageResource(R.drawable.ic_add)
+                binding.imvStar5.setImageResource(R.drawable.ic_add)
+            }
             1-> {
                 binding.imvStar1.setImageResource(R.drawable.ic_remove)
                 binding.imvStar2.setImageResource(R.drawable.ic_add)

@@ -73,7 +73,6 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/manjarithin"
         android:text="2 h"
-        android:visibility=""
         android:textColor="@color/quaternaryColor"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRC"
