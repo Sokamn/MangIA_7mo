@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -42,9 +43,9 @@ class ProfileActivity : AppCompatActivity() {
         tabLayout = findViewById(R.id.tblTabLayoutP)
         viewPager.adapter = PagerAdapterP(this)
         TabLayoutMediator(tabLayout,viewPager){ tab,position->
-            tab.text = when(position){
-                0 -> "Recetas"
-                1 -> "Guardados"
+            tab.icon = when(position){
+                0 -> ContextCompat.getDrawable(this, R.drawable.ic_my_recipes)
+                1 -> ContextCompat.getDrawable(this, R.drawable.ic_save_menu)
                 else -> throw Resources.NotFoundException("Position Not Found")
             }
         }.attach()
