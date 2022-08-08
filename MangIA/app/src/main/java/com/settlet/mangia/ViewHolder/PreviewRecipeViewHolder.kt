@@ -64,6 +64,9 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }
         }
 
+        binding.txvComments.setOnClickListener {
+            GoToCommentsActivity(recipe.recipeID)
+        }
         binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             editor.putString("profileEmail", recipe.publisher)
@@ -98,9 +101,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }
         }
         binding.imvComment.setOnClickListener { // Mandar a comentar
-            val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
-            intent.putExtra("recipeID",recipe.recipeID)
-            binding.imvStar1.context.startActivity(intent)
+            GoToCommentsActivity(recipe.recipeID)
         }
         binding.imvOptions.setOnClickListener { // Lanzar popup con las posibilidades de la receta
 
@@ -114,6 +115,12 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             intent.putExtra("publisherID",recipe.publisher)
             binding.imvStar1.context.startActivity(intent)
         }
+    }
+
+    private fun GoToCommentsActivity(recipeID: String) {
+        val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
+        intent.putExtra("recipeID",recipeID)
+        binding.imvStar1.context.startActivity(intent)
     }
 
     private fun loadDesignComments(cantComments: Int) {

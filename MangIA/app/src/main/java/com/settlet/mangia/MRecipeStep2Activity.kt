@@ -56,7 +56,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         binding.cstAddIngredient.setOnClickListener {
             binding.txpSearchMRS2.requestFocus()
             val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.showSoftInput(binding.txpSearchMRS2.rootView, 0)
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
         }
         binding.cstAddStep.setOnClickListener {
             quantSteps++

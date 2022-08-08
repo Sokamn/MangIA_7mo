@@ -7,6 +7,12 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
@@ -14,6 +20,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Adapter.CommentAdapter
+import com.settlet.mangia.CommentsActivity
 import com.settlet.mangia.LikeCommentsActivity
 import com.settlet.mangia.Model.Comment
 import com.settlet.mangia.Model.CustomTypefaceSpan
@@ -29,6 +37,7 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
     val binding = RowCommentBinding.bind(view)
     val storageReference = FirebaseStorage.getInstance().reference
     val db = Firebase.firestore
+    private val answerList = mutableListOf<Comment>()
 
     fun render(comment: Comment) {
         var opened = false
@@ -42,7 +51,8 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             binding.txvQuantAnswerRC.visibility = View.GONE
         }else{
             binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "ver ${comment.cantComments} respuestas"
-            //binding.rcvAnswerCommentsRC.adapter
+            loadAdapterRCVAnswers()
+            readComments()
             binding.vtpAnswerRC.visibility = View.VISIBLE
             binding.txvQuantAnswerRC.visibility = View.VISIBLE
         }
@@ -62,7 +72,18 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             binding.txvLikesRC.context.startActivity(intent)
         }
         binding.txvAnswerRC.setOnClickListener {
-
+            val a = binding.txvAnswerRC.context as CommentsActivity
+            val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
+            val imvProfilePicturSendMessage = a.findViewById<ImageView>(R.id.imvProfilePictureAC)
+            val cstComment = a.findViewById<ConstraintLayout>(R.id.cstCommentAC)
+            db.collection("users").document(comment.publisher).get().addOnSuccessListener {
+                txpAddComment.setText("@${it["userName"]}")
+                imvProfilePicturSendMessage.tag = comment.publisher
+                cstComment.tag = it["userName"] // Respondiendo a cstComment.tag
+                txpAddComment.requestFocus()
+                val imm: InputMethodManager = binding.txvAnswerRC.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            }
         }
         binding.imvProfilePictureRC.setOnClickListener {
             val intent = Intent(binding.imvProfilePictureRC.context,ProfileActivity::class.java)
@@ -88,6 +109,18 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
                     .update("likes", FieldValue.increment(-1))
             }
         }
+    }
+
+    private fun readComments() {
+        TODO("Not yet implemented")
+    }
+
+    private fun loadAdapterRCVAnswers() {
+        binding.rcvAnswerCommentsRC.setHasFixedSize(true)
+        binding.rcvAnswerCommentsRC.layoutManager = LinearLayoutManager(binding.rcvAnswerCommentsRC.context)
+        val rcvCommentsAdapter = CommentAdapter()
+        rcvCommentsAdapter.submitList(answerList)
+        binding.rcvAnswerCommentsRC.adapter = rcvCommentsAdapter
     }
 
     private fun isLiked(commentID: String) {

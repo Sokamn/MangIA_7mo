@@ -263,6 +263,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
                 .centerCrop()
                 .into(binding.imvImageAdded)
             uniqueImage = Uri.fromFile(File(images.last().imagePath!!)).toString()
+            Log.d("cantImages",images.count().toString())
             return images.reversed() as ArrayList<Image>
         }
         else{
