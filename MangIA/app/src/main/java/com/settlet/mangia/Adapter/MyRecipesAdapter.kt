@@ -37,6 +37,12 @@ class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolde
                     .apply(RequestOptions().centerCrop())
                     .into(recipeImage)
             }
+            val ic_multiImages = itemView.findViewById<ImageView>(R.id.imvIC_MultiImage)
+            if (recipe.listImages.size == 1){
+                ic_multiImages.visibility = View.GONE
+            }else{
+                ic_multiImages.visibility = View.VISIBLE
+            }
         }
     }
 
