@@ -32,9 +32,14 @@ import kotlin.math.roundToInt
 class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val binding = RowCommentAnswerBinding.bind(view)
     val storageReference = FirebaseStorage.getInstance().reference
+    val a = binding.txvAnswerRCA.context as CommentsActivity
     val db = Firebase.firestore
 
     fun render(answer: Comment) {
+        val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
+        val txvAnswerTitle = a.findViewById<TextView>(R.id.txvTitleAnswer)
+        val crdAnswer = a.findViewById<CardView>(R.id.crdAnswer)
+        val cstAnswer = a.findViewById<ConstraintLayout>(R.id.cstAnswer)
         getProfileImage(answer.publisher)
         getTimeLaunch(answer)
         getLikes(answer.likes)
@@ -47,7 +52,15 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
             binding.txvLikesRCA.context.startActivity(intent)
         }
         binding.txvAnswerRCA.setOnClickListener {
-
+            db.collection("users").document(answer.publisher).get().addOnSuccessListener {
+                crdAnswer.visibility = View.VISIBLE
+                txpAddComment.setText("@${it["userName"]}")
+                cstAnswer.tag = answer.commentID
+                txvAnswerTitle.text = "Respondiendo a ${it["userName"]}"
+                txpAddComment.requestFocus()
+                val imm: InputMethodManager = binding.txvAnswerRCA.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+            }
         }
         binding.imvProfilePictureRCA.setOnClickListener {
             val intent = Intent(binding.imvProfilePictureRCA.context, ProfileActivity::class.java)
