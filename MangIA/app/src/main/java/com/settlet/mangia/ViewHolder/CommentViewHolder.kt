@@ -43,7 +43,7 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
     val a = binding.txvAnswerRC.context as CommentsActivity
 
     fun render(comment: Comment) {
-        var opened = false
+
         val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
         val txvAnswerTitle = a.findViewById<TextView>(R.id.txvTitleAnswer)
         val crdAnswer = a.findViewById<CardView>(R.id.crdAnswer)
@@ -64,13 +64,13 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
         }
 
         binding.txvQuantAnswerRC.setOnClickListener {
-            if(!opened){
+            if(binding.vtpAnswerRC.tag == "closed"){
                 binding.cstExpandComments.visibility= View.VISIBLE
-                opened = true
+                binding.vtpAnswerRC.tag = "opened"
                 binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
             }else{
                 binding.cstExpandComments.visibility= View.GONE
-                opened = false
+                binding.vtpAnswerRC.tag = "closed"
                 binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
             }
         }
