@@ -24,6 +24,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Model.Comment
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
@@ -69,8 +70,9 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
         homeView.bottom_barH.imbSearchBB.setOnClickListener {
-            Toast.makeText(baseContext,"Buscar",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Buscar",Toast.LENGTH_SHORT).show()
         }
+
 
         binding.drawerLayout.addDrawerListener(object : DrawerListener {
             override fun onDrawerSlide(view: View, v: Float) {

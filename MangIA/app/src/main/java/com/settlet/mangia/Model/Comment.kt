@@ -1,11 +1,13 @@
 package com.settlet.mangia.Model
 
 data class Comment (
-               internal var commentID:String = "",
-               internal var comment: String = "",
-               internal var publisher: String = "",
-               internal var likes: Int = 0,
-               internal var timeLaunch: String = ""
+                var commentID:String = "",
+                var comment: String = "",
+                var publisher: String = "",
+                var likes: Int = 0,
+                var timeLaunch: String = "",
+                var cantComments: Int = 0,
+                var recipeID: String = ""
                ){
 
 }

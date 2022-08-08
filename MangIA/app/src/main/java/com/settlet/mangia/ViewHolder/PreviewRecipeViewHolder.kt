@@ -122,7 +122,6 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             1-> binding.txvComments.text = "Ver 1 comentario"
             else -> binding.txvComments.text = "Ver los ${cantComments} comentarios"
         }
-        binding.txvComments.text = if (cantComments == 1) "Ver 1 comentario" else "Ver los $cantComments comentarios"
     }
 
     private fun loadTimeLaunch(recipe: Recipe) {

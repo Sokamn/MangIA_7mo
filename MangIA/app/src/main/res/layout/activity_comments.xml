@@ -8,7 +8,7 @@
     android:background="@color/primaryColor">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/txvPostCommentAC"
+        android:id="@+id/rcvCommentsAC"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="-5dp"
@@ -102,7 +102,7 @@
                     android:textColorHint="@color/transQuaternaryColor"
                     android:visibility="visible"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/txvAddIngredientMRS"
+                    app:layout_constraintEnd_toStartOf="@+id/txvPostCommentAC"
                     app:layout_constraintStart_toEndOf="@+id/imvProfilePictureAC"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,7 +118,7 @@
                     app:srcCompat="@drawable/profile_picture" />
 
                 <TextView
-                    android:id="@+id/txvAddIngredientMRS"
+                    android:id="@+id/txvPostCommentAC"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"

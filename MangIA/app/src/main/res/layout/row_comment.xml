@@ -7,7 +7,7 @@
     android:background="@color/primaryColor">
 
     <View
-        android:id="@+id/viewTopLine3"
+        android:id="@+id/vtpAnswerRC"
         android:layout_width="0dp"
         android:layout_height="1px"
         android:layout_marginTop="20dp"
@@ -15,14 +15,14 @@
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/txvLikesRC"
         app:layout_constraintStart_toStartOf="@+id/txvTimePostRC"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5" />
+        app:layout_constraintTop_toBottomOf="@+id/txvTimePostRC" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout5"
+        android:id="@+id/cstExpandComments"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txvLikesRC">
@@ -35,7 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:itemCount="0"
+            tools:itemCount="3"
             tools:listitem="@layout/row_comment_answer" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -79,7 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/txvCommentRC" />
 
     <TextView
-        android:id="@+id/txvTimePostRC2"
+        android:id="@+id/txvQuantAnswerRC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -88,9 +88,9 @@
         android:text="Ver 5 respuestas"
         android:textColor="@color/quaternaryColor"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/viewTopLine3"
-        app:layout_constraintStart_toEndOf="@+id/viewTopLine3"
-        app:layout_constraintTop_toTopOf="@+id/viewTopLine3" />
+        app:layout_constraintBottom_toBottomOf="@+id/vtpAnswerRC"
+        app:layout_constraintStart_toEndOf="@+id/vtpAnswerRC"
+        app:layout_constraintTop_toTopOf="@+id/vtpAnswerRC" />
 
     <TextView
         android:id="@+id/txvAnswerRC"
