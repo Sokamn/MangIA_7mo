@@ -9,17 +9,19 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Adapter.AnswerAdapter
 import com.settlet.mangia.Adapter.CommentAdapter
 import com.settlet.mangia.CommentsActivity
 import com.settlet.mangia.LikeCommentsActivity
@@ -38,22 +40,26 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
     val storageReference = FirebaseStorage.getInstance().reference
     val db = Firebase.firestore
     private val answerList = mutableListOf<Comment>()
+    val a = binding.txvAnswerRC.context as CommentsActivity
 
     fun render(comment: Comment) {
         var opened = false
+        val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
+        val txvAnswerTitle = a.findViewById<TextView>(R.id.txvTitleAnswer)
+        val crdAnswer = a.findViewById<CardView>(R.id.crdAnswer)
+        val cstAnswer = a.findViewById<ConstraintLayout>(R.id.cstAnswer)
         getProfileImage(comment.publisher)
         getTimeLaunch(comment)
         getLikes(comment.likes)
         loadComment(comment.publisher, comment.comment)
         isLiked(comment.commentID)
         if (comment.cantComments == 0){
-            binding.vtpAnswerRC.visibility = View.GONE
-            binding.txvQuantAnswerRC.visibility = View.GONE
+            binding.vtpAnswerRC.visibility = View.INVISIBLE
+            binding.txvQuantAnswerRC.visibility = View.INVISIBLE
         }else{
-            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "ver ${comment.cantComments} respuestas"
-            loadAdapterRCVAnswers()
-            readComments()
             binding.vtpAnswerRC.visibility = View.VISIBLE
+            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
+            ReadAnswers(comment.recipeID,comment.commentID,loadAdapterRCVAnswers())
             binding.txvQuantAnswerRC.visibility = View.VISIBLE
         }
 
@@ -61,9 +67,11 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             if(!opened){
                 binding.cstExpandComments.visibility= View.VISIBLE
                 opened = true
+                binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
             }else{
                 binding.cstExpandComments.visibility= View.GONE
                 opened = false
+                binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
             }
         }
         binding.txvLikesRC.setOnClickListener {
@@ -72,14 +80,11 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             binding.txvLikesRC.context.startActivity(intent)
         }
         binding.txvAnswerRC.setOnClickListener {
-            val a = binding.txvAnswerRC.context as CommentsActivity
-            val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
-            val imvProfilePicturSendMessage = a.findViewById<ImageView>(R.id.imvProfilePictureAC)
-            val cstComment = a.findViewById<ConstraintLayout>(R.id.cstCommentAC)
             db.collection("users").document(comment.publisher).get().addOnSuccessListener {
+                crdAnswer.visibility = View.VISIBLE
                 txpAddComment.setText("@${it["userName"]}")
-                imvProfilePicturSendMessage.tag = comment.publisher
-                cstComment.tag = it["userName"] // Respondiendo a cstComment.tag
+                cstAnswer.tag = comment.commentID
+                txvAnswerTitle.text = "Respondiendo a ${it["userName"]}"
                 txpAddComment.requestFocus()
                 val imm: InputMethodManager = binding.txvAnswerRC.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
@@ -111,16 +116,30 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun readComments() {
-        TODO("Not yet implemented")
+    private fun ReadAnswers(recipeID: String, commentID: String, adapter: AnswerAdapter) {
+        db.collection("comments").document("comments").collection(recipeID).document(commentID).collection("answers").addSnapshotListener { value, error ->
+            if (error!=null){
+                Log.w("TAG", "Listen Failed")
+                return@addSnapshotListener
+            }else{
+                if(value!=null){
+                    answerList.clear()
+                    value.documents.forEach{ doc ->
+                        answerList.add(doc.toObject()!!)
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
     }
 
-    private fun loadAdapterRCVAnswers() {
+    private fun loadAdapterRCVAnswers(): AnswerAdapter {
         binding.rcvAnswerCommentsRC.setHasFixedSize(true)
         binding.rcvAnswerCommentsRC.layoutManager = LinearLayoutManager(binding.rcvAnswerCommentsRC.context)
-        val rcvCommentsAdapter = CommentAdapter()
+        val rcvCommentsAdapter = AnswerAdapter()
         rcvCommentsAdapter.submitList(answerList)
         binding.rcvAnswerCommentsRC.adapter = rcvCommentsAdapter
+        return rcvCommentsAdapter
     }
 
     private fun isLiked(commentID: String) {

@@ -49,6 +49,10 @@ class CommentsActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.imvCloseAnswer.setOnClickListener {
+            binding.crdAnswer.visibility = View.GONE
+        }
+
         binding.txvPostCommentAC.setOnClickListener {
             if(binding.txpAddCommentAC.text.isEmpty()){
                 Toast.makeText(this,"No puedes enviar un mensaje vacio.",Toast.LENGTH_SHORT).show()
@@ -69,19 +73,42 @@ class CommentsActivity : AppCompatActivity() {
 
     private fun addComment(recipeID: String) {
         val docComment = hashMapOf<String, Any>()
-        val docID = db.collection("comments").document("comments").collection(recipeID).document().id
-        docComment["comment"] = binding.txpAddCommentAC.text.toString()
-        docComment["publisher"] = user.email.toString()
-        docComment["likes"] = 0
-        docComment["recipeID"] = recipeID
-        docComment["timeLaunch"] = LocalDateTime.now()
-            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-            .toString()
-        docComment["commentID"] = docID
-        db.collection("comments").document("comments").collection(recipeID).document(docID).set(docComment).addOnSuccessListener {
-            db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
+        if(binding.crdAnswer.visibility == View.VISIBLE){
+            val commentID = binding.cstAnswer.tag
+            val answerRute = db.collection("comments").document("comments").collection(recipeID).document(commentID.toString()).collection("answers")
+            val answerID = answerRute.document().id
+            docComment["comment"] = binding.txpAddCommentAC.text.toString()
+            docComment["publisher"] = user.email.toString()
+            docComment["likes"] = 0
+            docComment["recipeID"] = recipeID
+            docComment["cantComments"] = 0
+            docComment["timeLaunch"] = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                .toString()
+            docComment["commentID"] = commentID
+            docComment["answerID"] = answerID
+            answerRute.document(answerID).set(docComment).addOnSuccessListener {
+                db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
+                db.collection("comments").document("comments").collection(recipeID).document(commentID.toString()).update("cantComments",FieldValue.increment(1))
+            }
+            binding.txpAddCommentAC.setText("")
+            binding.crdAnswer.visibility = View.GONE
+        }else{
+            val docID = db.collection("comments").document("comments").collection(recipeID).document().id
+            docComment["comment"] = binding.txpAddCommentAC.text.toString()
+            docComment["publisher"] = user.email.toString()
+            docComment["likes"] = 0
+            docComment["recipeID"] = recipeID
+            docComment["cantComments"] = 0
+            docComment["timeLaunch"] = LocalDateTime.now()
+                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                .toString()
+            docComment["commentID"] = docID
+            db.collection("comments").document("comments").collection(recipeID).document(docID).set(docComment).addOnSuccessListener {
+                db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
+            }
+            binding.txpAddCommentAC.setText("")
         }
-        binding.txpAddCommentAC.setText("")
     }
 
     private fun readComments(recipeID: String, adapter: CommentAdapter){

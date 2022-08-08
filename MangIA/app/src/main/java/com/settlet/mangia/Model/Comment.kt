@@ -7,7 +7,8 @@ data class Comment (
                 var likes: Int = 0,
                 var timeLaunch: String = "",
                 var cantComments: Int = 0,
-                var recipeID: String = ""
+                var recipeID: String = "",
+                var answerID: String? = ""
                ){
 
 }
