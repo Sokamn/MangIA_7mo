@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.settlet.mangia.Model.AnswerViewHolder
+import com.settlet.mangia.ViewHolder.AnswerViewHolder
 import com.settlet.mangia.Model.Comment
 import com.settlet.mangia.R
-import com.settlet.mangia.ViewHolder.CommentViewHolder
 
 class AnswerAdapter : ListAdapter<Comment, AnswerViewHolder>(DiffCallBack){
 

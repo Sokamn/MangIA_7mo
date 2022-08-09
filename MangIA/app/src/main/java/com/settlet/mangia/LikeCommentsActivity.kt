@@ -3,6 +3,8 @@ package com.settlet.mangia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -22,6 +24,9 @@ class LikeCommentsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLikeCommentsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         val commentID = intent.getStringExtra("commentID")
         binding.rcvUsersALC.setHasFixedSize(true)
         binding.rcvUsersALC.layoutManager = LinearLayoutManager(this)

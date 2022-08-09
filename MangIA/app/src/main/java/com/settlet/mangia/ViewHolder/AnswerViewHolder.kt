@@ -1,4 +1,4 @@
-package com.settlet.mangia.Model
+package com.settlet.mangia.ViewHolder
 
 import android.content.Context
 import android.content.Intent
@@ -21,6 +21,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.CommentsActivity
 import com.settlet.mangia.LikeCommentsActivity
+import com.settlet.mangia.Model.Comment
+import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.ProfileActivity
 import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowCommentAnswerBinding
@@ -32,14 +34,14 @@ import kotlin.math.roundToInt
 class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val binding = RowCommentAnswerBinding.bind(view)
     val storageReference = FirebaseStorage.getInstance().reference
-    val a = binding.txvAnswerRCA.context as CommentsActivity
+    val context = binding.txvAnswerRCA.context as CommentsActivity
     val db = Firebase.firestore
 
     fun render(answer: Comment) {
-        val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
-        val txvAnswerTitle = a.findViewById<TextView>(R.id.txvTitleAnswer)
-        val crdAnswer = a.findViewById<CardView>(R.id.crdAnswer)
-        val cstAnswer = a.findViewById<ConstraintLayout>(R.id.cstAnswer)
+        val txpAddComment = context.findViewById<EditText>(R.id.txpAddCommentAC)
+        val txvAnswerTitle = context.findViewById<TextView>(R.id.txvTitleAnswer)
+        val crdAnswer = context.findViewById<CardView>(R.id.crdAnswer)
+        val cstAnswer = context.findViewById<ConstraintLayout>(R.id.cstAnswer)
         getProfileImage(answer.publisher)
         getTimeLaunch(answer)
         getLikes(answer.likes)
@@ -138,13 +140,13 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val diffSeconds = diffTime.seconds
         val diffMinutes = diffTime.toMinutes()
         val diffHours = diffTime.toHours()
-        val diffDays = diffTime.toDays().toFloat()
+        val diffDays = diffTime.toDays()
 
         if (diffSeconds>=60){
             if(diffMinutes>=60){
                 if(diffHours>=24){
                     if(diffDays>7){
-                        val diffWeeks = diffDays/7
+                        val diffWeeks = diffTime.toDays().toFloat()/7
                         binding.txvTimePostRCA.text = "${diffWeeks.roundToInt()} sem"
                     }else{
                         binding.txvTimePostRCA.text = "$diffDays d"

@@ -192,13 +192,13 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
         val diffSeconds = diffTime.seconds
         val diffMinutes = diffTime.toMinutes()
         val diffHours = diffTime.toHours()
-        val diffDays = diffTime.toDays().toFloat()
+        val diffDays = diffTime.toDays()
 
         if (diffSeconds>=60){
             if(diffMinutes>=60){
                 if(diffHours>=24){
                     if(diffDays>7){
-                        val diffWeeks = diffDays/7
+                        val diffWeeks = diffTime.toDays().toFloat()/7
                         binding.txvTimePostRC.text = "${diffWeeks.roundToInt()} sem"
                     }else{
                         binding.txvTimePostRC.text = "$diffDays d"
