@@ -81,6 +81,7 @@
     <string name="addComments">Agrega un comentario…</string>
     <string name="post">Publicar</string>
     <string name="like">Me Gusta</string>
+    <string name="recipe">Receta</string>
 
 
     <string-array name="continents">

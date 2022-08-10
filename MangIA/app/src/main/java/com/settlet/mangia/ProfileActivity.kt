@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -51,7 +52,15 @@ class ProfileActivity : AppCompatActivity() {
         }.attach()
 
 
-
+        binding.bottomBar.imbScanBB.setOnClickListener {
+            Toast.makeText(it.context,"Escanear", Toast.LENGTH_SHORT).show()
+        }
+        binding.bottomBar.imbMRecipeBB.setOnClickListener {
+            startActivity(Intent(this,MRecipeStep1Activity::class.java))
+        }
+        binding.bottomBar.imbSearchBB.setOnClickListener {
+            startActivity(Intent(this,SearchActivity::class.java))
+        }
         binding.imbBackP.setOnClickListener {
             onBackPressed()
             finish()

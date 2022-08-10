@@ -1,36 +1,28 @@
 package com.settlet.mangia
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.net.toUri
-import androidx.core.widget.doOnTextChanged
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityMrecipeStep3Binding
-import kotlinx.android.synthetic.main.activity_mrecipe_step3.*
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class MRecipeStep3Activity : AppCompatActivity() {
     private lateinit var binding: ActivityMrecipeStep3Binding

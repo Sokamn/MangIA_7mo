@@ -5,8 +5,106 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
-    android:rowCount="6"
-    android:columnCount="3"
     tools:context=".AdvancedSearchActivity">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tblTabLayoutAS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpSearchAS">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_my_recipes" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/ic_save_recipe" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:id="@+id/viewLineAS"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/lineColor"
+        app:layout_constraintBottom_toBottomOf="@+id/tblTabLayoutAS"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/vwpContentAS"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tblTabLayoutAS" />
+
+    <ImageButton
+        android:id="@+id/imbBackAS"
+        android:layout_width="20dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="3dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btnback" />
+
+    <ImageButton
+        android:id="@+id/imbOptionsAS"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="@android:color/transparent"
+        android:padding="3dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_more_options_recipe" />
+
+    <EditText
+        android:id="@+id/txpSearchAS"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/bg_search_recipe"
+        android:elevation="10dp"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/manjarithin"
+        android:hint="@string/sIngredient"
+        android:inputType="textEmailAddress"
+        android:padding="0dp"
+        android:paddingStart="40dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/quaternaryColor"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/imbOptionsAS"
+        app:layout_constraintStart_toEndOf="@+id/imbBackAS"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:elevation="11dp"
+        android:src="@drawable/ic_search_black"
+        app:layout_constraintBottom_toBottomOf="@+id/txpSearchAS"
+        app:layout_constraintStart_toStartOf="@+id/txpSearchAS"
+        app:layout_constraintTop_toTopOf="@+id/txpSearchAS" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

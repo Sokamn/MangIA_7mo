@@ -17,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.PreviewRecipeAdapter
 import com.settlet.mangia.MRecipeStep1Activity
 import com.settlet.mangia.Model.Recipe
+import com.settlet.mangia.SearchActivity
 import com.settlet.mangia.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -46,14 +47,13 @@ class HomeFragment : Fragment() {
 
 
         binding.bottomBarH.imbScanBB.setOnClickListener {
-            Toast.makeText(it.context,"Escanear",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireActivity(),"Escanear",Toast.LENGTH_SHORT).show()
         }
         binding.bottomBarH.imbMRecipeBB.setOnClickListener {
-            val intent = Intent(it.context, MRecipeStep1Activity::class.java)
-            this.startActivity(intent)
+            requireActivity().startActivity(Intent(requireActivity(), MRecipeStep1Activity::class.java))
         }
         binding.bottomBarH.imbSearchBB.setOnClickListener {
-            Toast.makeText(it.context,"Buscar",Toast.LENGTH_SHORT).show()
+            requireActivity().startActivity(Intent(requireActivity(),SearchActivity::class.java))
         }
 
         val root: View = binding.root
