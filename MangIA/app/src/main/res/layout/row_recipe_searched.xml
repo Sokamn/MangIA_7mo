@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/primaryColor">
+
+    <TextView
+        android:id="@+id/txvNNameRU2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/manjaribold"
+        android:text="Pizza con forma de Corazón"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imvUniquePost"
+        app:layout_constraintTop_toTopOf="@+id/imvUniquePost" />
+
+    <TextView
+        android:id="@+id/txvNNameRU5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="5dp"
+        android:fontFamily="@font/manjaribold"
+        android:text="5"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/txvNNameRU3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/manjariregular"
+        android:text="@string/comments"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="@+id/txvNNameRU2"
+        app:layout_constraintTop_toBottomOf="@+id/txvNNameRU2" />
+
+    <TextView
+        android:id="@+id/txvNNameRU7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/manjariregular"
+        android:text="7"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toBottomOf="@+id/txvNNameRU2" />
+
+    <TextView
+        android:id="@+id/txvNNameRU4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="1dp"
+        android:fontFamily="@font/manjarithin"
+        android:text="@string/userName"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/txvNNameRU2"
+        app:layout_constraintStart_toEndOf="@+id/txvNNameRU2" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imvUniquePost"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:adjustViewBounds="true"
+        android:elevation="15dp"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundImageThirdStepMRecipe"
+        tools:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/btn_star_big_on" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/txvNNameRU3"
+        app:layout_constraintEnd_toStartOf="@+id/txvNNameRU5"
+        app:layout_constraintTop_toTopOf="@+id/txvNNameRU3"
+        app:srcCompat="@drawable/check" />
+</androidx.constraintlayout.widget.ConstraintLayout>
