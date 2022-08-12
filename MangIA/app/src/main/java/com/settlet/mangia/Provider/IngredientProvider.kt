@@ -1711,11 +1711,18 @@ class IngredientProvider {
         FirebaseStorage.getInstance().reference.child("ingredients/LevaduraParaHacerCerveza.png")
         ),
         Ingredient(
-        "Levadura",
+        "Levadura Fresca",
         "Unidad",
         0F,
         0,
-        FirebaseStorage.getInstance().reference.child("ingredients/Levadura.png")
+        FirebaseStorage.getInstance().reference.child("ingredients/LevaduraFresca.png")
+        ),
+        Ingredient(
+            "Levadura Seca",
+            "Unidad",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/LevaduraSeca.png")
         ),
         Ingredient(
         "Lentejas rojas",
