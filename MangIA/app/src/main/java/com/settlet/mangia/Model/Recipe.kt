@@ -1,6 +1,6 @@
 package com.settlet.mangia.Model
 
-class Recipe (var complexity: Int = 0,
+data class Recipe (var complexity: Int = 0,
               var cantComments: Int = 0,
               var description: String = "",
               var isCeliac: Boolean = false,

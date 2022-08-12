@@ -1,9 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecipeActivity">
+    tools:context=".RecipeActivity"
+    android:background="@android:color/transparent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarAR"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:fitsSystemWindows="true">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
+            android:id="@+id/collapsingToolbarRecipe"
+            android:background="@color/primaryColor">
+
+            <ImageView
+                android:id="@+id/imvFirstRecipeImageAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/profile_picture"/>
+
+            <Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                android:elevation="21dp"
+                android:background="@drawable/bg_topbar_ar">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUserNameAR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvCountryAR"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/manjarithin"
+                        android:text="@string/country"
+                        android:textColor="@color/black"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/txvUserNameAR" />
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imvProfileAR"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/profile_picture"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearanceOverlay="@style/roundImageUser40" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </Toolbar>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
+        android:background="@drawable/bg_nsv_recipe"
+        android:elevation="20dp"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/txvSbSTitleAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/stepByStep"
+                android:textColor="@color/secundaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rcvIngredientsAR" />
+
+            <TextView
+                android:id="@+id/txvIngredientTitleAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/ingredients"
+                android:textColor="@color/secundaryColor"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnCommentsAR" />
+
+            <Button
+                android:id="@+id/btnCommentsAR"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/manjarithin"
+                android:paddingTop="15dp"
+                android:text="Comentar"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_comment_recipe"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/btnValorateAR"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvStar2AR" />
+
+            <Button
+                android:id="@+id/btnValorateAR"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/manjarithin"
+                android:paddingTop="15dp"
+                android:text="Valorar"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_my_recipes"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toStartOf="@+id/btnSaveAR"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnCommentsAR"
+                app:layout_constraintTop_toBottomOf="@+id/imvStar2AR" />
+
+            <Button
+                android:id="@+id/btnSaveAR"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/manjarithin"
+                android:paddingTop="15dp"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                app:icon="@drawable/ic_save_recipe"
+                app:iconTint="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btnValorateAR"
+                app:layout_constraintTop_toBottomOf="@+id/imvStar2AR" />
+
+            <TextView
+                android:id="@+id/txvValorationAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/manjariregular"
+                android:text="123 valoraci1s"
+                android:textColor="@color/transSecundaryColor"
+                android:textSize="10sp"
+                app:layout_constraintBottom_toBottomOf="@+id/imvStar5AR"
+                app:layout_constraintStart_toEndOf="@+id/imvStar5AR"
+                app:layout_constraintTop_toTopOf="@+id/imvStar5AR" />
+
+            <ImageView
+                android:id="@+id/imvStar1AR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleAR" />
+
+            <ImageView
+                android:id="@+id/imvStar2AR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintStart_toEndOf="@+id/imvStar1AR"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleAR" />
+
+            <ImageView
+                android:id="@+id/imvStar3AR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintStart_toEndOf="@+id/imvStar2AR"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleAR" />
+
+            <ImageView
+                android:id="@+id/imvStar4AR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintStart_toEndOf="@+id/imvStar3AR"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleAR" />
+
+            <ImageView
+                android:id="@+id/imvStar5AR"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/ic_add"
+                app:layout_constraintStart_toEndOf="@+id/imvStar4AR"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleAR" />
+
+            <TextView
+                android:id="@+id/txvTitleAR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="900dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="Pizza con forma de Corazón"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvIngredientsAR"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvIngredientTitleAR"
+                tools:listitem="@layout/row_ingredient_recycler" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vwpContentAR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvSbSTitleAR" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

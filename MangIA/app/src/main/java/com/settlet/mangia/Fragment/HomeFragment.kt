@@ -42,7 +42,6 @@ class HomeFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         rcvPreviewRecipe.layoutManager = linearLayoutManager
-        rcvPreviewRecipe.adapter = PreviewRecipeAdapter(recipeList)
         CheckFollowing()
 
 
@@ -77,6 +76,7 @@ class HomeFragment : Fragment() {
                 value.forEach { user ->
                     followingList.add(user.id)
                 }
+                Log.d("userFollows", followingList.toString())
                 ReadRecipes()
             }
         }
@@ -91,17 +91,18 @@ class HomeFragment : Fragment() {
                 return@addSnapshotListener
             }
             if(value!=null) {
+                val adapter = PreviewRecipeAdapter()
                 value.forEach { recipe ->
                     followingList.forEach { userFollowed ->
-                        if (recipe["publisher"] == userFollowed) {
+                        if (recipe["publisher"].toString() == userFollowed) {
                             recipeList.add(recipe.toObject())
+                            adapter.submitList(recipeList)
                         }
                     }
                     Log.i("recipeList",recipeList.toString())
-
                 }
                 Log.i("recipeList",recipeList.toString())
-                rcvPreviewRecipe.adapter!!.notifyDataSetChanged()
+                rcvPreviewRecipe.adapter = adapter
             }
         }
     }

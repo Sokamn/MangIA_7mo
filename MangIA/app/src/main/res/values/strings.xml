@@ -82,7 +82,7 @@
     <string name="post">Publicar</string>
     <string name="like">Me Gusta</string>
     <string name="recipe">Receta</string>
-
+    <string name="ingredients">Ingredientes</string>
 
     <string-array name="continents">
         <item>Africa</item>

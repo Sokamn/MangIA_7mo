@@ -10,6 +10,18 @@
 
     </style>
 
+    <style name="roundImageUser40" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeBottomLeft">14.62dp</item>
+        <item name="cornerSizeBottomRight">17.7dp</item>
+        <item name="cornerSizeTopLeft">21.54dp</item>
+        <item name="cornerSizeTopRight">16.16dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
+
+
     <style name="roundImageThirdStepMRecipe" parent="">
 
         <item name="cornerFamily">rounded</item>

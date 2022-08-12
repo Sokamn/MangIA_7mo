@@ -47,6 +47,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         isLiked(recipe)
         isSaved(recipe)
 
+
         db.collection("recipes").document(recipe.recipeID).addSnapshotListener { value, error ->
             if (error != null) {
                 Log.w("TAG", "Listen Failed")
@@ -74,7 +75,9 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
         }
         binding.cstPost.setOnClickListener { // Mandar a la receta completa
-
+            val intentRecipe = Intent(itemView.context, RecipeActivity::class.java)
+            intentRecipe.putExtra("recipeID", recipe.recipeID)
+            itemView.context.startActivity(intentRecipe)
         }
         binding.imvStar1.setOnClickListener { // Dar una estrella
             LoadLike(recipe.recipeID,1)
