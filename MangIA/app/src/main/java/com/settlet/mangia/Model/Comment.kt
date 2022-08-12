@@ -8,7 +8,8 @@ data class Comment (
                 var timeLaunch: String = "",
                 var cantComments: Int = 0,
                 var recipeID: String = "",
-                var answerID: String? = ""
+                var answerID: String? = "",
+                var opened: Boolean = false
                ){
 
 }

@@ -60,16 +60,18 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             binding.vtpAnswerRC.visibility = View.VISIBLE
             ReadAnswers(comment.recipeID,comment.commentID,loadAdapterRCVAnswers())
             binding.txvQuantAnswerRC.visibility = View.VISIBLE
+            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
         }
 
         binding.txvQuantAnswerRC.setOnClickListener {
-            if(binding.cstExpandComments.visibility == View.GONE){
+            if(!comment.opened){
                 binding.cstExpandComments.visibility= View.VISIBLE
                 binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
             }else{
                 binding.cstExpandComments.visibility= View.GONE
                 binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
             }
+            comment.opened = !comment.opened
         }
         binding.txvLikesRC.setOnClickListener {
             val intent = Intent(binding.txvLikesRC.context, LikeCommentsActivity::class.java)
@@ -85,8 +87,6 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
                 txpAddComment.requestFocus()
                 val imm: InputMethodManager = binding.txvAnswerRC.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-                binding.cstExpandComments.visibility= View.VISIBLE
-                binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
             }
         }
         binding.imvProfilePictureRC.setOnClickListener {
