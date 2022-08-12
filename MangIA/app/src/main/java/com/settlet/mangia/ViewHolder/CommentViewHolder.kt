@@ -52,15 +52,20 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
         getLikes(comment.likes)
         loadComment(comment.publisher, comment.comment)
         isLiked(comment.commentID)
+        if(!comment.opened){
+            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
+        }else{
+            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
+        }
 
         if (comment.cantComments == 0){
-            binding.vtpAnswerRC.visibility = View.INVISIBLE
-            binding.txvQuantAnswerRC.visibility = View.INVISIBLE
+            binding.vtpAnswerRC.visibility = View.GONE
+            binding.txvQuantAnswerRC.visibility = View.GONE
         }else{
             binding.vtpAnswerRC.visibility = View.VISIBLE
             ReadAnswers(comment.recipeID,comment.commentID,loadAdapterRCVAnswers())
             binding.txvQuantAnswerRC.visibility = View.VISIBLE
-            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ocultar 1 respuesta" else "Ocultar ${comment.cantComments} respuestas"
+            binding.txvQuantAnswerRC.text = if(comment.cantComments == 1) "Ver 1 respuesta" else "Ver ${comment.cantComments} respuestas"
         }
 
         binding.txvQuantAnswerRC.setOnClickListener {

@@ -50,7 +50,7 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         binding.txvLikesRCA.setOnClickListener {
             val intent = Intent(binding.txvLikesRCA.context, LikeCommentsActivity::class.java)
-            intent.putExtra("commentID",answer.commentID)
+            intent.putExtra("commentID",answer.answerID)
             binding.txvLikesRCA.context.startActivity(intent)
         }
         binding.txvAnswerRCA.setOnClickListener {
