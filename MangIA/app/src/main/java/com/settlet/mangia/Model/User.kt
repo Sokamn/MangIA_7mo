@@ -12,8 +12,7 @@ data class User (    var age: Int = 0,
                      var phoneNumber: String = "",
                      var region: String = "",
                      var userName: String = "",
-                     var userID: String = "",
-                     var profileImage: String = "") {
+                     var userID: String = "") {
 
 }
 

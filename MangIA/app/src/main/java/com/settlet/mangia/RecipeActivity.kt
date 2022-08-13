@@ -43,7 +43,7 @@ class RecipeActivity : AppCompatActivity() {
                         isSaved(recipe)
                         LoadUserInfo(recipe.publisher)
                         loadRecipeInfo(recipe)
-                        loadActualRate(recipe.stars)
+                        //loadActualRate(recipe.stars)
                         loadIngredients(recipe.listIngredients)
                         loadViewPager()
 
@@ -73,14 +73,14 @@ class RecipeActivity : AppCompatActivity() {
     }
 
     private fun loadRecipeInfo(recipe: Recipe) {
-        loadRecipeImage(recipe.listImages.first())
+       /* loadRecipeImage(recipe.listImages.first())
         binding.txvTitleAR.text = recipe.title
         if (recipe.numberTimesValored == 0) {
             binding.txvValorationAR.visibility = View.GONE
         } else {
             binding.txvValorationAR.visibility = View.VISIBLE
         }
-        binding.txvValorationAR.text = if (recipe.numberTimesValored == 1) "1 valoración" else "${recipe.numberTimesValored} valoraciones"
+        binding.txvValorationAR.text = if (recipe.numberTimesValored == 1) "1 valoración" else "${recipe.numberTimesValored} valoraciones"*/
     }
 
     private fun backWithError(){

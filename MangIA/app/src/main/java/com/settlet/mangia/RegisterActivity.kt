@@ -191,8 +191,7 @@ class RegisterActivity : AppCompatActivity() {
                         "password" to passr,
                         "phoneNumber" to binding.txpTelR.text.toString(),
                         "region" to binding.txpRegionR.text.toString(),
-                        "userName" to binding.txpUserNameR.text.toString(),
-                        "profileImage" to ""
+                        "userName" to binding.txpUserNameR.text.toString()
                     )
                     reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
                         if(it.isSuccessful){
@@ -258,8 +257,7 @@ class RegisterActivity : AppCompatActivity() {
                         "password" to password,
                         "phoneNumber" to binding.txpTelR.text.toString(),
                         "region" to binding.txpRegionR.text.toString(),
-                        "userName" to binding.txpUserNameR.text.toString(),
-                        "profileImage" to ""
+                        "userName" to binding.txpUserNameR.text.toString()
                     )
                     reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
                         if(it.isSuccessful){

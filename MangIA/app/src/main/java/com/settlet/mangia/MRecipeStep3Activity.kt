@@ -14,6 +14,7 @@ import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -31,6 +32,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
     private var listIngredient = mutableListOf<Ingredient>()
     private var listStep = mutableListOf<Step>()
     private var quantIngred = 0
+    private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
     private var quantStep = 0
     private lateinit var selectedUnity:String
@@ -178,6 +180,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                     else {
                         val docRecipeMI = hashMapOf<String, Any>()
                         val docID = db.collection("recipes").document().id
+                        val docStars = hashMapOf("totalValoration" to 0)
                         listStep.forEach { step ->
                             if (step.optionalImage != null) {
                                 j++
@@ -213,29 +216,27 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                 docRecipeMI["listImages"] = listimagePath
                             }
                             docRecipeMI["recipeID"] = docID
-                            docRecipeMI["numberTimesValored"] = 0
-                            docRecipeMI["stars"] = 0
                             docRecipeMI["timeLaunch"] = LocalDateTime.now()
                                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                                 .toString()
-                            docRecipeMI["cantComments"] = 0
                             docRecipeMI["title"] = binding.txpTitle.text.toString()
                             docRecipeMI["description"] =
                                 binding.txpDescription.text.toString()
-                            //docRecipeMI["publisher"] = userFB.email
+                            docRecipeMI["publisher"] = Firebase.auth.currentUser!!.uid
                             docRecipeMI["listIngredients"] = listIngredient
                             docRecipeMI["listSteps"] = listStep
                             docRecipeMI["isVegetarian"] =
-                                binding.chbVegetarian.isChecked.toString()
-                            docRecipeMI["isVegan"] = binding.chbVegan.isChecked.toString()
+                                binding.chbVegetarian.isChecked
+                            docRecipeMI["isVegan"] = binding.chbVegan.isChecked
                             docRecipeMI["isDiabetic"] =
-                                binding.chbDiabetic.isChecked.toString()
-                            docRecipeMI["isCeliac"] = binding.chbCeliac.isChecked.toString()
+                                binding.chbDiabetic.isChecked
+                            docRecipeMI["isCeliac"] = binding.chbCeliac.isChecked
                             docRecipeMI["complexity"] = progressComplexity
                             docRecipeMI["preparationTime"] =
                                 binding.txpPreparationTime.text.toString()
 
                             db.collection("recipes").document(docID).set(docRecipeMI)
+                            reference.child("recipes").child(docID).setValue(docStars)
                         } else {
                             val fileRef =
                                 storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image.jpg")
@@ -252,26 +253,24 @@ class MRecipeStep3Activity : AppCompatActivity() {
                             listimagePath.add(fileRef.path)
                             val docRecipeUI = hashMapOf(
                                 "recipeID" to docID,
-                                "stars" to 0,
-                                "numberTimesValored" to 0,
                                 "timeLaunch" to LocalDateTime.now()
                                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                                     .toString(),
                                 "title" to binding.txpTitle.text.toString(),
                                 "listImages" to listimagePath,
                                 "description" to binding.txpDescription.text.toString(),
-                                //"publisher" to userFB.email,
+                                "publisher" to Firebase.auth.currentUser!!.uid,
                                 "listIngredients" to listIngredient,
                                 "listSteps" to listStep,
-                                "isVegetarian" to binding.chbVegetarian.isChecked.toString(),
-                                "isVegan" to binding.chbVegan.isChecked.toString(),
-                                "isDiabetic" to binding.chbDiabetic.isChecked.toString(),
-                                "isCeliac" to binding.chbCeliac.isChecked.toString(),
+                                "isVegetarian" to binding.chbVegetarian.isChecked,
+                                "isVegan" to binding.chbVegan.isChecked,
+                                "isDiabetic" to binding.chbDiabetic.isChecked,
+                                "isCeliac" to binding.chbCeliac.isChecked,
                                 "complexity" to progressComplexity,
-                                "cantComments" to 0,
                                 "preparationTime" to binding.txpPreparationTime.text.toString()
                             )
                             db.collection("recipes").document(docID).set(docRecipeUI)
+                            reference.child("recipes").child(docID).setValue(docStars)
                         }
 
                         this.finish()

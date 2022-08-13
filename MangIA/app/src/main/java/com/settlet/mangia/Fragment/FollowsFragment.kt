@@ -23,6 +23,7 @@ class FollowsFragment : Fragment() {
     private val reference = FirebaseDatabase.getInstance().reference
     private val db = Firebase.firestore
     private val userList = mutableListOf<com.settlet.mangia.Model.User>()
+    private val idList = mutableListOf<String>()
     private lateinit var rcvFollows: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,31 +43,13 @@ class FollowsFragment : Fragment() {
         val currentUser = Firebase.auth.currentUser
         if (currentUser!=null)
         {
-            val userAdapter = UserAdapter()
-            rcvFollows.adapter = userAdapter
             reference.child("follow").child(profileID!!).child("following").get().addOnSuccessListener {
-                userList.clear()
+                idList.clear()
                 it.children.forEach { userID ->
-                    reference.child("users").child(userID.key.toString()).addListenerForSingleValueEvent(object :
-                        ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) {
-                            userList.clear()
-                            snapshot.children.forEach { userValue ->
-                                val user = userValue.getValue(User::class.java)
-                                if(user!=null){
-                                    userList.add(user)
-                                    userAdapter.submitList(userList)
-                                }
-                            }
-                        }
-
-                        override fun onCancelled(error: DatabaseError) {
-                        }
-
-                    })
+                    idList.add(userID.key.toString())
                 }
-
             }
+            showUsers()
             /*db.collection("follow").document(profileEmail!!).collection("following").get().addOnSuccessListener{ documents ->
                 userList.clear()
                 for (document in documents){
@@ -87,5 +70,29 @@ class FollowsFragment : Fragment() {
             }*/
         }
         return myView
+    }
+    private fun showUsers() {
+        val userAdapter = UserAdapter()
+        rcvFollows.adapter = userAdapter
+        reference.child("users").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                snapshot.children.forEach { userValue ->
+                    val user = userValue.getValue(User::class.java)
+                    if(user!=null){
+                        idList.forEach { idFollow ->
+                            if(user.userID == idFollow){
+                                userList.add(user)
+                            }
+                        }
+                    }
+                }
+                userAdapter.submitList(userList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 }

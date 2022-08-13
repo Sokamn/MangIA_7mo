@@ -43,7 +43,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         loadDescriptionDesign(recipe.title, recipe.description)
         loadTopBarRecipe(recipe.publisher)
         loadTimeLaunch(recipe)
-        loadDesignComments(recipe.cantComments)
+        //loadDesignComments(recipe.cantComments)
         isLiked(recipe)
         isSaved(recipe)
 

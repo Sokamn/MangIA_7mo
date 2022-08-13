@@ -1,5 +1,6 @@
 package com.settlet.mangia
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.Adapter.SliderAdapter
 import com.settlet.mangia.Model.DatePickerFragment
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.Provider.countryProvider
@@ -38,31 +40,53 @@ class EditProfileActivity : AppCompatActivity() {
     private val db = Firebase.firestore
     private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
+
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
-        val inputUri = uri
-        val outputUri = File(filesDir,"croppedImage.jpg").toUri()
-        val listUri = listOf<Uri>(inputUri,outputUri)
-        cropImage.launch(listUri)
+        if(uri!=null)
+        {
+            val inputUri = uri
+            val outputUri = File(filesDir,"croppedImage.jpg").toUri()
+            val listUri = listOf<Uri>(inputUri,outputUri)
+            cropImage.launch(listUri)
+        }
+        else{
+            Toast.makeText(baseContext,"No has seleccionado ninguna imagen.",Toast.LENGTH_SHORT).show()
+        }
     }
-    private val uCropContract = object: ActivityResultContract<List<Uri>, Uri>(){
+    private val uCropContract = object: ActivityResultContract<List<Uri>,Uri>(){
         override fun createIntent(context: Context, input: List<Uri>): Intent {
             val inputUri = input[0]
             val outputUri = input[1]
+            Log.d("URI","${input[0]} ! ${input[1]}")
 
             val uCrop = UCrop.of(inputUri, outputUri)
                 .withAspectRatio(5f,5f)
-                .withMaxResultSize(512,512)
+                .withMaxResultSize(1080,1080)
             return uCrop.getIntent(context)
         }
 
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri {
-            return UCrop.getOutput(intent!!)!!
+        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
+            if(intent!=null)
+            {
+                return UCrop.getOutput(intent)!!
+            }
+            else
+            {
+                return null
+            }
         }
     }
     private val cropImage = registerForActivityResult(uCropContract){ uri ->
-        binding.imvProfileEP.setImageURI(uri)
-        uploadImageToFirebase(uri)
+        if (uri!=null)
+        {
+            binding.imvProfileEP.setImageURI(uri)
+            uploadImageToFirebase(uri)
+        }
+        else{
+            Toast.makeText(baseContext,"No has terminado de recortar una imagen.",Toast.LENGTH_SHORT).show()
+        }
     }
+
 
     private fun uploadImageToFirebase(image: Uri) {
         var fileRef = storageReference.child("users/" + Firebase.auth.currentUser!!.uid + "/profile.jpg")
@@ -367,6 +391,7 @@ class EditProfileActivity : AppCompatActivity() {
                             }
 
                             }
+                            Toast.makeText(this,"Cambios realizados correctamente.", Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
