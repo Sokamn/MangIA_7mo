@@ -1,7 +1,6 @@
 package com.settlet.mangia.Adapter
 
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,10 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.R
 import com.settlet.mangia.Model.User
@@ -28,9 +30,9 @@ class UserAdapter: ListAdapter<User, UserViewHolder>(DiffCallBack){
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = getItem(position)
-        isFollowing(item.email,holder.binding.btnFollowRU)
+        isFollowing(item.userID,holder.binding.btnFollowRU)
 
-        if (item.email == Firebase.auth.currentUser!!.email)
+        if (item.userID == Firebase.auth.currentUser!!.uid)
         {
             holder.binding.btnFollowRU.visibility = View.GONE
         }
@@ -40,7 +42,7 @@ class UserAdapter: ListAdapter<User, UserViewHolder>(DiffCallBack){
 
     companion object DiffCallBack: DiffUtil.ItemCallback<User>(){
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem.email == newItem.email
+            return oldItem.userID == newItem.userID
         }
 
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
@@ -48,15 +50,12 @@ class UserAdapter: ListAdapter<User, UserViewHolder>(DiffCallBack){
         }
     }
 }
-private fun isFollowing(email:String, button: Button){
-    val db = Firebase.firestore
-    db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(email).addSnapshotListener { value, error ->
-        if (error!=null) {
-            Log.w("TAG","Listen Failed")
-            return@addSnapshotListener
-        }
-        if (value != null) {
-            if (value.exists()){
+private fun isFollowing(userID:String, button: Button){
+    val reference = FirebaseDatabase.getInstance().reference
+    reference.child("follow").child(Firebase.auth.currentUser!!.uid).child("following").addValueEventListener(object:
+        ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if(snapshot.child(userID).exists()){
                 button.setBackgroundDrawable(getDrawable(button.context, R.drawable.button_profile_follow))
                 button.setTextColor(getColor(button.context, R.color.colorButtonFollow))
                 button.text = "Siguiendo"
@@ -67,6 +66,26 @@ private fun isFollowing(email:String, button: Button){
             }
         }
 
-    }
+        override fun onCancelled(error: DatabaseError) {
+        }
+    })
+        /*db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(email).addSnapshotListener { value, error ->
+            if (error!=null) {
+                Log.w("TAG","Listen Failed")
+                return@addSnapshotListener
+            }
+            if (value != null) {
+                if (value.exists()){
+                    button.setBackgroundDrawable(getDrawable(button.context, R.drawable.button_profile_follow))
+                    button.setTextColor(getColor(button.context, R.color.colorButtonFollow))
+                    button.text = "Siguiendo"
+                }else{
+                    button.setBackgroundDrawable(getDrawable(button.context,R.drawable.button_profile_following))
+                    button.setTextColor(getColor(button.context,R.color.white))
+                    button.text = "Seguir"
+                }
+            }
+
+        }*/
 
 }

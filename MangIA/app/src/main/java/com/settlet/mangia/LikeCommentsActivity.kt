@@ -7,6 +7,10 @@ import android.view.View
 import android.view.WindowManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -18,6 +22,7 @@ class LikeCommentsActivity : AppCompatActivity() {
     private val listLikes = mutableListOf<String>()
     private val userList = mutableListOf<User>()
     private lateinit var binding: ActivityLikeCommentsBinding
+    private val reference = FirebaseDatabase.getInstance().reference
     private val db = Firebase.firestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +35,30 @@ class LikeCommentsActivity : AppCompatActivity() {
         val commentID = intent.getStringExtra("commentID")
         binding.rcvUsersALC.setHasFixedSize(true)
         binding.rcvUsersALC.layoutManager = LinearLayoutManager(this)
-        db.collection("likesComments").document(commentID!!).collection("isLiked").get().addOnSuccessListener { documents ->
+        reference.child("likesComments").child(commentID!!).get().addOnSuccessListener {
+            userList.clear()
+            val userAdapter = UserAdapter()
+            it.children.forEach { userRef ->
+                reference.child("users").child(userRef.key.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        userList.clear()
+                        snapshot.children.forEach {
+                            val user = snapshot.getValue(User::class.java)
+                            if(user!=null){
+                                userList.add(user)
+                                userAdapter.submitList(userList)
+                            }
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                    }
+
+                })
+            }
+        }
+        /*db.collection("likesComments").document(commentID!!).collection("isLiked").get().addOnSuccessListener { documents ->
             userList.clear()
             for (document in documents){
                 db.collection("users").document(document.id).addSnapshotListener { value, error ->
@@ -47,7 +75,7 @@ class LikeCommentsActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
+        }*/
 
         binding.imbBackALC.setOnClickListener {
             onBackPressed()

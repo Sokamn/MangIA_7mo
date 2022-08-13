@@ -176,126 +176,104 @@ class MRecipeStep3Activity : AppCompatActivity() {
                         Toast.makeText(this,"Debe de indicar el tiempo aproximado de la preparación",Toast.LENGTH_LONG).show()
                     }
                     else {
-                        val userRef = db.collection("users").document(user.email.toString())
-                        userRef.get()
-                            .addOnSuccessListener { document ->
-                                val userFB = User(
-                                    0,
-                                    document.getString("biography").toString(),
-                                    0,
-                                    0,
-                                    document.getLong("cantRecipes")!!.toInt(),
-                                    0,
-                                    document.getString("country").toString(),
-                                    document.getString("dateBirth").toString(),
-                                    "",
-                                    document.getString("email").toString(),
-                                    document.getString("nickName").toString(),
-                                    "",
-                                    "",
-                                    document.get("region").toString(),
-                                    document.getString("userName").toString()
-                                )
-                                userFB.cantRecipes += 1
-                                userRef.update("cantRecipes", userFB.cantRecipes)
-                                val docRecipeMI = hashMapOf<String, Any>()
-                                val docID = db.collection("recipes").document().id
-                                listStep.forEach { step ->
-                                    if (step.optionalImage != null) {
-                                        j++
-                                        val fileRef =
-                                            storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}OptionalImage/optionalImage$j")
-                                        fileRef.putFile(step.optionalImage!!.toUri())
-                                            .addOnSuccessListener {
-                                                Log.d("imageUpload", "Imagen subida correctamente")
-                                            }.addOnFailureListener {
-                                            Log.d(
-                                                "imageUpload",
-                                                "Imagen no se ha subido correctamente"
-                                            )
-                                        }
-                                    }
-                                }
-                                if (isMultiImages) {
-                                    listimagePath.clear()
-                                    listImages.forEach { img ->
-                                        i++
-                                        val fileRef =
-                                            storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image$i.jpg")
-                                        fileRef.putFile(img.toUri()).addOnSuccessListener {
-                                            Log.d("imageUpload", "Imagen subida correctamente")
-                                        }
-                                            .addOnFailureListener {
-                                                Log.d(
-                                                    "imageUpload",
-                                                    "Imagen no se ha subido correctamente"
-                                                )
-                                            }
-                                        listimagePath.add(fileRef.path)
-                                        docRecipeMI["listImages"] = listimagePath
-                                    }
-                                    docRecipeMI["recipeID"] = docID
-                                    docRecipeMI["numberTimesValored"] = 0
-                                    docRecipeMI["stars"] = 0
-                                    docRecipeMI["timeLaunch"] = LocalDateTime.now()
-                                        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                                        .toString()
-                                    docRecipeMI["cantComments"] = 0
-                                    docRecipeMI["title"] = binding.txpTitle.text.toString()
-                                    docRecipeMI["description"] =
-                                        binding.txpDescription.text.toString()
-                                    docRecipeMI["publisher"] = userFB.email
-                                    docRecipeMI["listIngredients"] = listIngredient
-                                    docRecipeMI["listSteps"] = listStep
-                                    docRecipeMI["isVegetarian"] =
-                                        binding.chbVegetarian.isChecked.toString()
-                                    docRecipeMI["isVegan"] = binding.chbVegan.isChecked.toString()
-                                    docRecipeMI["isDiabetic"] =
-                                        binding.chbDiabetic.isChecked.toString()
-                                    docRecipeMI["isCeliac"] = binding.chbCeliac.isChecked.toString()
-                                    docRecipeMI["complexity"] = progressComplexity
-                                    docRecipeMI["preparationTime"] =
-                                        binding.txpPreparationTime.text.toString()
-
-                                    db.collection("recipes").document(docID).set(docRecipeMI)
-                                } else {
-                                    val fileRef =
-                                        storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image.jpg")
-                                    fileRef.putFile(uniqueImage.toUri()).addOnSuccessListener {
+                        val docRecipeMI = hashMapOf<String, Any>()
+                        val docID = db.collection("recipes").document().id
+                        listStep.forEach { step ->
+                            if (step.optionalImage != null) {
+                                j++
+                                val fileRef =
+                                    storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}OptionalImage/optionalImage$j")
+                                fileRef.putFile(step.optionalImage!!.toUri())
+                                    .addOnSuccessListener {
                                         Log.d("imageUpload", "Imagen subida correctamente")
-                                    }
-                                        .addOnFailureListener {
-                                            Log.d(
-                                                "imageUpload",
-                                                "Imagen no se ha subido correctamente"
-                                            )
-                                        }
-                                    listimagePath.clear()
-                                    listimagePath.add(fileRef.path)
-                                    val docRecipeUI = hashMapOf(
-                                        "recipeID" to docID,
-                                        "stars" to 0,
-                                        "numberTimesValored" to 0,
-                                        "timeLaunch" to LocalDateTime.now()
-                                            .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
-                                            .toString(),
-                                        "title" to binding.txpTitle.text.toString(),
-                                        "listImages" to listimagePath,
-                                        "description" to binding.txpDescription.text.toString(),
-                                        "publisher" to userFB.email,
-                                        "listIngredients" to listIngredient,
-                                        "listSteps" to listStep,
-                                        "isVegetarian" to binding.chbVegetarian.isChecked.toString(),
-                                        "isVegan" to binding.chbVegan.isChecked.toString(),
-                                        "isDiabetic" to binding.chbDiabetic.isChecked.toString(),
-                                        "isCeliac" to binding.chbCeliac.isChecked.toString(),
-                                        "complexity" to progressComplexity,
-                                        "cantComments" to 0,
-                                        "preparationTime" to binding.txpPreparationTime.text.toString()
+                                    }.addOnFailureListener {
+                                    Log.d(
+                                        "imageUpload",
+                                        "Imagen no se ha subido correctamente"
                                     )
-                                    db.collection("recipes").document(docID).set(docRecipeUI)
                                 }
                             }
+                        }
+                        if (isMultiImages) {
+                            listimagePath.clear()
+                            listImages.forEach { img ->
+                                i++
+                                val fileRef =
+                                    storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image$i.jpg")
+                                fileRef.putFile(img.toUri()).addOnSuccessListener {
+                                    Log.d("imageUpload", "Imagen subida correctamente")
+                                }
+                                    .addOnFailureListener {
+                                        Log.d(
+                                            "imageUpload",
+                                            "Imagen no se ha subido correctamente"
+                                        )
+                                    }
+                                listimagePath.add(fileRef.path)
+                                docRecipeMI["listImages"] = listimagePath
+                            }
+                            docRecipeMI["recipeID"] = docID
+                            docRecipeMI["numberTimesValored"] = 0
+                            docRecipeMI["stars"] = 0
+                            docRecipeMI["timeLaunch"] = LocalDateTime.now()
+                                .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                                .toString()
+                            docRecipeMI["cantComments"] = 0
+                            docRecipeMI["title"] = binding.txpTitle.text.toString()
+                            docRecipeMI["description"] =
+                                binding.txpDescription.text.toString()
+                            //docRecipeMI["publisher"] = userFB.email
+                            docRecipeMI["listIngredients"] = listIngredient
+                            docRecipeMI["listSteps"] = listStep
+                            docRecipeMI["isVegetarian"] =
+                                binding.chbVegetarian.isChecked.toString()
+                            docRecipeMI["isVegan"] = binding.chbVegan.isChecked.toString()
+                            docRecipeMI["isDiabetic"] =
+                                binding.chbDiabetic.isChecked.toString()
+                            docRecipeMI["isCeliac"] = binding.chbCeliac.isChecked.toString()
+                            docRecipeMI["complexity"] = progressComplexity
+                            docRecipeMI["preparationTime"] =
+                                binding.txpPreparationTime.text.toString()
+
+                            db.collection("recipes").document(docID).set(docRecipeMI)
+                        } else {
+                            val fileRef =
+                                storageReference.child("recipes/" + FirebaseAuth.getInstance().currentUser!!.uid + "/recipe${docID}Image.jpg")
+                            fileRef.putFile(uniqueImage.toUri()).addOnSuccessListener {
+                                Log.d("imageUpload", "Imagen subida correctamente")
+                            }
+                                .addOnFailureListener {
+                                    Log.d(
+                                        "imageUpload",
+                                        "Imagen no se ha subido correctamente"
+                                    )
+                                }
+                            listimagePath.clear()
+                            listimagePath.add(fileRef.path)
+                            val docRecipeUI = hashMapOf(
+                                "recipeID" to docID,
+                                "stars" to 0,
+                                "numberTimesValored" to 0,
+                                "timeLaunch" to LocalDateTime.now()
+                                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                                    .toString(),
+                                "title" to binding.txpTitle.text.toString(),
+                                "listImages" to listimagePath,
+                                "description" to binding.txpDescription.text.toString(),
+                                //"publisher" to userFB.email,
+                                "listIngredients" to listIngredient,
+                                "listSteps" to listStep,
+                                "isVegetarian" to binding.chbVegetarian.isChecked.toString(),
+                                "isVegan" to binding.chbVegan.isChecked.toString(),
+                                "isDiabetic" to binding.chbDiabetic.isChecked.toString(),
+                                "isCeliac" to binding.chbCeliac.isChecked.toString(),
+                                "complexity" to progressComplexity,
+                                "cantComments" to 0,
+                                "preparationTime" to binding.txpPreparationTime.text.toString()
+                            )
+                            db.collection("recipes").document(docID).set(docRecipeUI)
+                        }
+
                         this.finish()
                         startActivity(Intent(this,HomeActivity::class.java))
                     }

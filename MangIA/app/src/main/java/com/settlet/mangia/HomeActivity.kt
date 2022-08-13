@@ -3,7 +3,6 @@ package com.settlet.mangia
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
@@ -20,11 +19,13 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.settlet.mangia.Model.Comment
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
@@ -40,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var fragment: View
+    private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
     private val db = Firebase.firestore
 
@@ -60,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
         homeView.bottom_barH.imbScanBB.setOnClickListener {
             //Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
             val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", "isayleon6@gmail.com")
+            editor.putString("profileID", "VjiyGqxeelcjiOoxG5L6THnjqvh2")
             editor.apply()
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
@@ -98,7 +100,7 @@ class HomeActivity : AppCompatActivity() {
 
         binding.navView.nav_view.getHeaderView(0).setOnClickListener {
             val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", Firebase.auth.currentUser!!.email)
+            editor.putString("profileID", Firebase.auth.currentUser!!.uid)
             editor.apply()
             val intent = Intent(this, ProfileActivity::class.java)
             this.startActivity(intent)
@@ -124,7 +126,7 @@ class HomeActivity : AppCompatActivity() {
         val defaultPImage = storageReference.child("profilePicture/profile_picture.jpg")
         if (currentUser!=null)
         {
-            val pImageRef = storageReference.child("users/" + currentUser.email + "/profile.jpg")
+            val pImageRef = storageReference.child("users/" + currentUser.uid + "/profile.jpg")
             pImageRef.downloadUrl.addOnSuccessListener { result ->
                 Glide.with(this)
                     .load(result)
@@ -137,13 +139,11 @@ class HomeActivity : AppCompatActivity() {
                             .into(nav_view.imvProfileNH)
                     }
                 }
-            db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
-                val user = document.toObject<User>()
+            reference.child("users").child(currentUser.uid).get().addOnSuccessListener {
+                val user = it.getValue(User::class.java)
                 if(user!=null){
                     val uNameFB = user.userName
                     val nNameFB = user.nickName
-                    val followsFB = "${user.cantFollows} Seguidos"
-                    val followersFB = "${user.cantFollowers} Seguidores"
 
                     val uName = binding.navView.nav_view.getHeaderView(0).findViewById<TextView>(R.id.txvUNameNH)
                     val nName = binding.navView.nav_view.getHeaderView(0).findViewById<TextView>(R.id.txvNNameNH)
@@ -152,12 +152,11 @@ class HomeActivity : AppCompatActivity() {
 
                     uName.text = "@$uNameFB"
                     nName.text = nNameFB
-                    follows.text = followsFB
-                    followers.text = followersFB
-
-                    Log.d("TAG", "${document.id} => ${document.data}")
+                    getNrFollowsFollowers(currentUser.uid,followers,follows)
                 }
             }
+            /*db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
+            }*/
         }
     }
     override fun onSupportNavigateUp(): Boolean {
@@ -170,5 +169,27 @@ class HomeActivity : AppCompatActivity() {
         val intent = Intent(this,LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+    private fun getNrFollowsFollowers(userID: String, textViewFollowers:TextView, textViewFollows:TextView) {
+        reference.child("follow").child(userID).child("followers").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                textViewFollowers.text = "${snapshot.childrenCount} Seguidores"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        reference.child("follow").child(userID).child("following").addValueEventListener(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                textViewFollows.text = "${snapshot.childrenCount} Seguidos"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 }

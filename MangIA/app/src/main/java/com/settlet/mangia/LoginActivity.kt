@@ -19,6 +19,7 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Model.User
@@ -34,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var binding: ActivityLoginBinding
+    private val reference = FirebaseDatabase.getInstance().reference
     private val RC_SIGN_IN = 45
     private val db = Firebase.firestore
     @SuppressLint("ClickableViewAccessibility")
@@ -178,14 +180,20 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("TAG", "signInWithCredential:success")
                     val user = auth.currentUser
                     if (user != null) {
-                        db.collection("users").document(user.email.toString()).get().addOnSuccessListener{ doc ->
-                            if (doc.exists()) {
+                        reference.child("users").child(user.uid).get().addOnSuccessListener {
+                            if (it.exists()){
                                 updateUI(user)
                             }else{
                                 loadRegister(user)
                             }
                         }
-
+                        /*db.collection("users").document(user.email.toString()).get().addOnSuccessListener{ doc ->
+                            if (doc.exists()) {
+                                updateUI(user)
+                            }else{
+                                loadRegister(user)
+                            }
+                        }*/
                     }
 
                 } else {

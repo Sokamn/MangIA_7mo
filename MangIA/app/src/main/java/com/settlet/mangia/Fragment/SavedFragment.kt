@@ -32,7 +32,7 @@ class SavedFragment : Fragment() {
         val profileEmail = prefs.getString("profileEmail","none")
         val myView = inflater.inflate(R.layout.fragment_saved, container, false)
         rcvMySaves = myView.findViewById(R.id.rcvMyRecipesSavedFS)
-        getImages(profileEmail.toString())
+        //getImages(profileEmail.toString())
         return myView
     }
 

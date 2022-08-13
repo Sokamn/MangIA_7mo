@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         rcvPreviewRecipe.layoutManager = linearLayoutManager
-        CheckFollowing()
+        //CheckFollowing()
 
 
         binding.bottomBarH.imbScanBB.setOnClickListener {

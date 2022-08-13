@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -29,11 +30,13 @@ import com.settlet.mangia.databinding.ActivityEditProfileBinding
 import com.yalantis.ucrop.UCrop
 import java.io.File
 import java.util.*
+import kotlin.collections.HashMap
 
 class EditProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditProfileBinding
     private lateinit var auth: FirebaseAuth
     private val db = Firebase.firestore
+    private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         val inputUri = uri
@@ -62,7 +65,7 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun uploadImageToFirebase(image: Uri) {
-        var fileRef = storageReference.child("users/" + Firebase.auth.currentUser!!.email + "/profile.jpg")
+        var fileRef = storageReference.child("users/" + Firebase.auth.currentUser!!.uid + "/profile.jpg")
         fileRef.putFile(image).addOnSuccessListener {
             onBackPressed()
             finish()
@@ -169,11 +172,15 @@ class EditProfileActivity : AppCompatActivity() {
         binding.imbSaveEP.setOnClickListener{
             val user = Firebase.auth.currentUser
             if (user!=null) {
-                db.collection("users").document( user.email.toString()).get()
+                reference.child("users").child(user.uid).get().addOnSuccessListener {
+                    val userFB = it.getValue(User::class.java)
+
+                    updateProfile(binding.txpUNameEP.text.toString(), userFB!!)
+                }
+                /*db.collection("users").document( user.email.toString()).get()
                     .addOnSuccessListener { document ->
-                            val userFB = document.toObject<User>()
-                            updateProfile(binding.txpUNameEP.text.toString(), userFB!!)
-                    }
+
+                    }*/
             }
         }
         binding.txpDBirthEP.setOnClickListener { showDatePickerDialog() }
@@ -188,8 +195,8 @@ class EditProfileActivity : AppCompatActivity() {
         val currentUser = Firebase.auth.currentUser
         if (currentUser!=null)
             {
-                db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
-                    val user = document.toObject<User>()
+                reference.child("users").child(currentUser.uid).get().addOnSuccessListener {
+                    val user = it.getValue(User::class.java)
                     if (user!=null){
                         binding.txpUNameEP.setText(user.userName)
                         binding.txpNNameEP.setText(user.nickName)
@@ -197,10 +204,11 @@ class EditProfileActivity : AppCompatActivity() {
                         binding.txpCountryEP.setText(user.country)
                         binding.txpRegionEP.setText(user.region)
                         binding.txpDBirthEP.setText(user.dateBirth)
-                        Log.d("TAG", "${document.id} => ${document.data}")
                     }
                 }
-                val pImageRef = storageReference.child("users/${currentUser.email}/profile.jpg")
+                /*db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
+                }*/
+                val pImageRef = storageReference.child("users/${currentUser.uid}/profile.jpg")
                 pImageRef.downloadUrl.addOnSuccessListener { result ->
                     Glide.with(this)
                         .load(result)
@@ -236,7 +244,8 @@ class EditProfileActivity : AppCompatActivity() {
                     if(task.isSuccessful)
                     {
                         val badWords = arrayListOf<String>("sorete","imbecil","tarado","pelotudo","pajero","pajera","pelotuda","tarada","puto","puta","concha","culo","poronga","verga","pito","pene" + "nigga" , "trola" , "trolo" , "caca" , "down" , "mierda" , "nazi" , "hitler" , "estupido" , "coger" , "cojer" , "pendejo " , "pendeja" , "porno" , "orto" , "sexo" , "pinche" , "pinchi" , "cojo" , "cabrón" , "cabrona" , "mames" , "pendejos" , "pendejas" , "chinga" , "mamadas" , "pendejadas" , "mama huevo" , "pete" , "wueon" , "xuxa" , "weon" , "weonado" , "weona" , "coño" , "aguevoniado" , "guevon" , "pajuo" , "marica", "monda" , "marrana" , "marrano" ,"monda" , "pijudo" , "hijueputa" , "cotopla" , "pichurria" , "picha" , "mother fucker" , "fuck" , "ass" , "orgy" , "bitch" , "suck" , "my balls" , "slut " , "whore" , "hoe" , "chupamela" , "culito" , "cojida" , "cojiendo" , "zoofilia" , "putito" , "reputo" , "free viagra" , "taradito", "taradita" , "pelotudito" , "pelotudita" , "pelotuditos", "pelotuditas" , "putita" , "poronguita" , "verguita" , "pitito" , "trolito" , "trolita" , "caquita" , "estupidito" , "estupidita" , "pendejito" , "pendejita" , "putitos" , "putitas" , "poronguitas" , "porongotas" , "porongota" , "porongon" , "verguitas", "vergotas" , "vergota" , "pititos" , "pitotes" , "pitote" , "trolitos" , "trolitas" , "caquitas" , "cacotas" , "estupiditos" , "estupiditas" , "pendejitos" , "pendejitas" , "feto" , "cigoto" , "caka" , "kaka" , "kk" , "joto" , "jota" , "kaco" , "kago" , "kojo" , "kulo" , "mamo" , "meaas" , "mion" , "mula" , "pedo" , "qulo" , "buey" , "caco" , "cago" , "cako" , "coja" , "coji" , "guey" , "kaca" , "kaga" , "koge" , "mame" , "mear" , "meon" , "moco")
-                        val userRef = db.collection("users").document(user.email.toString())
+                        val userRef = reference.child("users").child(user.uid)
+                        //val userRef = db.collection("users").document(user.email.toString())
                         if(binding.txpUNameEP.text.toString()!=userFB.userName)
                         {
                             for(t in badWords)
@@ -246,10 +255,12 @@ class EditProfileActivity : AppCompatActivity() {
                                     Toast.makeText(this,"Se detectó un nombre de usuario o apodo ofensivo.",Toast.LENGTH_SHORT).show()
                                 }
                                 else{
-                                    userRef.update("userName",binding.txpUNameEP.text.toString()).addOnSuccessListener {
+                                    val map = hashMapOf<String, Any>("userName" to binding.txpUNameEP.text.toString())
+                                    userRef.updateChildren(map)
+                                    /*userRef.update("userName",binding.txpUNameEP.text.toString()).addOnSuccessListener {
                                         Log.w("TAG", "Cambio realizado correctamente. ${binding.txpUNameEP.text}", )
                                         Toast.makeText(baseContext,"El cambio de Nombre de usuario a: ${binding.txpUNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
-                                    }
+                                    }*/
                                 }
                             }
                         }
@@ -264,19 +275,23 @@ class EditProfileActivity : AppCompatActivity() {
                                     ).show()
                                 }
                                 else{
-                                    userRef.update("nickName",binding.txpNNameEP.text.toString()).addOnSuccessListener {
+                                    val map = hashMapOf<String, Any>("nickName" to binding.txpNNameEP.text.toString())
+                                    userRef.updateChildren(map)
+                                    /*userRef.update("nickName",binding.txpNNameEP.text.toString()).addOnSuccessListener {
                                         Log.w("TAG", "Cambio realizado correctamente. ${binding.txpNNameEP.text}", )
                                         Toast.makeText(baseContext,"El cambio de Apodo a: ${binding.txpNNameEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
-                                    }
+                                    }*/
                                 }
                             }
                         }
                         if(binding.txpBioEP.text.toString()!=userFB.biography)
                         {
-                            userRef.update("biography",binding.txpBioEP.text.toString()).addOnSuccessListener {
+                            val map = hashMapOf<String, Any>("biography" to binding.txpBioEP.text.toString())
+                            userRef.updateChildren(map)
+                            /*userRef.update("biography",binding.txpBioEP.text.toString()).addOnSuccessListener {
                                 Log.w("TAG", "Cambio realizado correctamente. ${binding.txpBioEP.text}", )
                                 Toast.makeText(baseContext,"El cambio de Biografia a: ${binding.txpBioEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
-                            }
+                            }*/
                         }
                         if(binding.txpDBirthEP.text.toString()!=userFB.dateBirth)
                         {
@@ -286,10 +301,12 @@ class EditProfileActivity : AppCompatActivity() {
                                 Toast.makeText(this, "Usted tiene menos de 13 años, por favor, ingrese una fecha valida.",Toast.LENGTH_SHORT).show()
                             }
                             else{
-                                userRef.update("dateBirth",binding.txpDBirthEP.text.toString()).addOnSuccessListener {
+                                val map = hashMapOf<String, Any>("dateBirth" to binding.txpDBirthEP.text.toString())
+                                userRef.updateChildren(map)
+                                /*userRef.update("dateBirth",binding.txpDBirthEP.text.toString()).addOnSuccessListener {
                                     Log.w("TAG", "Cambio realizado correctamente. ${binding.txpDBirthEP.text}", )
                                     Toast.makeText(baseContext,"El cambio de fecha de nacimiento a: ${binding.txpDBirthEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
-                                }
+                                }*/
                             }
                         }
                         if(binding.txpCountryEP.text.toString()!=userFB.country)
@@ -299,10 +316,12 @@ class EditProfileActivity : AppCompatActivity() {
                                 if(binding.txpCountryEP.text.toString() == C)
                                 {
                                     aux1++
-                                    userRef.update("country",binding.txpCountryEP.text.toString()).addOnSuccessListener {
+                                    val map = hashMapOf<String, Any>("country" to binding.txpCountryEP.text.toString())
+                                    userRef.updateChildren(map)
+                                    /*userRef.update("country",binding.txpCountryEP.text.toString()).addOnSuccessListener {
                                         Log.w("TAG", "Cambio realizado correctamente. ${binding.txpCountryEP.text}", )
                                         Toast.makeText(baseContext,"El cambio de pais a: ${binding.txpCountryEP.text} se ha realizado correctamente", Toast.LENGTH_LONG).show()
-                                    }
+                                    }*/
                                 }
                             }
                             if(aux1==0)
@@ -316,7 +335,19 @@ class EditProfileActivity : AppCompatActivity() {
                             {
                                 if(binding.txpRegionEP.text.toString() == c) {
                                     aux2++
-                                    userRef.update("region", binding.txpRegionEP.text.toString())
+                                    val map = hashMapOf<String, Any>("region" to binding.txpRegionEP.text.toString())
+                                    userRef.updateChildren(map).addOnSuccessListener {
+                                        Log.w(
+                                            "TAG",
+                                            "Cambio realizado correctamente. ${binding.txpRegionEP.text}",
+                                        )
+                                        Toast.makeText(
+                                            baseContext,
+                                            "El cambio de region a: ${binding.txpRegionEP.text} se ha realizado correctamente",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                    }
+                                    /*userRef.update("region", binding.txpRegionEP.text.toString())
                                         .addOnSuccessListener {
                                             Log.w(
                                                 "TAG",
@@ -327,7 +358,7 @@ class EditProfileActivity : AppCompatActivity() {
                                                 "El cambio de region a: ${binding.txpRegionEP.text} se ha realizado correctamente",
                                                 Toast.LENGTH_LONG
                                             ).show()
-                                        }
+                                        }*/
                                 }
                             }
                             if(aux2==0)

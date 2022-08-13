@@ -14,19 +14,23 @@ import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.PagerAdapterP
+import com.settlet.mangia.Model.Recipe
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var auth: FirebaseAuth
+    private var currentUserID = Firebase.auth.currentUser!!.uid
+    private val reference = FirebaseDatabase.getInstance().reference
     private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
     private lateinit var viewPager: ViewPager2
@@ -80,27 +84,30 @@ class ProfileActivity : AppCompatActivity() {
     public override fun onStart() {
         super.onStart()
         val prefs = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        val profileEmail = prefs.getString("profileEmail","none")
+        val profileID = prefs.getString("profileID","none")
         val docFollows = hashMapOf<String, Any>()
         val currentUser = Firebase.auth.currentUser
-        if (profileEmail!=null)
+        if (profileID!=null)
         {
-            if(profileEmail == currentUser!!.email){
+            if(profileID == currentUser!!.uid){
                 binding.btnEProfileP.text = "Editar Perfil"
             }else{
-                checkFollow(profileEmail)
+                checkFollow(profileID)
             }
 
-            val pImageRef = storageReference.child("users/$profileEmail/profile.jpg")
-            Log.d("PROFI",profileEmail)
+            val pImageRef = storageReference.child("users/$profileID/profile.jpg")
+            Log.d("PROFI",profileID)
             pImageRef.downloadUrl.addOnSuccessListener { result ->
                 Glide.with(this)
                     .load(result)
                     .into(binding.imvProfileP)
 
             }
-            val docRef = db.collection("users").document(profileEmail)
-            docRef.addSnapshotListener { value, error ->
+            getUserInfo(profileID)
+            getNrFollowsFollowers(profileID)
+            getNrRecipes(profileID)
+            //val docRef = db.collection("users").document(profileEmail)
+            /*docRef.addSnapshotListener { value, error ->
                 if(error!=null){
                     Log.w("TAG","Listen Failed")
                     return@addSnapshotListener
@@ -118,7 +125,7 @@ class ProfileActivity : AppCompatActivity() {
                         cantFollowersActual = user.cantFollowers
                     }
                 }
-            }
+            }*/
         }
 
         binding.btnEProfileP.setOnClickListener {
@@ -127,29 +134,111 @@ class ProfileActivity : AppCompatActivity() {
                     startActivity(Intent(this,EditProfileActivity::class.java))
                 }
                 "Seguir" -> {
-                    docFollows["isFollowing"] = true.toString()
+                    reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).setValue(true)
+                    reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).setValue(true)
+                    /*docFollows["isFollowing"] = true.toString()
                     db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(profileEmail.toString()).set(docFollows)
                     db.collection("follow").document(profileEmail.toString()).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
                     db.collection("users").document(profileEmail.toString()).update("cantFollowers", FieldValue.increment(1))
-                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(1))
+                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(1))*/
                 }
                 "Siguiendo" -> {
-                    docFollows["isFollowing"] = false.toString()
+                    reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).removeValue()
+                    reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).removeValue()
+                    /*docFollows["isFollowing"] = false.toString()
                     db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(
                         profileEmail.toString()
                     ).delete()
                     db.collection("follow").document(profileEmail.toString()).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
                     db.collection("users").document(profileEmail.toString()).update("cantFollowers", FieldValue.increment(-1))
-                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(-1))
+                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(-1))*/
                 }
             }
 
         }
     }
 
+    private fun getNrRecipes(userID: String) {
+        reference.child("recipes").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var i = 0
+                snapshot.children.forEach { recipeSnapshot ->
+                    val recipe = recipeSnapshot.getValue(Recipe::class.java)
+                    if(recipe!=null){
+                        if(recipe.publisher==userID){
+                            i++
+                        }
+                    }
+                }
+                binding.txvRecipesP.text = "$i\nRecetas"
+            }
 
-    private fun checkFollow(profileEmail: String) {
-        db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail).addSnapshotListener { value, error ->
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+
+    private fun getNrFollowsFollowers(userID: String) {
+        reference.child("follow").child(userID).child("followers").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.txvFollowersP.text = "${snapshot.childrenCount}\nSeguidores"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        reference.child("follow").child(userID).child("following").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                binding.txvFollowsP.text = "${snapshot.childrenCount}\nSeguidos"
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+
+    private fun getUserInfo(userID: String) {
+        val docRef = reference.child("users").child(userID)
+        docRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(User::class.java)
+                if (user != null) {
+                    binding.txvUNameP.text = user.userName
+                    binding.txvNNameP.text = user.nickName
+                    binding.txvBioP.text = user.biography
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+
+
+    private fun checkFollow(profileID: String) {
+        reference.child("follow").child(currentUserID).child("following").addValueEventListener(object: ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(profileID).exists()){
+                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_follow))
+                    binding.btnEProfileP.setTextColor(getColor(R.color.colorButtonFollow))
+                    binding.btnEProfileP.text = "Siguiendo"
+                }else{
+                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
+                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
+                    binding.btnEProfileP.text = "Seguir"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+        /*db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail).addSnapshotListener { value, error ->
             if (error!=null) {
                 Log.w("TAG","Listen Failed")
                 return@addSnapshotListener
@@ -166,7 +255,7 @@ class ProfileActivity : AppCompatActivity() {
                 }
             }
 
-        }
+        }*/
 
     }
 }

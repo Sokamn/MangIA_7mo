@@ -2,7 +2,6 @@ package com.settlet.mangia.Fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +9,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.UserAdapter
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.R
 
 class FollowersFragment : Fragment() {
+    private val reference = FirebaseDatabase.getInstance().reference
     private val db = Firebase.firestore
     private val userList = mutableListOf<com.settlet.mangia.Model.User>()
+    private val idList = mutableListOf<String>()
     private lateinit var rcvFollowers: RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,16 +36,21 @@ class FollowersFragment : Fragment() {
         // Inflate the layout for this fragment
         val myView = inflater.inflate(R.layout.fragment_followers, container, false)
         val prefs = requireActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        val profileEmail = prefs.getString("profileEmail","none")
+        val profileID = prefs.getString("profileID","none")
         rcvFollowers = myView.findViewById(R.id.rcvUsersFollowers)
         rcvFollowers.setHasFixedSize(true)
         rcvFollowers.layoutManager = LinearLayoutManager(requireActivity())
         val currentUser = Firebase.auth.currentUser
         if (currentUser!=null)
         {
-            val userAdapter = UserAdapter()
-            rcvFollowers.adapter = userAdapter
-            db.collection("follow").document(profileEmail!!).collection("followers").get().addOnSuccessListener{ documents ->
+            reference.child("follow").child(profileID!!).child("followers").get().addOnSuccessListener {
+                idList.clear()
+                it.children.forEach { userID ->
+                    idList.add(userID.key.toString())
+                }
+            }
+            showUsers()
+            /*db.collection("follow").document(profileEmail!!).collection("followers").get().addOnSuccessListener{ documents ->
                 userList.clear()
                 for (document in documents){
                     db.collection("users").document(document.id).addSnapshotListener { value, error ->
@@ -58,8 +67,33 @@ class FollowersFragment : Fragment() {
                         }
                     }
                 }
-            }
+            }*/
         }
         return myView
+    }
+
+    private fun showUsers() {
+        val userAdapter = UserAdapter()
+        rcvFollowers.adapter = userAdapter
+        reference.child("users").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                snapshot.children.forEach { userValue ->
+                    val user = userValue.getValue(User::class.java)
+                    if(user!=null){
+                        idList.forEach { idFollow ->
+                            if(user.userID == idFollow){
+                                userList.add(user)
+                            }
+                        }
+                    }
+                }
+                userAdapter.submitList(userList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 }

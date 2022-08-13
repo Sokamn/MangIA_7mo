@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.blongho.country_data.World
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Model.DatePickerFragment
@@ -26,6 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityRegisterBinding
     private val db = Firebase.firestore
+    private val reference = FirebaseDatabase.getInstance().reference
     private var contador: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -178,10 +180,8 @@ class RegisterActivity : AppCompatActivity() {
             when(loginMethod){
                 "Google"->{
                     val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                        "userID" to auth.currentUser!!.uid,
                         "biography" to "",
-                        "cantFollowers" to 0,
-                        "cantFollows" to 0,
-                        "cantRecipes" to 0,
                         "cantReports" to 0,
                         "country" to binding.txpCountryR.text.toString(),
                         "dateBirth" to binding.txpDateBirthR.text.toString(),
@@ -191,32 +191,21 @@ class RegisterActivity : AppCompatActivity() {
                         "password" to passr,
                         "phoneNumber" to binding.txpTelR.text.toString(),
                         "region" to binding.txpRegionR.text.toString(),
-                        "userName" to binding.txpUserNameR.text.toString()
+                        "userName" to binding.txpUserNameR.text.toString(),
+                        "profileImage" to ""
                     )
-                    db.collection("users").document(mailr).set(docUser)
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val intent = Intent(this, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
+                    //db.collection("users").document(mailr).set(docUser)
                 }
                 else ->{
                     createAccount(mailr,passr)
-                    val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
-                        "biography" to "",
-                        "cantFollowers" to 0,
-                        "cantFollows" to 0,
-                        "cantRecipes" to 0,
-                        "cantReports" to 0,
-                        "country" to binding.txpCountryR.text.toString(),
-                        "dateBirth" to binding.txpDateBirthR.text.toString(),
-                        "dateCreationAccount" to Calendar.getInstance().time.toString(),
-                        "email" to binding.txpMailR.text.toString(),
-                        "nickName" to binding.txpNNameR.text.toString(),
-                        "password" to passr,
-                        "phoneNumber" to binding.txpTelR.text.toString(),
-                        "region" to binding.txpRegionR.text.toString(),
-                        "userName" to binding.txpUserNameR.text.toString()
-                    )
-                    db.collection("users").document(mailr).set(docUser)
+                    //db.collection("users").document(mailr).set(docUser)
                 }
             }
         }
@@ -257,9 +246,28 @@ class RegisterActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val intent = Intent(this, CheckMailActivity::class.java)
-                    startActivity(intent)
-                    finish()
+                    val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                        "userID" to auth.currentUser!!.uid,
+                        "biography" to "",
+                        "cantReports" to 0,
+                        "country" to binding.txpCountryR.text.toString(),
+                        "dateBirth" to binding.txpDateBirthR.text.toString(),
+                        "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                        "email" to binding.txpMailR.text.toString(),
+                        "nickName" to binding.txpNNameR.text.toString(),
+                        "password" to password,
+                        "phoneNumber" to binding.txpTelR.text.toString(),
+                        "region" to binding.txpRegionR.text.toString(),
+                        "userName" to binding.txpUserNameR.text.toString(),
+                        "profileImage" to ""
+                    )
+                    reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
+                        if(it.isSuccessful){
+                            val intent = Intent(this, CheckMailActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    }
                 } else {
                     Log.w("TAG", "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Error al registrarse. Por favor, intentelo más tarde.",
@@ -280,19 +288,26 @@ class RegisterActivity : AppCompatActivity() {
                 if(binding.txpTelR.text.isNotEmpty()&&binding.txpUserNameR.text.isNotEmpty()&&binding.txpNNameR.text.isNotEmpty()){
                     if(verifyUserNames(badWords,binding.txpUserNameR.text.toString(),binding.txpNNameR.text.toString()))
                     {
-                        db.collection("users").document(binding.txpMailR.text.toString()).get()
+                        /*reference.child("users").orderByChild("email").startAt(binding.txpMailR.toString()).endAt(binding.txpMailR.toString()+"\uf8ff").get().addOnCompleteListener {
+                            if(it.result.exists()){
+                                Toast.makeText(
+                                    this,
+                                    "Este correo ya ha sido utilizado en otra cuenta",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                contador -= 1
+                            }else{
+                                register2()
+                            }
+                        }
+                        db.collection("users").document().get()
                             .addOnSuccessListener { doc ->
                                 if (doc.exists()) {
-                                    Toast.makeText(
-                                        this,
-                                        "Este correo ya ha sido utilizado en otra cuenta",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    contador -= 1
+
                                 } else {
-                                    register2()
                                 }
-                            }
+                            }*/
+                        register2()
                         return true
                     }
                     else{

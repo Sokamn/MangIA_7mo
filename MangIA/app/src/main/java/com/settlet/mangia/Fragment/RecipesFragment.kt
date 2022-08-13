@@ -37,7 +37,7 @@ class RecipesFragment : Fragment() {
         val profileEmail = prefs.getString("profileEmail","none")
         val myView = inflater.inflate(R.layout.fragment_recipes, container, false)
         rcvMyRecipes = myView.findViewById(R.id.rcvMyRecipesFR)
-        getImages(profileEmail.toString())
+        //getImages(profileEmail.toString())
         return myView
     }
 
