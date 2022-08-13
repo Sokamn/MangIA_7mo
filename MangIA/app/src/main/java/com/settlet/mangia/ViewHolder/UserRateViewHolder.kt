@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
 
 class UserRateViewHolder (view: View): RecyclerView.ViewHolder(view)  {
-    private val db = Firebase.firestore
     val binding = RowUserRateBinding.bind(view)
     private val storageReference = FirebaseStorage.getInstance().reference
 

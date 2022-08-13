@@ -15,62 +15,48 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.protobuf.Value
 import com.settlet.mangia.*
 import com.settlet.mangia.Adapter.SliderAdapter
-import com.settlet.mangia.Fragment.HomeFragment
 import com.settlet.mangia.Model.CustomTypefaceSpan
 import com.settlet.mangia.Model.Recipe
+import com.settlet.mangia.Model.User
+import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RecipeItemBinding
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.time.Duration
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import kotlin.math.roundToInt
 
 class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val binding = RecipeItemBinding.bind(view)
     private val db = Firebase.firestore
+    private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
+    val profileID = Firebase.auth.currentUser!!.uid
     private val listImages = mutableListOf<String>()
     fun render(recipe:Recipe){
         loadPostImages(recipe)
         loadDescriptionDesign(recipe.title, recipe.description)
+        loadValoration(recipe.recipeID)
         loadTopBarRecipe(recipe.publisher)
         loadTimeLaunch(recipe)
-        //loadDesignComments(recipe.cantComments)
+        loadDesignComments(recipe.recipeID)
         isLiked(recipe)
-        isSaved(recipe)
+        isSaved(recipe.recipeID)
 
-
-        db.collection("recipes").document(recipe.recipeID).addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.w("TAG", "Listen Failed")
-                return@addSnapshotListener
-            } else {
-                if (value != null) {
-                    if (value["numberTimesValored"].toString().toInt() == 0) {
-                        binding.txvValoration.visibility = View.GONE
-                    } else {
-                        binding.txvValoration.visibility = View.VISIBLE
-                    }
-                    binding.txvValoration.text =
-                        if (value["numberTimesValored"].toString().toInt() == 1) "1 valoración" else "${value["numberTimesValored"].toString().toInt()} valoraciones"
-                }
-            }
-        }
 
         binding.txvComments.setOnClickListener {
             GoToCommentsActivity(recipe.recipeID)
         }
         binding.cstTopBar.setOnClickListener { // Mandar al perfil del usuario
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", recipe.publisher)
+            editor.putString("profileID", recipe.publisher)
             editor.apply()
             itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
         }
@@ -95,12 +81,13 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             LoadLike(recipe.recipeID,5)
         }
         binding.imvSave.setOnClickListener { // Guardar en mis recetas favoritas
-            val docSaved = hashMapOf<String, Any>()
+            //val docSaved = hashMapOf<String, Any>()
             if(binding.imvSave.tag.equals("save")){
-                docSaved["isSaved"] = true.toString()
-                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
+                reference.child("saves").child(profileID).child(recipe.recipeID).setValue(true)
+                //db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
             }else{
-                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
+                reference.child("saves").child(profileID).child(recipe.recipeID).removeValue()
+                //db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
             }
         }
         binding.imvComment.setOnClickListener { // Mandar a comentar
@@ -120,18 +107,42 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
     }
 
+    private fun loadValoration(recipeID: String) {
+        reference.child("likes").child(recipeID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                when(snapshot.childrenCount.toString()){
+                    "0"-> binding.txvValoration.visibility = View.GONE
+                    "1"-> binding.txvValoration.text = "1 valoración"
+                    else -> binding.txvValoration.text = "${snapshot.childrenCount} valoraciones"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }
+
     private fun GoToCommentsActivity(recipeID: String) {
         val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
         intent.putExtra("recipeID",recipeID)
         binding.imvStar1.context.startActivity(intent)
     }
 
-    private fun loadDesignComments(cantComments: Int) {
-        when(cantComments){
-            0-> binding.txvComments.visibility = View.GONE
-            1-> binding.txvComments.text = "Ver 1 comentario"
-            else -> binding.txvComments.text = "Ver los ${cantComments} comentarios"
-        }
+    private fun loadDesignComments(recipeID: String) {
+        reference.child("comments").child(recipeID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                when(snapshot.childrenCount.toString()){
+                    "0"-> binding.txvComments.visibility = View.GONE
+                    "1"-> binding.txvComments.text = "Ver 1 comentario"
+                    else -> binding.txvComments.text = "Ver los ${snapshot.childrenCount} comentarios"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 
     private fun loadTimeLaunch(recipe: Recipe) {
@@ -202,7 +213,14 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     }
 
     private fun loadTopBarRecipe(publisher:String) {
-        db.collection("users").document(publisher).get().addOnSuccessListener { doc ->
+        reference.child("users").child(publisher).get().addOnSuccessListener { userRef ->
+            val user = userRef.getValue(User::class.java)
+            if (user!=null){
+                binding.txvUserNameRI.text = user.userName
+                binding.txvUserCountryRI.text = user.country
+            }
+        }
+        /*db.collection("users").document(publisher).get().addOnSuccessListener { doc ->
             if(doc!=null){
                 val user = doc.toObject<com.settlet.mangia.Model.User>()
                 if (user!=null){
@@ -210,7 +228,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     binding.txvUserCountryRI.text = user.country
                 }
             }
-        }
+        }*/
         loadProfileImage(publisher)
     }
 
@@ -227,8 +245,8 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun loadProfileImage(email: String) {
-        val pImageRef = storageReference.child("users/$email/profile.jpg")
+    private fun loadProfileImage(profileID: String) {
+        val pImageRef = storageReference.child("users/$profileID/profile.jpg")
         pImageRef.downloadUrl.addOnSuccessListener { result ->
             Glide.with(binding.imvProfilePictureRI.context)
                 .load(result)
@@ -264,8 +282,23 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun isSaved(recipe: Recipe){
-        db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).addSnapshotListener { value, error ->
+    private fun isSaved(recipeID: String){
+        reference.child("saves").child(profileID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.child(recipeID).exists()){
+                    binding.imvSave.setImageResource(R.drawable.ic_unsave_recipe)
+                    binding.imvSave.tag = "saved"
+                }else{
+                    binding.imvSave.setImageResource(R.drawable.ic_save_recipe)
+                    binding.imvSave.tag = "save"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        /*db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).addSnapshotListener { value, error ->
             if (error!=null){
                 Log.w("TAG", "Listen Failed")
                 return@addSnapshotListener
@@ -281,20 +314,15 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     }
                 }
             }
-        }
+        }*/
     }
 
     private fun isLiked(recipe: Recipe) {
-        val docRef = db.collection("likes").document(recipe.recipeID).collection("isLiked")
-            .document(Firebase.auth.currentUser!!.email.toString())
-        docRef.addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.w("TAG", "Listen Failed")
-                return@addSnapshotListener
-            }
-            if (value != null) {
-                if (value.exists()) {
-                    val rateUser = value["rate"].toString().toInt()
+        val docRef = reference.child("likes").child(recipe.recipeID).child(profileID)
+        docRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val rateUser = snapshot.child("rate").value.toString().toInt()
                     updateMyRate(rateUser)
                     binding.imvStar1.tag = rateUser
                 }else{
@@ -302,19 +330,56 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     updateMyRate(0)
                 }
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        /*val docRef = db.collection("likes").document(recipe.recipeID).collection("isLiked")
+            .document(Firebase.auth.currentUser!!.email.toString())
+        docRef.addSnapshotListener { value, error ->
+            if (error != null) {
+                Log.w("TAG", "Listen Failed")
+                return@addSnapshotListener
+            }
+            if (value != null) {
+
+            }
+        }*/
     }
 
     private fun LoadLike(recipeID:String, rate: Int) {
         val docValoration = hashMapOf<String, Any>()
         if(binding.imvStar1.tag == rate){
             binding.imvStar1.tag = 0
-            db.collection("likes").document(recipeID).collection("isLiked")
+            reference.child("likes").child(recipeID).child(profileID).removeValue()
+            val negativeRate = rate*-1
+            reference.child("recipes").child(recipeID).child("totalValoration").setValue(ServerValue.increment(negativeRate.toDouble()))
+            /*db.collection("likes").document(recipeID).collection("isLiked")
                 .document(Firebase.auth.currentUser!!.email.toString()).delete().addOnSuccessListener {
                     db.collection("recipes").document(recipeID).update("numberTimesValored",FieldValue.increment(-1))
-                }
+                }*/
         }else{
-            val docLikesRef = db.collection("likes").document(recipeID).collection("isLiked")
+            val newRateMap = mapOf<String, Any>("rate" to rate)
+            reference.child("likes").child(recipeID).child(profileID).addValueEventListener(object : ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()){
+                        val oldRate = snapshot.child("rate").value.toString().toInt()*-1
+                        val newRate = oldRate + rate
+                        reference.child("recipes").child(recipeID).child("totalValoration").setValue(ServerValue.increment(newRate.toDouble()))
+                        reference.child("likes").child(recipeID).child(profileID).setValue(newRateMap)
+                    }else{
+                        reference.child("recipes").child(recipeID).child("totalValoration").setValue(ServerValue.increment(rate.toDouble()))
+                        reference.child("likes").child(recipeID).child(profileID).setValue(newRateMap)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+            /*val docLikesRef = db.collection("likes").document(recipeID).collection("isLiked")
                 .document(Firebase.auth.currentUser!!.email.toString())
             docLikesRef.get().addOnSuccessListener { doc ->
                 docValoration["rate"] = rate
@@ -325,24 +390,44 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                         db.collection("recipes").document(recipeID).update("numberTimesValored",FieldValue.increment(1))
                     }
                 }
-            }
+            }*/
         }
     }
 
-    /*private fun updateRecipeRate(recipe: Recipe) {
-        db.collection("likes").document(recipe.recipeID).collection("isLiked").get().addOnSuccessListener{ documents ->
-            var ratePlus = 0
-            documents.forEach { doc ->
-                ratePlus+=doc["rate"].toString().toInt()
+    private fun updateRecipeRate(recipeID: String, cantValorations: Double) {
+        reference.child("recipes").child(recipeID).child("totalValoration").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val averageValoration = snapshot.value.toString().toDouble() / cantValorations
+                if (averageValoration >= 0 && averageValoration < 0.5){
+
+                }else if (averageValoration >= 0.5 && averageValoration < 1){
+
+                }else if (averageValoration >= 1 && averageValoration < 1.5){
+
+                }else if (averageValoration >= 1.5 && averageValoration < 2) {
+
+                }else if (averageValoration >= 2 && averageValoration < 2.5){
+
+                }else if (averageValoration >= 2.5 && averageValoration < 3){
+
+                }else if (averageValoration >= 3 && averageValoration < 3.5){
+
+                }else if (averageValoration >= 3.5 && averageValoration < 4) {
+
+                }else if (averageValoration >= 4 && averageValoration < 4.5){
+
+                }else if (averageValoration >= 4.5 && averageValoration < 5){
+
+                }else if (averageValoration == 5.0){
+
+                }
             }
-            if (recipe.numberTimesValored==0){
-                db.collection("recipes").document(recipe.recipeID).update("stars", 0)
-            }else{
-                val promRecipeRate = ratePlus/recipe.numberTimesValored
-                db.collection("recipes").document(recipe.recipeID).update("stars", promRecipeRate)
+
+            override fun onCancelled(error: DatabaseError) {
             }
-        }
-    }*/
+
+        })
+    }
 
     private fun updateMyRate(rate: Int) {
         when(rate){

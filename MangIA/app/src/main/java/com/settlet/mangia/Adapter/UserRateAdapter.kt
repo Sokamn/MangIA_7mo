@@ -25,7 +25,7 @@ class UserRateAdapter : ListAdapter<Array<String>, UserRateViewHolder>(DiffCallB
         val item = getItem(position)
         holder.itemView.setOnClickListener{
             val editor = holder.itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", item[0])
+            editor.putString("profileID", item[0])
             editor.apply()
             holder.itemView.context.startActivity(Intent(holder.itemView.context,ProfileActivity::class.java))
         }

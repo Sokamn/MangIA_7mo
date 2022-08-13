@@ -11,6 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -25,6 +29,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val db = Firebase.firestore
+    private val actualUserID = Firebase.auth.currentUser!!.uid
+    private val reference = FirebaseDatabase.getInstance().reference
     private val recipeList = mutableListOf<Recipe>()
     private val followingList = mutableListOf<String>()
     private lateinit var rcvPreviewRecipe: RecyclerView
@@ -42,7 +48,7 @@ class HomeFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         rcvPreviewRecipe.layoutManager = linearLayoutManager
-        //CheckFollowing()
+        CheckFollowing()
 
 
         binding.bottomBarH.imbScanBB.setOnClickListener {
@@ -65,7 +71,21 @@ class HomeFragment : Fragment() {
     }
 
     private fun CheckFollowing(){
-        val docRef = db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following")
+        reference.child("follow").child(actualUserID).child("following").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                followingList.clear()
+                snapshot.children.forEach { userID ->
+                    followingList.add(userID.key.toString())
+                    Log.d("followingList", followingList.toString())
+                }
+                ReadRecipes()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        /*val docRef = db.collection("follow").document(actualUserID).collection("following")
         docRef.addSnapshotListener { value, error ->
             if(error!=null){
                 Log.w("TAG","Listen Failed")
@@ -79,7 +99,7 @@ class HomeFragment : Fragment() {
                 Log.d("userFollows", followingList.toString())
                 ReadRecipes()
             }
-        }
+        }*/
     }
 
     private fun ReadRecipes(){
