@@ -26,6 +26,7 @@
                 android:src="@drawable/profile_picture"/>
 
             <Toolbar
+                android:id="@+id/toolbarRecipe"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"

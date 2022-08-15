@@ -115,6 +115,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                     "1"-> binding.txvValoration.text = "1 valoración"
                     else -> binding.txvValoration.text = "${snapshot.childrenCount} valoraciones"
                 }
+                updateRecipeRate(recipeID, snapshot.childrenCount)
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -324,9 +325,9 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
                 if (snapshot.exists()) {
                     val rateUser = snapshot.child("rate").value.toString().toInt()
                     updateMyRate(rateUser)
-                    binding.imvStar1.tag = rateUser
+                    binding.txvValoration.tag = rateUser
                 }else{
-                    binding.imvStar1.tag = 0
+                    binding.txvValoration.tag = 0
                     updateMyRate(0)
                 }
             }
@@ -350,8 +351,8 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
     private fun LoadLike(recipeID:String, rate: Int) {
         val docValoration = hashMapOf<String, Any>()
-        if(binding.imvStar1.tag == rate){
-            binding.imvStar1.tag = 0
+        if(binding.txvValoration.tag == rate){
+            binding.txvValoration.tag = 0
             reference.child("likes").child(recipeID).child(profileID).removeValue()
             val negativeRate = rate*-1
             reference.child("recipes").child(recipeID).child("totalValoration").setValue(ServerValue.increment(negativeRate.toDouble()))
@@ -394,7 +395,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         }
     }
 
-    private fun updateRecipeRate(recipeID: String, cantValorations: Double) {
+    private fun updateRecipeRate(recipeID: String, cantValorations: Long) {
         reference.child("recipes").child(recipeID).child("totalValoration").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 val averageValoration = snapshot.value.toString().toDouble() / cantValorations

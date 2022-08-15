@@ -1,5 +1,6 @@
 package com.settlet.mangia.Adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,13 +8,18 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowIngredientRecipeBinding
+import java.text.Normalizer
 
 class IngredientRecipeAdapter : ListAdapter<Ingredient, IngredientRecipeAdapter.IngredientRecipeViewHolder>(DiffCallBack){
     class IngredientRecipeViewHolder(view:View): RecyclerView.ViewHolder(view) {
-        val binding = RowIngredientRecipeBinding.bind(view)
+        private val binding = RowIngredientRecipeBinding.bind(view)
+        private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+        private val storageReference = FirebaseStorage.getInstance().reference
         fun render(ingredient: Ingredient){
             var unidad = ""
             if (ingredient.cantidad == 1){
@@ -49,7 +55,23 @@ class IngredientRecipeAdapter : ListAdapter<Ingredient, IngredientRecipeAdapter.
             }
 
             binding.txvIngredientANDQuantities.text = "${ingredient.cantidad} $unidad de ${ingredient.nombre}"
+            storageReference.child("ingredients/${ingredient.nombre.unaccent().capitalizeWords().trim()}.png").downloadUrl.addOnSuccessListener { result ->
+                    Glide.with(binding.imvIngredientRIR.context)
+                        .load(result)
+                        .into(binding.imvIngredientRIR)
+
+                }.addOnFailureListener {
+                    Glide.with(binding.imvIngredientRIR.context)
+                        .load(R.drawable.ic_load_ingredient)
+                        .into(binding.imvIngredientRIR)
+                }
         }
+        fun CharSequence.unaccent(): String {
+            val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+            return REGEX_UNACCENT.replace(temp, "")
+        }
+        fun String.capitalizeWords(): String = split(" ").map { it.capitalize() }.joinToString(" ")
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IngredientRecipeViewHolder {
