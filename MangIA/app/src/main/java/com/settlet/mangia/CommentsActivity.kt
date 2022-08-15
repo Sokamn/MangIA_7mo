@@ -9,6 +9,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -24,6 +28,7 @@ class CommentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCommentsBinding
     private var listComments = mutableListOf<Comment>()
     private var db = Firebase.firestore
+    private val reference = FirebaseDatabase.getInstance().reference
     private val user = Firebase.auth.currentUser!!
     private val storageReference = FirebaseStorage.getInstance().reference
 
@@ -63,7 +68,7 @@ class CommentsActivity : AppCompatActivity() {
     }
 
     private fun setImageProfile() {
-        val pImageRef = storageReference.child("users/${user.email}/profile.jpg")
+        val pImageRef = storageReference.child("users/${user.uid}/profile.jpg")
         pImageRef.downloadUrl.addOnSuccessListener { result ->
             Glide.with(this)
                 .load(result)
@@ -75,44 +80,59 @@ class CommentsActivity : AppCompatActivity() {
         val docComment = hashMapOf<String, Any>()
         if(binding.crdAnswer.visibility == View.VISIBLE){
             val commentID = binding.cstAnswer.tag
-            val answerRute = db.collection("comments").document("comments").collection(recipeID).document(commentID.toString()).collection("answers")
-            val answerID = answerRute.document().id
+            val answerRoute = reference.child("comments").child(recipeID).child(commentID.toString()).child("answers")
+            val answerID = answerRoute.push().key
+            //val answerRute = db.collection("comments").document("comments").collection(recipeID).document(commentID.toString()).collection("answers")
+            //val answerID = answerRute.document().id
             docComment["comment"] = binding.txpAddCommentAC.text.toString()
-            docComment["publisher"] = user.email.toString()
-            docComment["likes"] = 0
+            docComment["publisher"] = user.uid
             docComment["recipeID"] = recipeID
-            docComment["cantComments"] = 0
             docComment["timeLaunch"] = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 .toString()
             docComment["commentID"] = commentID
-            docComment["answerID"] = answerID
-            answerRute.document(answerID).set(docComment).addOnSuccessListener {
+            docComment["answerID"] = answerID!!
+            answerRoute.child(answerID).setValue(docComment)
+            /*answerRute.document(answerID).set(docComment).addOnSuccessListener {
                 db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
                 db.collection("comments").document("comments").collection(recipeID).document(commentID.toString()).update("cantComments",FieldValue.increment(1))
-            }
+            }*/
             binding.txpAddCommentAC.setText("")
             binding.crdAnswer.visibility = View.GONE
         }else{
-            val docID = db.collection("comments").document("comments").collection(recipeID).document().id
+            val docID = reference.child("comments").child(recipeID).push().key
+            //val docID = db.collection("comments").document("comments").collection(recipeID).document().id
             docComment["comment"] = binding.txpAddCommentAC.text.toString()
-            docComment["publisher"] = user.email.toString()
-            docComment["likes"] = 0
+            docComment["publisher"] = user.uid
             docComment["recipeID"] = recipeID
-            docComment["cantComments"] = 0
             docComment["timeLaunch"] = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
                 .toString()
-            docComment["commentID"] = docID
-            db.collection("comments").document("comments").collection(recipeID).document(docID).set(docComment).addOnSuccessListener {
-                db.collection("recipes").document(recipeID).update("cantComments", FieldValue.increment(1))
-            }
+            docComment["commentID"] = docID!!
+            reference.child("comments").child(recipeID).child(docID).setValue(docComment)
+            /*db.collection("comments").document("comments").collection(recipeID).document(docID).set(docComment).addOnSuccessListener {
+                db.collection("recipes").document(recipeID)
+                    .update("cantComments", FieldValue.increment(1))
+            }*/
             binding.txpAddCommentAC.setText("")
         }
     }
 
     private fun readComments(recipeID: String, adapter: CommentAdapter){
-        db.collection("comments").document("comments").collection(recipeID).addSnapshotListener { value, error ->
+        reference.child("comments").child(recipeID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                listComments.clear()
+                snapshot.children.forEach { commentV ->
+                    listComments.add(commentV.getValue(Comment::class.java)!!)
+                }
+                adapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+        /*db.collection("comments").document("comments").collection(recipeID).addSnapshotListener { value, error ->
             if (error!=null){
                 Log.w("TAG", "Listen Failed")
                 return@addSnapshotListener
@@ -125,6 +145,6 @@ class CommentsActivity : AppCompatActivity() {
                     adapter.notifyDataSetChanged()
                 }
             }
-        }
+        }*/
     }
 }

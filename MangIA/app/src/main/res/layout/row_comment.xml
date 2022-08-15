@@ -8,12 +8,11 @@
 
     <View
         android:id="@+id/vtpAnswerRC"
-        android:layout_width="0dp"
+        android:layout_width="30dp"
         android:layout_height="1px"
         android:layout_marginTop="15dp"
         android:background="@color/lineColor"
         android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/txvLikesRC"
         app:layout_constraintStart_toStartOf="@+id/txvTimePostRC"
         app:layout_constraintTop_toBottomOf="@+id/cstExpandComments" />
 

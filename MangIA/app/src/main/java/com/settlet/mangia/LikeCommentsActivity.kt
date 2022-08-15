@@ -35,28 +35,13 @@ class LikeCommentsActivity : AppCompatActivity() {
         val commentID = intent.getStringExtra("commentID")
         binding.rcvUsersALC.setHasFixedSize(true)
         binding.rcvUsersALC.layoutManager = LinearLayoutManager(this)
-        reference.child("likesComments").child(commentID!!).get().addOnSuccessListener {
-            userList.clear()
-            val userAdapter = UserAdapter()
-            it.children.forEach { userRef ->
-                reference.child("users").child(userRef.key.toString()).addListenerForSingleValueEvent(object : ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        userList.clear()
-                        snapshot.children.forEach {
-                            val user = snapshot.getValue(User::class.java)
-                            if(user!=null){
-                                userList.add(user)
-                                userAdapter.submitList(userList)
-                            }
-                        }
-
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-
-                })
+        reference.child("likesComments").child(commentID!!).get().addOnSuccessListener { userLiked ->
+            listLikes.clear()
+            userLiked.children.forEach { userID ->
+                Log.d("LIKES",userID.key.toString())
+                listLikes.add(userID.key.toString())
             }
+            showUsers()
         }
         /*db.collection("likesComments").document(commentID!!).collection("isLiked").get().addOnSuccessListener { documents ->
             userList.clear()
@@ -82,5 +67,31 @@ class LikeCommentsActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+
+    private fun showUsers() {
+        val userAdapter = UserAdapter()
+        Log.d("LIKES", listLikes.toString())
+        reference.child("users").addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+                snapshot.children.forEach { userSnap ->
+                    val user = userSnap.getValue(User::class.java)
+                    if(user!=null){
+                        listLikes.forEach { idUser ->
+                            if(user.userID == idUser){
+                                userList.add(user)
+                            }
+                        }
+                    }
+                }
+                userAdapter.submitList(userList)
+                binding.rcvUsersALC.adapter = userAdapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 }
