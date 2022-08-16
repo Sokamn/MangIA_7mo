@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.FloatRange
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +38,9 @@ class RecipeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRecipeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         val recipeID = intent.getStringExtra("recipeID")
 
@@ -133,7 +137,7 @@ class RecipeActivity : AppCompatActivity() {
                     "1"-> binding.txvValorationAR.text = "1 valoración"
                     else -> binding.txvValorationAR.text = "${snapshot.childrenCount} valoraciones"
                 }
-                loadActualRate(recipe.recipeID, snapshot.childrenCount)
+                loadActualRate(recipe.recipeID, snapshot.childrenCount.toString().toDouble())
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -159,69 +163,72 @@ class RecipeActivity : AppCompatActivity() {
         binding.rcvIngredientsAR.adapter = adapter
     }
 
-    private fun loadActualRate(recipeID: String, cantValorations: Long) {
+    private fun loadActualRate(recipeID: String, cantValorations: Double) {
         reference.child("recipes").child(recipeID).child("totalValoration").addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val averageValoration = snapshot.value.toString().toLong() / cantValorations
+                val averageValoration = snapshot.value.toString().toDouble() / cantValorations
+                Log.d("PAPAPA", "$averageValoration = ${snapshot.value} | $cantValorations")
                 if (averageValoration > 0 && averageValoration < 0.5){ // 0 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar2AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }else if (averageValoration >= 0.5 && averageValoration < 1){ // 0.5 estrellas
+                }else if (averageValoration >= 0.5 && averageValoration < 1.0){ // 0.5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.mid_star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }
-                if (averageValoration >= 1 && averageValoration < 1.5){ // 1 estrellas
+                }else if (averageValoration >= 1.0 && averageValoration < 1.5){ // 1 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
-                    binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }else if (averageValoration >= 1.5 && averageValoration < 2) { // 1.5 estrellas
+                }else if (averageValoration >= 1.5 && averageValoration < 2.0) { // 1.5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.mid_star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }
-                if (averageValoration >= 2 && averageValoration < 2.5){ // 2 estrellas
+                }else if (averageValoration >= 2.0 && averageValoration < 2.5){ // 2 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
-                    binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }else if (averageValoration >= 2.5 && averageValoration < 3){ // 2.5 estrellas
+                }else if (averageValoration >= 2.5 && averageValoration < 3.0){ // 2.5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.mid_star_average)
                     binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }
-                if (averageValoration >= 3 && averageValoration < 3.5){ // 3 estrellas
+                }else if (averageValoration >= 3.0 && averageValoration < 3.5){ // 3 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.star_average)
+                    binding.imvStar4AR.setImageResource(R.drawable.star_unselected)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                    binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }else if (averageValoration > 3.5 && averageValoration < 4) { // 3.5 estrellas
+                }else if (averageValoration >= 3.5 && averageValoration < 4.0) { // 3.5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.star_average)
                     binding.imvStar4AR.setImageResource(R.drawable.mid_star_average)
                     binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
-                }
-                if (averageValoration > 4 && averageValoration <= 4.5){ // 4 estrellas
+                }else if (averageValoration >= 4.0 && averageValoration < 4.5){ // 4 estrellas
+                    binding.imvStar1AR.setImageResource(R.drawable.star_average)
+                    binding.imvStar2AR.setImageResource(R.drawable.star_average)
+                    binding.imvStar3AR.setImageResource(R.drawable.star_average)
+                    binding.imvStar4AR.setImageResource(R.drawable.star_average)
+                    binding.imvStar5AR.setImageResource(R.drawable.star_unselected)
+                }else if (averageValoration >= 4.5 && averageValoration < 4.75){ // 5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.star_average)
                     binding.imvStar4AR.setImageResource(R.drawable.star_average)
                     binding.imvStar5AR.setImageResource(R.drawable.mid_star_average)
-                }else if (averageValoration > 4.5 && averageValoration <= 5){ // 5 estrellas
+                }else if(averageValoration in 4.75..5.0){ // 5 estrellas
                     binding.imvStar1AR.setImageResource(R.drawable.star_average)
                     binding.imvStar2AR.setImageResource(R.drawable.star_average)
                     binding.imvStar3AR.setImageResource(R.drawable.star_average)

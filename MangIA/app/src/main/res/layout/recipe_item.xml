@@ -146,7 +146,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/star_unselected"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar2"
         app:layout_constraintStart_toEndOf="@+id/imvStar2"
         app:layout_constraintTop_toTopOf="@+id/imvStar2" />
@@ -156,7 +156,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/star_unselected"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar3"
         app:layout_constraintStart_toEndOf="@+id/imvStar3"
         app:layout_constraintTop_toTopOf="@+id/imvStar3" />
@@ -166,7 +166,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/star_unselected"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar4"
         app:layout_constraintStart_toEndOf="@+id/imvStar4"
         app:layout_constraintTop_toTopOf="@+id/imvStar4" />
@@ -192,7 +192,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="25dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/star_unselected"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstPost" />
 
@@ -201,7 +201,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/ic_add"
+        android:src="@drawable/star_unselected"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar1"
         app:layout_constraintStart_toEndOf="@+id/imvStar1"
         app:layout_constraintTop_toTopOf="@+id/imvStar1" />
