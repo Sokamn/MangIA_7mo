@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_mrecipe_step2.*
 class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
     val binding = RowIngredientRecyclerBinding.bind(view)
 
-    fun render(ingredient: Ingredient){
+    fun render(ingredient: Ingredient, pos: Int){
         if(ingredient.nombre.length>16){
             binding.txvIngredient.isSelected = true
         }
@@ -94,7 +94,7 @@ class IngredientViewHolder (view:View):RecyclerView.ViewHolder(view) {
             Glide.with(binding.imvIngredient.context)
                 .load(R.drawable.ic_load_ingredient)
                 .into(binding.imvIngredient)
-            a.rcvIngredients.adapter!!.notifyDataSetChanged()
+            a.rcvIngredients.adapter!!.notifyItemRemoved(pos)
         }
 
         binding.imbAddQuantity.setOnClickListener {

@@ -181,7 +181,7 @@ class StepAdapter(con:Context) : ListAdapter<Step, StepViewHolder>(DiffCallBack)
             holder.binding.imvChangeImage.visibility = View.GONE
             item.optionalImage = null
         }
-        holder.render(item)
+        holder.render(item, position)
     }
     
     companion object DiffCallBack: DiffUtil.ItemCallback<Step>(){

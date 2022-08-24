@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageButton
-                android:id="@+id/imbBackALC"
+                android:id="@+id/imbBackARD"
                 android:layout_width="40dp"
                 android:layout_height="50dp"
                 android:backgroundTint="@android:color/transparent"
@@ -50,7 +50,7 @@
                 app:srcCompat="@drawable/btnback" />
 
             <TextView
-                android:id="@+id/txvLikeALC"
+                android:id="@+id/txvTitleARD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
@@ -61,7 +61,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imbBackALC"
+                app:layout_constraintStart_toEndOf="@+id/imbBackARD"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

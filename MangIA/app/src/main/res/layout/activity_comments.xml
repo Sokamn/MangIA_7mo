@@ -180,7 +180,7 @@
                 android:layout_marginBottom="10dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:shapeAppearanceOverlay="@style/userImageProfile"
+                app:shapeAppearanceOverlay="@style/roundImageUser40"
                 app:srcCompat="@drawable/profile_picture" />
 
             <TextView

@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextPaint
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -53,6 +55,7 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
         isLiked(answer.answerID!!)
         loadComment(answer.publisher,answer.comment)
 
+
         binding.txvLikesRCA.setOnClickListener {
             val intent = Intent(binding.txvLikesRCA.context, LikeCommentsActivity::class.java)
             intent.putExtra("commentID",answer.answerID)
@@ -68,22 +71,9 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
                 val imm: InputMethodManager = binding.txvAnswerRCA.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             }
-            /*db.collection("users").document(answer.publisher).get().addOnSuccessListener {
-                crdAnswer.visibility = View.VISIBLE
-                txpAddComment.setText("@${it["userName"]}")
-                cstAnswer.tag = answer.commentID
-                txvAnswerTitle.text = "Respondiendo a ${it["userName"]}"
-                txpAddComment.requestFocus()
-                val imm: InputMethodManager = binding.txvAnswerRCA.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-            }*/
         }
         binding.imvProfilePictureRCA.setOnClickListener {
-            val intent = Intent(binding.imvProfilePictureRCA.context, ProfileActivity::class.java)
-            val editor = binding.imvProfilePictureRCA.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileID", answer.publisher)
-            editor.apply()
-            binding.imvProfilePictureRCA.context.startActivity(intent)
+            goToProfile(answer.publisher)
         }
         binding.imvLikeRCA.setOnClickListener {
             if(binding.imvLikeRCA.tag.equals("like")){
@@ -91,22 +81,15 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
             }else{
                 reference.child("likesComments").child(answer.answerID!!).child(Firebase.auth.currentUser!!.uid).removeValue()
             }
-            /*val docLiked = hashMapOf<String, Any>()
-            if(binding.imvLikeRCA.tag.equals("like")){
-                docLiked["isLiked"] = true.toString()
-                db.collection("likesComments").document(answer.answerID!!).collection("isLiked")
-                    .document(Firebase.auth.currentUser!!.email.toString()).set(docLiked)
-                db.collection("comments").document("comments")
-                    .collection(answer.recipeID).document(answer.commentID).collection("answers").document(answer.answerID!!)
-                    .update("likes", FieldValue.increment(1))
-            }else{
-                db.collection("likesComments").document(answer.answerID!!).collection("isLiked")
-                    .document(Firebase.auth.currentUser!!.email.toString()).delete()
-                db.collection("comments").document("comments")
-                    .collection(answer.recipeID).document(answer.commentID).collection("answers").document(answer.answerID!!)
-                    .update("likes", FieldValue.increment(-1))
-            }*/
         }
+    }
+
+    private fun goToProfile(publisher: String) {
+        val intent = Intent(binding.imvProfilePictureRCA.context, ProfileActivity::class.java)
+        val editor = binding.imvProfilePictureRCA.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+        editor.putString("profileID", publisher)
+        editor.apply()
+        binding.imvProfilePictureRCA.context.startActivity(intent)
     }
 
     private fun loadComment(publisher:String, comment: String) {
@@ -115,17 +98,20 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val txtComment = "$userName $comment"
             val ss = SpannableString(txtComment)
             val manjariBold = Typeface.createFromAsset(binding.txvCommentRCA.context.applicationContext.assets, "font/manjaribold.ttf")
+            val clickableSpan: ClickableSpan = object : ClickableSpan() {
+                override fun onClick(view: View) {
+                    goToProfile(publisher)
+                }
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = false
+                    ds.color = binding.txvCommentRCA.context.resources.getColor(R.color.quaternaryColor)
+                }
+            }
             ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            ss.setSpan(clickableSpan, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.txvCommentRCA.text = ss
         }
-        /*db.collection("users").document(publisher).get().addOnSuccessListener { doc ->
-            val userName = doc["userName"].toString()
-            val txtComment = "$userName $comment"
-            val ss = SpannableString(txtComment)
-            val manjariBold = Typeface.createFromAsset(binding.txvCommentRCA.context.applicationContext.assets, "font/manjaribold.ttf")
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            binding.txvCommentRCA.text = ss
-        }*/
     }
 
     private fun isLiked(answerID: String) {

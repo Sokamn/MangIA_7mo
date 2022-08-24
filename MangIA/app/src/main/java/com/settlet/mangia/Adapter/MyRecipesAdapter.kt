@@ -1,5 +1,7 @@
 package com.settlet.mangia.Adapter
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +14,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.R
+import com.settlet.mangia.RecipeDetailActivity
 
 class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolder>(DiffCallBack){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRecipesViewHolder {
@@ -23,6 +26,12 @@ class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolde
 
     override fun onBindViewHolder(holder: MyRecipesViewHolder, position: Int) {
         val item = getItem(position)
+        holder.itemView.setOnClickListener {
+            val editor = holder.itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("recipeID", item.recipeID)
+            editor.apply()
+            holder.itemView.context.startActivity(Intent(holder.itemView.context, RecipeDetailActivity::class.java))
+        }
         holder.render(item)
     }
 
@@ -43,6 +52,7 @@ class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolde
             }else{
                 ic_multiImages.visibility = View.VISIBLE
             }
+
         }
     }
 
@@ -52,7 +62,7 @@ class MyRecipesAdapter : ListAdapter<Recipe, MyRecipesAdapter.MyRecipesViewHolde
         }
 
         override fun areContentsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {
-            return oldItem.equals(newItem)
+            return oldItem == newItem
         }
 
     }

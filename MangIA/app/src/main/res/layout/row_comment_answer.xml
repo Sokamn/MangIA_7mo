@@ -7,13 +7,13 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imvProfilePictureRCA"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/userImageProfile"
+        app:shapeAppearanceOverlay="@style/roundImageUser40"
         app:srcCompat="@drawable/profile_picture" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:fontFamily="@font/manjariregular"
         android:text="@string/comments"
         android:textColor="@color/quaternaryColor"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/imvLikeRCA"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRCA"
         app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRCA" />
@@ -39,7 +39,7 @@
         android:fontFamily="@font/manjarithin"
         android:text="2 h"
         android:textColor="@color/quaternaryColor"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRCA"
         app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
 
@@ -52,7 +52,7 @@
         android:fontFamily="@font/manjarithin"
         android:text="@string/answer"
         android:textColor="@color/quaternaryColor"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/txvLikesRCA"
         app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
 
@@ -65,7 +65,7 @@
         android:fontFamily="@font/manjarithin"
         android:text="1234 Me gusta"
         android:textColor="@color/quaternaryColor"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/txvTimePostRCA"
         app:layout_constraintTop_toBottomOf="@+id/txvCommentRCA" />
 

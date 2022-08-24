@@ -5,6 +5,8 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextPaint
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -74,42 +76,25 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
                 val imm: InputMethodManager = binding.txvAnswerRC.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
             }
-            /*db.collection("users").document(comment.publisher).get().addOnSuccessListener {
-                crdAnswer.visibility = View.VISIBLE
-                txpAddComment.setText("@${it["userName"]}")
-                cstAnswer.tag = comment.commentID
-                txvAnswerTitle.text = "Respondiendo a ${it["userName"]}"
-                txpAddComment.requestFocus()
-                val imm: InputMethodManager = binding.txvAnswerRC.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-            }*/
         }
         binding.imvProfilePictureRC.setOnClickListener {
-            val intent = Intent(binding.imvProfilePictureRC.context,ProfileActivity::class.java)
-            val editor = binding.imvProfilePictureRC.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileEmail", comment.publisher)
-            editor.apply()
-            binding.imvProfilePictureRC.context.startActivity(intent)
+            goToProfile(comment.publisher)
         }
         binding.imvLikeRC.setOnClickListener {
-            //val docLiked = hashMapOf<String, Any>()
             if(binding.imvLikeRC.tag.equals("like")){
-                //docLiked["isLiked"] = true.toString()
                 reference.child("likesComments").child(comment.commentID).child(Firebase.auth.currentUser!!.uid).setValue(true)
-                /*db.collection("likesComments").document(comment.commentID).collection("isLiked")
-                    .document(Firebase.auth.currentUser!!.email.toString()).set(docLiked)
-                db.collection("comments").document("comments")
-                    .collection(comment.recipeID).document(comment.commentID)
-                    .update("likes", FieldValue.increment(1))*/
             }else{
                 reference.child("likesComments").child(comment.commentID).child(Firebase.auth.currentUser!!.uid).removeValue()
-                /*db.collection("likesComments").document(comment.commentID).collection("isLiked")
-                    .document(Firebase.auth.currentUser!!.email.toString()).delete()
-                db.collection("comments").document("comments")
-                    .collection(comment.recipeID).document(comment.commentID)
-                    .update("likes", FieldValue.increment(-1))*/
             }
         }
+    }
+
+    private fun goToProfile(publisher: String) {
+        val intent = Intent(binding.imvProfilePictureRC.context,ProfileActivity::class.java)
+        val editor = binding.imvProfilePictureRC.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+        editor.putString("profileID", publisher)
+        editor.apply()
+        binding.imvProfilePictureRC.context.startActivity(intent)
     }
 
     private fun getAnswers(comment: Comment) {
@@ -163,20 +148,6 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             }
 
         })
-        /*db.collection("comments").document("comments").collection(recipeID).document(commentID).collection("answers").addSnapshotListener { value, error ->
-            if (error!=null){
-                Log.w("TAG", "Listen Failed")
-                return@addSnapshotListener
-            }else{
-                if(value!=null){
-                    answerList.clear()
-                    value.documents.forEach{ doc ->
-                        answerList.add(doc.toObject()!!)
-                    }
-                    adapter.notifyDataSetChanged()
-                }
-            }
-        }*/
     }
 
     private fun loadAdapterRCVAnswers(): AnswerAdapter {
@@ -205,24 +176,6 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             }
 
         })
-        /*val docRef = db.collection("likesComments").document(commentID).collection("isLiked")
-            .document(Firebase.auth.currentUser!!.email.toString())
-        docRef.addSnapshotListener { value, error ->
-            if (error != null) {
-                Log.w("TAG", "Listen Failed")
-                return@addSnapshotListener
-            }
-            if (value != null) {
-                if (value.exists()) {
-                    binding.imvLikeRC.setImageResource(R.drawable.ic_unlike_comment)
-                    binding.imvLikeRC.tag = "liked"
-                }
-                else{
-                    binding.imvLikeRC.setImageResource(R.drawable.ic_like_comment)
-                    binding.imvLikeRC.tag = "like"
-                }
-            }
-        }*/
     }
 
     private fun loadComment(publisher:String, comment: String) {
@@ -231,17 +184,20 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
             val txtComment = "$userName $comment"
             val ss = SpannableString(txtComment)
             val manjariBold = Typeface.createFromAsset(binding.txvCommentRC.context.applicationContext.assets, "font/manjaribold.ttf")
+            val clickableSpan: ClickableSpan = object : ClickableSpan() {
+                override fun onClick(view: View) {
+                    goToProfile(publisher)
+                }
+                override fun updateDrawState(ds: TextPaint) {
+                    super.updateDrawState(ds)
+                    ds.isUnderlineText = false
+                    ds.color = binding.txvCommentRC.context.resources.getColor(R.color.quaternaryColor)
+                }
+            }
+            ss.setSpan(clickableSpan, 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             binding.txvCommentRC.text = ss
         }
-        /*db.collection("users").document(publisher).get().addOnSuccessListener { doc ->
-            val userName = doc["userName"].toString()
-            val txtComment = "$userName $comment"
-            val ss = SpannableString(txtComment)
-            val manjariBold = Typeface.createFromAsset(binding.txvCommentRC.context.applicationContext.assets, "font/manjaribold.ttf")
-            ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, userName.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            binding.txvCommentRC.text = ss
-        }*/
     }
 
     private fun getLikes(commentID: String) {

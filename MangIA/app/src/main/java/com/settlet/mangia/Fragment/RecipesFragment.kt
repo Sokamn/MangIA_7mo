@@ -34,15 +34,15 @@ class RecipesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val prefs = requireActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        val profileEmail = prefs.getString("profileEmail","none")
+        val profileID = prefs.getString("profileID","none")
         val myView = inflater.inflate(R.layout.fragment_recipes, container, false)
         rcvMyRecipes = myView.findViewById(R.id.rcvMyRecipesFR)
-        //getImages(profileEmail.toString())
+        getImages(profileID.toString())
         return myView
     }
 
-    private fun getImages(email: String) {
-        db.collection("recipes").whereEqualTo("publisher", email).get().addOnSuccessListener { documents ->
+    private fun getImages(profileID: String) {
+        db.collection("recipes").whereEqualTo("publisher", profileID).get().addOnSuccessListener { documents ->
             documents.forEach { doc ->
                 val recipe = doc.toObject<Recipe>()
                 listRecipes.add(recipe)

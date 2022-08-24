@@ -148,7 +148,7 @@
                 android:text="Valorar"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                app:icon="@drawable/ic_my_recipes"
+                app:icon="@drawable/ic_star"
                 app:iconTint="@color/black"
                 app:layout_constraintEnd_toStartOf="@+id/btnSaveAR"
                 app:layout_constraintHorizontal_bias="0.5"

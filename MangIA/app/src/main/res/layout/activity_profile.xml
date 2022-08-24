@@ -75,7 +75,6 @@
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/manjarithin"
                 android:justificationMode="inter_word"
-                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. "
                 android:textColor="#5A3921"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -105,7 +104,6 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/manjaribold"
-                android:text="Martin_Zed"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -119,7 +117,6 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="25dp"
                 android:fontFamily="@font/manjaribold"
-                android:text="Marty"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="25sp"
                 android:textStyle="bold"
@@ -132,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
                 android:fontFamily="@font/manjariregular"
-                android:text="5\nRecetas"
                 android:textAlignment="center"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="15sp"
@@ -145,7 +141,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/manjariregular"
-                android:text="15k\nSeguidores"
                 android:textAlignment="center"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="15sp"
@@ -161,7 +156,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="25dp"
                 android:fontFamily="@font/manjariregular"
-                android:text="774\nSeguidos"
                 android:textAlignment="center"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="15sp"
@@ -195,15 +189,22 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/btnback" />
 
-                    <ImageView
-                        android:id="@+id/imvHomeFlagP"
+                    <TextView
+                        android:id="@+id/txvTitleAppABH"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/manjariregular"
+                        android:text="@string/app_name"
+                        android:textColor="@color/quaternaryColor"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/homeflag" />
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.Toolbar>

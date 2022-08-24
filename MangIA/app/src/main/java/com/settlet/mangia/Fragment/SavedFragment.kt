@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
@@ -19,6 +20,7 @@ class SavedFragment : Fragment() {
     private lateinit var rcvMySaves: RecyclerView
     private val listRecipes = mutableListOf<Recipe>()
     private val db = Firebase.firestore
+    private val reference = FirebaseDatabase.getInstance().reference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,19 +31,19 @@ class SavedFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val prefs = requireActivity().getSharedPreferences("PREFS", Context.MODE_PRIVATE)
-        val profileEmail = prefs.getString("profileEmail","none")
+        val profileID = prefs.getString("profileID","none")
         val myView = inflater.inflate(R.layout.fragment_saved, container, false)
         rcvMySaves = myView.findViewById(R.id.rcvMyRecipesSavedFS)
-        //getImages(profileEmail.toString())
+        getImages(profileID.toString())
         return myView
     }
 
-    private fun getImages(email: String) {
+    private fun getImages(profileID: String) {
         rcvMySaves.setHasFixedSize(true)
         rcvMySaves.layoutManager = GridLayoutManager(requireActivity(), 3)
-        db.collection("saves").document(email).collection("isSaved").get().addOnSuccessListener { documents ->
-            documents.forEach { doc ->
-                db.collection("recipes").document(doc.id).get().addOnSuccessListener { rec ->
+        reference.child("saves").child(profileID).get().addOnSuccessListener { saved ->
+            saved.children.forEach {
+                db.collection("recipes").document(it.key.toString()).get().addOnSuccessListener { rec ->
                     val recipe = rec.toObject<Recipe>()
                     listRecipes.add(recipe!!)
                     val adapter = MyRecipesAdapter()
@@ -50,5 +52,6 @@ class SavedFragment : Fragment() {
                 }
             }
         }
+
     }
 }

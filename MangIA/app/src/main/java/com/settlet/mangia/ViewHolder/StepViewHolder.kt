@@ -31,7 +31,7 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
     val imvChangeOptImage = binding.imvChangeImage
     val imvCloseImage = binding.imvRemoveImageRSMR
 
-    fun render(step: Step){
+    fun render(step: Step, pos:Int){
         binding.txpDescriptionMR.setText(step.sDescription)
         if(step.optionalImage == null){
             binding.txvAddOptionalmage.visibility = View.VISIBLE
@@ -68,7 +68,7 @@ class StepViewHolder (view: View): RecyclerView.ViewHolder(view) {
                 Toast.makeText(context.baseContext,"No hay cambios en el paso ${step.nStep}",Toast.LENGTH_SHORT).show()
             }else{
                 step.sDescription = binding.txpDescriptionMR.text.toString()
-                context.rcvStepsMR2.adapter!!.notifyDataSetChanged()
+                context.rcvStepsMR2.adapter!!.notifyItemChanged(pos)
                 binding.imvAlert.visibility = View.GONE
                 Toast.makeText(context.baseContext,"Cambios aplicados en el paso ${step.nStep}",Toast.LENGTH_SHORT).show()
             }

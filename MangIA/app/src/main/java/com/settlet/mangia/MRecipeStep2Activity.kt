@@ -47,7 +47,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
                     }
                     else{
                         listIngredientRecipe.add(it)
-                        binding.rcvIngredients.adapter!!.notifyDataSetChanged()
+                        binding.rcvIngredients.adapter!!.notifyItemInserted(listIngredientRecipe.size-1)
                         binding.txpSearchMRS2.setText("")
                     }
                 }
@@ -61,7 +61,7 @@ class MRecipeStep2Activity : AppCompatActivity() {
         binding.cstAddStep.setOnClickListener {
             quantSteps++
             listStepRecipe.add(Step(quantSteps,false))
-            binding.rcvStepsMR2.adapter!!.notifyDataSetChanged()
+            binding.rcvStepsMR2.adapter!!.notifyItemInserted(listStepRecipe.size-1)
         }
         binding.imvBackMRS2.setOnClickListener {
             onBackPressed()

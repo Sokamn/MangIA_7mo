@@ -20,7 +20,7 @@ class IngredientAdapter : ListAdapter<Ingredient, IngredientViewHolder>(DiffCall
 
     override fun onBindViewHolder(holder: IngredientViewHolder, position: Int) {
         val item = getItem(position)
-        holder.render(item)
+        holder.render(item, position)
     }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Ingredient>(){
