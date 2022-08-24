@@ -104,6 +104,35 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     }
 
     /*private fun loadValoration(recipe: Recipe) {
+        reference.child("likes").child(recipe.recipeID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                when(snapshot.childrenCount.toString()){
+                    "0"-> binding.txvValoration.visibility = View.GONE
+                    "1"-> binding.txvValoration.text = "1 valoración"
+                    else -> binding.txvValoration.text = "${snapshot.childrenCount} valoraciones"
+                }
+                updateRecipeRate(recipe , snapshot.childrenCount)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
+    }*/
+    private fun loadValoration(recipe: Recipe) {
+        reference.child("likes").child(recipe.recipeID).addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                when(snapshot.childrenCount.toString()){
+                    "0"-> binding.txvValoration.visibility = View.GONE
+                    "1"-> binding.txvValoration.text = "1 valoración"
+                    else -> binding.txvValoration.text = "${snapshot.childrenCount} valoraciones"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
         reference.child("likes").child(recipe.recipeID).get().addOnSuccessListener { snapshot ->
             when(snapshot.childrenCount.toString()){
                 "0"-> binding.txvValoration.visibility = View.GONE
@@ -112,7 +141,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }
             updateRecipeRate(recipe , snapshot.childrenCount)
         }
-    }*/
+    }
 
     private fun GoToCommentsActivity(recipeID: String) {
         val intent = Intent(binding.imvStar1.context, CommentsActivity::class.java )
