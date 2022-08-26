@@ -33,7 +33,7 @@ class SliderAdapter(imageArray: MutableList<String>,isUri:Boolean): SliderViewAd
             if(uri) {
                 if (sliderList[position] == "doesntexist") {
                     Glide.with(c)
-                        .load(R.drawable.profile_picture)
+                        .load(R.drawable.select_images_photo)
                         .centerCrop()
                         .into(viewHolder.imageView)
                 } else {

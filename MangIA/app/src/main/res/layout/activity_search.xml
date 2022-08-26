@@ -15,6 +15,7 @@
         android:layout_marginTop="15dp"
         android:backgroundTint="@android:color/transparent"
         android:padding="3dp"
+        android:visibility="invisible"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,6 +40,7 @@
         android:textAlignment="textStart"
         android:textColor="@color/quaternaryColor"
         android:textColorHint="@color/black"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imbBackS"
         app:layout_constraintTop_toTopOf="parent"
@@ -51,7 +53,15 @@
         android:layout_marginStart="5dp"
         android:elevation="11dp"
         android:src="@drawable/ic_search_black"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/txpSearchSomethingAS"
         app:layout_constraintStart_toStartOf="@+id/txpSearchSomethingAS"
         app:layout_constraintTop_toTopOf="@+id/txpSearchSomethingAS" />
+
+    <include
+        android:id="@+id/workInProgressFav"
+        layout="@layout/work_in_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

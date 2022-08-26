@@ -151,7 +151,7 @@ class MRecipeStep1Activity : AppCompatActivity() {
             if(allPictures!=null){
                 binding.rcvGaleryMR.adapter = ImageAdapter(this,allPictures!!)
             }else{
-                Toast.makeText(this, "No puedes crear una receta sin imagenes en tu galería.",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por favor, permita que MangIA acceda a su almacenamiento.",Toast.LENGTH_SHORT).show()
                 onBackPressed()
                 finish()
             }
@@ -207,13 +207,13 @@ class MRecipeStep1Activity : AppCompatActivity() {
                 binding.imgsldrCarruselMR1.setSliderAdapter(SliderAdapter(imageList,true))
                 binding.imgsldrCarruselMR1.visibility = View.VISIBLE
                 binding.imvImageAdded.visibility = View.INVISIBLE
-                binding.imvMultiFiles.setImageResource(R.drawable.backgroundnav)
+                binding.imvMultiFiles.setImageResource(R.drawable.select_uniqueimage)
             }
             else
             {
                 binding.imgsldrCarruselMR1.visibility = View.GONE
                 binding.imvImageAdded.visibility = View.VISIBLE
-                binding.imvMultiFiles.setImageResource(R.drawable.myfiles_expand)
+                binding.imvMultiFiles.setImageResource(R.drawable.select_multiimage)
             }
         }
     }

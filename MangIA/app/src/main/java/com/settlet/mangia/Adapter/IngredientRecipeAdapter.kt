@@ -55,7 +55,10 @@ class IngredientRecipeAdapter : ListAdapter<Ingredient, IngredientRecipeAdapter.
             }
 
             binding.txvIngredientANDQuantities.text = "${ingredient.cantidad} $unidad de ${ingredient.nombre}"
-            storageReference.child("ingredients/${ingredient.nombre.unaccent().capitalizeWords().trim()}.png").downloadUrl.addOnSuccessListener { result ->
+            var refStorage = ingredient.nombre.unaccent().capitalizeWords()
+            refStorage = refStorage.replace("\\s".toRegex(), "")
+
+            storageReference.child("ingredients/${refStorage}.png").downloadUrl.addOnSuccessListener { result ->
                     Glide.with(binding.imvIngredientRIR.context)
                         .load(result)
                         .into(binding.imvIngredientRIR)

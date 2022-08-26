@@ -703,130 +703,258 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
 
     private fun updateRecipeRate(recipe: Recipe, cantValorations: Long) {
         reference.child("recipes").child(recipe.recipeID).child("totalValoration").get().addOnSuccessListener {
-            val averageValoration = it.value.toString().toDouble() / cantValorations
-            if (averageValoration > 0 && averageValoration < 0.5){ // 0 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_unselected)
-                binding.imvStar1.tag = 0
-                binding.imvStar2.setImageResource(R.drawable.star_unselected)
-                binding.imvStar2.tag = 0
-                binding.imvStar3.setImageResource(R.drawable.star_unselected)
-                binding.imvStar3.tag = 0
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 0.5 && averageValoration < 1.0){ // 0.5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.mid_star_average)
-                binding.imvStar1.tag = 2
-                binding.imvStar2.setImageResource(R.drawable.star_unselected)
-                binding.imvStar2.tag = 0
-                binding.imvStar3.setImageResource(R.drawable.star_unselected)
-                binding.imvStar3.tag = 0
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 1.0 && averageValoration < 1.5){ // 1 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_unselected)
-                binding.imvStar2.tag = 0
-                binding.imvStar3.setImageResource(R.drawable.star_unselected)
-                binding.imvStar3.tag = 0
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 1.5 && averageValoration < 2.0) { // 1.5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.mid_star_average)
-                binding.imvStar2.tag = 2
-                binding.imvStar3.setImageResource(R.drawable.star_unselected)
-                binding.imvStar3.tag = 0
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 2.0 && averageValoration < 2.5){ // 2 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_unselected)
-                binding.imvStar3.tag = 0
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 2.5 && averageValoration < 3.0){ // 2.5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.mid_star_average)
-                binding.imvStar3.tag = 2
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 3.0 && averageValoration < 3.5){ // 3 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_average)
-                binding.imvStar3.tag = 1
-                binding.imvStar4.setImageResource(R.drawable.star_unselected)
-                binding.imvStar4.tag = 0
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 3.5 && averageValoration < 4.0) { // 3.5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_average)
-                binding.imvStar3.tag = 1
-                binding.imvStar4.setImageResource(R.drawable.mid_star_average)
-                binding.imvStar4.tag = 2
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 4.0 && averageValoration < 4.5){ // 4 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_average)
-                binding.imvStar3.tag = 1
-                binding.imvStar4.setImageResource(R.drawable.star_average)
-                binding.imvStar4.tag = 1
-                binding.imvStar5.setImageResource(R.drawable.star_unselected)
-                binding.imvStar5.tag = 0
-            }else if (averageValoration >= 4.5 && averageValoration < 4.75){ // 5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_average)
-                binding.imvStar3.tag = 1
-                binding.imvStar4.setImageResource(R.drawable.star_average)
-                binding.imvStar4.tag = 1
-                binding.imvStar5.setImageResource(R.drawable.mid_star_average)
-                binding.imvStar5.tag = 2
-            }else if(averageValoration in 4.75..5.0){ // 5 estrellas
-                binding.imvStar1.setImageResource(R.drawable.star_average)
-                binding.imvStar1.tag = 1
-                binding.imvStar2.setImageResource(R.drawable.star_average)
-                binding.imvStar2.tag = 1
-                binding.imvStar3.setImageResource(R.drawable.star_average)
-                binding.imvStar3.tag = 1
-                binding.imvStar4.setImageResource(R.drawable.star_average)
-                binding.imvStar4.tag = 1
-                binding.imvStar5.setImageResource(R.drawable.star_average)
-                binding.imvStar5.tag = 1
+            try {
+                val averageValoration = it.value.toString().toDouble() / cantValorations
+                if (averageValoration > 0 && averageValoration < 0.5){ // 0 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar1.tag = 0
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 0.5 && averageValoration < 1.0){ // 0.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar1.tag = 2
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 1.0 && averageValoration < 1.5){ // 1 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 1.5 && averageValoration < 2.0) { // 1.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar2.tag = 2
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 2.0 && averageValoration < 2.5){ // 2 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 2.5 && averageValoration < 3.0){ // 2.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar3.tag = 2
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 3.0 && averageValoration < 3.5){ // 3 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 3.5 && averageValoration < 4.0) { // 3.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar4.tag = 2
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 4.0 && averageValoration < 4.5){ // 4 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 4.5 && averageValoration < 4.75){ // 5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar5.tag = 2
+                }else if(averageValoration in 4.75..5.0){ // 5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.star_average)
+                    binding.imvStar5.tag = 1
+                }
+                isLiked(recipe)
+            }catch (e: Exception){
+                val averageValoration = 0.0
+                if (averageValoration > 0 && averageValoration < 0.5){ // 0 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar1.tag = 0
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 0.5 && averageValoration < 1.0){ // 0.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar1.tag = 2
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 1.0 && averageValoration < 1.5){ // 1 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar2.tag = 0
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 1.5 && averageValoration < 2.0) { // 1.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar2.tag = 2
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 2.0 && averageValoration < 2.5){ // 2 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar3.tag = 0
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 2.5 && averageValoration < 3.0){ // 2.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar3.tag = 2
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 3.0 && averageValoration < 3.5){ // 3 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar4.tag = 0
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 3.5 && averageValoration < 4.0) { // 3.5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar4.tag = 2
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 4.0 && averageValoration < 4.5){ // 4 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.star_unselected)
+                    binding.imvStar5.tag = 0
+                }else if (averageValoration >= 4.5 && averageValoration < 4.75){ // 5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.mid_star_average)
+                    binding.imvStar5.tag = 2
+                }else if(averageValoration in 4.75..5.0){ // 5 estrellas
+                    binding.imvStar1.setImageResource(R.drawable.star_average)
+                    binding.imvStar1.tag = 1
+                    binding.imvStar2.setImageResource(R.drawable.star_average)
+                    binding.imvStar2.tag = 1
+                    binding.imvStar3.setImageResource(R.drawable.star_average)
+                    binding.imvStar3.tag = 1
+                    binding.imvStar4.setImageResource(R.drawable.star_average)
+                    binding.imvStar4.tag = 1
+                    binding.imvStar5.setImageResource(R.drawable.star_average)
+                    binding.imvStar5.tag = 1
+                }
+                isLiked(recipe)
             }
-            isLiked(recipe)
+
         }
     }
 

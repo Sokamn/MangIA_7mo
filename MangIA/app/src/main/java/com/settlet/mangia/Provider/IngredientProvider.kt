@@ -36,6 +36,13 @@ class IngredientProvider {
                 FirebaseStorage.getInstance().reference.child("ingredients/Ajowan.png")
             ),
             Ingredient(
+                "Diente de ajo",
+                "Unidad",
+                0F,
+                0,
+                FirebaseStorage.getInstance().reference.child("ingredients/DienteDeAjo.png")
+            ),
+            Ingredient(
                 "Albahaca",
                 "Unidad",
                 0F,
@@ -44,7 +51,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Alcaravea",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Alcaravea.png")
@@ -58,7 +65,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Anís",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Anis.png")
@@ -79,7 +86,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Azafrán",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Azafran.png")
@@ -93,35 +100,35 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Cardamomo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Cardamomo.png")
             ),
             Ingredient(
                 "Carom",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Carom.png")
             ),
             Ingredient(
                 "Casia",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Casia.png")
             ),
             Ingredient(
                 "Cebolla deshidratada",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/CebollaDeshidratada.png")
             ),
             Ingredient(
                 "Cebollino",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Cebollino.png")
@@ -142,42 +149,42 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Cilantro",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Cilantro.png")
             ),
             Ingredient(
                 "Clavo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Clavo.png")
             ),
             Ingredient(
                 "Comino",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Comino.png")
             ),
             Ingredient(
                 "Cúrcuma",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Curcuma.png")
             ),
             Ingredient(
                 "Dashi no moto",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/DashiNoMoto.png")
             ),
             Ingredient(
                 "Enebro",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Enebro.png")
@@ -205,7 +212,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Fenogreco",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Fenogreco.png")
@@ -219,7 +226,7 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Granos del Paraíso",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/GranosDelParaiso.png")
@@ -233,14 +240,14 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Haba tonka",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/HabTonka.png")
             ),
             Ingredient(
                 "Hierba limón",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/HierbaLimon.png")
@@ -254,91 +261,91 @@ class IngredientProvider {
             ),
             Ingredient(
                 "Hinojo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Hinojo.png")
             ),
             Ingredient(
                 "Hoja de curry",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/HojaDeCurry.png")
             ),
             Ingredient(
                 "Laurel",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Laurel.png")
             ),
             Ingredient(
                 "Lirio deshidratado",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/LirioDeshidratado.png")
             ),
             Ingredient(
                 "Maca",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Maca.png")
             ),
             Ingredient(
                 "Macis",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Macis.png")
             ),
             Ingredient(
                 "Mango verde deshidratado",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/MangoVerdeDeshidratado.png")
             ),
             Ingredient(
                 "Mejorana",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Mejorana.png")
             ),
             Ingredient(
                 "Menta",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Menta.png")
             ),
             Ingredient(
                 "Mezcla de 5 especias china",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/MezclaDe5EspeciasChina.png")
             ),
             Ingredient(
                 "Provenzal",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Provenzal.png")
             ),
             Ingredient(
                 "Mostaza",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Mostaza.png")
             ),
             Ingredient(
                 "Nigela sativa",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/NigelaSativa.png")
@@ -346,210 +353,210 @@ class IngredientProvider {
 
             Ingredient(
                 "Nueces areca",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/NuecesAreca.png")
             ),
             Ingredient(
                 "Nuez moscada",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/NuezMoscada.png")
             ),
             Ingredient(
                 "Orégano",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Oregano.png")
             ),
             Ingredient(
                 "Perejil",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Perejil.png")
             ),
             Ingredient(
                 "Pimentón",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Pimenton.png")
             ),
             Ingredient(
                 "Pimienta",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Pimienta.png")
             ),
             Ingredient(
                 "Pimienta blanca",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaBlanca.png")
             ),
             Ingredient(
                 "Pimienta de cayena",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaDeCayena.png")
             ),
             Ingredient(
                 "Pimienta de Guinea",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaDeGuinea.png")
             ),
             Ingredient(
                 "Pimienta de Jamaica",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaDeJamaica.png")
             ),
             Ingredient(
                 "Pimienta de Sichuan",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaDeSichuan.png")
             ),
             Ingredient(
                 "Pimienta larga",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaLarga.png")
             ),
             Ingredient(
                 "Pimienta negra",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaNegra.png")
             ),
             Ingredient(
                 "Pimienta timiz",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/PimientaTimiz.png")
             ),
             Ingredient(
                 "Romero",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Romero.png")
             ),
             Ingredient(
                 "Sal",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Sal.png")
             ),
             Ingredient(
                 "Sal de ajo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/SalDeAjo.png")
             ),
             Ingredient(
                 "Sal de apio",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/SalDeApio.png")
             ),
             Ingredient(
                 "Salvia",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Salvia.png")
             ),
             Ingredient(
                 "Satureja",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Satureja.png")
             ),
             Ingredient(
                 "Semilla de amapola",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/SemillaDeAmapola.png")
             ),
             Ingredient(
                 "Semilla de apio",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/SemillaDeApio.png")
             ),
             Ingredient(
                 "Semillas de Chía",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/SemillasDeChía.png")
             ),
             Ingredient(
                 "Sésamo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Sesamo.png")
             ),
             Ingredient(
                 "Spirulina",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Spirulina.png")
             ),
             Ingredient(
                 "Tamarindo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Tamarindo.png")
             ),
             Ingredient(
                 "Tomillo",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Tomillo.png")
             ),
             Ingredient(
                 "Vainilla",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Vainilla.png")
             ),
             Ingredient(
                 "Yuzu",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Yuzu.png")
             ),
             Ingredient(
                 "Zumaque",
-                "Gramos",
+                "Polvos",
                 0F,
                 0,
                 FirebaseStorage.getInstance().reference.child("ingredients/Zumaque.png")
@@ -677,7 +684,7 @@ class IngredientProvider {
 
         Ingredient(
         "Vinagre",
-        "Unidad",
+        "Liquidos",
         0F,
         0,
         FirebaseStorage.getInstance().reference.child("ingredients/Vinagre.png")
@@ -1242,13 +1249,6 @@ class IngredientProvider {
         FirebaseStorage.getInstance().reference.child("ingredients/PreparadoDeCurryAmarillo.png")
         ),
         Ingredient(
-        "Huevos",
-        "Unidad",
-        0F,
-        0,
-        FirebaseStorage.getInstance().reference.child("ingredients/Huevos.png")
-        ),
-        Ingredient(
         "Polenta",
         "Unidad",
         0F,
@@ -1282,6 +1282,13 @@ class IngredientProvider {
         0F,
         0,
         FirebaseStorage.getInstance().reference.child("ingredients/PimientosChoriceros.png")
+        ),
+        Ingredient(
+            "Pimiento morrón",
+            "Unidad",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/PimientoMorron.png")
         ),
         Ingredient(
         "Penicillium Roqueforti",
@@ -1879,6 +1886,27 @@ class IngredientProvider {
         FirebaseStorage.getInstance().reference.child("ingredients/HierbasChinasParaSopa.png")
         ),
         Ingredient(
+            "Harina 00",
+            "Polvos",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/Harina00.png")
+        ),
+        Ingredient(
+            "Harina 000",
+            "Polvos",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/Harina000.png")
+        ),
+        Ingredient(
+            "Harina 0000",
+            "Polvos",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/Harina0000.png")
+        ),
+        Ingredient(
         "Harina para chapati",
         "Unidad",
         0F,
@@ -2341,6 +2369,13 @@ class IngredientProvider {
         FirebaseStorage.getInstance().reference.child("ingredients/Chalotas.png")
         ),
         Ingredient(
+            "Cebolla",
+            "Unidad",
+            0F,
+            0,
+            FirebaseStorage.getInstance().reference.child("ingredients/Cebolla.png")
+        ),
+        Ingredient(
         "Cebolla de primavera",
         "Unidad",
         0F,
@@ -2672,7 +2707,7 @@ class IngredientProvider {
         ),
         Ingredient(
         "Aceite de Oliva",
-        "Unidad",
+        "Liquidos",
         0F,
         0,
         FirebaseStorage.getInstance().reference.child("ingredients/AceiteDeOliva.png")
