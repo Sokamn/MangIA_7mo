@@ -102,6 +102,7 @@
                     android:textColor="@color/quaternaryColor"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/txvAbleDiabetic"
                     app:layout_constraintStart_toEndOf="@+id/txvAbleDiabetic"
                     app:layout_constraintTop_toTopOf="@+id/txvAbleDiabetic" />
@@ -187,6 +188,7 @@
                     android:textColor="@color/quaternaryColor"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/viewTopLine2"
                     app:layout_constraintStart_toEndOf="@+id/txvAbleVegetarian"
                     app:layout_constraintTop_toTopOf="@+id/txvAbleVegetarian" />
@@ -201,6 +203,7 @@
                     android:textColor="@color/quaternaryColor"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@+id/txvAbleCeliac"
                     app:layout_constraintStart_toEndOf="@+id/txvAbleCeliac"
                     app:layout_constraintTop_toTopOf="@+id/txvAbleCeliac" />
@@ -293,6 +296,7 @@
                     android:textColor="@color/quaternaryColor"
                     android:textSize="12sp"
                     android:textStyle="bold"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toTopOf="@+id/viewTopLine"
                     app:layout_constraintStart_toEndOf="@+id/txvAbleVegan"
                     app:layout_constraintTop_toTopOf="@+id/txvAbleVegan" />
@@ -339,7 +343,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/ic_add"
+                    android:src="@drawable/logo"
                     app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
@@ -349,7 +353,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_remove"
+                    android:src="@drawable/circlebackground"
                     app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/vwProgressComplexity" />
@@ -358,7 +362,7 @@
                     android:id="@+id/imvComplex2"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_remove"
+                    android:src="@drawable/circlebackground"
                     app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -368,7 +372,7 @@
                     android:id="@+id/imvComplex3"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_remove"
+                    android:src="@drawable/circlebackground"
                     app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/imvComplex4"
@@ -379,7 +383,7 @@
                     android:id="@+id/imvComplex1"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_remove"
+                    android:src="@drawable/circlebackground"
                     app:layout_constraintBottom_toBottomOf="@+id/vwProgressComplexity"
                     app:layout_constraintEnd_toStartOf="@+id/imvComplex2"
                     app:layout_constraintStart_toEndOf="@+id/imvComplex0"

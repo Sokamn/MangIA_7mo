@@ -24,8 +24,10 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.IngredientAdapter
 import com.settlet.mangia.Adapter.IngredientRecipeAdapter
+import com.settlet.mangia.Adapter.PagerAdapterStep
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Recipe
+import com.settlet.mangia.Model.Step
 import com.settlet.mangia.databinding.ActivityRecipeBinding
 
 class RecipeActivity : AppCompatActivity() {
@@ -56,7 +58,7 @@ class RecipeActivity : AppCompatActivity() {
                         LoadUserInfo(recipe.publisher)
                         loadRecipeInfo(recipe)
                         loadIngredients(recipe.listIngredients)
-                        loadViewPager()
+                        loadViewPager(recipe.listSteps)
 
                         binding.txvValorationAR.setOnClickListener {
                             val intent = Intent(baseContext, UserRateActivity::class.java )
@@ -67,18 +69,9 @@ class RecipeActivity : AppCompatActivity() {
                         binding.btnSaveAR.setOnClickListener {
                             if(binding.btnSaveAR.tag.equals("save")){
                                 reference.child("saves").child(currentUserID).child(recipe.recipeID).setValue(true)
-                                //db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
                             }else{
                                 reference.child("saves").child(currentUserID).child(recipe.recipeID).removeValue()
-                                //db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
                             }
-                            /*val docSaved = hashMapOf<String, Any>()
-                            if(binding.btnSaveAR.tag.equals("save")){
-                                docSaved["isSaved"] = true.toString()
-                                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).set(docSaved)
-                            }else{
-                                db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).delete()
-                            }*/
                         }
                         binding.toolbarRecipe.setOnClickListener {
                             val editor = getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
@@ -151,7 +144,14 @@ class RecipeActivity : AppCompatActivity() {
         Toast.makeText(baseContext,"La receta no se cargó correctamente, por favor, vuelva a intentarlo más tarde.", Toast.LENGTH_LONG).show()
     }
 
-    private fun loadViewPager() {
+    private fun loadViewPager(listStep: List<Step>) {
+        val adapterVP = PagerAdapterStep()
+        adapterVP.submitList(listStep)
+        binding.vwpContentAR.adapter = adapterVP
+        binding.vwpContentAR.clipToPadding = false
+        binding.vwpContentAR.clipChildren = false
+        binding.vwpContentAR.offscreenPageLimit = 2
+        binding.vwpContentAR.getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
     }
 
     private fun loadIngredients(ingredientList: List<Ingredient>) {

@@ -195,6 +195,7 @@ class MRecipeStep3Activity : AppCompatActivity() {
                                         "Imagen no se ha subido correctamente"
                                     )
                                 }
+                                step.optionalImage = fileRef.path
                             }
                         }
                         if (isMultiImages) {
@@ -288,45 +289,45 @@ class MRecipeStep3Activity : AppCompatActivity() {
             progressComplexity = i
             when(i){
                 0->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex1.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex2.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex3.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex4.setImageResource(R.drawable.circlebackground)
                     Toast.makeText(this,"Complejidad: Principiante.",Toast.LENGTH_SHORT).show()
                 }
                 1->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex1.setImageResource(R.drawable.logo)
+                    binding.imvComplex2.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex3.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex4.setImageResource(R.drawable.circlebackground)
                     Toast.makeText(this,"Complejidad: Medio.",Toast.LENGTH_SHORT).show()
                 }
                 2->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex1.setImageResource(R.drawable.logo)
+                    binding.imvComplex2.setImageResource(R.drawable.logo)
+                    binding.imvComplex3.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex4.setImageResource(R.drawable.circlebackground)
                     Toast.makeText(this,"Complejidad: Dificil.",Toast.LENGTH_SHORT).show()
                 }
                 3->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex1.setImageResource(R.drawable.logo)
+                    binding.imvComplex2.setImageResource(R.drawable.logo)
+                    binding.imvComplex3.setImageResource(R.drawable.logo)
+                    binding.imvComplex4.setImageResource(R.drawable.circlebackground)
                     Toast.makeText(this,"Complejidad: Ultra Dificil.",Toast.LENGTH_SHORT).show()
                 }
                 4->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_add)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_add)
+                    binding.imvComplex1.setImageResource(R.drawable.logo)
+                    binding.imvComplex2.setImageResource(R.drawable.logo)
+                    binding.imvComplex3.setImageResource(R.drawable.logo)
+                    binding.imvComplex4.setImageResource(R.drawable.logo)
                     Toast.makeText(this,"Complejidad: Imposible.",Toast.LENGTH_SHORT).show()
                 }
                 else->{
-                    binding.imvComplex1.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex2.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex3.setImageResource(R.drawable.ic_remove)
-                    binding.imvComplex4.setImageResource(R.drawable.ic_remove)
+                    binding.imvComplex1.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex2.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex3.setImageResource(R.drawable.circlebackground)
+                    binding.imvComplex4.setImageResource(R.drawable.circlebackground)
                     Toast.makeText(this,"Complejidad: Principiante.",Toast.LENGTH_SHORT).show()
                 }
             }
