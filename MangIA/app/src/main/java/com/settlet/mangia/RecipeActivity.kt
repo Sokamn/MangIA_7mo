@@ -280,10 +280,10 @@ class RecipeActivity : AppCompatActivity() {
         reference.child("saves").child(currentUserID).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.child(recipeID).exists()){
-                    // cambiar icono a ic_unsave_recipe
+                    binding.btnSaveAR.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_unsave_recipe_black),null,null,null)
                     binding.btnSaveAR.tag = "saved"
                 }else{
-                    // cambiar icono a ic_save_recipe
+                    binding.btnSaveAR.setCompoundDrawablesWithIntrinsicBounds(getDrawable(R.drawable.ic_save_recipe_black),null,null,null)
                     binding.btnSaveAR.tag = "save"
                 }
             }
