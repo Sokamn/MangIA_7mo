@@ -43,24 +43,6 @@ class LikeCommentsActivity : AppCompatActivity() {
             }
             showUsers()
         }
-        /*db.collection("likesComments").document(commentID!!).collection("isLiked").get().addOnSuccessListener { documents ->
-            userList.clear()
-            for (document in documents){
-                db.collection("users").document(document.id).addSnapshotListener { value, error ->
-                    val userAdapter = UserAdapter()
-                    if (error!=null) {
-                        Log.w("TAG","Listen Failed")
-                        return@addSnapshotListener
-                    }
-                    if (value != null) {
-                        binding.rcvUsersALC.adapter = userAdapter
-                        val us: User = value.toObject()!!
-                        userList.add(us)
-                        userAdapter.submitList(userList)
-                    }
-                }
-            }
-        }*/
 
         binding.imbBackALC.setOnClickListener {
             onBackPressed()

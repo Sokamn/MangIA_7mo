@@ -5,12 +5,16 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.blongho.country_data.World
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -36,9 +40,18 @@ class RegisterActivity : AppCompatActivity() {
         val continents = resources.getStringArray(R.array.continents)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = getColor(R.color.primaryColor)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        val wordtoSpan: Spannable = SpannableString(binding.txvPLoginR.text)
+
+        wordtoSpan.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.secundaryColor)),
+            19,
+            binding.txvPLoginR.text.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        binding.txvPLoginR.text = wordtoSpan
 
         val pNumber = intent.getStringExtra("pNumber").toString()
         val nName = intent.getStringExtra("nName").toString()
@@ -170,9 +183,9 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvPLoginR.setOnClickListener { // Volver al Login
             onBackPressed()
             Firebase.auth.signOut()
-            val intent = Intent(this,LoginActivity::class.java)
+            /*val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
-            finish()
+            finish()*/
         }
         binding.btnContinueR2.setOnClickListener{ // Boton de finalizar registro
             val mailr = binding.txpMailR.text.toString()
@@ -211,9 +224,9 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
             onBackPressed()
             Firebase.auth.signOut()
-            val intent = Intent(this,LoginActivity::class.java)
+            /*val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
-            finish()
+            finish()*/
         }
     }
     public override fun onStart() {
@@ -388,9 +401,9 @@ class RegisterActivity : AppCompatActivity() {
             0 ->{
                 onBackPressed()
                 Firebase.auth.signOut()
-                val intent = Intent(this,LoginActivity::class.java)
+                /*val intent = Intent(this,LoginActivity::class.java)
                 startActivity(intent)
-                finish()
+                finish()*/
             }
             1 ->{register1()}
             2 ->{register2()}
@@ -420,8 +433,6 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun register1(){
         //register1
-        binding.txvPLoginR.visibility = View.VISIBLE
-        binding.imvNavBarNull.visibility = View.VISIBLE
         binding.txpMailR.visibility = View.VISIBLE
         binding.txpTelR.visibility = View.VISIBLE
         binding.txpUserNameR.visibility = View.VISIBLE
@@ -430,45 +441,36 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
-        binding.imvNavBar1.visibility = View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.VISIBLE
         binding.btnContinueR2.visibility = View.INVISIBLE
         binding.btnCancelR.visibility = View.INVISIBLE
         binding.txvTerminos.visibility = View.INVISIBLE
-        binding.imvNavBar3.visibility = View.INVISIBLE
     }
     private fun register2(){
         //register1
-        binding.imvNavBarNull.visibility = View.INVISIBLE
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
         binding.txpUserNameR.visibility = View.INVISIBLE
         binding.txpNNameR.visibility = View.INVISIBLE
         //register2
-        binding.txvPLoginR.visibility = View.VISIBLE
         binding.txpDateBirthR.visibility = View.VISIBLE
         binding.txpRegionR.visibility = View.VISIBLE
         binding.txpCountryR.visibility = View.VISIBLE
-        binding.imvNavBar1.visibility = View.VISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.VISIBLE
         binding.btnContinueR2.visibility = View.INVISIBLE
         binding.btnCancelR.visibility = View.INVISIBLE
         binding.txvTerminos.visibility = View.INVISIBLE
-        binding.imvNavBar3.visibility = View.INVISIBLE
     }
     private fun register3(){
         //register1
-        binding.imvNavBarNull.visibility = View.INVISIBLE
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
         binding.txpUserNameR.visibility = View.INVISIBLE
@@ -477,22 +479,17 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
-        binding.imvNavBar1.visibility = View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.VISIBLE
         binding.txpRepeatPassR.visibility = View.VISIBLE
-        binding.imvNavBar2.visibility = View.VISIBLE
-        binding.txvPLoginR.visibility = View.VISIBLE
         //register4
         binding.btnContinueR.visibility = View.VISIBLE
         binding.btnContinueR2.visibility = View.INVISIBLE
         binding.btnCancelR.visibility = View.INVISIBLE
         binding.txvTerminos.visibility = View.INVISIBLE
-        binding.imvNavBar3.visibility = View.INVISIBLE
     }
     private fun register4(){
         //register1
-        binding.imvNavBarNull.visibility = View.INVISIBLE
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
         binding.txpUserNameR.visibility = View.INVISIBLE
@@ -501,18 +498,14 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
-        binding.imvNavBar1.visibility = View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
-        binding.imvNavBar2.visibility = View.INVISIBLE
         //register4
         binding.btnContinueR.visibility = View.INVISIBLE
-        binding.txvPLoginR.visibility = View.INVISIBLE
         binding.btnContinueR2.visibility = View.VISIBLE
         binding.btnCancelR.visibility = View.VISIBLE
         binding.txvTerminos.visibility = View.VISIBLE
-        binding.imvNavBar3.visibility = View.VISIBLE
     }
     private fun reload()
     {

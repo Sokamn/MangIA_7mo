@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
+            android:name=".StartActivity"
+            android:exported="false" />
+        <activity
             android:name=".RecipeDetailActivity"
             android:exported="false" />
         <activity
@@ -97,7 +100,7 @@
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

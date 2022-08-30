@@ -7,213 +7,190 @@
     android:background="@color/primaryColor"
     tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/txvPRegisterL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="@string/register"
-        android:textColor="@color/quaternaryColor"
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/bglogin"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnContinueL" />
-
-    <TextView
-        android:id="@+id/txvForgotPassL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="@string/fPass"
-        android:textColor="@color/quaternaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txpPassL" />
-
-    <EditText
-        android:id="@+id/txpPassL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="35dp"
-        android:backgroundTint="@color/quaternaryColor"
-        android:ems="10"
-        android:fontFamily="@font/manjariregular"
-        android:hint="@string/pass"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:textColor="@color/quaternaryColor"
-        android:textColorHint="@color/transQuaternaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txpMailL" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imvLogoL"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:contentDescription="@string/logo"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"
+        app:srcCompat="@drawable/logo_nobg"
         tools:ignore="ImageContrastCheck" />
 
-    <EditText
-        android:id="@+id/txpMailL"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="35dp"
-        android:backgroundTint="@color/quaternaryColor"
-        android:ems="10"
-        android:fontFamily="@font/manjariregular"
-        android:hint="@string/mail"
-        android:inputType="textPersonName"
-        android:textColor="@color/quaternaryColor"
-        android:textColorHint="@color/transQuaternaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
-
-    <EditText
-        android:id="@+id/txpPhoneNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="35dp"
-        android:background="@drawable/outline_box"
-        android:ems="10"
-        android:fontFamily="@font/manjariregular"
-        android:hint="@string/exNumber"
-        android:inputType="phone"
-        android:textColor="@color/quaternaryColor"
-        android:textColorHint="@color/transQuaternaryColor"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/btnContinueL"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/txpNArea"
-        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
-
-    <EditText
-        android:id="@+id/txpNArea"
-        android:layout_width="60dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="35dp"
-        android:background="@drawable/outline_box"
-        android:ems="10"
-        android:fontFamily="@font/manjariregular"
-        android:hint="@string/exArea"
-        android:inputType="phone"
-        android:textColor="@color/quaternaryColor"
-        android:textColorHint="@color/transQuaternaryColor"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/btnContinueL"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
-
-    <Button
-        android:id="@+id/btnContinueL"
-        android:layout_width="220dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/manjaribold"
-        android:paddingBottom="0dp"
-        android:text="@string/cntBtn"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:backgroundTint="@color/secundaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL" />
-
-    <ImageButton
-        android:id="@+id/imbFacebookL"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="-45dp"
-        android:backgroundTint="@color/primaryColor"
-        android:contentDescription="@string/facebook"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/imvPBSettlet2"
-        app:layout_constraintStart_toEndOf="@+id/txvPRegisterL"
-        app:layout_constraintTop_toBottomOf="@+id/txvPRegisterL"
-        app:srcCompat="@drawable/facebook" />
-
-    <ImageButton
-        android:id="@+id/imbGoogleL"
-        style="@android:style/Widget.DeviceDefault.ImageButton"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="-45dp"
-        android:backgroundTint="@color/primaryColor"
-        android:contentDescription="@string/google"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/imvPBSettlet2"
-        app:layout_constraintEnd_toStartOf="@+id/txvPRegisterL"
-        app:layout_constraintTop_toBottomOf="@+id/txvPRegisterL"
-        app:srcCompat="@drawable/google" />
-
-    <ImageView
-        android:id="@+id/imvPBSettlet2"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/pbSettlet"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pbsettlet" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <TextView
-        android:id="@+id/txvLoginL"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/manjaribold"
-        android:text="@string/LoginTitle"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvLogoL" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Switch
-        android:id="@+id/swcLoginPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:text="cambiar"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+            <TextView
+                android:id="@+id/txvForgotPassL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/manjariregular"
+                android:text="@string/fPass"
+                android:textColor="@color/quaternaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btnContinueL" />
 
-    <ImageView
-        android:id="@+id/imvPassVisible"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="7dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txpPassL"
-        app:layout_constraintEnd_toEndOf="@+id/txpPassL"
-        app:layout_constraintTop_toTopOf="@+id/txpPassL"
-        app:srcCompat="@drawable/ic_viewpass_btn" />
+            <EditText
+                android:id="@+id/txpPassL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/transSecundaryColor"
+                android:ems="10"
+                android:fontFamily="@font/manjarithin"
+                android:hint="@string/pass"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:textColor="@color/secundaryColor"
+                android:textColorHint="@color/transSecundaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txpMailL" />
 
+            <EditText
+                android:id="@+id/txpMailL"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/transSecundaryColor"
+                android:ems="10"
+                android:fontFamily="@font/manjarithin"
+                android:hint="@string/mail"
+                android:inputType="textPersonName"
+                android:textColor="@color/secundaryColor"
+                android:textColorHint="@color/transSecundaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvLoginL" />
+
+            <Button
+                android:id="@+id/btnContinueL"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/manjaribold"
+                android:paddingBottom="0dp"
+                android:text="@string/cntBtn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@color/secundaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txpPassL" />
+
+            <ImageButton
+                android:id="@+id/imbFacebookL"
+                style="@android:style/Widget.DeviceDefault.ImageButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="-100dp"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/primaryColor"
+                android:contentDescription="@string/facebook"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toTopOf="@+id/txvLoginL2"
+                app:layout_constraintStart_toEndOf="@+id/txvForgotPassL"
+                app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL"
+                app:srcCompat="@drawable/facebook" />
+
+            <ImageButton
+                android:id="@+id/imbGoogleL"
+                style="@android:style/Widget.DeviceDefault.ImageButton"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginEnd="-100dp"
+                android:background="@android:color/transparent"
+                android:backgroundTint="@color/primaryColor"
+                android:contentDescription="@string/google"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toTopOf="@+id/txvLoginL2"
+                app:layout_constraintEnd_toStartOf="@+id/txvForgotPassL"
+                app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL"
+                app:srcCompat="@drawable/google" />
+
+            <TextView
+                android:id="@+id/txvLoginL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/welcomeMangIA"
+                android:textColor="@color/secundaryDarkColor"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txvLoginL2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manjariregular"
+                android:text="@string/pbSettlet"
+                android:textColor="#20681A"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ImageView
+                android:id="@+id/imvPassVisible"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="7dp"
+                app:layout_constraintBottom_toBottomOf="@+id/txpPassL"
+                app:layout_constraintEnd_toEndOf="@+id/txpPassL"
+                app:layout_constraintTop_toTopOf="@+id/txpPassL"
+                app:srcCompat="@drawable/ic_viewpass_btn" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

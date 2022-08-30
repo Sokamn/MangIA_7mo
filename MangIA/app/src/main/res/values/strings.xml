@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">MangIA</string>
-    <string name="pbSettlet">Powered By Settlet™</string>
+    <string name="pbSettlet"><b>Powered By</b> Settlet™</string>
     <string name="cntBtn">Continuar</string>
     <string name="pass">Contraseña</string>
     <string name="rPass">Repita la Contraseña</string>
@@ -8,14 +8,14 @@
     <string name="tel">Teléfono</string>
     <string name="userName">Nombre de Usuario</string>
     <string name="nName">Apodo</string>
-    <string name="pLogin"><u>Iniciar Sesión</u></string>
+    <string name="pLogin">¿Ya tienes cuenta? <u>Click aquí.</u></string>
     <string name="LoginTitle">Iniciar Sesión</string>
     <string name="country">País</string>
     <string name="region">Región</string>
     <string name="dateBirth">Fecha de Nacimiento</string>
     <string name="termsConditions">Para completar tu Registro, debes aceptar nuestros <b>Términos de uso</b> y el procesamiento, tratamiento y transferencia de tus datos personales conforme a lo dispuesto en las <b>Políticas de Privacidad</b></string>
     <string name="cancel">Cancelar</string>}
-    <string name="fPass"><u>¿Olvidaste tu contraseña?</u></string>
+    <string name="fPass">¿Olvidaste tu contraseña? <u>Click aquí.</u></string>
     <string name="iSuggestion"><u>¿No encuentras tu ingrediente? Sugiérelo</u></string>
     <string name="logo">Logo MangIA</string>
     <string name="google">Iniciar con Google</string>
@@ -83,6 +83,9 @@
     <string name="like">Me Gusta</string>
     <string name="recipe">Receta</string>
     <string name="ingredients">Ingredientes</string>
+    <string name="welcomeMangIA">Bienvenido a MangIA</string>
+
+    <string name="notHaveAccount">¿No tienes cuenta? <u>Conviértete en chef aquí.</u></string>
 
     <string-array name="continents">
         <item>Africa</item>
