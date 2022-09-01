@@ -152,6 +152,7 @@ class RecipeActivity : AppCompatActivity() {
         binding.vwpContentAR.clipChildren = false
         binding.vwpContentAR.offscreenPageLimit = 2
         binding.vwpContentAR.getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
+        binding.indicatorStep.setViewPager(binding.vwpContentAR)
     }
 
     private fun loadIngredients(ingredientList: List<Ingredient>) {

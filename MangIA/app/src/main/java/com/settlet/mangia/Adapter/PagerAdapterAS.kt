@@ -4,10 +4,8 @@ import android.content.res.Resources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.settlet.mangia.Fragment.FollowersFragment
-import com.settlet.mangia.Fragment.FollowsFragment
-import com.settlet.mangia.RecipeSearchedFragment
-import com.settlet.mangia.UserSearchedFragment
+import com.settlet.mangia.Fragment.RecipeSearchedFragment
+import com.settlet.mangia.Fragment.UserSearchedFragment
 
 class PagerAdapterAS(fm:FragmentActivity): FragmentStateAdapter(fm) {
     override fun getItemCount() = 2

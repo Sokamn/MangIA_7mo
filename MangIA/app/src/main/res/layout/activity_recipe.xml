@@ -122,15 +122,15 @@
             <Button
                 android:id="@+id/btnCommentsAR"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_comment_recipe_black"
                 android:fontFamily="@font/manjarithin"
+                android:paddingTop="5dp"
+                android:text="   Comentar"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="   Comentar"
-                android:paddingTop="5dp"
-                android:drawableStart="@drawable/ic_comment_recipe_black"
                 app:layout_constraintEnd_toStartOf="@+id/btnValorateAR"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -139,15 +139,15 @@
             <Button
                 android:id="@+id/btnValorateAR"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:background="@android:color/transparent"
+                android:drawableStart="@drawable/ic_star"
                 android:fontFamily="@font/manjarithin"
+                android:paddingTop="5dp"
+                android:text="   Valorar"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
-                android:layout_height="wrap_content"
-                android:text="   Valorar"
-                android:paddingTop="5dp"
-                android:drawableStart="@drawable/ic_star"
                 app:layout_constraintEnd_toStartOf="@+id/btnSaveAR"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnCommentsAR"
@@ -266,6 +266,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvSbSTitleAR" />
 
+            <me.relex.circleindicator.CircleIndicator3
+                android:id="@+id/indicatorStep"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_constraintBottom_toTopOf="@+id/vwpContentAR"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvSbSTitleAR" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
