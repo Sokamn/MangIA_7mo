@@ -85,6 +85,10 @@
     <string name="ingredients">Ingredientes</string>
     <string name="welcomeMangIA">Bienvenido a MangIA</string>
 
+    <string name="facebook_app_id">1509587142805147</string>
+    <string name="fb_login_protocol_scheme">fb1509587142805147</string>
+    <string name="facebook_client_token">73be65733243a1126c369046b83930f7</string>
+
     <string name="notHaveAccount">¿No tienes cuenta? <u>Conviértete en chef aquí.</u></string>
 
     <string-array name="continents">

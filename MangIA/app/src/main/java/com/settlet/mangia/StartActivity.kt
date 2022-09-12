@@ -10,13 +10,18 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.facebook.*
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.GoogleAuthProvider
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -28,12 +33,15 @@ class StartActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStartBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private val reference = FirebaseDatabase.getInstance().reference
+    private val callbackManager = CallbackManager.Factory.create()
     private val RC_SIGN_IN = 45
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
         binding = ActivityStartBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FacebookSdk.sdkInitialize(applicationContext);
+        AppEventsLogger.activateApp(this);
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_ids))
@@ -54,8 +62,11 @@ class StartActivity : AppCompatActivity() {
 
         binding.txvBeginChefS.text = wordtoSpan
 
+        binding.imbTwitter.setOnClickListener {
+            logInT()
+        }
         binding.imbFacebookS.setOnClickListener {
-
+            logInF()
         }
 
         binding.imbGoogleS.setOnClickListener {
@@ -68,9 +79,98 @@ class StartActivity : AppCompatActivity() {
 
         binding.txvBeginChefS.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
-            intent.putExtra("logIn","mail")
+            intent.putExtra("logIn","Email")
             startActivity(intent)
         }
+    }
+
+    private fun logInT() {
+        val provider = OAuthProvider.newBuilder("twitter.com")
+        provider.addCustomParameter("lang", "es")
+
+        val pendingResultTask: Task<AuthResult>? = auth.pendingAuthResult
+        if (pendingResultTask != null) {
+            // There's something already here! Finish the sign-in for your user.
+            pendingResultTask
+                .addOnSuccessListener(
+                    OnSuccessListener {
+                        val user = auth.currentUser
+                        if (user != null) {
+                            reference.child("users").child(user.uid).get().addOnSuccessListener {
+                                if (it.exists()){
+                                    updateUI(user)
+                                }else{
+                                    loadRegister(user, "Twitter")
+                                }
+                            }
+                        }
+                    })
+                .addOnFailureListener{
+                        showError()
+                    }
+        } else {
+            auth
+                .startActivityForSignInWithProvider( /* activity= */this, provider.build())
+                .addOnSuccessListener{
+                        val user = auth.currentUser
+                        if (user != null) {
+                            reference.child("users").child(user.uid).get().addOnSuccessListener {
+                                if (it.exists()){
+                                    updateUI(user)
+                                }else{
+                                    loadRegister(user, "Twitter")
+                                }
+                            }
+                        }
+                    }
+                .addOnFailureListener{
+                        showError()
+                    }
+        }
+    }
+
+    private fun logInF() {
+        LoginManager.getInstance().logInWithReadPermissions(this, listOf("email","public_profile"))
+
+        LoginManager.getInstance().registerCallback(callbackManager, object:FacebookCallback<LoginResult>{
+            override fun onSuccess(result: LoginResult?) {
+                if (result != null) {
+                    handleFacebookAccessToken(result.accessToken)
+                }
+            }
+
+            override fun onCancel() {
+            }
+
+            override fun onError(error: FacebookException?) {
+                showError()
+            }
+
+        })
+    }
+
+    private fun handleFacebookAccessToken(token: AccessToken) {
+        val credential = FacebookAuthProvider.getCredential(token.token)
+        auth.signInWithCredential(credential).addOnCompleteListener { task->
+            if(task.isSuccessful){
+                val user = auth.currentUser
+                if (user != null) {
+                    reference.child("users").child(user.uid).get().addOnSuccessListener {
+                        if (it.exists()){
+                            updateUI(user)
+                        }else{
+                            loadRegister(user, "Facebook")
+                        }
+                    }
+                }
+            }else{
+                Toast.makeText(this,"No puedes ingresar con esta cuenta",Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showError() {
+        //tirar error
     }
 
     private fun logInG() {
@@ -91,7 +191,7 @@ class StartActivity : AppCompatActivity() {
                             if (it.exists()){
                                 updateUI(user)
                             }else{
-                                loadRegister(user)
+                                loadRegister(user, "Google")
                             }
                         }
                     }
@@ -105,14 +205,22 @@ class StartActivity : AppCompatActivity() {
             }
     }
 
-    private fun loadRegister(user: FirebaseUser?) {
+    private fun loadRegister(user: FirebaseUser?, loginMethod:String) {
         if(user!=null)
         {
             val intentReg = Intent(baseContext, RegisterActivity::class.java)
             intentReg.putExtra("pNumber",user.phoneNumber.toString())
             intentReg.putExtra("nName",user.displayName.toString())
             intentReg.putExtra("email",user.email.toString())
-            intentReg.putExtra("logIn","Google")
+            intentReg.putExtra("photoProfile",user.photoUrl.toString())
+            when(loginMethod){
+                "Facebook"->intentReg.putExtra("logIn","Facebook")
+                "Google"->intentReg.putExtra("logIn","Google")
+                "Twitter"->intentReg.putExtra("logIn","Twitter")
+                else->{
+                    intentReg.putExtra("logIn","Mail")
+                }
+            }
             startActivity(intentReg)
             finish()
         }
@@ -132,7 +240,13 @@ class StartActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
         if(currentUser != null){
             if(currentUser.isEmailVerified){
-                reload()
+                reference.child("users").child(currentUser.uid).get().addOnSuccessListener {
+                    if (it.exists()){
+                        updateUI(currentUser)
+                    }else{
+                        loadRegister(currentUser, "Email")
+                    }
+                }
             } else{
                 val intent = Intent(this, CheckMailActivity::class.java)
                 startActivity(intent)
@@ -140,6 +254,7 @@ class StartActivity : AppCompatActivity() {
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        callbackManager.onActivityResult(requestCode,resultCode,data)
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == RC_SIGN_IN) {

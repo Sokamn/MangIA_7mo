@@ -57,10 +57,11 @@ class RegisterActivity : AppCompatActivity() {
         val nName = intent.getStringExtra("nName").toString()
         val gMail = intent.getStringExtra("email").toString()
         val loginMethod = intent.getStringExtra("logIn").toString()
+        val photoProfile = intent.getStringExtra("photoProfile").toString()
 
         if(loginMethod=="Google"){
             if (pNumber!="null"&&pNumber.isNotEmpty()){
-                binding.txpMailR.setText(pNumber)
+                binding.txpTelR.setText(pNumber)
             }
             if(nName.isNotEmpty()){
                 binding.txpNNameR.setText(nName)
@@ -163,7 +164,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.setOnClickListener { showDatePickerDialog() }
         binding.btnContinueR.setOnClickListener{ // Boton de continuar inicial
             if(checkValue(contador)) {
-                if (loginMethod=="Google"&&contador==1) {
+                if (loginMethod!="Email"&&contador==1) {
                     contador++
                     register4()
                 }
@@ -183,50 +184,39 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvPLoginR.setOnClickListener { // Volver al Login
             onBackPressed()
             Firebase.auth.signOut()
-            /*val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-            finish()*/
         }
         binding.btnContinueR2.setOnClickListener{ // Boton de finalizar registro
             val mailr = binding.txpMailR.text.toString()
             val passr = binding.txpPassR.text.toString()
-            when(loginMethod){
-                "Google"->{
-                    val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
-                        "userID" to auth.currentUser!!.uid,
-                        "biography" to "",
-                        "cantReports" to 0,
-                        "country" to binding.txpCountryR.text.toString(),
-                        "dateBirth" to binding.txpDateBirthR.text.toString(),
-                        "dateCreationAccount" to Calendar.getInstance().time.toString(),
-                        "email" to binding.txpMailR.text.toString(),
-                        "nickName" to binding.txpNNameR.text.toString(),
-                        "password" to passr,
-                        "phoneNumber" to binding.txpTelR.text.toString(),
-                        "region" to binding.txpRegionR.text.toString(),
-                        "userName" to binding.txpUserNameR.text.toString()
-                    )
-                    reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
-                        if(it.isSuccessful){
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
+            if(loginMethod=="Email"){
+                createAccount(mailr,passr)
+            }else{
+                val docUser = hashMapOf("age" to Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt(),
+                    "userID" to auth.currentUser!!.uid,
+                    "biography" to "",
+                    "cantReports" to 0,
+                    "country" to binding.txpCountryR.text.toString(),
+                    "dateBirth" to binding.txpDateBirthR.text.toString(),
+                    "dateCreationAccount" to Calendar.getInstance().time.toString(),
+                    "email" to binding.txpMailR.text.toString(),
+                    "nickName" to binding.txpNNameR.text.toString(),
+                    "password" to passr,
+                    "phoneNumber" to binding.txpTelR.text.toString(),
+                    "region" to binding.txpRegionR.text.toString(),
+                    "userName" to binding.txpUserNameR.text.toString()
+                )
+                reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
+                    if(it.isSuccessful){
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
-                    //db.collection("users").document(mailr).set(docUser)
-                }
-                else ->{
-                    createAccount(mailr,passr)
-                    //db.collection("users").document(mailr).set(docUser)
                 }
             }
         }
         binding.btnCancelR.setOnClickListener { // Boton para cancelar registro ( NO ACEPTA TERMINOS DE CONDICIONES )
             onBackPressed()
             Firebase.auth.signOut()
-            /*val intent = Intent(this,LoginActivity::class.java)
-            startActivity(intent)
-            finish()*/
         }
     }
     public override fun onStart() {
@@ -408,7 +398,7 @@ class RegisterActivity : AppCompatActivity() {
             1 ->{register1()}
             2 ->{register2()}
             3 ->{
-                if (loginMethod=="Google"){
+                if (loginMethod!=""){
                     register2()
                 }
                 else{
