@@ -1,13 +1,22 @@
 package com.settlet.mangia
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -27,12 +36,17 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.User
+import com.settlet.mangia.Provider.ObjectDetectorHelper
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
+import org.tensorflow.lite.task.vision.detector.Detection
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
@@ -43,8 +57,35 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var fragment: View
     private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
-    private val db = Firebase.firestore
+    private lateinit var photoFile: File
+    private val startForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        if (it.resultCode == Activity.RESULT_OK){
+            val imageBitmap = BitmapFactory.decodeFile(photoFile.path)
+            val detector = ObjectDetectorHelper(
+                context = this,
+                objectDetectorListener =
+                object : ObjectDetectorHelper.DetectorListener {
+                    override fun onError(error: String) {}
 
+                    override fun onResults(
+                        results: MutableList<Detection>?,
+                        inferenceTime: Long,
+                        imageHeight: Int,
+                        imageWidth: Int
+                    ) {
+                        if(results == null){
+                            Log.d("SCAN", "No se detecto naranjas")
+                        }else{
+                            for (result in results) {
+                                Log.d("SCAN", result.toString())
+                            }
+                        }
+                    }
+                }
+            )
+            detector.detect(imageBitmap,0)
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -60,12 +101,9 @@ class HomeActivity : AppCompatActivity() {
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
         homeView.bottom_barH.imbScanBB.setOnClickListener {
-            //Toast.makeText(baseContext,"Escanear",Toast.LENGTH_SHORT).show()
-            val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
-            editor.putString("profileID", "VjiyGqxeelcjiOoxG5L6THnjqvh2")
-            editor.apply()
-            val intent = Intent(this, ProfileActivity::class.java)
-            this.startActivity(intent)
+            // Escanear
+            takePicture()
+
         }
         homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
             startActivity(Intent(this, MRecipeStep1Activity::class.java))
@@ -119,6 +157,24 @@ class HomeActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
+    private fun takePicture() {
+        val intentCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        photoFile = createPhotoFile()
+        val fileProvider = FileProvider.getUriForFile(this, "com.settlet.mangia.fileprovider",photoFile)
+        intentCamera.putExtra(MediaStore.EXTRA_OUTPUT,fileProvider)
+        startForResult.launch(intentCamera)
+    }
+
+    private fun createPhotoFile(): File {
+        val timeStamp:String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
+        val storageDir:File? = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}",".jpg",storageDir.apply {
+
+        })
+    }
+
+
 
     public override fun onStart() {
         super.onStart()
