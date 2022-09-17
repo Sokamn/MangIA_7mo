@@ -36,6 +36,7 @@
         android:id="@+id/txvRateUR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/manjaribold"
         android:text="5"
@@ -61,11 +62,11 @@
 
     <ImageView
         android:id="@+id/imvStarUR"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginEnd="10dp"
+        android:src="@drawable/star_average"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

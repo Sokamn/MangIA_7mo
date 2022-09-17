@@ -1,6 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-</GridLayout>
+    <ImageView
+        android:id="@+id/imvRecipe1"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe6"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe5"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe7"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe6"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe8"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe7"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe9"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/imvRecipe8"
+        app:layout_constraintStart_toEndOf="@+id/imvRecipe10"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe7"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe10"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe7"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe2"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe1"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe12"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/imvRecipe2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imvRecipe2"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe11"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/imvRecipe7"
+        app:layout_constraintEnd_toStartOf="@+id/imvRecipe6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe3"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe3"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe2"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe5"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe2"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <ImageView
+        android:id="@+id/imvRecipe4"
+        android:layout_width="0dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toStartOf="@+id/imvRecipe5"
+        app:layout_constraintStart_toEndOf="@+id/imvRecipe3"
+        app:layout_constraintTop_toBottomOf="@+id/imvRecipe2"
+        app:srcCompat="@drawable/profile_picture" />
+</androidx.constraintlayout.widget.ConstraintLayout>

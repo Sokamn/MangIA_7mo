@@ -90,6 +90,8 @@
     <string name="facebook_client_token">73be65733243a1126c369046b83930f7</string>
 
     <string name="notHaveAccount">¿No tienes cuenta? <u>Conviértete en chef aquí.</u></string>
+    <string name="filterBy">Filtrar por:</string>
+    <string name="cleanFilter">Limpiar filtros</string>
 
     <string-array name="continents">
         <item>Africa</item>

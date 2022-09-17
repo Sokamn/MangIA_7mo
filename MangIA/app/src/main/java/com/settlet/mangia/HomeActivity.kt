@@ -77,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
                             Log.d("SCAN", "No se detecto naranjas")
                         }else{
                             for (result in results) {
-                                Log.d("SCAN", result.toString())
+
                             }
                         }
                     }
