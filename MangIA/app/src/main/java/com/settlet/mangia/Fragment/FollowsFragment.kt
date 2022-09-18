@@ -21,7 +21,6 @@ import com.settlet.mangia.R
 
 class FollowsFragment : Fragment() {
     private val reference = FirebaseDatabase.getInstance().reference
-    private val db = Firebase.firestore
     private val userList = mutableListOf<com.settlet.mangia.Model.User>()
     private val idList = mutableListOf<String>()
     private lateinit var rcvFollows: RecyclerView
