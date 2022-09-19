@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:src="@drawable/profile_picture"
+    app:shapeAppearanceOverlay="@style/roundImagePosts"
+    app:cardCornerRadius="20dp"
+    >
+    <ImageView
+        android:id="@+id/imvUniquePostIR"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+        <com.smarteist.autoimageslider.SliderView
+            android:id="@+id/imgsldrCarruselIR"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:padding="0dp"
+            android:elevation="16dp"
+            app:sliderAnimationDuration="600"
+            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleEnabled="true"
+            app:sliderIndicatorAnimationDuration="600"
+            app:sliderIndicatorGravity="center_horizontal|bottom"
+            app:sliderIndicatorMargin="15dp"
+            app:sliderIndicatorOrientation="horizontal"
+            app:sliderIndicatorPadding="3dp"
+            app:sliderIndicatorRadius="2dp"
+            app:sliderIndicatorSelectedColor="@color/secundaryColor"
+            app:sliderIndicatorUnselectedColor="@color/primaryColor"
+            app:sliderScrollTimeInSec="1000"
+            app:sliderStartAutoCycle="true" />
+
+</androidx.cardview.widget.CardView>

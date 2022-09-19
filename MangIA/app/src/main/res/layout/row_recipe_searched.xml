@@ -1,82 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/primaryColor">
 
     <TextView
-        android:id="@+id/txvNNameRU2"
+        android:id="@+id/txvTitleRecipeRS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="3dp"
         android:fontFamily="@font/manjaribold"
+        android:singleLine="true"
         android:text="Pizza con forma de Corazón"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="13sp"
+        android:textColor="@color/black"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imvUniquePost"
         app:layout_constraintTop_toTopOf="@+id/imvUniquePost" />
 
     <TextView
-        android:id="@+id/txvNNameRU5"
+        android:id="@+id/txvValorationRS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="6dp"
         android:fontFamily="@font/manjaribold"
         android:text="5"
         android:textColor="@color/quaternaryColor"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintBottom_toBottomOf="@+id/imvStarRS"
+        app:layout_constraintEnd_toStartOf="@+id/imvStarRS"
+        app:layout_constraintTop_toTopOf="@+id/imvStarRS"
+        app:layout_constraintVertical_bias="0.416" />
 
     <TextView
-        android:id="@+id/txvNNameRU3"
+        android:id="@+id/txvDescriptionRS"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="3dp"
         android:fontFamily="@font/manjariregular"
+        android:singleLine="true"
         android:text="@string/comments"
-        android:textColor="@color/quaternaryColor"
+        android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/txvNNameRU2"
-        app:layout_constraintTop_toBottomOf="@+id/txvNNameRU2" />
+        app:layout_constraintBottom_toBottomOf="@+id/imvUniquePost"
+        app:layout_constraintEnd_toStartOf="@+id/imvIngredients"
+        app:layout_constraintStart_toStartOf="@+id/txvTitleRecipeRS"
+        app:layout_constraintTop_toBottomOf="@+id/txvTitleRecipeRS" />
 
     <TextView
-        android:id="@+id/txvNNameRU7"
+        android:id="@+id/txvCantIngredientsRS"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginEnd="30dp"
         android:fontFamily="@font/manjariregular"
         android:text="7"
         android:textColor="@color/quaternaryColor"
         android:textSize="12sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/txvNNameRU2" />
+        app:layout_constraintBottom_toBottomOf="@+id/txvDescriptionRS"
+        app:layout_constraintEnd_toStartOf="@+id/txvValorationRS"
+        app:layout_constraintTop_toTopOf="@+id/txvDescriptionRS" />
 
     <TextView
-        android:id="@+id/txvNNameRU4"
-        android:layout_width="wrap_content"
+        android:id="@+id/txvUNameRS"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
         android:fontFamily="@font/manjarithin"
+        android:singleLine="true"
         android:text="@string/userName"
-        android:textColor="@color/quaternaryColor"
+        android:textAlignment="textStart"
+        android:textColor="@color/transSecundaryColor"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/txvNNameRU2"
-        app:layout_constraintStart_toEndOf="@+id/txvNNameRU2" />
+        app:layout_constraintBottom_toBottomOf="@+id/txvTitleRecipeRS"
+        app:layout_constraintEnd_toStartOf="@+id/txvValorationRS"
+        app:layout_constraintStart_toEndOf="@+id/txvTitleRecipeRS" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imvUniquePost"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -91,9 +101,9 @@
         tools:srcCompat="@drawable/profile_picture" />
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
+        android:id="@+id/imvStarRS"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="20dp"
@@ -103,13 +113,14 @@
         app:srcCompat="@drawable/star_average" />
 
     <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="30dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="40dp"
-        android:padding="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/txvNNameRU3"
-        app:layout_constraintEnd_toStartOf="@+id/txvNNameRU5"
-        app:layout_constraintTop_toTopOf="@+id/txvNNameRU3"
-        app:srcCompat="@drawable/check" />
+        android:id="@+id/imvIngredients"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_ingredients"
+        app:layout_constraintBottom_toBottomOf="@+id/txvCantIngredientsRS"
+        app:layout_constraintEnd_toStartOf="@+id/txvCantIngredientsRS"
+        app:layout_constraintTop_toTopOf="@+id/txvCantIngredientsRS" />
 </androidx.constraintlayout.widget.ConstraintLayout>

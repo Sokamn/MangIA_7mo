@@ -8,6 +8,7 @@
     android:background="@color/primaryColor">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvRecipeSearched"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/row_recipe_searched"
