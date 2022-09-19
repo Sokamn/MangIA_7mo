@@ -127,7 +127,6 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     private fun loadInfoRecipe(recipe: Recipe) {
         binding.txvDescriptionRS.text = recipe.description
         binding.txvTitleRecipeRS.text = recipe.title
-        binding.txvUNameRS.text = recipe.publisher
         binding.txvCantIngredientsRS.text = recipe.listIngredients.size.toString()
         reference.child("likes").child(recipe.recipeID).get().addOnSuccessListener { snapshot ->
             reference.child("recipes").child(recipe.recipeID).child("totalValoration").get().addOnSuccessListener {

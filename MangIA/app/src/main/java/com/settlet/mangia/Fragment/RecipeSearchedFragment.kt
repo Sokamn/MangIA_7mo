@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
@@ -25,6 +29,10 @@ class RecipeSearchedFragment : Fragment() {
     private lateinit var rcvRecipesSearched : RecyclerView
     private val db = Firebase.firestore
     private val recipeList = mutableListOf<Recipe>()
+    private lateinit var txpSearch: EditText
+    private lateinit var vwpSearch: ViewPager2
+    private val reference = FirebaseDatabase.getInstance().reference
+    private val recipeAdapter = RecipeSearchedAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,27 +49,24 @@ class RecipeSearchedFragment : Fragment() {
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
         rcvRecipesSearched.layoutManager = linearLayoutManager
-        ReadRecipes()
+        rcvRecipesSearched.adapter = recipeAdapter
+        txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
+        vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
+        txpSearch.doOnTextChanged { text, start, before, count ->
+            if (vwpSearch.currentItem==0){
+                showRecipes(txpSearch.text.toString())
+            }
+        }
         return myView
     }
-    private fun ReadRecipes(){
-        val docRef = db.collection("recipes")
-        docRef.addSnapshotListener { value, error ->
+
+    private fun showRecipes(titleRecipe: String) {
+        db.collection("recipes").whereGreaterThan("title",titleRecipe).get().addOnSuccessListener { snapshot->
             recipeList.clear()
-            if(error!=null){
-                Log.w("TAG","Listen Failed")
-                return@addSnapshotListener
-            }
-            if(value!=null) {
-                val adapter = RecipeSearchedAdapter()
-                value.forEach { recipe ->
-                    recipeList.add(recipe.toObject())
-                    adapter.submitList(recipeList)
-                }
-                rcvRecipesSearched.adapter = adapter
+            snapshot.forEach { recipe ->
+                recipeList.add(recipe.toObject())
+                recipeAdapter.submitList(recipeList)
             }
         }
     }
-
-
 }

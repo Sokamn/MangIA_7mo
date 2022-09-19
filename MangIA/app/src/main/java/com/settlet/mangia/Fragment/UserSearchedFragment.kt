@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -23,8 +25,11 @@ import com.settlet.mangia.R
 class UserSearchedFragment : Fragment() {
     private lateinit var rcvUserSearched: RecyclerView
     private lateinit var txpSearch: EditText
+    private lateinit var vwpSearch: ViewPager2
     private val reference = FirebaseDatabase.getInstance().reference
     private val userList = mutableListOf<com.settlet.mangia.Model.User>()
+    private val userAdapter = UserAdapter()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +44,18 @@ class UserSearchedFragment : Fragment() {
         txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
         rcvUserSearched.setHasFixedSize(true)
         rcvUserSearched.layoutManager = LinearLayoutManager(requireActivity())
+        rcvUserSearched.adapter = userAdapter
+        vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
         txpSearch.doOnTextChanged { text, start, before, count ->
-            showUsers(txpSearch.text.toString())
+            if (vwpSearch.currentItem==1){
+                showUsers(txpSearch.text.toString())
+            }
         }
         return myView
     }
 
     private fun showUsers(textSearched: String) {
-        val userAdapter = UserAdapter()
-        rcvUserSearched.adapter = userAdapter
-        reference.child("users").orderByChild("userName").startAt(textSearched).endAt("\uf8ff").addListenerForSingleValueEvent(object : ValueEventListener {
+        reference.child("users").orderByChild("userName").startAt(textSearched).endAt("$textSearched\uf8ff").addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 userList.clear()
                 snapshot.children.forEach { userValue ->
