@@ -23,6 +23,7 @@ import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.ProfileActivity
 import com.settlet.mangia.R
+import com.settlet.mangia.RecipeActivity
 import com.settlet.mangia.databinding.RowRecipeSearchedBinding
 import com.smarteist.autoimageslider.SliderView
 import kotlinx.android.synthetic.main.popup_list_ingredients.*
@@ -79,6 +80,11 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         }
         binding.imvUniquePost.setOnClickListener {
             imagePost.show()
+        }
+        itemView.setOnClickListener {
+            val intentRecipe = Intent(itemView.context, RecipeActivity::class.java)
+            intentRecipe.putExtra("recipeID", recipe.recipeID)
+            itemView.context.startActivity(intentRecipe)
         }
     }
 

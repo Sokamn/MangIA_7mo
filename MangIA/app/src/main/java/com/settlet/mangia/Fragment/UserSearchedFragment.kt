@@ -48,7 +48,11 @@ class UserSearchedFragment : Fragment() {
         vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
         txpSearch.doOnTextChanged { text, start, before, count ->
             if (vwpSearch.currentItem==1){
-                showUsers(txpSearch.text.toString())
+                if(txpSearch.text.toString() == ""){
+                    userList.clear()
+                }else{
+                    showUsers(txpSearch.text.toString())
+                }
             }
         }
         return myView

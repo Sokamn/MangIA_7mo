@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/txvTitleRecipeRS"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="3dp"
@@ -68,10 +68,9 @@
 
     <TextView
         android:id="@+id/txvUNameRS"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
-        android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp"
         android:fontFamily="@font/manjarithin"
         android:singleLine="true"
@@ -80,7 +79,6 @@
         android:textColor="@color/transSecundaryColor"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/txvTitleRecipeRS"
-        app:layout_constraintEnd_toStartOf="@+id/txvValorationRS"
         app:layout_constraintStart_toEndOf="@+id/txvTitleRecipeRS" />
 
     <com.google.android.material.imageview.ShapeableImageView

@@ -121,4 +121,6 @@
         <item name="tabSelectedTextColor">@color/quaternaryColor</item>
     </style>
 
+
+
 </resources>

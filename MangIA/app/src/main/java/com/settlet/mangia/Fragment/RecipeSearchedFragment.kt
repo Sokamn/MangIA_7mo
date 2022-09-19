@@ -61,11 +61,12 @@ class RecipeSearchedFragment : Fragment() {
     }
 
     private fun showRecipes(titleRecipe: String) {
-        db.collection("recipes").whereGreaterThan("title",titleRecipe).get().addOnSuccessListener { snapshot->
+        db.collection("recipes").get().addOnSuccessListener { snapshot->
             recipeList.clear()
             snapshot.forEach { recipe ->
                 recipeList.add(recipe.toObject())
                 recipeAdapter.submitList(recipeList)
+                recipeAdapter.notifyDataSetChanged()
             }
         }
     }
