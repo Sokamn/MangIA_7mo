@@ -49,6 +49,32 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <View
+                android:id="@+id/lineSpnRegionR"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/transSecundaryColor"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/txpPassR"
+                app:layout_constraintEnd_toEndOf="@+id/txpMailR"
+                app:layout_constraintStart_toStartOf="@+id/txpMailR" />
+
+            <View
+                android:id="@+id/lineSpnCountryR"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/transSecundaryColor"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@+id/txpCountryR"
+                app:layout_constraintEnd_toEndOf="@+id/txpMailR"
+                app:layout_constraintStart_toStartOf="@+id/txpMailR" />
+
             <Button
                 android:id="@+id/btnContinueR"
                 android:layout_width="0dp"
@@ -222,7 +248,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txpTelR" />
 
-            <AutoCompleteTextView
+            <Spinner
                 android:id="@+id/txpCountryR"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
@@ -230,33 +256,21 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="35dp"
                 android:backgroundTint="@color/transSecundaryColor"
-                android:ems="10"
-                android:focusableInTouchMode="false"
-                android:fontFamily="@font/manjarithin"
-                android:hint="@string/country"
-                android:inputType="textPersonName"
-                android:textColor="@color/secundaryColor"
-                android:textColorHint="@color/transSecundaryColor"
+                android:dropDownVerticalOffset="40dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txpRegionR"
                 app:layout_constraintTop_toBottomOf="@+id/txpMailR" />
 
-            <AutoCompleteTextView
+            <Spinner
                 android:id="@+id/txpRegionR"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:layout_marginStart="35dp"
                 android:layout_marginEnd="35dp"
                 android:backgroundTint="@color/transSecundaryColor"
-                android:ems="10"
-                android:focusableInTouchMode="false"
-                android:fontFamily="@font/manjarithin"
-                android:hint="@string/region"
-                android:inputType="textPersonName"
-                android:textColor="@color/secundaryColor"
-                android:textColorHint="@color/transSecundaryColor"
+                android:dropDownVerticalOffset="40dp"
                 android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

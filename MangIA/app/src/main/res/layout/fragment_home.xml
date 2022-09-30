@@ -7,11 +7,13 @@
     tools:context=".Fragment.HomeFragment">
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -21,13 +23,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-20dp"
+                android:nestedScrollingEnabled="true"
+                android:overScrollMode="never"
+                android:scrollbars="none"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/recipe_item"
-                android:nestedScrollingEnabled="true"
-                android:scrollbars="none"
-                android:overScrollMode="never"/>
+                tools:listitem="@layout/recipe_item" />
 
             <TextView
                 android:id="@+id/txvAddIngredientMRS2"
@@ -48,14 +50,22 @@
     </ScrollView>
 
 
-    <include
-        android:id="@+id/bottom_barH"
-        layout="@layout/bottom_bar"
-        android:elevation="25dp"
+    <com.etebarian.meowbottomnavigation.MeowBottomNavigation
+        android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:mbn_countBackgroundColor="#ff6f00"
+        app:mbn_backgroundBottomColor="@color/primaryColor"
+        app:mbn_countTextColor="#ffffff"
+        app:mbn_defaultIconColor="@color/transQuaternaryColor"
+        app:mbn_rippleColor="#2f424242"
+        app:mbn_selectedIconColor="@color/quaternaryColor"
+        app:mbn_shadowColor="#1f212121"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,8 +22,10 @@ import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.PreviewRecipeAdapter
 import com.settlet.mangia.MRecipeStep1Activity
 import com.settlet.mangia.Model.Recipe
+import com.settlet.mangia.R
 import com.settlet.mangia.SearchActivity
 import com.settlet.mangia.databinding.FragmentHomeBinding
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
@@ -42,6 +45,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+
         rcvPreviewRecipe = binding.rcvPreviewRecipe
         rcvPreviewRecipe.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireActivity())
@@ -49,19 +54,30 @@ class HomeFragment : Fragment() {
         linearLayoutManager.stackFromEnd = true
         rcvPreviewRecipe.layoutManager = linearLayoutManager
         CheckFollowing()
+        binding.bottomNav.add(MeowBottomNavigation.Model(0,R.drawable.ic_home_menu))
+        binding.bottomNav.add(MeowBottomNavigation.Model(1,R.drawable.ic_scan_nav))
+        binding.bottomNav.add(MeowBottomNavigation.Model(2,R.drawable.ic_comment_recipe_black))
+        binding.bottomNav.show(0,true)
+
+        binding.bottomNav.setOnClickMenuListener {
+            when(it.id){
+                0->{
+
+                }
+                1->{
+                    Toast.makeText(requireActivity(),"Escanear",Toast.LENGTH_SHORT).show()
+                    //takePicture()
+                }
+                2->{
+                    Toast.makeText(requireActivity().baseContext,"Chat",Toast.LENGTH_SHORT).show()
+                }
+                else->{
+
+                }
+            }
+        }
 
 
-        binding.bottomBarH.imbScanBB.setOnClickListener {
-            Toast.makeText(requireActivity(),"Escanear",Toast.LENGTH_SHORT).show()
-        }
-        binding.bottomBarH.imbMRecipeBB.setOnClickListener {
-            requireActivity().startActivity(Intent(requireActivity(), MRecipeStep1Activity::class.java))
-        }
-        binding.bottomBarH.imbSearchBB.setOnClickListener {
-            requireActivity().startActivity(Intent(requireActivity(),SearchActivity::class.java))
-        }
-
-        val root: View = binding.root
         return root
     }
 

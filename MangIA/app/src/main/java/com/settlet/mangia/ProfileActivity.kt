@@ -55,16 +55,6 @@ class ProfileActivity : AppCompatActivity() {
             }
         }.attach()
 
-
-        binding.bottomBar.imbScanBB.setOnClickListener {
-            Toast.makeText(it.context,"Escanear", Toast.LENGTH_SHORT).show()
-        }
-        binding.bottomBar.imbMRecipeBB.setOnClickListener {
-            startActivity(Intent(this,MRecipeStep1Activity::class.java))
-        }
-        binding.bottomBar.imbSearchBB.setOnClickListener {
-            startActivity(Intent(this,SearchActivity::class.java))
-        }
         binding.imbBackP.setOnClickListener {
             onBackPressed()
             finish()
@@ -106,26 +96,6 @@ class ProfileActivity : AppCompatActivity() {
             getUserInfo(profileID)
             getNrFollowsFollowers(profileID)
             getNrRecipes(profileID)
-            //val docRef = db.collection("users").document(profileEmail)
-            /*docRef.addSnapshotListener { value, error ->
-                if(error!=null){
-                    Log.w("TAG","Listen Failed")
-                    return@addSnapshotListener
-                }
-                if(value!=null && value.exists()) {
-                    val user = value.toObject<com.settlet.mangia.Model.User>()
-                    if (user != null) {
-                        binding.txvUNameP.text = user.userName
-                        binding.txvNNameP.text = user.nickName
-                        binding.txvFollowersP.text = "${user.cantFollowers}\nSeguidores"
-                        binding.txvFollowsP.text = "${user.cantFollows}\nSeguidos"
-                        binding.txvRecipesP.text = "${user.cantRecipes}\nRecetas"
-                        binding.txvBioP.text = user.biography
-                        cantFollowsActual = user.cantFollows
-                        cantFollowersActual = user.cantFollowers
-                    }
-                }
-            }*/
         }
 
         binding.btnEProfileP.setOnClickListener {
@@ -136,22 +106,10 @@ class ProfileActivity : AppCompatActivity() {
                 "Seguir" -> {
                     reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).setValue(true)
                     reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).setValue(true)
-                    /*docFollows["isFollowing"] = true.toString()
-                    db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(profileEmail.toString()).set(docFollows)
-                    db.collection("follow").document(profileEmail.toString()).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
-                    db.collection("users").document(profileEmail.toString()).update("cantFollowers", FieldValue.increment(1))
-                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(1))*/
                 }
                 "Siguiendo" -> {
                     reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).removeValue()
                     reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).removeValue()
-                    /*docFollows["isFollowing"] = false.toString()
-                    db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(
-                        profileEmail.toString()
-                    ).delete()
-                    db.collection("follow").document(profileEmail.toString()).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
-                    db.collection("users").document(profileEmail.toString()).update("cantFollowers", FieldValue.increment(-1))
-                    db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(-1))*/
                 }
             }
 

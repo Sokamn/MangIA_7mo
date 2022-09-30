@@ -92,7 +92,6 @@ class HomeActivity : AppCompatActivity() {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -100,17 +99,7 @@ class HomeActivity : AppCompatActivity() {
 
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
-        homeView.bottom_barH.imbScanBB.setOnClickListener {
-            // Escanear
-            takePicture()
 
-        }
-        homeView.bottom_barH.imbMRecipeBB.setOnClickListener {
-            startActivity(Intent(this, MRecipeStep1Activity::class.java))
-        }
-        homeView.bottom_barH.imbSearchBB.setOnClickListener {
-            startActivity(Intent(this,SearchActivity::class.java))
-        }
 
 
         binding.drawerLayout.addDrawerListener(object : DrawerListener {
@@ -211,8 +200,7 @@ class HomeActivity : AppCompatActivity() {
                     getNrFollowsFollowers(currentUser.uid,followers,follows)
                 }
             }
-            /*db.collection("users").document(currentUser.email.toString()).get().addOnSuccessListener{ document ->
-            }*/
+
         }
     }
     override fun onSupportNavigateUp(): Boolean {
@@ -222,7 +210,7 @@ class HomeActivity : AppCompatActivity() {
     private fun logOut()
     {
         Firebase.auth.signOut()
-        val intent = Intent(this,LoginActivity::class.java)
+        val intent = Intent(this,StartActivity::class.java)
         startActivity(intent)
         finish()
     }

@@ -12,6 +12,7 @@ import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.view.WindowManager
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -83,83 +84,52 @@ class RegisterActivity : AppCompatActivity() {
         }
 
 
-        val arrayAdapterC = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, continents)
-        val arrayAdapterLAfrica = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAfrican)
-        val arrayAdapterLAsia = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lAsia)
-        val arrayAdapterLASouth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lSAmerica)
-        val arrayAdapterLANorth = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lNAmerica)
-        val arrayAdapterLOceania = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lOceania)
-        val arrayAdapterLEurope = ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, countryProvider.lEurope)
+        val arrayAdapterC = ArrayAdapter<String>(this, R.layout.spinner_ubication_item, continents)
+        val arrayAdapterLAfrica = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAfrican)
+        val arrayAdapterLAsia = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAsia)
+        val arrayAdapterLASouth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lSAmerica)
+        val arrayAdapterLANorth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lNAmerica)
+        val arrayAdapterLOceania = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lOceania)
+        val arrayAdapterLEurope = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lEurope)
 
-        binding.txpRegionR.setAdapter(arrayAdapterC)
+        binding.txpRegionR.adapter = arrayAdapterC
 
-        binding.txpRegionR.setOnClickListener {
-            if(binding.txpCountryR.text.toString() == "")
-            {
-                binding.txpRegionR.isFocusableInTouchMode = true
-                binding.txpCountryR.isFocusableInTouchMode = false
-                binding.txpRegionR.requestFocus()
+        binding.txpRegionR.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                if (p0 != null) {
+                    when(binding.txpRegionR.selectedItem.toString()){
+                        "Africa"->{
+                            binding.txpCountryR.adapter = arrayAdapterLAfrica
+                        }
+                        "Asia"->{
+                            binding.txpCountryR.adapter = arrayAdapterLAsia
+                        }
+                        "America del Norte o Central"->{
+                            binding.txpCountryR.adapter = arrayAdapterLANorth
+                        }
+                        "America del Sur"->{
+                            binding.txpCountryR.adapter = arrayAdapterLASouth
+                        }
+                        "Europa"->{
+                            binding.txpCountryR.adapter = arrayAdapterLEurope
+                        }
+                        "Oceania"->{
+                            binding.txpCountryR.adapter = arrayAdapterLOceania
+                        }
+                        else ->{
+                            binding.txpCountryR.adapter = null
+                        }
+                    }
+                }
             }
-            else
-            {
-                binding.txpCountryR.setText("")
-                binding.txpRegionR.isFocusableInTouchMode = true
-                binding.txpCountryR.isFocusableInTouchMode = false
-                binding.txpRegionR.requestFocus()
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
             }
-        }
-        binding.txpCountryR.setOnClickListener {
-            when(binding.txpRegionR.text.toString()){
-            "Africa"->{
-                Log.w("TAG", "${countryProvider.lAfrican}")
-                binding.txpCountryR.setAdapter(arrayAdapterLAfrica)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            "Asia"->{
-                Log.w("TAG", "${countryProvider.lAsia}")
-                binding.txpCountryR.setAdapter(arrayAdapterLAsia)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            "America del Norte o Central"->{
-                Log.w("TAG", "${countryProvider.lNAmerica}")
-                binding.txpCountryR.setAdapter(arrayAdapterLANorth)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            "America del Sur"->{
-                Log.w("TAG", "${countryProvider.lSAmerica}")
-                binding.txpCountryR.setAdapter(arrayAdapterLASouth)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            "Europa"->{
-                Log.w("TAG", "${countryProvider.lEurope}")
-                binding.txpCountryR.setAdapter(arrayAdapterLEurope)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            "Oceania"->{
-                Log.w("TAG", "${countryProvider.lOceania}")
-                binding.txpCountryR.setAdapter(arrayAdapterLOceania)
-                binding.txpCountryR.isFocusableInTouchMode = true
-                binding.txpCountryR.requestFocus()
-                binding.txpRegionR.isFocusableInTouchMode = false
-            }
-            else ->{
-                Log.w("TAG", "VACIO ABSOLUTO")
-                binding.txpCountryR.setAdapter(null)
-                Toast.makeText(this,"Primero ingrese su región / Continente",Toast.LENGTH_LONG).show()
-                binding.txpRegionR.requestFocus()
-            }
-        }
-        }
+
+        } 
+
+
+
 
         binding.txpDateBirthR.setOnClickListener { showDatePickerDialog() }
         binding.btnContinueR.setOnClickListener{ // Boton de continuar inicial
@@ -195,14 +165,14 @@ class RegisterActivity : AppCompatActivity() {
                     "userID" to auth.currentUser!!.uid,
                     "biography" to "",
                     "cantReports" to 0,
-                    "country" to binding.txpCountryR.text.toString(),
+                    "country" to binding.txpCountryR.selectedItem.toString(),
                     "dateBirth" to binding.txpDateBirthR.text.toString(),
                     "dateCreationAccount" to Calendar.getInstance().time.toString(),
                     "email" to binding.txpMailR.text.toString(),
                     "nickName" to binding.txpNNameR.text.toString(),
                     "password" to passr,
                     "phoneNumber" to binding.txpTelR.text.toString(),
-                    "region" to binding.txpRegionR.text.toString(),
+                    "region" to binding.txpRegionR.selectedItem.toString(),
                     "userName" to binding.txpUserNameR.text.toString()
                 )
                 reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
@@ -252,14 +222,14 @@ class RegisterActivity : AppCompatActivity() {
                         "userID" to auth.currentUser!!.uid,
                         "biography" to "",
                         "cantReports" to 0,
-                        "country" to binding.txpCountryR.text.toString(),
+                        "country" to binding.txpCountryR.selectedItem.toString(),
                         "dateBirth" to binding.txpDateBirthR.text.toString(),
                         "dateCreationAccount" to Calendar.getInstance().time.toString(),
                         "email" to binding.txpMailR.text.toString(),
                         "nickName" to binding.txpNNameR.text.toString(),
                         "password" to password,
                         "phoneNumber" to binding.txpTelR.text.toString(),
-                        "region" to binding.txpRegionR.text.toString(),
+                        "region" to binding.txpRegionR.selectedItem.toString(),
                         "userName" to binding.txpUserNameR.text.toString()
                     )
                     reference.child("users").child(auth.currentUser!!.uid).setValue(docUser).addOnCompleteListener {
@@ -289,25 +259,6 @@ class RegisterActivity : AppCompatActivity() {
                 if(binding.txpTelR.text.isNotEmpty()&&binding.txpUserNameR.text.isNotEmpty()&&binding.txpNNameR.text.isNotEmpty()){
                     if(verifyUserNames(badWords,binding.txpUserNameR.text.toString(),binding.txpNNameR.text.toString()))
                     {
-                        /*reference.child("users").orderByChild("email").startAt(binding.txpMailR.toString()).endAt(binding.txpMailR.toString()+"\uf8ff").get().addOnCompleteListener {
-                            if(it.result.exists()){
-                                Toast.makeText(
-                                    this,
-                                    "Este correo ya ha sido utilizado en otra cuenta",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                                contador -= 1
-                            }else{
-                                register2()
-                            }
-                        }
-                        db.collection("users").document().get()
-                            .addOnSuccessListener { doc ->
-                                if (doc.exists()) {
-
-                                } else {
-                                }
-                            }*/
                         register2()
                         return true
                     }
@@ -322,7 +273,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
             }
             1->{
-                if(binding.txpCountryR.text.isNotEmpty()&&binding.txpRegionR.text.isNotEmpty()&&binding.txpDateBirthR.text.isNotEmpty()){
+                if(binding.txpCountryR.selectedItem.toString().isNotEmpty()&&binding.txpRegionR.selectedItem.toString().isNotEmpty()&&binding.txpDateBirthR.text.isNotEmpty()){
                     val edad = Calendar.getInstance().get(Calendar.YEAR)-binding.txpDateBirthR.text.substring(binding.txpDateBirthR.text.length-4).trim().toInt()
                     if(edad < 13)
                     {
@@ -331,11 +282,11 @@ class RegisterActivity : AppCompatActivity() {
                     }else{
                         for (c in resources.getStringArray(R.array.continents))
                         {
-                            if(binding.txpRegionR.text.toString() == c)
+                            if(binding.txpRegionR.selectedItem.toString() == c)
                             {
                                 for (C in countryProvider.lTPaises)
                                 {
-                                    if(binding.txpCountryR.text.toString() == C)
+                                    if(binding.txpCountryR.selectedItem.toString() == C)
                                     {
                                         register3()
                                         return true
@@ -391,9 +342,7 @@ class RegisterActivity : AppCompatActivity() {
             0 ->{
                 onBackPressed()
                 Firebase.auth.signOut()
-                /*val intent = Intent(this,LoginActivity::class.java)
-                startActivity(intent)
-                finish()*/
+
             }
             1 ->{register1()}
             2 ->{register2()}
@@ -431,6 +380,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
+        binding.lineSpnRegionR.visibility= View.INVISIBLE
+        binding.lineSpnCountryR.visibility= View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
@@ -450,6 +401,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.VISIBLE
         binding.txpRegionR.visibility = View.VISIBLE
         binding.txpCountryR.visibility = View.VISIBLE
+        binding.lineSpnRegionR.visibility= View.VISIBLE
+        binding.lineSpnCountryR.visibility= View.VISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
@@ -469,6 +422,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
+        binding.lineSpnRegionR.visibility= View.INVISIBLE
+        binding.lineSpnCountryR.visibility= View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.VISIBLE
         binding.txpRepeatPassR.visibility = View.VISIBLE
@@ -488,6 +443,8 @@ class RegisterActivity : AppCompatActivity() {
         binding.txpDateBirthR.visibility = View.INVISIBLE
         binding.txpRegionR.visibility = View.INVISIBLE
         binding.txpCountryR.visibility = View.INVISIBLE
+        binding.lineSpnRegionR.visibility= View.INVISIBLE
+        binding.lineSpnCountryR.visibility= View.INVISIBLE
         //register3
         binding.txpPassR.visibility = View.INVISIBLE
         binding.txpRepeatPassR.visibility = View.INVISIBLE
