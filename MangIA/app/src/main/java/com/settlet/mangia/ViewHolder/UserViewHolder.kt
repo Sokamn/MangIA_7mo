@@ -33,31 +33,24 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         }
 
         itemView.setOnClickListener {
+            val intent = Intent(itemView.context, ProfileActivity::class.java)
+            val prefs = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+            val profileID = prefs.getString("profileID","none")
+            intent.putExtra("preProfileID",profileID)
             val editor = itemView.context.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
             editor.putString("profileID", user.userID)
             editor.apply()
-            itemView.context.startActivity(Intent(itemView.context, ProfileActivity::class.java))
+            itemView.context.startActivity(intent)
         }
         binding.btnFollowRU.setOnClickListener{
             val currentUserID = Firebase.auth.currentUser!!.uid
             if(binding.btnFollowRU.text == "Seguir"){
                 reference.child("follow").child(currentUserID).child("following").child(user.userID).setValue(true)
                 reference.child("follow").child(user.userID).child("followers").child(currentUserID).setValue(true)
-
-                /*docFollows["isFollowing"] = true.toString()
-                db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(user.email).set(docFollows)
-                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).set(docFollows)
-                db.collection("users").document(user.email).update("cantFollowers", FieldValue.increment(1))
-                db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(1))*/
             }
             else{
                 reference.child("follow").child(currentUserID).child("following").child(user.userID).removeValue()
                 reference.child("follow").child(user.userID).child("followers").child(currentUserID).removeValue()
-                /*docFollows["isFollowing"] = false.toString()
-                db.collection("follow").document(Firebase.auth.currentUser!!.email.toString()).collection("following").document(user.email).delete()
-                db.collection("follow").document(user.email).collection("followers").document(Firebase.auth.currentUser!!.email!!.toString()).delete()
-                db.collection("users").document(user.email).update("cantFollowers", FieldValue.increment(-1))
-                db.collection("users").document(Firebase.auth.currentUser!!.email.toString()).update("cantFollows", FieldValue.increment(-1))*/
             }
         }
     }

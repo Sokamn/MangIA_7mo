@@ -56,6 +56,9 @@ class ProfileActivity : AppCompatActivity() {
         }.attach()
 
         binding.imbBackP.setOnClickListener {
+            val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+            editor.putString("profileID", intent.getStringExtra("preProfileID"))
+            editor.apply()
             onBackPressed()
             finish()
         }
@@ -71,11 +74,17 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    public override fun onBackPressed() {
+        super.onBackPressed()
+        val editor = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE).edit()
+        editor.putString("profileID", intent.getStringExtra("preProfileID"))
+        editor.apply()
+    }
+
     public override fun onStart() {
         super.onStart()
         val prefs = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         val profileID = prefs.getString("profileID","none")
-        val docFollows = hashMapOf<String, Any>()
         val currentUser = Firebase.auth.currentUser
         if (profileID!=null)
         {

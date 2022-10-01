@@ -1,5 +1,6 @@
 package com.settlet.mangia
 
+import android.content.Context
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -35,6 +36,8 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         viewPager = findViewById(R.id.vwpContentFF)
         tabLayout = findViewById(R.id.tblTabLayoutFF)
+        val prefs = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
+        val profileID = prefs.getString("profileID","none")
         val extra = intent.extras!!.getString("vPage").toString()
 
         viewPager.adapter = PagerAdapterFF(this)
@@ -56,8 +59,8 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
 
 
         TabLayoutMediator(tabLayout,viewPager){ tab,position->
-            reference.child("follow").child(Firebase.auth.currentUser!!.uid).child("followers").get().addOnSuccessListener{ a->
-                reference.child("follow").child(Firebase.auth.currentUser!!.uid).child("following").get().addOnSuccessListener{ b->
+            reference.child("follow").child(profileID.toString()).child("followers").get().addOnSuccessListener{ a->
+                reference.child("follow").child(profileID.toString()).child("following").get().addOnSuccessListener{ b->
                     tab.text = when(position){
                         0 -> "${a.childrenCount} Seguidores"
                         1 -> "${b.childrenCount} Seguidos"

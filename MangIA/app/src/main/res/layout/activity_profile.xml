@@ -56,6 +56,7 @@
                 android:id="@+id/btnEProfileP"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
+                android:layout_marginTop="5dp"
                 android:background="@drawable/button_profile_follow"
                 android:fontFamily="@font/manjaribold"
                 android:padding="0dp"
@@ -63,10 +64,9 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorButtonFollow"
                 android:textSize="12sp"
-                app:layout_constraintBottom_toTopOf="@+id/txvBioP"
                 app:layout_constraintEnd_toEndOf="@+id/txvFollowsP"
                 app:layout_constraintStart_toStartOf="@+id/txvRecipesP"
-                app:layout_constraintTop_toBottomOf="@+id/txvFollowersP" />
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileP" />
 
             <TextView
                 android:id="@+id/txvBioP"
@@ -116,13 +116,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/manjaribold"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileP" />
+                app:layout_constraintTop_toBottomOf="@+id/btnEProfileP" />
 
             <TextView
                 android:id="@+id/txvRecipesP"

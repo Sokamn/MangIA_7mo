@@ -92,6 +92,7 @@
     <string name="notHaveAccount">¿No tienes cuenta? <u>Conviértete en chef aquí.</u></string>
     <string name="filterBy">Filtrar por:</string>
     <string name="cleanFilter">Limpiar filtros</string>
+    <string name="orderBy">Ordenar por:</string>
 
     <string-array name="continents">
         <item>Africa</item>
