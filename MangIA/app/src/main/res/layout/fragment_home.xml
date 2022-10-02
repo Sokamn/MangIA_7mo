@@ -6,48 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView3"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvPreviewRecipe"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-20dp"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcvPreviewRecipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-20dp"
-                android:nestedScrollingEnabled="true"
-                android:overScrollMode="never"
-                android:scrollbars="none"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/recipe_item" />
-
-            <TextView
-                android:id="@+id/txvAddIngredientMRS2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginBottom="125dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="Ya has visto todas las recetas!"
-                android:textColor="@color/secundaryColor"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rcvPreviewRecipe" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/recipe_item" />
 
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation

@@ -40,6 +40,8 @@ import com.settlet.mangia.Provider.ObjectDetectorHelper
 import com.settlet.mangia.databinding.ActivityHomeBinding
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_home.view.*
+import kotlinx.android.synthetic.main.activity_recipe.*
+import kotlinx.android.synthetic.main.app_bar_home.view.*
 import kotlinx.android.synthetic.main.bottom_bar.view.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
@@ -94,14 +96,14 @@ class HomeActivity : AppCompatActivity() {
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val homeView = findViewById<View>(R.id.nav_host_fragment_content_home)
 
-
-
-
+        app_bar_home.imvSearchAB.setOnClickListener {
+            val intent = Intent(this,SearchActivity::class.java)
+            this.startActivity(intent)
+        }
         binding.drawerLayout.addDrawerListener(object : DrawerListener {
             override fun onDrawerSlide(view: View, v: Float) {
                 if (binding.drawerLayout.isDrawerOpen(view)) {
