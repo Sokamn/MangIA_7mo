@@ -30,6 +30,14 @@
 
     </style>
 
+    <style name="roundProfileGradient" parent="">
+
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">30dp</item>
+        <item name="color">@color/primaryColor</item>
+
+    </style>
+
     <style name="roundImagePosts" parent="">
 
         <item name="cornerFamily">rounded</item>
@@ -75,10 +83,10 @@
     <style name="roundImageEditProfile" parent="">
 
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSizeBottomLeft">67.5dp</item>
-        <item name="cornerSizeBottomRight">81dp</item>
-        <item name="cornerSizeTopLeft">101.25dp</item>
-        <item name="cornerSizeTopRight">75.6dp</item>
+        <item name="cornerSizeBottomLeft">54dp</item>
+        <item name="cornerSizeBottomRight">64.8dp</item>
+        <item name="cornerSizeTopLeft">81dp</item>
+        <item name="cornerSizeTopRight">60.48dp</item>
         <item name="color">@color/primaryColor</item>
 
     </style>

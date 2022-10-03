@@ -15,7 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbarEP"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -23,12 +22,306 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="10dp"
+                android:background="@color/primaryColor"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/txvUNameEP6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textColor="@color/secundaryColor"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txvUNameEP26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/manjaribold"
+                        android:text="@string/userName"
+                        android:textSize="22sp"
+                        android:textColor="@color/quaternaryColor"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="-30dp"
+                android:layout_marginBottom="50dp"
+                android:background="@color/secundaryColor"
+                android:elevation="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/imvProfileEP"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearanceOverlay="@style/roundProfileGradient" />
+
+            <TextView
+                android:id="@+id/txvUNameP2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:elevation="10dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/userName"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/imvProfileEP"
-                android:layout_width="180dp"
-                android:layout_height="180dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="100dp"
                 android:adjustViewBounds="true"
+                android:elevation="10dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,274 +330,43 @@
                 app:srcCompat="@drawable/profile_picture" />
 
             <TextView
-                android:id="@+id/txvUNameEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="35dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/userName"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP" />
-
-            <TextView
-                android:id="@+id/txvNNameEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/nName"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpUNameEP" />
-
-            <TextView
-                android:id="@+id/txvBioEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/bio"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpNNameEP" />
-
-            <TextView
-                android:id="@+id/txvDBirthEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/dateBirth"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpBioEP" />
-
-            <TextView
-                android:id="@+id/txvCountryEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/country"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpRegionEP" />
-
-            <TextView
                 android:id="@+id/txvRegionEP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
                 android:fontFamily="@font/manjaribold"
                 android:text="@string/region"
                 android:textColor="@color/secundaryColor"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txpDBirthEP" />
+                tools:layout_editor_absoluteY="649dp" />
 
-            <EditText
-                android:id="@+id/txpUNameEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:ems="10"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/userName"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvUNameEP" />
-
-            <EditText
-                android:id="@+id/txpNNameEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:ems="10"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/nName"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvNNameEP" />
-
-            <EditText
-                android:id="@+id/txpBioEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:ems="10"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/bio"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvBioEP" />
-
-            <EditText
-                android:id="@+id/txpDBirthEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:clickable="false"
-                android:ems="10"
-                android:focusable="false"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/dateBirth"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvDBirthEP" />
-
-            <AutoCompleteTextView
-                android:id="@+id/txpCountryEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:ems="10"
-                android:focusableInTouchMode="false"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/country"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvCountryEP" />
-
-            <AutoCompleteTextView
-                android:id="@+id/txpRegionEP"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="35dp"
-                android:backgroundTint="@color/quaternaryColor"
-                android:ems="10"
-                android:fontFamily="@font/manjariregular"
-                android:hint="@string/region"
-                android:inputType="textPersonName"
-                android:minHeight="48dp"
-                android:focusableInTouchMode="false"
-                android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/transQuaternaryColor"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txvRegionEP" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:layout_constraintTop_toBottomOf="@+id/txpCountryEP"
-                tools:layout_editor_absoluteX="0dp" />
 
             <ImageView
                 android:id="@+id/imvEditProfilePicture"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:elevation="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imvProfileEP"
                 app:layout_constraintEnd_toEndOf="@+id/imvProfileEP"
                 app:srcCompat="@drawable/check" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarEP"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/primaryColor"
-        android:elevation="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <ImageButton
                 android:id="@+id/imbBackEP"
                 android:layout_width="30dp"
                 android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:backgroundTint="@color/primaryColor"
                 android:contentDescription="@string/cancel"
+                android:elevation="10dp"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/btnback" />
 
-            <ImageButton
-                android:id="@+id/imbSaveEP"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:backgroundTint="@color/primaryColor"
-                android:contentDescription="@string/cancel"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/check" />
-
-            <TextView
-                android:id="@+id/txvEProfileEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/eProfile"
-                android:textColor="@color/secundaryColor"
-                android:textSize="23sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imbSaveEP"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toEndOf="@+id/imbBackEP" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.appcompat.widget.Toolbar>
-
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
