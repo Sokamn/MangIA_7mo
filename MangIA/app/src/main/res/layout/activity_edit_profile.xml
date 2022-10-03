@@ -23,15 +23,16 @@
             android:layout_height="wrap_content">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdUserNameEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="30dp"
-                app:cardCornerRadius="15dp"
-                app:cardElevation="10dp"
                 android:background="@color/primaryColor"
+                app:cardCornerRadius="15dp"
 
+                app:cardElevation="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
@@ -41,7 +42,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP1"
+                        android:id="@+id/txvTUNameEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
@@ -53,236 +54,261 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP21"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvUNameEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdNNameEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:background="@color/primaryColor"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
-                android:background="@color/primaryColor"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+                app:layout_constraintTop_toBottomOf="@+id/crdUserNameEP">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP2"
+                        android:id="@+id/txvTNNameEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/manjaribold"
-                        android:text="@string/userName"
+                        android:text="@string/nName"
                         android:textColor="@color/secundaryColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP22"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvNNameEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdBiographyEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:background="@color/primaryColor"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
-                android:background="@color/primaryColor"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+                app:layout_constraintTop_toBottomOf="@+id/crdNNameEP">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP3"
+                        android:id="@+id/txvTBiographyEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/manjaribold"
-                        android:text="@string/userName"
+                        android:text="@string/bio"
                         android:textColor="@color/secundaryColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP23"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvBiographyEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdCountryEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                android:background="@color/primaryColor"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
-                android:background="@color/primaryColor"
-
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+                app:layout_constraintTop_toBottomOf="@+id/crdRegionEP">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP4"
+                        android:id="@+id/txvTCountryEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/manjaribold"
-                        android:text="@string/userName"
+                        android:text="@string/country"
                         android:textColor="@color/secundaryColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP24"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvCountryEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdRegionEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:background="@color/primaryColor"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
-                android:background="@color/primaryColor"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+                app:layout_constraintTop_toBottomOf="@+id/crdBirthDateEP">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP5"
+                        android:id="@+id/txvTRegionEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/manjaribold"
-                        android:text="@string/userName"
+                        android:text="@string/region"
                         android:textColor="@color/secundaryColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP25"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvRegionEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
+                android:id="@+id/crdBirthDateEP"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:layout_marginStart="30dp"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
+                android:background="@color/primaryColor"
                 app:cardCornerRadius="15dp"
                 app:cardElevation="10dp"
-                android:background="@color/primaryColor"
-
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imvProfileEP">
+                app:layout_constraintTop_toBottomOf="@+id/crdBiographyEP">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/txvUNameEP6"
+                        android:id="@+id/txvTBirthDateEP"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/manjaribold"
-                        android:text="@string/userName"
+                        android:text="@string/dateBirth"
                         android:textColor="@color/secundaryColor"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/txvUNameEP26"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txvBirthDateEP"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="7dp"
                         android:fontFamily="@font/manjaribold"
+                        android:singleLine="true"
                         android:text="@string/userName"
-                        android:textSize="22sp"
                         android:textColor="@color/quaternaryColor"
+                        android:textSize="22sp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -301,7 +327,7 @@
                 app:shapeAppearanceOverlay="@style/roundProfileGradient" />
 
             <TextView
-                android:id="@+id/txvUNameP2"
+                android:id="@+id/txvTitleUNameEP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -328,17 +354,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:shapeAppearanceOverlay="@style/roundImageEditProfile"
                 app:srcCompat="@drawable/profile_picture" />
-
-            <TextView
-                android:id="@+id/txvRegionEP"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:fontFamily="@font/manjaribold"
-                android:text="@string/region"
-                android:textColor="@color/secundaryColor"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="649dp" />
 
 
             <ImageView

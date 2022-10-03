@@ -42,7 +42,7 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        window.statusBarColor = getColor(R.color.primaryColor)
+        window.statusBarColor = getColor(R.color.secundaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         viewPager = findViewById(R.id.vwpContentP)
         tabLayout = findViewById(R.id.tblTabLayoutP)
@@ -89,9 +89,9 @@ class ProfileActivity : AppCompatActivity() {
         if (profileID!=null)
         {
             if(profileID == currentUser!!.uid){
-                binding.btnEProfileP.text = "Editar Perfil"
+                //binding.btnEProfileP.text = "Editar Perfil"
             }else{
-                checkFollow(profileID)
+                //checkFollow(profileID)
             }
 
             val pImageRef = storageReference.child("users/$profileID/profile.jpg")
@@ -108,20 +108,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.btnEProfileP.setOnClickListener {
-            when (binding.btnEProfileP.text.toString()) {
-                "Editar Perfil" -> {
-                    startActivity(Intent(this,EditProfileActivity::class.java))
-                }
-                "Seguir" -> {
-                    reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).setValue(true)
-                    reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).setValue(true)
-                }
-                "Siguiendo" -> {
-                    reference.child("follow").child(currentUserID).child("following").child(profileID.toString()).removeValue()
-                    reference.child("follow").child(profileID.toString()).child("followers").child(currentUserID).removeValue()
-                }
-            }
-
+            startActivity(Intent(this,EditProfileActivity::class.java))
         }
     }
 
@@ -173,7 +160,7 @@ class ProfileActivity : AppCompatActivity() {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val user = snapshot.getValue(User::class.java)
                 if (user != null) {
-                    binding.txvUNameP.text = user.userName
+                    binding.txvUNameP.text = "@"+user.userName
                     binding.txvNNameP.text = user.nickName
                     binding.txvBioP.text = user.biography
                 }
@@ -183,46 +170,5 @@ class ProfileActivity : AppCompatActivity() {
             }
 
         })
-    }
-
-
-    private fun checkFollow(profileID: String) {
-        reference.child("follow").child(currentUserID).child("following").addValueEventListener(object: ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if(snapshot.child(profileID).exists()){
-                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_follow))
-                    binding.btnEProfileP.setTextColor(getColor(R.color.colorButtonFollow))
-                    binding.btnEProfileP.text = "Siguiendo"
-                }else{
-                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
-                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
-                    binding.btnEProfileP.text = "Seguir"
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-
-        })
-        /*db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(profileEmail).addSnapshotListener { value, error ->
-            if (error!=null) {
-                Log.w("TAG","Listen Failed")
-                return@addSnapshotListener
-            }
-            if (value != null) {
-                if (value.exists()){
-                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_follow))
-                    binding.btnEProfileP.setTextColor(getColor(R.color.colorButtonFollow))
-                    binding.btnEProfileP.text = "Siguiendo"
-                }else{
-                    binding.btnEProfileP.setBackgroundDrawable(getDrawable(R.drawable.button_profile_following))
-                    binding.btnEProfileP.setTextColor(getColor(R.color.white))
-                    binding.btnEProfileP.text = "Seguir"
-                }
-            }
-
-        }*/
-
     }
 }
