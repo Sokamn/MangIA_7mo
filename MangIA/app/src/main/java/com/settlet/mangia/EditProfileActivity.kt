@@ -107,7 +107,6 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.secundaryColor)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         binding.imbBackEP.setOnClickListener {
             onBackPressed()
@@ -117,6 +116,31 @@ class EditProfileActivity : AppCompatActivity() {
         binding.imvEditProfilePicture.setOnClickListener {
             getContent.launch("image/*")
         }
+
+        binding.imvEditBioEP.setOnClickListener {
+
+        }
+
+        binding.imvEditBDateEP.setOnClickListener {
+            showDatePickerDialog()
+        }
+
+        binding.imvEditCountryEP.setOnClickListener {
+
+        }
+
+        binding.imvEditNNameEP.setOnClickListener {
+
+        }
+
+        binding.imvEditRegionEP.setOnClickListener {
+
+        }
+
+        binding.imvEditUNameEP.setOnClickListener {
+
+        }
+
     }
 
     public override fun onStart() {
@@ -150,7 +174,8 @@ class EditProfileActivity : AppCompatActivity() {
         datePicker.show(supportFragmentManager, "datePicker")
     }
 
-    fun onDateSelected(day: Int, month: Int, year: Int){
+    private fun onDateSelected(day: Int, month: Int, year: Int){
         binding.txvBirthDateEP.text = "$day/${month+1}/$year"
+        //reference.child("users").child()
     }
 }

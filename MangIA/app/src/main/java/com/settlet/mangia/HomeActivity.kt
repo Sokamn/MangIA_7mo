@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.drawerlayout.widget.DrawerLayout.DrawerListener
 import androidx.navigation.findNavController
@@ -119,6 +120,10 @@ class HomeActivity : AppCompatActivity() {
             }
             override fun onDrawerStateChanged(i: Int) {}
         })
+
+        binding.appBarHome.imvOptionsABH.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
 
 

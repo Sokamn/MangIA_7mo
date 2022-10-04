@@ -9,7 +9,7 @@
     <color name="quaternaryColor">#5F2800</color>
     <color name="transQuaternaryColor">#927D69</color>
     <color name="lineColor">#947F6E</color>
-    <color name="colorStatePressed">#ECE9E0</color>
+    <color name="colorStatePressed">#EFEFEF</color>
     <color name="lightFont">#E9E5D6</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

@@ -3,6 +3,7 @@ package com.settlet.mangia
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.drawable.Drawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -40,7 +41,6 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.secundaryColor)
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         viewPager = findViewById(R.id.vwpContentP)
         tabLayout = findViewById(R.id.tblTabLayoutP)
         viewPager.adapter = PagerAdapterP(this)
@@ -69,7 +69,10 @@ class ProfileActivity : AppCompatActivity() {
             intent.putExtra("vPage", "Follows")
             startActivity(intent)
         }
+
+
     }
+
 
     public override fun onBackPressed() {
         super.onBackPressed()
@@ -86,9 +89,10 @@ class ProfileActivity : AppCompatActivity() {
         if (profileID!=null)
         {
             if(profileID == currentUser!!.uid){
-                Glide.with(this)
+                Glide.with(baseContext)
                     .load(R.drawable.btn_edit_profile)
                     .into(binding.btnEProfileP)
+                binding.btnEProfileP.tag = "editprofile"
             }else{
                 checkFollow(profileID)
             }
@@ -103,11 +107,32 @@ class ProfileActivity : AppCompatActivity() {
             getUserInfo(profileID)
             getNrFollowsFollowers(profileID)
             getNrRecipes(profileID)
+
+            try {
+                binding.btnEProfileP.setOnClickListener {
+                    when (binding.btnEProfileP.tag) {
+                        "editprofile" -> {
+                            startActivity(Intent(this,EditProfileActivity::class.java))
+                        }
+                        "follow" -> {
+                            reference.child("follow").child(currentUser.uid).child("following").child(profileID.toString()).setValue(true)
+                            reference.child("follow").child(profileID.toString()).child("followers").child(currentUser.uid).setValue(true)
+                        }
+                        "unfollow" -> {
+                            reference.child("follow").child(currentUser.uid).child("following").child(profileID.toString()).removeValue()
+                            reference.child("follow").child(profileID.toString()).child("followers").child(currentUser.uid).removeValue()
+                        }
+                    }
+                }
+            }
+            catch (e:Exception){
+
+            }
         }
 
-        binding.btnEProfileP.setOnClickListener {
-            startActivity(Intent(this,EditProfileActivity::class.java))
-        }
+
+
+
     }
 
     private fun checkFollow(profileID: String) {
@@ -115,13 +140,15 @@ class ProfileActivity : AppCompatActivity() {
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.child(profileID).exists()){
-                    Glide.with(this@ProfileActivity)
+                    Glide.with(baseContext)
                         .load(R.drawable.btn_unfollow)
                         .into(binding.btnEProfileP)
+                    binding.btnEProfileP.tag = "unfollow"
                 }else{
-                    Glide.with(this@ProfileActivity)
+                    Glide.with(baseContext)
                         .load(R.drawable.btn_follow)
                         .into(binding.btnEProfileP)
+                    binding.btnEProfileP.tag = "follow"
                 }
             }
 
