@@ -109,7 +109,7 @@
                 android:src="@drawable/btn_edit_profile"
                 android:textColor="@color/colorButtonFollow"
                 android:textSize="12sp"
-                android:elevation="10dp"
+                android:elevation="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imvProfileP"
                 app:layout_constraintEnd_toEndOf="@+id/imvProfileP" />
             <TextView
@@ -192,7 +192,7 @@
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@color/primaryColor"
                 android:contentDescription="@string/cancel"
-                android:elevation="15dp"
+                android:elevation="20dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/btn_back"
                 app:layout_constraintStart_toStartOf="parent"
