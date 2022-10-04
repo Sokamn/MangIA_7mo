@@ -69,23 +69,6 @@ private fun isFollowing(userID:String, button: Button){
         override fun onCancelled(error: DatabaseError) {
         }
     })
-        /*db.collection("follow").document(Firebase.auth.currentUser!!.email!!.toString()).collection("following").document(email).addSnapshotListener { value, error ->
-            if (error!=null) {
-                Log.w("TAG","Listen Failed")
-                return@addSnapshotListener
-            }
-            if (value != null) {
-                if (value.exists()){
-                    button.setBackgroundDrawable(getDrawable(button.context, R.drawable.button_profile_follow))
-                    button.setTextColor(getColor(button.context, R.color.colorButtonFollow))
-                    button.text = "Siguiendo"
-                }else{
-                    button.setBackgroundDrawable(getDrawable(button.context,R.drawable.button_profile_following))
-                    button.setTextColor(getColor(button.context,R.color.white))
-                    button.text = "Seguir"
-                }
-            }
 
-        }*/
 
 }

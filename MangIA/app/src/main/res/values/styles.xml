@@ -32,8 +32,8 @@
 
     <style name="roundProfileGradient" parent="">
 
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">30dp</item>
+        <item name="cornerSizeBottomLeft">30dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
         <item name="color">@color/primaryColor</item>
 
     </style>

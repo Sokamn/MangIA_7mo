@@ -29,14 +29,11 @@ import com.settlet.mangia.databinding.ActivityProfileBinding
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
-    private var currentUserID = Firebase.auth.currentUser!!.uid
     private val reference = FirebaseDatabase.getInstance().reference
-    private val db = Firebase.firestore
     private val storageReference = FirebaseStorage.getInstance().reference
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private var cantFollowsActual = 0
-    private var cantFollowersActual = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -89,9 +86,11 @@ class ProfileActivity : AppCompatActivity() {
         if (profileID!=null)
         {
             if(profileID == currentUser!!.uid){
-                //binding.btnEProfileP.text = "Editar Perfil"
+                Glide.with(this)
+                    .load(R.drawable.btn_edit_profile)
+                    .into(binding.btnEProfileP)
             }else{
-                //checkFollow(profileID)
+                checkFollow(profileID)
             }
 
             val pImageRef = storageReference.child("users/$profileID/profile.jpg")
@@ -100,7 +99,6 @@ class ProfileActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(result)
                     .into(binding.imvProfileP)
-
             }
             getUserInfo(profileID)
             getNrFollowsFollowers(profileID)
@@ -110,6 +108,26 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnEProfileP.setOnClickListener {
             startActivity(Intent(this,EditProfileActivity::class.java))
         }
+    }
+
+    private fun checkFollow(profileID: String) {
+        reference.child("follow").child(Firebase.auth.currentUser!!.uid).child("following").addValueEventListener(object:
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if(snapshot.child(profileID).exists()){
+                    Glide.with(this@ProfileActivity)
+                        .load(R.drawable.btn_unfollow)
+                        .into(binding.btnEProfileP)
+                }else{
+                    Glide.with(this@ProfileActivity)
+                        .load(R.drawable.btn_follow)
+                        .into(binding.btnEProfileP)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
     }
 
     private fun getNrRecipes(userID: String) {

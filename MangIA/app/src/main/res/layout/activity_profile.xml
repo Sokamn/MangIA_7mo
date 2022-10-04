@@ -17,9 +17,8 @@
             <com.google.android.material.imageview.ShapeableImageView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="-30dp"
                 android:layout_marginBottom="50dp"
-                android:background="@color/secundaryColor"
+                android:background="@drawable/bg_profile_gradient"
                 android:elevation="10dp"
                 app:layout_constraintBottom_toBottomOf="@+id/imvProfileP"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -106,11 +105,8 @@
                 android:id="@+id/btnEProfileP"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/button_profile_follow"
-                android:fontFamily="@font/manjaribold"
                 android:padding="0dp"
-                android:text="@string/Following"
-                android:textAllCaps="false"
+                android:src="@drawable/btn_edit_profile"
                 android:textColor="@color/colorButtonFollow"
                 android:textSize="12sp"
                 android:elevation="10dp"
@@ -190,17 +186,17 @@
 
             <ImageView
                 android:id="@+id/imbBackP"
-                android:layout_width="30dp"
-                android:layout_height="50dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                android:elevation="10dp"
                 android:backgroundTint="@color/primaryColor"
                 android:contentDescription="@string/cancel"
+                android:elevation="15dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/btn_back"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btnback" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
