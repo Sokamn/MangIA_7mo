@@ -2,32 +2,109 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="380dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:backgroundTint="@android:color/transparent"
     android:layout_marginEnd="5dp"
     android:elevation="20dp"
-    app:cardCornerRadius="10dp">
-
+    android:background="#F6F6F6"
+    app:cardCornerRadius="25dp">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/primaryColor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/primaryColor">
+
+        <Spinner
+            android:id="@+id/spnEditablePEP"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/quaternaryColor"
+            android:dropDownVerticalOffset="40dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/btnSavePEP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvTitlePEP" />
+
+
+        <EditText
+            android:id="@+id/txpEditablePEP"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:backgroundTint="@color/quaternaryColor"
+            android:ems="10"
+            android:enabled="true"
+            android:focusable="true"
+            android:fontFamily="@font/manjarithin"
+            android:hint="@string/pass"
+            android:inputType="textPassword"
+            android:textColor="@color/quaternaryColor"
+            android:textColorHint="@color/transQuaternaryColor"
+            app:layout_constraintBottom_toTopOf="@+id/btnSavePEP"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txvTitlePEP" />
+
+        <Button
+            android:id="@+id/btnCancelPEP"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/manjariregular"
+            android:paddingBottom="0dp"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:backgroundTint="@color/quaternaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnSavePEP"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btnSavePEP"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/rounded_button"
+            android:fontFamily="@font/manjariregular"
+            android:paddingBottom="0dp"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            app:backgroundTint="@color/secundaryColor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnCancelPEP" />
 
         <TextView
-            android:id="@+id/txvTitlePF"
+            android:id="@+id/txvTitlePEP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/manjaribold"
-            android:text="@string/filterBy"
-            android:textColor="@color/quaternaryColor"
-            android:textSize="18sp"
+            android:text="@string/userName"
+            android:textColor="@color/black"
+            android:textSize="24sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

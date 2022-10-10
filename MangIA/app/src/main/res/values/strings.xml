@@ -93,6 +93,7 @@
     <string name="filterBy">Filtrar por:</string>
     <string name="cleanFilter">Limpiar filtros</string>
     <string name="orderBy">Ordenar por:</string>
+    <string name="save">Guardar</string>
 
     <string-array name="continents">
         <item>Africa</item>

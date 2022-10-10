@@ -1,16 +1,18 @@
 package com.settlet.mangia
 
 import android.app.Activity
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toUri
@@ -40,6 +42,12 @@ class EditProfileActivity : AppCompatActivity() {
     private val db = Firebase.firestore
     private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
+    private lateinit var editPopup: Dialog
+    private lateinit var titlePopup: TextView
+    private lateinit var editTextPopup: EditText
+    private lateinit var btnCancel: Button
+    private lateinit var btnSave: Button
+    private lateinit var spinnerPopup: Spinner
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
@@ -107,6 +115,18 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.secundaryColor)
+        editPopup = Dialog(this)
+        editPopup.setContentView(R.layout.popup_edit_profile)
+        editPopup.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        titlePopup = editTextPopup.findViewById(R.id.txvTitlePEP)
+        editTextPopup = editTextPopup.findViewById(R.id.txpEditablePEP)
+        btnCancel = editTextPopup.findViewById(R.id.btnCancelPEP)
+        btnSave = editTextPopup.findViewById(R.id.btnSavePEP)
+        spinnerPopup = editTextPopup.findViewById(R.id.spnEditablePEP)
+
+        btnCancel.setOnClickListener {
+
+        }
 
         binding.imbBackEP.setOnClickListener {
             onBackPressed()
@@ -118,7 +138,7 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.imvEditBioEP.setOnClickListener {
-
+            loadInfo("bio")
         }
 
         binding.imvEditBDateEP.setOnClickListener {
@@ -139,6 +159,23 @@ class EditProfileActivity : AppCompatActivity() {
 
         binding.imvEditUNameEP.setOnClickListener {
 
+        }
+
+    }
+
+    private fun loadInfo(info: String) {
+
+        when(info){
+            "bio"->{
+                titlePopup.setText(R.string.bio)
+                editTextPopup.setText(binding.txvBiographyEP.text.toString())
+
+                btnSave.setOnClickListener {
+
+                }
+                spinnerPopup.visibility = View.INVISIBLE
+
+            }
         }
 
     }
