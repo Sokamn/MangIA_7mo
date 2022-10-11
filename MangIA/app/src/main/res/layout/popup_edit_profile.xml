@@ -45,7 +45,7 @@
             android:focusable="true"
             android:fontFamily="@font/manjarithin"
             android:hint="@string/pass"
-            android:inputType="textPassword"
+            android:inputType="text"
             android:textColor="@color/quaternaryColor"
             android:textColorHint="@color/transQuaternaryColor"
             app:layout_constraintBottom_toTopOf="@+id/btnSavePEP"

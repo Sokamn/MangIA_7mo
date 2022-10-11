@@ -115,14 +115,15 @@ class EditProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         window.statusBarColor = getColor(R.color.secundaryColor)
+
         editPopup = Dialog(this)
         editPopup.setContentView(R.layout.popup_edit_profile)
         editPopup.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        titlePopup = editTextPopup.findViewById(R.id.txvTitlePEP)
-        editTextPopup = editTextPopup.findViewById(R.id.txpEditablePEP)
-        btnCancel = editTextPopup.findViewById(R.id.btnCancelPEP)
-        btnSave = editTextPopup.findViewById(R.id.btnSavePEP)
-        spinnerPopup = editTextPopup.findViewById(R.id.spnEditablePEP)
+        titlePopup = editPopup.findViewById(R.id.txvTitlePEP)
+        editTextPopup = editPopup.findViewById(R.id.txpEditablePEP)
+        btnCancel = editPopup.findViewById(R.id.btnCancelPEP)
+        btnSave = editPopup.findViewById(R.id.btnSavePEP)
+        spinnerPopup = editPopup.findViewById(R.id.spnEditablePEP)
 
         btnCancel.setOnClickListener {
 
@@ -164,17 +165,57 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun loadInfo(info: String) {
-
+        val user = Firebase.auth.currentUser
+        val userRef = reference.child("users").child(user!!.uid)
+        editPopup.show()
         when(info){
             "bio"->{
                 titlePopup.setText(R.string.bio)
+                editTextPopup.setHint(R.string.bio)
                 editTextPopup.setText(binding.txvBiographyEP.text.toString())
-
                 btnSave.setOnClickListener {
-
+                    if(binding.txvBiographyEP.text==editTextPopup.text.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        userRef.child("biography").setValue(editTextPopup.text.toString())
+                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 spinnerPopup.visibility = View.INVISIBLE
+            }
+            "userName"->{
+                titlePopup.setText(R.string.userName)
+                editTextPopup.setText(binding.txvUNameEP.text.toString())
 
+                btnSave.setOnClickListener {
+                    if(binding.txvUNameEP.text==editTextPopup.text.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        val profileUpdates = userProfileChangeRequest {
+                            displayName = editTextPopup.text.toString()
+                        }
+                        user.updateProfile(profileUpdates)
+                            .addOnCompleteListener{ task ->
+                                if(task.isSuccessful)
+                                {
+                                    val badWords = arrayListOf("sorete","imbecil","tarado","pelotudo","pajero","pajera","pelotuda","tarada","puto","puta","concha","culo","poronga","verga","pito","pene" + "nigga" , "trola" , "trolo" , "caca" , "down" , "mierda" , "nazi" , "hitler" , "estupido" , "coger" , "cojer" , "pendejo " , "pendeja" , "porno" , "orto" , "sexo" , "pinche" , "pinchi" , "cojo" , "cabrón" , "cabrona" , "mames" , "pendejos" , "pendejas" , "chinga" , "mamadas" , "pendejadas" , "mama huevo" , "pete" , "wueon" , "xuxa" , "weon" , "weonado" , "weona" , "coño" , "aguevoniado" , "guevon" , "pajuo" , "marica", "monda" , "marrana" , "marrano" ,"monda" , "pijudo" , "hijueputa" , "cotopla" , "pichurria" , "picha" , "mother fucker" , "fuck" , "ass" , "orgy" , "bitch" , "suck" , "my balls" , "slut " , "whore" , "hoe" , "chupamela" , "culito" , "cojida" , "cojiendo" , "zoofilia" , "putito" , "reputo" , "free viagra" , "taradito", "taradita" , "pelotudito" , "pelotudita" , "pelotuditos", "pelotuditas" , "putita" , "poronguita" , "verguita" , "pitito" , "trolito" , "trolita" , "caquita" , "estupidito" , "estupidita" , "pendejito" , "pendejita" , "putitos" , "putitas" , "poronguitas" , "porongotas" , "porongota" , "porongon" , "verguitas", "vergotas" , "vergota" , "pititos" , "pitotes" , "pitote" , "trolitos" , "trolitas" , "caquitas" , "cacotas" , "estupiditos" , "estupiditas" , "pendejitos" , "pendejitas" , "feto" , "cigoto" , "caka" , "kaka" , "kk" , "joto" , "jota" , "kaco" , "kago" , "kojo" , "kulo" , "mamo" , "meaas" , "mion" , "mula" , "pedo" , "qulo" , "buey" , "caco" , "cago" , "cako" , "coja" , "coji" , "guey" , "kaca" , "kaga" , "koge" , "mame" , "mear" , "meon" , "moco")
+                                    if(binding.txvUNameEP.text.toString()!=editTextPopup.text.toString())
+                                    {
+                                        for(t in badWords)
+                                        {
+                                            if(editTextPopup.text.toString().contains(t))
+                                            {
+                                                Toast.makeText(this,"Se detectó un nombre de usuario o apodo ofensivo.",Toast.LENGTH_SHORT).show()
+                                            }
+                                            else{
+                                                userRef.child("userName").setValue(editTextPopup.text.toString())
+                                                Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                    }
+                    }
+                }
+                spinnerPopup.visibility = View.INVISIBLE
             }
         }
 
