@@ -169,20 +169,6 @@ class EditProfileActivity : AppCompatActivity() {
         val userRef = reference.child("users").child(user!!.uid)
         editPopup.show()
         when(info){
-            "bio"->{
-                titlePopup.setText(R.string.bio)
-                editTextPopup.setHint(R.string.bio)
-                editTextPopup.setText(binding.txvBiographyEP.text.toString())
-                btnSave.setOnClickListener {
-                    if(binding.txvBiographyEP.text==editTextPopup.text.toString()){
-                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
-                    }else{
-                        userRef.child("biography").setValue(editTextPopup.text.toString())
-                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                spinnerPopup.visibility = View.INVISIBLE
-            }
             "userName"->{
                 titlePopup.setText(R.string.userName)
                 editTextPopup.setText(binding.txvUNameEP.text.toString())
@@ -210,6 +196,7 @@ class EditProfileActivity : AppCompatActivity() {
                                             else{
                                                 userRef.child("userName").setValue(editTextPopup.text.toString())
                                                 Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                                                editPopup.hide()
                                             }
                                         }
                                     }
@@ -217,8 +204,109 @@ class EditProfileActivity : AppCompatActivity() {
                 }
                 spinnerPopup.visibility = View.INVISIBLE
             }
-        }
+                }
+            }
+            "nickName"->{
+                titlePopup.setText(R.string.nName)
+                editTextPopup.setHint(R.string.nName)
+                editTextPopup.setText(binding.txvNNameEP.text.toString())
+                btnSave.setOnClickListener {
+                    if(binding.txvNNameEP.text==editTextPopup.text.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        userRef.child("nickName").setValue(editTextPopup.text.toString())
+                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        editPopup.hide()
+                    }
+                }
+                spinnerPopup.visibility = View.INVISIBLE
+            }
+            "bio"->{
+                titlePopup.setText(R.string.bio)
+                editTextPopup.setHint(R.string.bio)
+                editTextPopup.setText(binding.txvBiographyEP.text.toString())
+                btnSave.setOnClickListener {
+                    if(binding.txvBiographyEP.text==editTextPopup.text.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        userRef.child("biography").setValue(editTextPopup.text.toString())
+                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        editPopup.hide()
+                    }
+                }
+                spinnerPopup.visibility = View.INVISIBLE
+            }
+            "region"->{
+                editTextPopup.visibility = View.INVISIBLE
+                spinnerPopup.visibility = View.VISIBLE
+                val continents = resources.getStringArray(R.array.continents)
+                val arrayAdapterC = ArrayAdapter(this,R.layout.spinner_ubication_item, continents)
+                spinnerPopup.adapter = arrayAdapterC
+                spinnerPopup.setSelection(arrayAdapterC.getPosition(binding.txvRegionEP.text.toString()))
+                btnSave.setOnClickListener {
+                    if(binding.txvCountryEP.text==spinnerPopup.selectedItem.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        userRef.child("region").setValue(spinnerPopup.selectedItem.toString())
+                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        editPopup.hide()
 
+                    }
+                }
+
+
+            }
+            "country"->{
+                editTextPopup.visibility = View.INVISIBLE
+                spinnerPopup.visibility = View.VISIBLE
+                val arrayAdapterLAfrica = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAfrican)
+                val arrayAdapterLAsia = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAsia)
+                val arrayAdapterLASouth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lSAmerica)
+                val arrayAdapterLANorth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lNAmerica)
+                val arrayAdapterLOceania = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lOceania)
+                val arrayAdapterLEurope = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lEurope)
+                when(binding.txvRegionEP.text.toString()){
+                    "Africa"->{
+                        spinnerPopup.adapter = arrayAdapterLAfrica
+                        spinnerPopup.setSelection(arrayAdapterLAfrica.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    "Asia"->{
+                        spinnerPopup.adapter = arrayAdapterLAsia
+                        spinnerPopup.setSelection(arrayAdapterLAsia.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    "America del Norte o Central"->{
+                        spinnerPopup.adapter = arrayAdapterLANorth
+                        spinnerPopup.setSelection(arrayAdapterLANorth.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    "America del Sur"->{
+                        spinnerPopup.adapter = arrayAdapterLASouth
+                        spinnerPopup.setSelection(arrayAdapterLASouth.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    "Europa"->{
+                        spinnerPopup.adapter = arrayAdapterLEurope
+                        spinnerPopup.setSelection(arrayAdapterLEurope.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    "Oceania"->{
+                        spinnerPopup.adapter = arrayAdapterLOceania
+                        spinnerPopup.setSelection(arrayAdapterLOceania.getPosition(binding.txvCountryEP.text.toString()))
+                    }
+                    else ->{
+                        spinnerPopup.adapter = null
+                    }
+                }
+
+                btnSave.setOnClickListener {
+                    if(binding.txvCountryEP.text==spinnerPopup.selectedItem.toString()){
+                        Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        userRef.child("country").setValue(spinnerPopup.selectedItem.toString())
+                        Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        editPopup.hide()
+
+                    }
+                }
+            }
+        }
     }
 
     public override fun onStart() {
