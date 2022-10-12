@@ -48,6 +48,7 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var btnCancel: Button
     private lateinit var btnSave: Button
     private lateinit var spinnerPopup: Spinner
+    private lateinit var lineSpinner: View
 
     private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){ uri ->
         if(uri!=null)
@@ -124,10 +125,7 @@ class EditProfileActivity : AppCompatActivity() {
         btnCancel = editPopup.findViewById(R.id.btnCancelPEP)
         btnSave = editPopup.findViewById(R.id.btnSavePEP)
         spinnerPopup = editPopup.findViewById(R.id.spnEditablePEP)
-
-        btnCancel.setOnClickListener {
-
-        }
+        lineSpinner = editPopup.findViewById(R.id.lineSpnEditableEP)
 
         binding.imbBackEP.setOnClickListener {
             onBackPressed()
@@ -147,19 +145,19 @@ class EditProfileActivity : AppCompatActivity() {
         }
 
         binding.imvEditCountryEP.setOnClickListener {
-
+            loadInfo("country")
         }
 
         binding.imvEditNNameEP.setOnClickListener {
-
+            loadInfo("nickName")
         }
 
         binding.imvEditRegionEP.setOnClickListener {
-
+            loadInfo("region")
         }
 
         binding.imvEditUNameEP.setOnClickListener {
-
+            loadInfo("userName")
         }
 
     }
@@ -167,12 +165,29 @@ class EditProfileActivity : AppCompatActivity() {
     private fun loadInfo(info: String) {
         val user = Firebase.auth.currentUser
         val userRef = reference.child("users").child(user!!.uid)
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(editPopup.window?.attributes)
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT
+        WindowManager.LayoutParams.MATCH_PARENT
+        editPopup.window?.attributes = lp
         editPopup.show()
+        val arrayAdapterLAfrica = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAfrican)
+        val arrayAdapterLAsia = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAsia)
+        val arrayAdapterLASouth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lSAmerica)
+        val arrayAdapterLANorth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lNAmerica)
+        val arrayAdapterLOceania = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lOceania)
+        val arrayAdapterLEurope = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lEurope)
+
+        btnCancel.setOnClickListener {
+            editPopup.hide()
+        }
+
         when(info){
             "userName"->{
                 titlePopup.setText(R.string.userName)
                 editTextPopup.setText(binding.txvUNameEP.text.toString())
-
+                editTextPopup.visibility = View.VISIBLE
+                lineSpinner.visibility = View.INVISIBLE
                 btnSave.setOnClickListener {
                     if(binding.txvUNameEP.text==editTextPopup.text.toString()){
                         Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
@@ -196,6 +211,7 @@ class EditProfileActivity : AppCompatActivity() {
                                             else{
                                                 userRef.child("userName").setValue(editTextPopup.text.toString())
                                                 Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                                                binding.txvUNameEP.text = editTextPopup.text.toString()
                                                 editPopup.hide()
                                             }
                                         }
@@ -204,18 +220,21 @@ class EditProfileActivity : AppCompatActivity() {
                 }
                 spinnerPopup.visibility = View.INVISIBLE
             }
-                }
+        }
             }
             "nickName"->{
                 titlePopup.setText(R.string.nName)
                 editTextPopup.setHint(R.string.nName)
                 editTextPopup.setText(binding.txvNNameEP.text.toString())
+                editTextPopup.visibility = View.VISIBLE
+                lineSpinner.visibility = View.INVISIBLE
                 btnSave.setOnClickListener {
                     if(binding.txvNNameEP.text==editTextPopup.text.toString()){
                         Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
                     }else{
                         userRef.child("nickName").setValue(editTextPopup.text.toString())
                         Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        binding.txvNNameEP.text = editTextPopup.text.toString()
                         editPopup.hide()
                     }
                 }
@@ -225,20 +244,25 @@ class EditProfileActivity : AppCompatActivity() {
                 titlePopup.setText(R.string.bio)
                 editTextPopup.setHint(R.string.bio)
                 editTextPopup.setText(binding.txvBiographyEP.text.toString())
+                editTextPopup.visibility = View.VISIBLE
+                lineSpinner.visibility = View.INVISIBLE
                 btnSave.setOnClickListener {
                     if(binding.txvBiographyEP.text==editTextPopup.text.toString()){
                         Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
                     }else{
                         userRef.child("biography").setValue(editTextPopup.text.toString())
                         Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        binding.txvBiographyEP.text = editTextPopup.text.toString()
                         editPopup.hide()
                     }
                 }
                 spinnerPopup.visibility = View.INVISIBLE
             }
             "region"->{
+                titlePopup.setText(R.string.region)
                 editTextPopup.visibility = View.INVISIBLE
                 spinnerPopup.visibility = View.VISIBLE
+                lineSpinner.visibility = View.VISIBLE
                 val continents = resources.getStringArray(R.array.continents)
                 val arrayAdapterC = ArrayAdapter(this,R.layout.spinner_ubication_item, continents)
                 spinnerPopup.adapter = arrayAdapterC
@@ -249,22 +273,47 @@ class EditProfileActivity : AppCompatActivity() {
                     }else{
                         userRef.child("region").setValue(spinnerPopup.selectedItem.toString())
                         Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+                        when(spinnerPopup.selectedItem.toString()){
+                            "Africa"->{
+                                userRef.child("country").setValue(countryProvider.lAfrican.first())
+                                binding.txvCountryEP.text = countryProvider.lAfrican.first()
+                            }
+                            "Asia"->{
+                                userRef.child("country").setValue(countryProvider.lAsia.first())
+                                binding.txvCountryEP.text = countryProvider.lAsia.first()
+                            }
+                            "America del Norte o Central"->{
+                                userRef.child("country").setValue(countryProvider.lNAmerica.first())
+                                binding.txvCountryEP.text = countryProvider.lNAmerica.first()
+                            }
+                            "America del Sur"->{
+                                userRef.child("country").setValue(countryProvider.lSAmerica.first())
+                                binding.txvCountryEP.text = countryProvider.lSAmerica.first()
+                            }
+                            "Europa"->{
+                                userRef.child("country").setValue(countryProvider.lEurope.first())
+                                binding.txvCountryEP.text = countryProvider.lEurope.first()
+                            }
+                            "Oceania"->{
+                                userRef.child("country").setValue(countryProvider.lOceania.first())
+                                binding.txvCountryEP.text = countryProvider.lOceania.first()
+                            }
+                            else ->{
+                                spinnerPopup.adapter = null
+                            }
+                        }
+                        binding.txvRegionEP.text = spinnerPopup.selectedItem.toString()
                         editPopup.hide()
-
+                        Toast.makeText(baseContext,"Recuerda corregir el país.", Toast.LENGTH_SHORT).show()
+                        loadInfo("country")
                     }
                 }
-
-
             }
             "country"->{
+                titlePopup.setText(R.string.country)
                 editTextPopup.visibility = View.INVISIBLE
                 spinnerPopup.visibility = View.VISIBLE
-                val arrayAdapterLAfrica = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAfrican)
-                val arrayAdapterLAsia = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lAsia)
-                val arrayAdapterLASouth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lSAmerica)
-                val arrayAdapterLANorth = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lNAmerica)
-                val arrayAdapterLOceania = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lOceania)
-                val arrayAdapterLEurope = ArrayAdapter<String>(this,R.layout.spinner_ubication_item, countryProvider.lEurope)
+                lineSpinner.visibility = View.VISIBLE
                 when(binding.txvRegionEP.text.toString()){
                     "Africa"->{
                         spinnerPopup.adapter = arrayAdapterLAfrica
@@ -300,9 +349,9 @@ class EditProfileActivity : AppCompatActivity() {
                         Toast.makeText(baseContext,"No se han detectado cambios.", Toast.LENGTH_SHORT).show()
                     }else{
                         userRef.child("country").setValue(spinnerPopup.selectedItem.toString())
+                        binding.txvCountryEP.text = spinnerPopup.selectedItem.toString()
                         Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
                         editPopup.hide()
-
                     }
                 }
             }
@@ -341,7 +390,16 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun onDateSelected(day: Int, month: Int, year: Int){
-        binding.txvBirthDateEP.text = "$day/${month+1}/$year"
-        //reference.child("users").child()
+        val user = Firebase.auth.currentUser
+        val date = "$day/${month+1}/$year"
+        val edad = Calendar.getInstance().get(Calendar.YEAR)-date.substring(date.length-4).trim().toInt()
+        if(edad < 13)
+        {
+            Toast.makeText(this, "Edad menor a 13 años. Por favor, ingrese una fecha valida.",Toast.LENGTH_SHORT).show()
+        }else{
+            binding.txvBirthDateEP.text = date
+            reference.child("users").child(user!!.uid).child("dateBirth").setValue(date)
+            Toast.makeText(baseContext,"Cambios efectados correctamente.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

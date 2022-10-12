@@ -10,6 +10,7 @@
 
     </style>
 
+
     <style name="roundImageUser40" parent="">
 
         <item name="cornerFamily">rounded</item>
