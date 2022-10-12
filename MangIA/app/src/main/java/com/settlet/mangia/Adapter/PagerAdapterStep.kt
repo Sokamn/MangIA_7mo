@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.Step
 import com.settlet.mangia.R
+import com.settlet.mangia.RecipeActivity
 import com.settlet.mangia.databinding.VpStepItemBinding
 
 class PagerAdapterStep : ListAdapter<Step, PagerAdapterStep.VPStepViewHolder>(DiffCallBack){
@@ -24,16 +25,19 @@ class PagerAdapterStep : ListAdapter<Step, PagerAdapterStep.VPStepViewHolder>(Di
             if(step.optionalImage.isNullOrEmpty()){
                 binding.imvOptionalImageVSI.visibility = View.GONE
             }else{
-                binding.imvOptionalImageVSI.visibility = View.VISIBLE
-                storageReference.child(step.optionalImage.toString()).downloadUrl.addOnSuccessListener { result ->
-                    Glide.with(binding.imvOptionalImageVSI.context)
-                        .load(result)
-                        .into(binding.imvOptionalImageVSI)
+                val context = itemView.context as RecipeActivity
+                if(!context.isDestroyed){
+                    binding.imvOptionalImageVSI.visibility = View.VISIBLE
+                    storageReference.child(step.optionalImage.toString()).downloadUrl.addOnSuccessListener { result ->
+                        Glide.with(binding.imvOptionalImageVSI.context)
+                            .load(result)
+                            .into(binding.imvOptionalImageVSI)
 
-                }.addOnFailureListener {
-                    Glide.with(binding.imvOptionalImageVSI.context)
-                        .load(R.drawable.ic_load_ingredient)
-                        .into(binding.imvOptionalImageVSI)
+                    }.addOnFailureListener {
+                        Glide.with(binding.imvOptionalImageVSI.context)
+                            .load(R.drawable.ic_load_ingredient)
+                            .into(binding.imvOptionalImageVSI)
+                    }
                 }
             }
             binding.txvStepDescriptionVSI.text = step.sDescription

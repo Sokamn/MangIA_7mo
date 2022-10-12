@@ -264,18 +264,6 @@ class RecipeActivity : AppCompatActivity() {
                     .into(binding.imvProfileAR)
             }
         }
-        /*db.collection("users").document(profileID).get().addOnSuccessListener { document ->
-            binding.txvCountryAR.text = document["country"].toString()
-            binding.txvUserNameAR.text = "@${document["userName"].toString()}"
-            val pImageRef = storageReference.child("users/$profileID/profile.jpg")
-            pImageRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(this)
-                    .load(result)
-                    .into(binding.imvProfileAR)
-            }
-        }.addOnFailureListener {
-            backWithError()
-        }*/
     }
     private fun isSaved(recipeID: String){
         reference.child("saves").child(currentUserID).addValueEventListener(object : ValueEventListener{
@@ -293,22 +281,6 @@ class RecipeActivity : AppCompatActivity() {
             }
 
         })
-        /*db.collection("saves").document(Firebase.auth.currentUser!!.email.toString()).collection("isSaved").document(recipe.recipeID).addSnapshotListener { value, error ->
-            if (error!=null){
-                Log.w("TAG", "Listen Failed")
-                return@addSnapshotListener
-            }
-            else{
-                if (value!=null){
-                    if (value.exists()){
-                        // cambiar icono a ic_unsave_recipe
-                        binding.btnSaveAR.tag = "saved"
-                    }else{
-                        // cambiar icono a ic_save_recipe
-                        binding.btnSaveAR.tag = "save"
-                    }
-                }
-            }
-        }*/
+
     }
 }

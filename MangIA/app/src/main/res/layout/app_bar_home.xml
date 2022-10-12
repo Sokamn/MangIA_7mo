@@ -21,18 +21,18 @@
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
-                app:titleTextColor="@color/primaryColor"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:elevation="0dp"
-                app:title=""
-                app:subtitleTextColor="@color/primaryColor"
-                app:titleTextAppearance="@color/primaryColor"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
                 android:background="@color/primaryColor"
+                android:elevation="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                app:subtitleTextColor="@color/primaryColor"
+                app:title=""
+                app:titleTextAppearance="@color/primaryColor"
+                app:titleTextColor="@color/primaryColor" />
 
             <ImageView
                 android:id="@+id/imvOptionsABH"
@@ -54,6 +54,17 @@
                 android:src="@drawable/lupaaa"
                 app:layout_constraintBottom_toBottomOf="@+id/imvOptionsABH"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/imvOptionsABH"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:id="@+id/imvMKRecipe"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_make_recipe"
+                app:layout_constraintBottom_toBottomOf="@+id/imvOptionsABH"
+                app:layout_constraintEnd_toStartOf="@+id/imvSearchAB"
                 app:layout_constraintTop_toTopOf="@+id/imvOptionsABH" />
 
             <TextView

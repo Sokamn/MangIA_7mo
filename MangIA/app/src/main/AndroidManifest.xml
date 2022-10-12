@@ -16,7 +16,6 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity android:name="com.facebook.FacebookActivity"
@@ -37,21 +36,27 @@
         <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
         <activity
             android:name=".StartActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".RecipeDetailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AdvancedSearchActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SearchActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".LikeCommentsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,20 +66,25 @@
         </activity>
         <activity
             android:name=".CommentsActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".UserRateActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".RecipeActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".FollowsAndFollowersActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ProfileActivity" />
         <activity
             android:name=".MRecipeStep3Activity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MRecipeStep2Activity" />
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
@@ -83,40 +93,50 @@
         <activity
             android:name=".MRecipeStep2Activity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MRecipeStep1Activity" />
         <activity
             android:name=".MRecipeStep1Activity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".ProfileActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".HomeActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_home"
             android:theme="@style/Theme.MangIA.NoActionBar" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".ProfileActivity" />
         <activity
             android:name=".FPassActivity"
             android:exported="false"
+            android:screenOrientation="portrait"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".CheckMailActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".VerifyPhoneActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
 
         <provider

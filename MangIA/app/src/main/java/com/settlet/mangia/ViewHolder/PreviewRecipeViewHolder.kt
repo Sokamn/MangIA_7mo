@@ -988,7 +988,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     private fun addReadLess(text: String, textView: TextView, titleCharacters:Int) {
         val manjariBold = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjaribold.ttf")
         val manjariThin = Typeface.createFromAsset(binding.txvDescription.context.applicationContext.assets, "font/manjarithin.ttf")
-        val ss = SpannableString("$text Leer menos")
+        val ss = SpannableString("$text \n...Leer menos")
         val clickableSpan: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 addReadMore(text, textView,titleCharacters)
@@ -1001,7 +1001,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
             }
         }
         ss.setSpan(clickableSpan, ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 10, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        ss.setSpan(CustomTypefaceSpan("",manjariThin), ss.length - 13, ss.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         ss.setSpan(CustomTypefaceSpan("",manjariBold), 0, titleCharacters, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         textView.text = ss
         textView.movementMethod = LinkMovementMethod.getInstance()

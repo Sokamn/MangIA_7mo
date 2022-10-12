@@ -118,14 +118,18 @@ class HomeActivity : AppCompatActivity() {
             override fun onDrawerClosed(view: View) {
                 window.statusBarColor = getColor(R.color.primaryColor)
             }
-            override fun onDrawerStateChanged(i: Int) {}
+            override fun onDrawerStateChanged(i: Int) {
+
+            }
         })
 
         binding.appBarHome.imvOptionsABH.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-
+        binding.appBarHome.imvMKRecipe.setOnClickListener {
+            this.startActivity(Intent(this,MRecipeStep1Activity::class.java))
+        }
 
         binding.btnCSesionH.setOnClickListener {
             logOut()
