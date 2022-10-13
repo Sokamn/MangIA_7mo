@@ -5,15 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <FrameLayout
         android:id="@+id/txvLaunchTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="14dp"
         android:layout_marginTop="5dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="Hace 2 horas"
-        android:textColor="@color/transSecundaryColor"
-        android:textSize="10sp"
+        android:background="@color/shimmerColor"
         app:layout_constraintStart_toStartOf="@+id/txvDescription"
         app:layout_constraintTop_toBottomOf="@+id/txvDescription" />
 
@@ -32,44 +29,40 @@
             android:layout_height="50dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
+            android:background="@color/shimmerColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/userImageProfile"
-            app:srcCompat="@drawable/profile_picture" />
+            app:shapeAppearanceOverlay="@style/userImageProfile" />
 
-        <TextView
+        <FrameLayout
             android:id="@+id/txvUserNameRI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="120dp"
+            android:layout_height="18dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:fontFamily="@font/manjaribold"
-            android:text="\@Cesar_Ok"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:background="@color/shimmerColor"
             app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI"
             app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI" />
 
-        <TextView
+        <FrameLayout
             android:id="@+id/txvUserCountryRI"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="16dp"
             android:layout_marginStart="10dp"
-            android:fontFamily="@font/manjarithin"
-            android:text="Mexico"
-            android:textColor="@color/transQuaternaryColor"
-            android:textSize="15sp"
+            android:layout_marginBottom="3dp"
+            android:background="@color/shimmerColor"
             app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureRI"
             app:layout_constraintStart_toEndOf="@+id/imvProfilePictureRI" />
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/imvOptions"
-            android:layout_width="34dp"
+            android:layout_width="20dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/shimmerColor"
             android:padding="4dp"
-            android:src="@drawable/ic_more_options_recipe"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imvProfilePictureRI" />
@@ -84,179 +77,160 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstTopBar">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imvUniquePost"
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/crdvwSliderRI"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="25dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="20dp"
-            android:adjustViewBounds="true"
+            android:backgroundTint="@color/shimmerColor"
+            android:elevation="16dp"
             android:padding="0dp"
-            android:elevation="5dp"
-            android:scaleType="fitCenter"
-            android:background="@color/shimmerColor"
+            android:visibility="visible"
+            app:cardCornerRadius="20dp"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/roundImagePosts" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/crdvwSliderRI"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:padding="0dp"
-            android:visibility="visible"
-            android:elevation="16dp"
-            app:cardCornerRadius="20dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imvUniquePost"
-            app:layout_constraintEnd_toEndOf="@+id/imvUniquePost"
-            app:layout_constraintStart_toStartOf="@+id/imvUniquePost"
-            app:layout_constraintTop_toTopOf="@+id/imvUniquePost">
-
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/imgsldrCarruselRI"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="visible"
-                android:padding="0dp"
-                android:elevation="16dp"
-                app:sliderAnimationDuration="600"
-                app:sliderAutoCycleDirection="back_and_forth"
-                app:sliderAutoCycleEnabled="true"
-                app:sliderIndicatorAnimationDuration="600"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderIndicatorMargin="15dp"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorPadding="3dp"
-                app:sliderIndicatorRadius="2dp"
-                app:sliderIndicatorSelectedColor="@color/secundaryColor"
-                app:sliderIndicatorUnselectedColor="@color/primaryColor"
-                app:sliderScrollTimeInSec="1000"
-                app:sliderStartAutoCycle="true" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"  />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvStar3"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/star_unselected"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar2"
         app:layout_constraintStart_toEndOf="@+id/imvStar2"
         app:layout_constraintTop_toTopOf="@+id/imvStar2" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvStar4"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/star_unselected"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar3"
         app:layout_constraintStart_toEndOf="@+id/imvStar3"
         app:layout_constraintTop_toTopOf="@+id/imvStar3" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvStar5"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/star_unselected"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar4"
         app:layout_constraintStart_toEndOf="@+id/imvStar4"
         app:layout_constraintTop_toTopOf="@+id/imvStar4" />
 
-    <TextView
+    <FrameLayout
+        android:id="@+id/txvDescriptionB"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/shimmerColor"
+        app:layout_constraintEnd_toStartOf="@+id/imvStar4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvValoration" />
+
+    <FrameLayout
+        android:id="@+id/txvDescriptionC"
+        android:layout_width="0dp"
+        android:layout_height="14dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:background="@color/shimmerColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txvDescriptionB"
+        app:layout_constraintTop_toBottomOf="@+id/txvValoration" />
+
+
+
+    <FrameLayout
         android:id="@+id/txvDescription"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="14dp"
         android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="25dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="Descripcion"
-        android:textColor="@color/black"
-        android:textSize="13sp"
+        android:background="@color/shimmerColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvStar1" />
+        app:layout_constraintTop_toBottomOf="@+id/txvDescriptionB" />
 
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvStar1"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="25dp"
-        android:src="@drawable/star_unselected"
+        android:background="@color/shimmerColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstPost" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvStar2"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:src="@drawable/star_unselected"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar1"
         app:layout_constraintStart_toEndOf="@+id/imvStar1"
         app:layout_constraintTop_toTopOf="@+id/imvStar1" />
 
     <TextView
         android:id="@+id/txvComments"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/manjariregular"
-        android:text="12 comentarios Ver..."
-        android:textColor="@color/transSecundaryColor"
-        android:textSize="10sp"
+        android:layout_width="110dp"
+        android:layout_height="14dp"
+        android:background="@color/shimmerColor"
         app:layout_constraintEnd_toEndOf="@+id/txvDescription"
         app:layout_constraintTop_toTopOf="@+id/txvLaunchTime" />
 
-    <TextView
+    <FrameLayout
         android:id="@+id/txvValoration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="16dp"
         android:layout_marginStart="5dp"
-        android:fontFamily="@font/manjariregular"
-        android:text="123 valoraci1s"
-        android:textColor="@color/transSecundaryColor"
-        android:textSize="10sp"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvStar1"
         app:layout_constraintStart_toEndOf="@+id/imvStar5"
         app:layout_constraintTop_toTopOf="@+id/imvStar1" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvSave"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="25dp"
-        android:src="@drawable/ic_save_recipe"
+        android:background="@color/shimmerColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cstPost" />
 
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvComment"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_comment_recipe"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvSave"
         app:layout_constraintEnd_toStartOf="@+id/imvSave"
         app:layout_constraintTop_toTopOf="@+id/imvSave" />
 
-    <ImageView
+    <FrameLayout
         android:id="@+id/imvShare"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_share_recipes"
+        android:background="@color/shimmerColor"
         app:layout_constraintBottom_toBottomOf="@+id/imvComment"
         app:layout_constraintEnd_toStartOf="@+id/imvComment"
         app:layout_constraintTop_toTopOf="@+id/imvComment" />

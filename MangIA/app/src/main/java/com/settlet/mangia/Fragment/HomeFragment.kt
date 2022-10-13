@@ -2,6 +2,8 @@ package com.settlet.mangia.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -26,6 +28,7 @@ import com.settlet.mangia.R
 import com.settlet.mangia.SearchActivity
 import com.settlet.mangia.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.delay
 
 class HomeFragment : Fragment() {
 
@@ -77,9 +80,18 @@ class HomeFragment : Fragment() {
             }
         }
 
+        Handler(Looper.getMainLooper()).postDelayed({
+            showData()
+        },2000)
+
 
 
         return root
+    }
+
+    private fun showData() {
+        binding.shimmerViewFH.visibility = View.GONE
+        binding.rcvPreviewRecipe.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
@@ -102,21 +114,6 @@ class HomeFragment : Fragment() {
             }
 
         })
-        /*val docRef = db.collection("follow").document(actualUserID).collection("following")
-        docRef.addSnapshotListener { value, error ->
-            if(error!=null){
-                Log.w("TAG","Listen Failed")
-                return@addSnapshotListener
-            }
-            if(value!=null) {
-                followingList.clear()
-                value.forEach { user ->
-                    followingList.add(user.id)
-                }
-                Log.d("userFollows", followingList.toString())
-                ReadRecipes()
-            }
-        }*/
     }
 
     private fun ReadRecipes(){
