@@ -21,11 +21,9 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import com.settlet.mangia.*
 import com.settlet.mangia.Adapter.PreviewRecipeAdapter
-import com.settlet.mangia.MRecipeStep1Activity
 import com.settlet.mangia.Model.Recipe
-import com.settlet.mangia.R
-import com.settlet.mangia.SearchActivity
 import com.settlet.mangia.databinding.FragmentHomeBinding
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.delay
@@ -68,11 +66,11 @@ class HomeFragment : Fragment() {
 
                 }
                 1->{
-                    Toast.makeText(requireActivity(),"Escanear",Toast.LENGTH_SHORT).show()
+                    requireActivity().startActivity(Intent(requireActivity(), SplashScanActivity::class.java))
                     //takePicture()
                 }
                 2->{
-                    Toast.makeText(requireActivity().baseContext,"Chat",Toast.LENGTH_SHORT).show()
+                    requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
                 }
                 else->{
 
@@ -87,6 +85,11 @@ class HomeFragment : Fragment() {
 
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.bottomNav.show(0,true)
     }
 
     private fun showData() {

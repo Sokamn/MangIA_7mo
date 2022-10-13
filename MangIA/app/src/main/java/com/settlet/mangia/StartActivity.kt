@@ -54,7 +54,7 @@ class StartActivity : AppCompatActivity() {
         val wordtoSpan: Spannable = SpannableString(binding.txvBeginChefS.text)
 
         wordtoSpan.setSpan(
-            ForegroundColorSpan(ContextCompat.getColor(this, R.color.secundaryColor)),
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.transSecundaryColor)),
             19,
             binding.txvBeginChefS.text.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

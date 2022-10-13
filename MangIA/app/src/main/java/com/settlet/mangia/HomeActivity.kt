@@ -127,9 +127,6 @@ class HomeActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        binding.appBarHome.imvMKRecipe.setOnClickListener {
-            this.startActivity(Intent(this,MRecipeStep1Activity::class.java))
-        }
 
         binding.btnCSesionH.setOnClickListener {
             logOut()
@@ -172,6 +169,8 @@ class HomeActivity : AppCompatActivity() {
 
         })
     }
+
+
 
 
 

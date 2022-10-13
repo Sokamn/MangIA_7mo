@@ -57,16 +57,6 @@
                 app:layout_constraintTop_toTopOf="@+id/imvOptionsABH"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <ImageView
-                android:id="@+id/imvMKRecipe"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_make_recipe"
-                app:layout_constraintBottom_toBottomOf="@+id/imvOptionsABH"
-                app:layout_constraintEnd_toStartOf="@+id/imvSearchAB"
-                app:layout_constraintTop_toTopOf="@+id/imvOptionsABH" />
-
             <TextView
                 android:id="@+id/txvTitleAppABH"
                 android:layout_width="wrap_content"

@@ -32,6 +32,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
     private val reference = FirebaseDatabase.getInstance().reference
     private val storageReference = FirebaseStorage.getInstance().reference
+    private val db = Firebase.firestore
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
@@ -158,24 +159,9 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun getNrRecipes(userID: String) {
-        reference.child("recipes").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var i = 0
-                snapshot.children.forEach { recipeSnapshot ->
-                    val recipe = recipeSnapshot.getValue(Recipe::class.java)
-                    if(recipe!=null){
-                        if(recipe.publisher==userID){
-                            i++
-                        }
-                    }
-                }
-                binding.txvRecipesP.text = "$i\nRecetas"
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
+        db.collection("recipes").whereEqualTo("publisher",userID).addSnapshotListener { value, error ->
+            binding.txvRecipesP.text = "${value?.count()}\nRecetas"
+        }
     }
 
     private fun getNrFollowsFollowers(userID: String) {
