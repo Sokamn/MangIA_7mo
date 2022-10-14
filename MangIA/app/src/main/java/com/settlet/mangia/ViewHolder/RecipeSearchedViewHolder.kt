@@ -136,12 +136,10 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         binding.txvCantIngredientsRS.text = recipe.listIngredients.size.toString()
         reference.child("likes").child(recipe.recipeID).get().addOnSuccessListener { snapshot ->
             reference.child("recipes").child(recipe.recipeID).child("totalValoration").get().addOnSuccessListener {
-                val average = it.value.toString().toDouble() / snapshot.childrenCount
-                val roundoff = (average * 10.0).roundToInt() / 10.0
-                if(roundoff.toString().endsWith("0")){
-                    binding.txvValorationRS.text = roundoff.roundToInt().toString()
-                }
-                binding.txvValorationRS.text = roundoff.toString()
+                val average = it.value.toString().toFloat() / snapshot.childrenCount
+                Log.d("AV",average.toString())
+                //val roundoff = (average * 10.0).roundToInt() / 10.0
+                //binding.txvValorationRS.text = roundoff.toString()
             }
         }
     }

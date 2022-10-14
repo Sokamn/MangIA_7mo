@@ -64,10 +64,11 @@ class HomeFragment : Fragment() {
                 }
                 1->{
                     requireActivity().startActivity(Intent(requireActivity(), ScanCameraActivity::class.java))
-                    //takePicture()
+                    requireActivity().finish()
                 }
                 2->{
                     requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
+                    requireActivity().finish()
                 }
                 else->{
 

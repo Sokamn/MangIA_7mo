@@ -21,10 +21,12 @@ class ChatActivity : AppCompatActivity() {
         binding.bottomNav.setOnClickMenuListener {
             when(it.id){
                 0->{
-                    onBackPressed()
+                    this.startActivity(Intent(this, HomeActivity::class.java))
+                    finish()
                 }
                 1->{
                     this.startActivity(Intent(this, ScanCameraActivity::class.java))
+                    finish()
                 }
                 2->{
 
