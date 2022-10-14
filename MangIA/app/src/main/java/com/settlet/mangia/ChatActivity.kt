@@ -3,7 +3,6 @@ package com.settlet.mangia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.settlet.mangia.databinding.ActivityChatBinding
 
@@ -25,7 +24,7 @@ class ChatActivity : AppCompatActivity() {
                     onBackPressed()
                 }
                 1->{
-                    this.startActivity(Intent(this, SplashScanActivity::class.java))
+                    this.startActivity(Intent(this, ScanCameraActivity::class.java))
                 }
                 2->{
 

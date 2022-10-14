@@ -7,7 +7,7 @@ import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.settlet.mangia.databinding.ActivityChatBinding
 import com.settlet.mangia.databinding.ActivitySplashScanBinding
 
-class SplashScanActivity : AppCompatActivity() {
+class ScanCameraActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySplashScanBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

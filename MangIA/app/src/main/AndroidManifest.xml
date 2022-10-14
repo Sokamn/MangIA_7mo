@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MangIA">
         <activity
-            android:name=".SplashScanActivity"
+            android:name=".ScanCameraActivity"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
