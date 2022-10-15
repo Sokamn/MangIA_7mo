@@ -8,10 +8,10 @@
     tools:context=".RegisterActivity">
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/imvBackgroundR"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:src="@drawable/bglogin"
+        android:src="@drawable/bgreg1"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -32,6 +32,11 @@ class UserRateAdapter : ListAdapter<Array<String>, UserRateViewHolder>(DiffCallB
         holder.render(item)
     }
 
+    fun updateUsers(listUser: List<Array<String>>){
+        this.submitList(listUser)
+        notifyDataSetChanged()
+    }
+
     companion object DiffCallBack: DiffUtil.ItemCallback<Array<String>>(){
         override fun areItemsTheSame(oldItem: Array<String>, newItem: Array<String>): Boolean {
             return oldItem[0] == newItem[0]

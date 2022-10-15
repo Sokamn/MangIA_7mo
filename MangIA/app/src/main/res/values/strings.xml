@@ -26,10 +26,10 @@
     <string name="rememberPass">Recuerdame</string>
     <string name="exNumber">1132150923</string>
     <string name="exArea">+54</string>
-    <string name="verifyMail">Para completar su registro ¡Por Favor! verifique su correo electronico y después de click en continuar</string>
-    <string name="vMailTitle">Verificacion de Email</string>
-    <string name="FPassTitle">Recuperación de la cuenta</string>
-    <string name="descFPass">Ingresa a tu email para que se te pueda enviar un correo con los pasos para cambiar tu contraseña</string>
+    <string name="verifyMail">Para completar su registro, por favor, verifique su correo electronico y luego haga click en continuar</string>
+    <string name="vMailTitle">Verificacion de E-Mail</string>
+    <string name="FPassTitle">Recuperar contraseña</string>
+    <string name="descFPass">Ingresa tu E-Mail. A continuación se enviará un correo electrónico con los pasos para la recuperación.</string>
     <string name="send">Enviar</string>
     <string name="codeVerPhone">Codigo de Verificación</string>
     <string name="vPhoneTitle">Verificación de Celular</string>

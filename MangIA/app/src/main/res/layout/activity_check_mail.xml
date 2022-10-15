@@ -7,16 +7,31 @@
     android:background="@color/primaryColor"
     tools:context=".CheckMailActivity">
 
+
+
     <ImageView
         android:id="@+id/imvBackgroundACM"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/bglogin"
+        android:src="@drawable/bgveremail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imvLogoCM"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_nobg"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageButton
         android:id="@+id/imbBackVM"
@@ -31,51 +46,93 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/btnback" />
 
-    <Button
-        android:id="@+id/btnContinueVM"
-        android:layout_width="220dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/manjaribold"
-        android:text="@string/cntBtn"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:backgroundTint="@color/secundaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvTextCenterVM" />
 
-    <TextView
-        android:id="@+id/txvTextCenterVM"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="35dp"
-        android:fontFamily="@font/manjariregular"
-        android:gravity="center_horizontal"
-        android:text="@string/verifyMail"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvTitleVM" />
 
-    <TextView
-        android:id="@+id/txvTitleVM"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/manjaribold"
-        android:text="@string/vMailTitle"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="22sp"
-        android:textStyle="bold"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="3dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="300dp" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnContinueVM"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="115dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/manjaribold"
+                android:paddingBottom="0dp"
+                android:text="@string/cntBtn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@color/secundaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/txvTextCenterVM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="35dp"
+                android:fontFamily="@font/manjariregular"
+                android:gravity="center_horizontal"
+                android:text="@string/verifyMail"
+                android:textColor="@color/secundaryColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleVM" />
+
+            <TextView
+                android:id="@+id/txvTitleVM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:textColor="@color/secundaryDarkColor"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/vMailTitle"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+
+            <TextView
+                android:id="@+id/txvPBSettletCM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manjariregular"
+                android:text="@string/pbSettlet"
+                android:textColor="#20681A"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

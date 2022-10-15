@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowUserRateBinding
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.nav_header_home.view.*
@@ -22,6 +23,10 @@ class UserRateViewHolder (view: View): RecyclerView.ViewHolder(view)  {
         pImageRef.downloadUrl.addOnSuccessListener { result ->
             Glide.with(binding.imvProfilePictureUR.context)
                 .load(result)
+                .into(binding.imvProfilePictureUR)
+        }.addOnFailureListener {
+            Glide.with(binding.imvProfilePictureUR.context)
+                .load(R.drawable.profile_picture)
                 .into(binding.imvProfilePictureUR)
         }
     }

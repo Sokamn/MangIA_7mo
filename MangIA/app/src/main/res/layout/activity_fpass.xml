@@ -7,6 +7,32 @@
     android:background="@color/primaryColor"
     tools:context=".FPassActivity">
 
+
+
+    <ImageView
+        android:id="@+id/imvBackgroundFP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bgrecoverpass"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imvLogoFP"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/logo"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_nobg"
+        tools:ignore="ImageContrastCheck" />
+
     <ImageButton
         android:id="@+id/imbBackFP"
         android:layout_width="30dp"
@@ -20,94 +46,110 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/btnback" />
 
-    <Button
-        android:id="@+id/btnSendFP"
-        android:layout_width="220dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/rounded_button"
-        android:fontFamily="@font/manjaribold"
-        android:text="@string/send"
-        android:textAllCaps="false"
-        android:paddingBottom="0dp"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:backgroundTint="@color/secundaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txpMailFP" />
 
-    <TextView
-        android:id="@+id/txvTextCenterFP"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="35dp"
-        android:fontFamily="@font/manjariregular"
-        android:gravity="center_horizontal"
-        android:text="@string/descFPass"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvTitleFP" />
 
-    <TextView
-        android:id="@+id/txvTitleFP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/manjaribold"
-        android:text="@string/FPassTitle"
-        android:textColor="@color/quaternaryColor"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imvLogoFP" />
-
-    <ImageView
-        android:id="@+id/imvPBSettletFP"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/pbSettlet"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="0dp"
+        android:layout_height="500dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="30dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="50dp"
+        app:cardElevation="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/pbsettlet" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ImageView
-        android:id="@+id/imvLogoFP"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
-        android:contentDescription="@string/logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo"
-        tools:ignore="ImageContrastCheck" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/txpMailFP"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginStart="35dp"
-        android:paddingBottom="5dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="35dp"
-        android:background="@drawable/outline_box"
-        android:ems="10"
-        android:fontFamily="@font/manjariregular"
-        android:hint="@string/mail"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/quaternaryColor"
-        android:textColorHint="@color/transQuaternaryColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txvTextCenterFP" />
+            <Button
+                android:id="@+id/btnSendFP"
+                android:layout_width="0dp"
+                android:layout_height="55dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/manjaribold"
+                android:paddingBottom="0dp"
+                android:text="@string/cntBtn"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:backgroundTint="@color/secundaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txpMailFP" />
+
+            <TextView
+                android:id="@+id/txvTextCenterFP"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginEnd="35dp"
+                android:fontFamily="@font/manjariregular"
+                android:gravity="center_horizontal"
+                android:text="@string/descFPass"
+                android:textColor="@color/secundaryColor"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvTitleFP" />
+
+            <TextView
+                android:id="@+id/txvTitleFP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/manjaribold"
+                android:text="@string/FPassTitle"
+                android:textColor="@color/secundaryDarkColor"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/txpMailFP"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="30dp"
+                android:backgroundTint="@color/transSecundaryColor"
+                android:ems="10"
+                android:fontFamily="@font/manjarithin"
+                android:hint="@string/mail"
+                android:inputType="textPersonName"
+                android:textColor="@color/secundaryColor"
+                android:textColorHint="@color/transSecundaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txvTextCenterFP" />
+
+
+
+            <TextView
+                android:id="@+id/txvPBSettletCM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manjariregular"
+                android:text="@string/pbSettlet"
+                android:textColor="#20681A"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
