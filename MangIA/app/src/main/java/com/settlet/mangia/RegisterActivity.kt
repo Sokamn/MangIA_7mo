@@ -372,9 +372,7 @@ class RegisterActivity : AppCompatActivity() {
         return true
     }
     private fun register1(){
-        Glide.with(this)
-            .load(R.drawable.bgreg1)
-            .into(binding.imvBackgroundR)
+        binding.imvBackgroundR.setImageResource(R.drawable.bgreg1)
         //register1
         binding.txpMailR.visibility = View.VISIBLE
         binding.txpTelR.visibility = View.VISIBLE
@@ -396,9 +394,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvTerminos.visibility = View.INVISIBLE
     }
     private fun register2(){
-        Glide.with(this)
-            .load(R.drawable.bgreg2)
-            .into(binding.imvBackgroundR)
+        binding.imvBackgroundR.setImageResource(R.drawable.bgreg2)
         //register1
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
@@ -420,9 +416,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvTerminos.visibility = View.INVISIBLE
     }
     private fun register3(){
-        Glide.with(this)
-            .load(R.drawable.bgreg3)
-            .into(binding.imvBackgroundR)
+        binding.imvBackgroundR.setImageResource(R.drawable.bgreg3)
         //register1
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
@@ -444,9 +438,7 @@ class RegisterActivity : AppCompatActivity() {
         binding.txvTerminos.visibility = View.INVISIBLE
     }
     private fun register4(){
-        Glide.with(this)
-            .load(R.drawable.bgreg4)
-            .into(binding.imvBackgroundR)
+        binding.imvBackgroundR.setImageResource(R.drawable.bgreg4)
         //register1
         binding.txpMailR.visibility = View.INVISIBLE
         binding.txpTelR.visibility = View.INVISIBLE
