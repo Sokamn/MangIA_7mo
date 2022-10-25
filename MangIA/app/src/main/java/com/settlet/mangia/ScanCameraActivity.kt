@@ -15,7 +15,8 @@ class ScanCameraActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScanCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         binding.bottomNav.add(MeowBottomNavigation.Model(0,R.drawable.ic_home_menu))
         binding.bottomNav.add(MeowBottomNavigation.Model(1,R.drawable.ic_scan_nav))

@@ -57,6 +57,8 @@ class HomeFragment : Fragment() {
         binding.bottomNav.add(MeowBottomNavigation.Model(2,R.drawable.ic_comment_recipe_black))
         binding.bottomNav.show(0,true)
 
+        configSwipe()
+
         binding.fbtnMRecipe.setOnClickListener {
             this.startActivity(Intent(requireActivity(),MRecipeStep1Activity::class.java))
         }
@@ -87,6 +89,18 @@ class HomeFragment : Fragment() {
 
 
         return root
+    }
+
+    private fun configSwipe() {
+        binding.swipeHome.setOnRefreshListener {
+            binding.shimmerViewFH.visibility = View.VISIBLE
+            binding.rcvPreviewRecipe.visibility = View.INVISIBLE
+            ReadRecipes()
+            Handler(Looper.getMainLooper()).postDelayed({
+                showData()
+                binding.swipeHome.isRefreshing = false
+            },2000)
+        }
     }
 
     override fun onResume() {
