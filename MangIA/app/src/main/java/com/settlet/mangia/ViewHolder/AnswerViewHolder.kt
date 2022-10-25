@@ -43,6 +43,7 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val context = binding.txvAnswerRCA.context as CommentsActivity
     val reference = FirebaseDatabase.getInstance().reference
     val db = Firebase.firestore
+    val activity = itemView.context as CommentsActivity
 
     fun render(answer: Comment) {
         val txpAddComment = context.findViewById<EditText>(R.id.txpAddCommentAC)
@@ -204,9 +205,11 @@ class AnswerViewHolder(view: View): RecyclerView.ViewHolder(view) {
     private fun getProfileImage(publisher: String) {
         val pImageRef = storageReference.child("users/${publisher}/profile.jpg")
         pImageRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(binding.imvProfilePictureRCA.context)
-                .load(result)
-                .into(binding.imvProfilePictureRCA)
+            if (!activity.isFinishing && !activity.isDestroyed) {
+                Glide.with(binding.imvProfilePictureRCA.context)
+                    .load(result)
+                    .into(binding.imvProfilePictureRCA)
+            }
         }
     }
 

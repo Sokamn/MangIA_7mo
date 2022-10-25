@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.PagerAdapterFF
+import com.settlet.mangia.Model.User
 import com.settlet.mangia.databinding.ActivityFollowsAndFollowersBinding
 
 class FollowsAndFollowersActivity : AppCompatActivity() {
@@ -39,6 +40,7 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
         val prefs = this.getSharedPreferences("PREFS", Context.MODE_PRIVATE)
         val profileID = prefs.getString("profileID","none")
         val extra = intent.extras!!.getString("vPage").toString()
+        getUserInfo(profileID.toString())
 
         viewPager.adapter = PagerAdapterFF(this)
 
@@ -75,5 +77,20 @@ class FollowsAndFollowersActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+    private fun getUserInfo(userID: String) {
+        val docRef = reference.child("users").child(userID)
+        docRef.addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val user = snapshot.getValue(User::class.java)
+                if (user != null) {
+                    binding.txvTitleFF.text = "@${user.userName}"
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+        })
     }
 }

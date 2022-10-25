@@ -40,6 +40,11 @@ class UserAdapter: ListAdapter<User, UserViewHolder>(DiffCallBack){
         holder.render(item)
     }
 
+    fun updateUsers(listUser: List<User>){
+        this.submitList(listUser)
+        notifyDataSetChanged()
+    }
+
     companion object DiffCallBack: DiffUtil.ItemCallback<User>(){
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem.userID == newItem.userID

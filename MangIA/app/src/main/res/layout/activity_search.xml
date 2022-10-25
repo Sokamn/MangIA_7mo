@@ -6,6 +6,31 @@
     android:layout_height="match_parent"
     android:background="@color/primaryColor"
     tools:context=".SearchActivity">
+
+
+    <ImageView
+        android:id="@+id/imvIlustrativeImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="70dp"
+        android:elevation="11dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sdasd"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imvIlustrativeImagePort"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:elevation="11dp"
+        android:src="@drawable/illustrative_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -14,27 +39,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+
 
             <ImageButton
                 android:id="@+id/imbBackS"
                 android:layout_width="20dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="15dp"
                 android:backgroundTint="@android:color/transparent"
-                android:padding="3dp"
+                android:padding="0dp"
                 android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="@+id/txpSearchSomethingAS"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/btnback" />
+                app:layout_constraintTop_toTopOf="@+id/txpSearchSomethingAS"
+                app:srcCompat="@drawable/btnbackbrown" />
 
             <EditText
                 android:id="@+id/txpSearchSomethingAS"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
@@ -42,26 +71,28 @@
                 android:elevation="10dp"
                 android:ems="10"
                 android:focusableInTouchMode="false"
-                android:fontFamily="@font/manjarithin"
-                android:hint="@string/sIngredient"
+                android:fontFamily="@font/manjaribold"
+                android:hint="@string/sRecipes"
                 android:inputType="textEmailAddress"
                 android:padding="0dp"
-                android:paddingStart="40dp"
+                android:paddingStart="50dp"
                 android:textAlignment="textStart"
                 android:textColor="@color/quaternaryColor"
-                android:textColorHint="@color/black"
+                android:textColorHint="#ABABAB"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imbBackS"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="RtlSymmetry" />
 
+
+
             <ImageView
                 android:id="@+id/imvSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
                 android:elevation="11dp"
-                android:src="@drawable/ic_search_black"
+                android:src="@drawable/asicon"
                 app:layout_constraintBottom_toBottomOf="@+id/txpSearchSomethingAS"
                 app:layout_constraintStart_toStartOf="@+id/txpSearchSomethingAS"
                 app:layout_constraintTop_toTopOf="@+id/txpSearchSomethingAS" />
@@ -70,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"

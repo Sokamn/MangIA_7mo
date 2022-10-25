@@ -386,7 +386,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="30dp"
-        android:backgroundTint="@color/primaryColor"
+        android:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/cancel"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"

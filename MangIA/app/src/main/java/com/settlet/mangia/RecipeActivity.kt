@@ -44,6 +44,8 @@ class RecipeActivity : AppCompatActivity() {
         window.statusBarColor = getColor(R.color.primaryColor)
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
+
+
         val recipeID = intent.getStringExtra("recipeID")
 
         db.collection("recipes").document(recipeID!!).addSnapshotListener { value, error ->
@@ -85,7 +87,7 @@ class RecipeActivity : AppCompatActivity() {
                             startActivity(intent)
                         }
                         binding.btnValorateAR.setOnClickListener {
-
+                            Toast.makeText(baseContext, "Trabajo en Progreso.\nPor favor, valorar desde la vista anterior.",Toast.LENGTH_LONG)
                         }
                         binding.txvValorationAR.setOnClickListener {
                             val intent = Intent(this, UserRateActivity::class.java )
@@ -247,9 +249,11 @@ class RecipeActivity : AppCompatActivity() {
     private fun loadRecipeImage(image:String) {
         val fileRef = storageReference.child(image)
         fileRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(this)
-                .load(result)
-                .into(binding.imvFirstRecipeImageAR)
+            if (!this.isFinishing && !this.isDestroyed) {
+                Glide.with(this)
+                    .load(result)
+                    .into(binding.imvFirstRecipeImageAR)
+            }
         }
     }
 
@@ -259,9 +263,11 @@ class RecipeActivity : AppCompatActivity() {
             binding.txvUserNameAR.text = user.child("userName").value.toString()
             val pImageRef = storageReference.child("users/$profileID/profile.jpg")
             pImageRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(this)
-                    .load(result)
-                    .into(binding.imvProfileAR)
+                if (!this.isFinishing && !this.isDestroyed) {
+                    Glide.with(this)
+                        .load(result)
+                        .into(binding.imvProfileAR)
+                }
             }
         }
     }

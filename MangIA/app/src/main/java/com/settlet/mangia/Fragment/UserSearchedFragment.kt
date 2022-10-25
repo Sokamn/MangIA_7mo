@@ -40,40 +40,34 @@ class UserSearchedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_user_searched, container, false)
+        showUsers()
         rcvUserSearched = myView.findViewById(R.id.rcvUserSearched)
         txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
-        rcvUserSearched.setHasFixedSize(true)
         rcvUserSearched.layoutManager = LinearLayoutManager(requireActivity())
         rcvUserSearched.adapter = userAdapter
         vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
         txpSearch.doOnTextChanged { text, start, before, count ->
-            if (vwpSearch.currentItem==1){
-                if(txpSearch.text.toString() == ""){
-                    userList.clear()
-                }else{
-                    showUsers(txpSearch.text.toString())
-                }
+            val usersFiltered = userList.filter { user ->
+                user.userName.lowercase().contains(text.toString().lowercase())
+            }
+            if (text == "") {
+                userAdapter.updateUsers(mutableListOf())
+            } else {
+                userAdapter.updateUsers(usersFiltered)
             }
         }
         return myView
     }
 
-    private fun showUsers(textSearched: String) {
-        reference.child("users").orderByChild("userName").startAt(textSearched).endAt("$textSearched\uf8ff").addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                userList.clear()
-                snapshot.children.forEach { userValue ->
-                    val user = userValue.getValue(User::class.java)
-                    if(user!=null){
-                        userList.add(user)
-                    }
+    private fun showUsers() {
+        reference.child("users").get().addOnSuccessListener { userSnap ->
+            userList.clear()
+            userSnap.children.forEach { userValue ->
+                val user = userValue.getValue(User::class.java)
+                if (user != null) {
+                    userList.add(user)
                 }
-                userAdapter.submitList(userList)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-
-        })
+        }
     }
 }

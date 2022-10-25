@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HomeFragment">
 
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvPreviewRecipe"
         android:layout_width="match_parent"
@@ -53,6 +55,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/include2" />
 
 
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -62,18 +66,29 @@
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mbn_countBackgroundColor="#ff6f00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:mbn_backgroundBottomColor="@color/primaryColor"
+        app:mbn_countBackgroundColor="#ff6f00"
         app:mbn_countTextColor="#ffffff"
         app:mbn_defaultIconColor="@color/transQuaternaryColor"
         app:mbn_rippleColor="#2f424242"
         app:mbn_selectedIconColor="@color/quaternaryColor"
-        app:mbn_shadowColor="#1f212121"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:mbn_shadowColor="#1f212121" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fbtnMRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="5dp"
+        android:clickable="true"
+        app:backgroundTint="@color/primaryColor"
+        app:rippleColor="@color/shimmerColor"
+        android:src="@drawable/ic_mk_recipe"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNav"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,7 @@ import java.text.Normalizer
 class IngredientRecipeAdapter : ListAdapter<Ingredient, IngredientRecipeAdapter.IngredientRecipeViewHolder>(DiffCallBack){
     class IngredientRecipeViewHolder(view:View): RecyclerView.ViewHolder(view) {
         private val binding = RowIngredientRecipeBinding.bind(view)
+        private val activity = itemView.context.applicationContext
         private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
         private val storageReference = FirebaseStorage.getInstance().reference
         fun render(ingredient: Ingredient){
@@ -59,14 +60,15 @@ class IngredientRecipeAdapter : ListAdapter<Ingredient, IngredientRecipeAdapter.
             refStorage = refStorage.replace("\\s".toRegex(), "")
 
             storageReference.child("ingredients/${refStorage}.png").downloadUrl.addOnSuccessListener { result ->
-                    Glide.with(binding.imvIngredientRIR.context)
+                    Glide.with(activity)
                         .load(result)
                         .into(binding.imvIngredientRIR)
 
                 }.addOnFailureListener {
-                    Glide.with(binding.imvIngredientRIR.context)
+                    Glide.with(activity)
                         .load(R.drawable.ic_load_ingredient)
                         .into(binding.imvIngredientRIR)
+
                 }
         }
         fun CharSequence.unaccent(): String {

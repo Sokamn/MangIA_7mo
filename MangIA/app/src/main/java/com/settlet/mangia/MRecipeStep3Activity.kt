@@ -281,7 +281,6 @@ class MRecipeStep3Activity : AppCompatActivity() {
             }
 
         }
-        //https://www.istockphoto.com/es/foto/de-pasta-italiana-verter-sobre-fondo-blanco-gm467084686-60661934
     }
 
     private fun ApplyNewComplexity(i: Int) {
@@ -300,28 +299,28 @@ class MRecipeStep3Activity : AppCompatActivity() {
                     binding.imvComplex2.setImageResource(R.drawable.circlebackground)
                     binding.imvComplex3.setImageResource(R.drawable.circlebackground)
                     binding.imvComplex4.setImageResource(R.drawable.circlebackground)
-                    Toast.makeText(this,"Complejidad: Medio.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Complejidad: Moderado.",Toast.LENGTH_SHORT).show()
                 }
                 2->{
                     binding.imvComplex1.setImageResource(R.drawable.logo)
                     binding.imvComplex2.setImageResource(R.drawable.logo)
                     binding.imvComplex3.setImageResource(R.drawable.circlebackground)
                     binding.imvComplex4.setImageResource(R.drawable.circlebackground)
-                    Toast.makeText(this,"Complejidad: Dificil.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Complejidad: Con experiencia.",Toast.LENGTH_SHORT).show()
                 }
                 3->{
                     binding.imvComplex1.setImageResource(R.drawable.logo)
                     binding.imvComplex2.setImageResource(R.drawable.logo)
                     binding.imvComplex3.setImageResource(R.drawable.logo)
                     binding.imvComplex4.setImageResource(R.drawable.circlebackground)
-                    Toast.makeText(this,"Complejidad: Ultra Dificil.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Complejidad: Chef Principiante.",Toast.LENGTH_SHORT).show()
                 }
                 4->{
                     binding.imvComplex1.setImageResource(R.drawable.logo)
                     binding.imvComplex2.setImageResource(R.drawable.logo)
                     binding.imvComplex3.setImageResource(R.drawable.logo)
                     binding.imvComplex4.setImageResource(R.drawable.logo)
-                    Toast.makeText(this,"Complejidad: Imposible.",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Complejidad: Chef Profesional.",Toast.LENGTH_SHORT).show()
                 }
                 else->{
                     binding.imvComplex1.setImageResource(R.drawable.circlebackground)

@@ -19,6 +19,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.IngredientRecipeAdapter
 import com.settlet.mangia.Adapter.SliderAdapter
+import com.settlet.mangia.AdvancedSearchActivity
 import com.settlet.mangia.Model.Ingredient
 import com.settlet.mangia.Model.Recipe
 import com.settlet.mangia.ProfileActivity
@@ -41,7 +42,7 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     private lateinit var imvUniquePostDialog : ImageView
     private lateinit var sldrPostImage: SliderView
     private val listImages = mutableListOf<String>()
-
+    private val activity = itemView.context as AdvancedSearchActivity
 
 
     fun render(recipe: Recipe){
@@ -92,9 +93,11 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         if (recipe.listImages.size == 1){
             val fileRef = storageReference.child(recipe.listImages.first())
             fileRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(imagePost.context)
-                    .load(result)
-                    .into(imvUniquePostDialog)
+                if (!activity.isFinishing && !activity.isDestroyed) {
+                    Glide.with(imagePost.context)
+                        .load(result)
+                        .into(imvUniquePostDialog)
+                }
             }
             sldrPostImage.visibility = View.GONE
         }else{
@@ -119,7 +122,6 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         rcvIingredients = ingredients.findViewById(R.id.rcvIngredientsLI)
         rcvIingredients.layoutManager = LinearLayoutManager(itemView.context)
         val adapter = IngredientRecipeAdapter()
-        rcvIingredients.setHasFixedSize(true)
         adapter.submitList(ingredientList)
         rcvIingredients.adapter = adapter
     }
@@ -147,9 +149,11 @@ class RecipeSearchedViewHolder(view: View): RecyclerView.ViewHolder(view)  {
     private fun loadPostImage(image: String) {
         val fileRef = storageReference.child(image)
         fileRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(itemView.context)
-                .load(result)
-                .into(binding.imvUniquePost)
+            if (!activity.isFinishing && !activity.isDestroyed) {
+                Glide.with(itemView.context)
+                    .load(result)
+                    .into(binding.imvUniquePost)
+            }
         }
     }
 }

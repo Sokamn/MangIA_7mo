@@ -22,6 +22,10 @@ class RecipeSearchedAdapter : ListAdapter<Recipe, RecipeSearchedViewHolder>(Diff
         val item = getItem(position)
         holder.render(item)
     }
+    fun updateRecipes(listRecipe: List<Recipe>){
+        this.submitList(listRecipe)
+        notifyDataSetChanged()
+    }
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Recipe>() {
         override fun areItemsTheSame(oldItem: Recipe, newItem: Recipe): Boolean {

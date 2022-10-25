@@ -122,7 +122,7 @@
             app:layout_constraintEnd_toStartOf="@+id/txvTitleMR2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_gallery" />
+            app:srcCompat="@drawable/ic_gallerya" />
 
         <ImageView
             android:id="@+id/imvCameraMR"
@@ -134,7 +134,7 @@
             app:layout_constraintStart_toEndOf="@+id/txvTitleMR2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_camera_mr" />
+            app:srcCompat="@drawable/ic_camera" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

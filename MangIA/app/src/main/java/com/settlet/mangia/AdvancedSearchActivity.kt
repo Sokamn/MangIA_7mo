@@ -41,8 +41,12 @@ class AdvancedSearchActivity : AppCompatActivity() {
         viewPager.adapter = PagerAdapterAS(this)
         TabLayoutMediator(tabLayout,viewPager){ tab,position->
             tab.icon = when(position){
-                0 -> ContextCompat.getDrawable(this, R.drawable.ic_search_recipe)
-                1 -> ContextCompat.getDrawable(this, R.drawable.ic_search_user)
+                0 -> {
+                    ContextCompat.getDrawable(this, R.drawable.ic_search_recipe)
+                }
+                1 -> {
+                    ContextCompat.getDrawable(this, R.drawable.ic_search_user)
+                }
                 else -> throw Resources.NotFoundException("Position Not Found")
             }
         }.attach()

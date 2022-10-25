@@ -7,7 +7,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextPaint
 import android.text.style.ClickableSpan
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -22,12 +21,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.protobuf.Value
 import com.settlet.mangia.Adapter.AnswerAdapter
 import com.settlet.mangia.CommentsActivity
 import com.settlet.mangia.LikeCommentsActivity
@@ -47,13 +43,13 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
     val reference = FirebaseDatabase.getInstance().reference
     val db = Firebase.firestore
     private val answerList = mutableListOf<Comment>()
-    val a = binding.txvAnswerRC.context as CommentsActivity
+    val activity = binding.txvAnswerRC.context as CommentsActivity
 
     fun render(comment: Comment) {
-        val txpAddComment = a.findViewById<EditText>(R.id.txpAddCommentAC)
-        val txvAnswerTitle = a.findViewById<TextView>(R.id.txvTitleAnswer)
-        val crdAnswer = a.findViewById<CardView>(R.id.crdAnswer)
-        val cstAnswer = a.findViewById<ConstraintLayout>(R.id.cstAnswer)
+        val txpAddComment = activity.findViewById<EditText>(R.id.txpAddCommentAC)
+        val txvAnswerTitle = activity.findViewById<TextView>(R.id.txvTitleAnswer)
+        val crdAnswer = activity.findViewById<CardView>(R.id.crdAnswer)
+        val cstAnswer = activity.findViewById<ConstraintLayout>(R.id.cstAnswer)
         getProfileImage(comment.publisher)
         getTimeLaunch(comment)
         getLikes(comment.commentID)
@@ -252,9 +248,11 @@ class CommentViewHolder(view:View): RecyclerView.ViewHolder(view) {
     private fun getProfileImage(email: String) {
         val pImageRef = storageReference.child("users/${email}/profile.jpg")
         pImageRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(binding.imvProfilePictureRC.context)
-                .load(result)
-                .into(binding.imvProfilePictureRC)
+            if (!activity.isFinishing && !activity.isDestroyed) {
+                Glide.with(binding.imvProfilePictureRC.context)
+                    .load(result)
+                    .into(binding.imvProfilePictureRC)
+            }
         }
     }
 

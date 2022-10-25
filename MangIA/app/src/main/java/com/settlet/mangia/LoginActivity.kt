@@ -70,14 +70,14 @@ class LoginActivity : AppCompatActivity() {
             when(action){
                 MotionEvent.ACTION_DOWN -> {
                     binding.txpPassL.inputType = 145
-                    binding.imvPassVisible.setImageResource(R.drawable.ic_slashpass_btn)
+                    binding.imvPassVisible.setImageResource(R.drawable.ic_eye_opened)
                     val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.manjarithin);
                     binding.txpPassL.typeface = typeface
 
                 }
                 MotionEvent.ACTION_UP -> {
                     binding.txpPassL.inputType = 129
-                    binding.imvPassVisible.setImageResource(R.drawable.ic_viewpass_btn)
+                    binding.imvPassVisible.setImageResource(R.drawable.ic_closed_eye)
                     val typeface: Typeface? = ResourcesCompat.getFont(this, R.font.manjarithin);
                     binding.txpPassL.typeface = typeface
                 }

@@ -18,6 +18,7 @@ class PagerAdapterStep : ListAdapter<Step, PagerAdapterStep.VPStepViewHolder>(Di
     class VPStepViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding = VpStepItemBinding.bind(view)
+        private val activity = itemView.context.applicationContext
         private val storageReference = FirebaseStorage.getInstance().reference
 
         fun render(step: Step){
@@ -29,12 +30,13 @@ class PagerAdapterStep : ListAdapter<Step, PagerAdapterStep.VPStepViewHolder>(Di
                 if(!context.isDestroyed){
                     binding.imvOptionalImageVSI.visibility = View.VISIBLE
                     storageReference.child(step.optionalImage.toString()).downloadUrl.addOnSuccessListener { result ->
-                        Glide.with(binding.imvOptionalImageVSI.context)
+
+                        Glide.with(activity)
                             .load(result)
                             .into(binding.imvOptionalImageVSI)
 
                     }.addOnFailureListener {
-                        Glide.with(binding.imvOptionalImageVSI.context)
+                        Glide.with(activity)
                             .load(R.drawable.ic_load_ingredient)
                             .into(binding.imvOptionalImageVSI)
                     }

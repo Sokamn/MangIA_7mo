@@ -41,6 +41,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     private val storageReference = FirebaseStorage.getInstance().reference
     val profileID = Firebase.auth.currentUser!!.uid
     private val listImages = mutableListOf<String>()
+    private val activity = itemView.context.applicationContext
     fun render(recipe:Recipe){
         loadPostImages(recipe)
         loadDescriptionDesign(recipe.title, recipe.description)
@@ -243,9 +244,10 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
     private fun loadProfileImage(profileID: String) {
         val pImageRef = storageReference.child("users/$profileID/profile.jpg")
         pImageRef.downloadUrl.addOnSuccessListener { result ->
-            Glide.with(binding.imvProfilePictureRI.context)
-                .load(result)
-                .into(binding.imvProfilePictureRI)
+                Glide.with(activity)
+                    .load(result)
+                    .into(binding.imvProfilePictureRI)
+
         }
     }
 
@@ -253,9 +255,11 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         if (recipe.listImages.size == 1){
             val fileRef = storageReference.child(recipe.listImages.first())
             fileRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(binding.imvUniquePost.context)
-                    .load(result)
-                    .into(binding.imvUniquePost)
+                        Glide.with(activity)
+                            .load(result)
+                            .into(binding.imvUniquePost)
+
+
             }
             binding.crdvwSliderRI.visibility = View.GONE
         }else{
@@ -281,7 +285,7 @@ class PreviewRecipeViewHolder (view: View): RecyclerView.ViewHolder(view) {
         reference.child("saves").child(profileID).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.child(recipeID).exists()){
-                    binding.imvSave.setImageResource(R.drawable.ic_unsave_recipe)
+                    binding.imvSave.setImageResource(R.drawable.ic_unsave_re)
                     binding.imvSave.tag = "saved"
                 }else{
                     binding.imvSave.setImageResource(R.drawable.ic_save_recipe)

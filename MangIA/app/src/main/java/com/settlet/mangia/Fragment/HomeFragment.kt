@@ -57,6 +57,10 @@ class HomeFragment : Fragment() {
         binding.bottomNav.add(MeowBottomNavigation.Model(2,R.drawable.ic_comment_recipe_black))
         binding.bottomNav.show(0,true)
 
+        binding.fbtnMRecipe.setOnClickListener {
+            this.startActivity(Intent(requireActivity(),MRecipeStep1Activity::class.java))
+        }
+
         binding.bottomNav.setOnClickMenuListener {
             when(it.id){
                 0->{

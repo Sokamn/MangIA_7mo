@@ -43,8 +43,8 @@ class RecipeSearchedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_recipe_searched, container, false)
+        loadRecipes()
         rcvRecipesSearched = myView.findViewById(R.id.rcvRecipeSearched)
-        rcvRecipesSearched.setHasFixedSize(true)
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         linearLayoutManager.reverseLayout = true
         linearLayoutManager.stackFromEnd = true
@@ -53,20 +53,23 @@ class RecipeSearchedFragment : Fragment() {
         txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
         vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
         txpSearch.doOnTextChanged { text, start, before, count ->
-            if (vwpSearch.currentItem==0){
-                showRecipes(txpSearch.text.toString())
+            val usersFiltered = recipeList.filter { recipe -> recipe.title.lowercase().contains(text.toString().lowercase()) }
+            if(text==""){
+                recipeAdapter.updateRecipes(mutableListOf())
+            }else{
+                recipeAdapter.updateRecipes(usersFiltered)
             }
         }
         return myView
     }
 
-    private fun showRecipes(titleRecipe: String) {
+    private fun loadRecipes() {
         db.collection("recipes").get().addOnSuccessListener { snapshot->
             recipeList.clear()
             snapshot.forEach { recipe ->
-                recipeList.add(recipe.toObject())
-                recipeAdapter.submitList(recipeList)
-                recipeAdapter.notifyDataSetChanged()
+                val recipeOb: Recipe = recipe.toObject()
+                    recipeList.add(recipeOb)
+
             }
         }
     }

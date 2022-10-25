@@ -11,7 +11,7 @@
     <color name="shimmerColor">#c8c8c9</color>
     <color name="lineColor">#947F6E</color>
     <color name="colorStatePressed">#EFEFEF</color>
-    <color name="lightFont">#E9E5D6</color>
+    <color name="lightFont">#ECECEC</color>
     <color name="lightGray">#FEFEFE</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>

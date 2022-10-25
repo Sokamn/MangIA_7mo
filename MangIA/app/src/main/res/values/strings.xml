@@ -64,6 +64,9 @@
     <string name="aIngredient">Agregar Ingredientes</string>
     <string name="stepByStep">Paso a paso</string>
     <string name="sIngredient">Buscar Ingredientes</string>
+    <string name="sRecipe">Buscar Recetas</string>
+    <string name="sUser">Buscar Usuarios</string>
+
     <string name="plusAdd">+ Añadir…</string>
     <string name="ingredient">Ingrediente</string>
     <string name="plusAddStep">+ Agregar paso…</string>
@@ -84,6 +87,8 @@
     <string name="recipe">Receta</string>
     <string name="ingredients">Ingredientes</string>
     <string name="welcomeMangIA">Bienvenido a MangIA</string>
+    <string name="sRecipes">Explora recetas, personas…</string>
+
 
     <string name="facebook_app_id">1509587142805147</string>
     <string name="fb_login_protocol_scheme">fb1509587142805147</string>

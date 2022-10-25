@@ -132,6 +132,7 @@
                 android:contentDescription="@string/facebook"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/txvLoginL2"
                 app:layout_constraintStart_toEndOf="@+id/txvForgotPassL"
                 app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL"
@@ -142,14 +143,14 @@
                 style="@android:style/Widget.DeviceDefault.ImageButton"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginEnd="-100dp"
                 android:background="@android:color/transparent"
                 android:backgroundTint="@color/primaryColor"
                 android:contentDescription="@string/google"
                 android:padding="10dp"
                 android:scaleType="fitCenter"
                 app:layout_constraintBottom_toTopOf="@+id/txvLoginL2"
-                app:layout_constraintEnd_toStartOf="@+id/txvForgotPassL"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txvForgotPassL"
                 app:srcCompat="@drawable/google" />
 
@@ -187,10 +188,11 @@
                 android:layout_height="30dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="7dp"
+                android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="@+id/txpPassL"
                 app:layout_constraintEnd_toEndOf="@+id/txpPassL"
                 app:layout_constraintTop_toTopOf="@+id/txpPassL"
-                app:srcCompat="@drawable/ic_viewpass_btn" />
+                app:srcCompat="@drawable/ic_closed_eye" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
