@@ -25,7 +25,7 @@ class MessageAdapter : ListAdapter<Message, MessageViewHolder>(DiffCallBack){
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Message>(){
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.userID == newItem.userID
         }
 
         override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {

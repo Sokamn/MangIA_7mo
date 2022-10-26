@@ -1,6 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/primaryColor"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imvProfilePictureM"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/userImageProfile"
+        app:srcCompat="@drawable/profile_picture" />
+
+    <TextView
+        android:id="@+id/txvUNameM"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/manjaribold"
+        android:text="@string/userName"
+        android:textColor="@color/quaternaryColor"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
+        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureM"
+        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureM" />
+
+    <TextView
+        android:id="@+id/txvLastMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/manjariregular"
+        android:text="Ultimo mensaje enviado"
+        android:textColor="@color/lineColor"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureM"
+        app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
+        app:layout_constraintStart_toEndOf="@+id/imvProfilePictureM" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imvNotifUMessageM"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/secundaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundMessageNotif" />
+
+    <TextView
+        android:id="@+id/txvUMessageM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/manjaribold"
+        android:text="1"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imvNotifUMessageM"
+        app:layout_constraintEnd_toEndOf="@+id/imvNotifUMessageM"
+        app:layout_constraintStart_toStartOf="@+id/imvNotifUMessageM"
+        app:layout_constraintTop_toTopOf="@+id/imvNotifUMessageM" />
 </androidx.constraintlayout.widget.ConstraintLayout>

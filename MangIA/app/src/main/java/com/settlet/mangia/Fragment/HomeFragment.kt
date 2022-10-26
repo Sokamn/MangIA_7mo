@@ -73,7 +73,7 @@ class HomeFragment : Fragment() {
                     requireActivity().finish()
                 }
                 2->{
-                    requireActivity().startActivity(Intent(requireActivity(), ChatActivity::class.java))
+                    requireActivity().startActivity(Intent(requireActivity(), MessagesActivity::class.java))
                     requireActivity().finish()
                 }
                 else->{

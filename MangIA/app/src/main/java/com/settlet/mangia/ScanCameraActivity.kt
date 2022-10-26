@@ -33,7 +33,7 @@ class ScanCameraActivity : AppCompatActivity() {
 
                 }
                 2->{
-                    this.startActivity(Intent(this, ChatActivity::class.java))
+                    this.startActivity(Intent(this, MessagesActivity::class.java))
                     finish()
                 }
                 else->{
