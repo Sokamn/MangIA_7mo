@@ -150,7 +150,7 @@
                 android:textAlignment="center"
                 android:textColor="@color/quaternaryColor"
                 android:textSize="15sp"
-                app:layout_constraintBottom_toTopOf="@+id/txvBioP"
+                app:layout_constraintBottom_toBottomOf="@+id/txvFollowersP"
                 app:layout_constraintEnd_toStartOf="@+id/txvFollowersP"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txvFollowersP" />

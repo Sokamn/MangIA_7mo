@@ -22,10 +22,12 @@ import kotlinx.android.synthetic.main.bottom_bar.view.*
 
 class MessagesActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMessagesBinding
-    private lateinit var messageList :MutableList<Message>
+    private var messageList = mutableListOf<Message>()
     private val followingList = mutableListOf<String>()
     private val reference = FirebaseDatabase.getInstance().reference
+    private val currentUser = Firebase.auth.currentUser!!.uid
     private lateinit var messageAdapter: MessageAdapter
+    private var dataSet = false
     private var unseenMessages = 0
     private var lastMessage = ""
     private var chatKey = ""
@@ -41,6 +43,8 @@ class MessagesActivity : AppCompatActivity() {
         binding.bottomNav.add(MeowBottomNavigation.Model(2,R.drawable.ic_comment_recipe_black))
         binding.bottomNav.show(2,true)
 
+        messageAdapter = MessageAdapter()
+        binding.rcvMessages.adapter = messageAdapter
 
         binding.bottomNav.setOnClickMenuListener {
             when(it.id){
@@ -63,58 +67,64 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun loadMessages() {
-        binding.rcvMessages.setHasFixedSize(true)
-        binding.rcvMessages.layoutManager = LinearLayoutManager(this)
-        messageAdapter = MessageAdapter()
-        followingList.forEach { followedID ->
-            unseenMessages = 0
-            lastMessage = ""
-            chatKey = ""
-            reference.child("chat").addListenerForSingleValueEvent(object:ValueEventListener{
-                override fun onDataChange(snapshot: DataSnapshot) {
-                        if(snapshot.childrenCount>0){
-                            for (dataSnapshot1:DataSnapshot in snapshot.children){
-                                var key = dataSnapshot1.key
+        unseenMessages = 0
+        lastMessage = ""
+        chatKey = ""
+        followingList.forEach { userID->
+                dataSet = false
+                reference.child("chat").addListenerForSingleValueEvent(object : ValueEventListener{
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val childrenCount = snapshot.childrenCount
+                        if(childrenCount>0){
+                            snapshot.children.forEach{ dataSnapshot1->
+                                val key = dataSnapshot1.key
                                 chatKey = key!!
-                                var userOne = dataSnapshot1.child("user_1").getValue(String::class.java)
-                                var userTwo = dataSnapshot1.child("user_2").getValue(String::class.java)
+                                if(dataSnapshot1.hasChild("user_1")&&dataSnapshot1.hasChild("user_2")&&dataSnapshot1.hasChild("messages")){
+                                    val userOne = dataSnapshot1.child("user_1").getValue(String::class.java)
+                                    val userTwo = dataSnapshot1.child("user_2").getValue(String::class.java)
 
-                                if(userOne!!.equals(followedID) && userTwo!!.equals(Firebase.auth.currentUser)||userOne.equals(Firebase.auth.currentUser) && userTwo!!.equals(followedID)){
-                                    for(chatDataSnapshot: DataSnapshot in dataSnapshot1.child("messages").children){
-                                        var messageKey = chatDataSnapshot.key!!.toLong()
-                                        var getLastMessage = MemoryData.getLastMsgTS(this@MessagesActivity, key!!).toLong()
-
-                                        lastMessage = chatDataSnapshot.child("msg").getValue(String::class.java).toString()
-                                        if(messageKey > getLastMessage){
-                                            unseenMessages++
+                                    if(userOne!! == userID && userTwo!! == currentUser || userOne == currentUser && userTwo!! == userID){
+                                        dataSnapshot1.child("messages").children.forEach { chatDataSnapshot ->
+                                            val messageKey = chatDataSnapshot.key!!.toLong()
+                                            var getLastMessage: Long = 0
+                                            val lastmsg = MemoryData.getLastMsgTS(this@MessagesActivity, key)
+                                            if(!lastmsg.isEmpty()){
+                                                getLastMessage = lastmsg.toLong()
+                                            }
+                                            lastMessage = chatDataSnapshot.child("msg").getValue(String::class.java).toString()
+                                            if(messageKey > getLastMessage){
+                                                unseenMessages++
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
-                }
+                        if(!dataSet){
+                            dataSet = true
+                            val message = Message(userID,lastMessage,chatKey,unseenMessages)
+                            messageList.add(message)
+                            messageAdapter.updateData(messageList)
+                        }
+                    }
 
-                override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
-                }
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
 
-            })
-            messageList.add(Message(followedID,lastMessage,chatKey,unseenMessages))
-            messageAdapter.updateData(messageList)
+                })
 
         }
-        binding.rcvMessages.adapter = messageAdapter
     }
 
     private fun CheckFollowing(){
-        reference.child("follow").child(Firebase.auth.currentUser.toString()).child("following").get().addOnSuccessListener {
-            messageList.clear()
+        reference.child("follow").child(Firebase.auth.currentUser!!.uid).child("following").get().addOnSuccessListener {
             followingList.clear()
             it.children.forEach { userID ->
                 followingList.add(userID.key.toString())
-                Log.d("followingList", followingList.toString())
             }
             loadMessages()
         }
+
     }
 }
