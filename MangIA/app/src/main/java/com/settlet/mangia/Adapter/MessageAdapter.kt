@@ -23,6 +23,11 @@ class MessageAdapter : ListAdapter<Message, MessageViewHolder>(DiffCallBack){
         holder.render(item)
     }
 
+    fun updateData(messages: List<Message>){
+        this.submitList(messages)
+        notifyDataSetChanged()
+    }
+
     companion object DiffCallBack: DiffUtil.ItemCallback<Message>(){
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
             return oldItem.userID == newItem.userID

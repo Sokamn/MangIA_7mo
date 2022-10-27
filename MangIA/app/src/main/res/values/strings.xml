@@ -99,6 +99,7 @@
     <string name="cleanFilter">Limpiar filtros</string>
     <string name="orderBy">Ordenar por:</string>
     <string name="save">Guardar</string>
+    <string name="writeMessage">Escribir mensaje…</string>
 
     <string-array name="continents">
         <item>Africa</item>

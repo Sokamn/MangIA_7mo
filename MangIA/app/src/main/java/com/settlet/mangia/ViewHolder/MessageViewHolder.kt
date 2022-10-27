@@ -1,6 +1,7 @@
 package com.settlet.mangia.ViewHolder
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,6 +23,7 @@ class MessageViewHolder(view: View): RecyclerView.ViewHolder(view) {
             val intent = Intent(binding.imvProfilePictureM.context,ChatActivity::class.java)
             intent.putExtra("name",binding.txvUNameM.text.toString())
             intent.putExtra("messageID",message.userID)
+            intent.putExtra("chat_key",message.chatKey)
         }
     }
 
@@ -29,10 +31,12 @@ class MessageViewHolder(view: View): RecyclerView.ViewHolder(view) {
         if(unseenMessages==0){
             binding.imvNotifUMessageM.visibility = View.GONE
             binding.txvUMessageM.visibility = View.GONE
+            binding.txvLastMessage.setTextColor(Color.parseColor("#asdasd"))
         }else{
             binding.imvNotifUMessageM.visibility = View.VISIBLE
             binding.txvUMessageM.visibility = View.VISIBLE
             binding.txvUMessageM.text = unseenMessages.toString()
+            binding.txvLastMessage.setTextColor(Color.parseColor("#asdasd"))
         }
     }
 
