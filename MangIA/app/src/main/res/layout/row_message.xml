@@ -29,7 +29,6 @@
         android:textColor="@color/quaternaryColor"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureM"
         app:layout_constraintTop_toTopOf="@+id/imvProfilePictureM" />
 
@@ -40,11 +39,12 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/manjariregular"
+        android:maxLines="1"
         android:text="Ultimo mensaje enviado"
         android:textColor="@color/lineColor"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureM"
-        app:layout_constraintEnd_toStartOf="@+id/shapeableImageView"
+        app:layout_constraintEnd_toStartOf="@+id/imvNotifUMessageM"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureM" />
 
     <com.google.android.material.imageview.ShapeableImageView

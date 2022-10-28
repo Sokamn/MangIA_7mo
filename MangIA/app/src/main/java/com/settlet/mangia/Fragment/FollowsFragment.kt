@@ -49,24 +49,6 @@ class FollowsFragment : Fragment() {
                 }
             }
             showUsers()
-            /*db.collection("follow").document(profileEmail!!).collection("following").get().addOnSuccessListener{ documents ->
-                userList.clear()
-                for (document in documents){
-                    db.collection("users").document(document.id).addSnapshotListener { value, error ->
-                        if (error!=null) {
-                            Log.w("TAG","Listen Failed")
-                            return@addSnapshotListener
-                        }
-                        if (value != null) {
-                            if (value.exists()){
-                                val us: com.settlet.mangia.Model.User = value.toObject()!!
-                                userList.add(us)
-                                userAdapter.submitList(userList)
-                            }
-                        }
-                    }
-                }
-            }*/
         }
         return myView
     }
