@@ -1,10 +1,10 @@
 package com.settlet.mangia.Model
 
 data class Message (
-    var userID: String = "",
-    var lastMessage: String = "",
-    var chatKey: String = "",
-    var unseenMessages: Int = 0,
+    var messageID: String? = null,
+    var message: String? = null,
+    var senderID: String? = null,
+    var imageUrl: String? = null,
+    var timeStamp: Long = 0,
 ){
-
 }

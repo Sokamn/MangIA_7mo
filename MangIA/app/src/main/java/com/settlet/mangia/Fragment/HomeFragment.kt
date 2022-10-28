@@ -73,7 +73,10 @@ class HomeFragment : Fragment() {
                     requireActivity().finish()
                 }
                 2->{
-                    requireActivity().startActivity(Intent(requireActivity(), MessagesActivity::class.java))
+                    val intent = Intent(requireActivity(), ChatActivity::class.java)
+                    intent.putExtra("uid","VjiyGqxeelcjiOoxG5L6THnjqvh2")
+                    intent.putExtra("name", "Matias")
+                    requireActivity().startActivity(intent)
                     requireActivity().finish()
                 }
                 else->{

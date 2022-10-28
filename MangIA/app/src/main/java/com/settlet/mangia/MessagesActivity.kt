@@ -43,7 +43,7 @@ class MessagesActivity : AppCompatActivity() {
         binding.bottomNav.add(MeowBottomNavigation.Model(2,R.drawable.ic_comment_recipe_black))
         binding.bottomNav.show(2,true)
 
-        messageAdapter = MessageAdapter()
+        //messageAdapter = MessageAdapter()
         binding.rcvMessages.adapter = messageAdapter
 
         binding.bottomNav.setOnClickMenuListener {
@@ -102,9 +102,9 @@ class MessagesActivity : AppCompatActivity() {
                         }
                         if(!dataSet){
                             dataSet = true
-                            val message = Message(userID,lastMessage,chatKey,unseenMessages)
-                            messageList.add(message)
-                            messageAdapter.updateData(messageList)
+                            //val message = Message(userID,lastMessage,chatKey,unseenMessages)
+                            //messageList.add(message)
+                            //messageAdapter.updateData(messageList)
                         }
                     }
 

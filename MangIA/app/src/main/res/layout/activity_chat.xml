@@ -8,6 +8,7 @@
     tools:context=".ChatActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -139,6 +140,18 @@
         app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureChat"
         app:layout_constraintEnd_toEndOf="@+id/imvProfilePictureChat"
         app:srcCompat="@drawable/online" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvMessagesChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imvBackgroundAChat"
+        tools:itemCount="2"
+        tools:listitem="@layout/row_sent_msg" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
