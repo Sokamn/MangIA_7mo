@@ -19,7 +19,6 @@ import com.settlet.mangia.databinding.RowSentMsgBinding
 
 class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:String) : ListAdapter<Message, RecyclerView.ViewHolder?>(DiffCallBack){
 
-    lateinit var messages: MutableList<Message>
     val ITEM_SENT = 1
     val ITEM_RECEIVE = 2
     private val reference = FirebaseDatabase.getInstance().reference
@@ -36,7 +35,7 @@ class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:Strin
         }
     }
     override fun getItemViewType(position: Int): Int {
-        val message = messages[position]
+        val message = getItem(position)
         return if(FirebaseAuth.getInstance().uid == message.senderID){
             ITEM_SENT
         }else{
@@ -130,13 +129,6 @@ class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:Strin
     inner class ReceiveMsgHolder(itemView:View): RecyclerView.ViewHolder(itemView){
         var binding:RowReceiveMsgBinding = RowReceiveMsgBinding.bind(itemView)
     }
-    init{
-        if(this.currentList != null){
-            this.messages = currentList
-        }
-    }
-
-
 
     companion object DiffCallBack: DiffUtil.ItemCallback<Message>(){
         override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {

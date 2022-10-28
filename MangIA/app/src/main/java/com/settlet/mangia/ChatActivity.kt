@@ -85,6 +85,7 @@ class ChatActivity : AppCompatActivity() {
                     Log.d("Msg",message.toString())
                     messages.add(message)
                 }
+                adapter!!.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -196,6 +197,12 @@ class ChatActivity : AppCompatActivity() {
     }
     override fun onPause() {
         super.onPause()
+        val currentID = FirebaseAuth.getInstance().uid
+        reference.child("Presence").child(currentID!!).setValue("Offline")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
         val currentID = FirebaseAuth.getInstance().uid
         reference.child("Presence").child(currentID!!).setValue("Offline")
     }
