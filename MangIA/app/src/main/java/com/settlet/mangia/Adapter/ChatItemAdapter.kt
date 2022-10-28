@@ -47,6 +47,8 @@ class ChatItemAdapter : ListAdapter<ChatItem, ChatItemAdapter.ChatItemViewHolder
         private fun loadLastMessage(lastMessage: String?) {
             if (lastMessage!=null)
                 binding.txvLastMessage.text = lastMessage
+            else
+                binding.txvLastMessage.text = ""
         }
 
         private fun loadUserInfo(receiverID: String) {

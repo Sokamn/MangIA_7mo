@@ -70,6 +70,34 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        reference.child("Presence").child(receiverUid.toString()).addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var status = snapshot.getValue(String::class.java)
+                binding.txvStatus.text = status
+                Log.d("status",status.toString())
+                when(status.toString()){
+                    "Escribiendo..."->{
+                        binding.imvOnline.visibility = View.VISIBLE
+                    }
+                    "Online"->{
+                        binding.imvOnline.visibility = View.VISIBLE
+                    }
+                    "Offline"->{
+                        binding.imvOnline.visibility = View.GONE
+                    }
+                    else->{
+
+                    }
+
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
         binding.imbBackAChat.setOnClickListener {
             finish()
             onBackPressed()
