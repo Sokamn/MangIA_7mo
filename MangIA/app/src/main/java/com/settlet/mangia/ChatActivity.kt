@@ -21,10 +21,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Adapter.MessageAdapter
-import com.settlet.mangia.Model.MemoryData
 import com.settlet.mangia.Model.Message
 import com.settlet.mangia.databinding.ActivityChatBinding
 import java.util.*
@@ -55,6 +53,12 @@ class ChatActivity : AppCompatActivity() {
         dialog!!.setCancelable(false)
         receiverUid = intent.getStringExtra("uid")
         senderUid = FirebaseAuth.getInstance().uid
+        senderRoom = senderUid + receiverUid
+        receiverRoom = receiverUid + senderUid
+        adapter = MessageAdapter(this@ChatActivity,senderRoom!!,receiverRoom!!)
+        adapter!!.submitList(messages)
+        binding.rcvMessagesChat.layoutManager = LinearLayoutManager(this@ChatActivity)
+        binding.rcvMessagesChat.adapter = adapter
         val name = intent.getStringExtra("name")
         binding.txvUNameM2.text = name
         val pImageRef = storageReference.child("users/${receiverUid}/profile.jpg")
@@ -70,6 +74,24 @@ class ChatActivity : AppCompatActivity() {
             finish()
             onBackPressed()
         }
+        Log.d("Msg",senderRoom!!.toString())
+        reference.child("chats").child(senderRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messages.clear()
+                Log.d("Msg","entré")
+                snapshot.children.forEach { snapMessage ->
+                    Log.d("Msg","entré?")
+                    val message = Message(snapMessage.key,snapMessage.child("message").getValue(String::class.java),snapMessage.child("senderID").getValue(String::class.java), null , snapMessage.child("timeStamp").getValue(Long::class.java)!!)
+                    Log.d("Msg",message.toString())
+                    messages.add(message)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
 
         reference.child("Presence").child(receiverUid!!).addValueEventListener(object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -85,47 +107,29 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
 
         })
-        senderRoom = senderUid + receiverUid
-        receiverRoom = receiverUid + senderUid
-        adapter = MessageAdapter(this@ChatActivity,senderRoom!!,receiverRoom!!)
-        adapter!!.submitList(messages)
-        binding.rcvMessagesChat.layoutManager = LinearLayoutManager(this@ChatActivity)
-        binding.rcvMessagesChat.adapter = adapter
-        reference.child("chats").child(senderRoom!!).child("message").addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                messages.clear()
-                snapshot.children.forEach {
-                    val message = it.getValue(Message::class.java)
-                    message!!.messageID = it.key
-                    messages.add(message)
-                }
-                adapter!!.notifyDataSetChanged()
-            }
 
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
 
-        })
+
         binding.btnSendMessage.setOnClickListener {
-            val messageTxt:String = binding.txpSendMessage.text.toString()
-            val date = Date()
-            val message = Message (messageTxt, senderUid, null,null,date.time)
-            binding.txpSendMessage.setText("")
-            val randomKey = reference.push().key
-            val lastMsgObj = HashMap<String,Any>()
-            lastMsgObj["lastMsg"] = message.message!!
-            lastMsgObj["lastMsgTime"] = date.time
+            if(binding.txpSendMessage.text.isNotEmpty()){
+                val messageTxt:String = binding.txpSendMessage.text.toString()
+                val date = Date()
+                val message = Message (null, messageTxt, senderUid,null,date.time)
+                binding.txpSendMessage.setText("")
+                val randomKey = reference.push().key
+                val lastMsgObj = HashMap<String,Any>()
+                lastMsgObj["lastMsg"] = message.message!!
+                lastMsgObj["lastMsgTime"] = date.time
 
-            reference.child("chats").child(senderRoom!!).updateChildren(lastMsgObj)
-            reference.child("chats").child(receiverRoom!!).updateChildren(lastMsgObj)
-            reference.child("chats").child(senderRoom!!).child("messages").child(randomKey!!).setValue(message).addOnSuccessListener {
-                reference.child("chats").child(receiverRoom!!).child("messages").child(randomKey).setValue(message).addOnSuccessListener {
+                reference.child("chats").child(senderRoom!!).updateChildren(lastMsgObj)
+                reference.child("chats").child(receiverRoom!!).updateChildren(lastMsgObj)
+                reference.child("chats").child(senderRoom!!).child("messages").child(randomKey!!).setValue(message).addOnSuccessListener {
+                    reference.child("chats").child(receiverRoom!!).child("messages").child(randomKey).setValue(message).addOnSuccessListener {
 
+                    }
                 }
             }
         }
@@ -159,7 +163,7 @@ class ChatActivity : AppCompatActivity() {
         if(requestCode == 25&& data!=null && data.data !=null){
             val selectedImage = data.data
             val calendar = Calendar.getInstance()
-            var refence = storageReference.child("chats").child(calendar.timeInMillis.toString()+"")
+            val refence = storageReference.child("chats").child(calendar.timeInMillis.toString()+"")
             dialog!!.show()
             refence.putFile(selectedImage!!).addOnCompleteListener{ task ->
                 dialog!!.dismiss()

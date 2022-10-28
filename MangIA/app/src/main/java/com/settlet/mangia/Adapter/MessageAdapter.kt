@@ -36,8 +36,8 @@ class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:Strin
         }
     }
     override fun getItemViewType(position: Int): Int {
-        val messages = messages[position]
-        return if(FirebaseAuth.getInstance().uid == messages.senderID){
+        val message = messages[position]
+        return if(FirebaseAuth.getInstance().uid == message.senderID){
             ITEM_SENT
         }else{
             ITEM_RECEIVE
@@ -64,16 +64,16 @@ class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:Strin
                 binding.txvEveryone.setOnClickListener {
                     item.message = "Este mensaje ha sido eliminado para todos."
                     item.messageID?.let{ it1->
-                        reference.child("chats").child(senderRoom).child("message").child(it1).setValue(item)
+                        reference.child("chats").child(senderRoom).child("messages").child(it1).setValue(item)
                     }
                     item.messageID.let{ it1->
-                        reference.child("chats").child(receiverRoom).child("message").child(it1!!).setValue(item)
+                        reference.child("chats").child(receiverRoom).child("messages").child(it1!!).setValue(item)
                     }
                     dialog.dismiss()
                 }
                 binding.txvDeleteForMe.setOnClickListener {
                     item.messageID.let{ it1->
-                        reference.child("chats").child(senderRoom).child("message").child(it1!!).setValue(null)
+                        reference.child("chats").child(senderRoom).child("messages").child(it1!!).setValue(null)
                     }
                     dialog.dismiss()
                 }
@@ -102,16 +102,16 @@ class MessageAdapter(var context: Context, senderRoom:String, receiverRoom:Strin
                 binding.txvEveryone.setOnClickListener {
                     item.message = "Este mensaje ha sido eliminado para todos."
                     item.messageID?.let{ it1->
-                        reference.child("chats").child(senderRoom).child("message").child(it1).setValue(item)
+                        reference.child("chats").child(senderRoom).child("messages").child(it1).setValue(item)
                     }
                     item.messageID.let{ it1->
-                        reference.child("chats").child(receiverRoom).child("message").child(it1!!).setValue(item)
+                        reference.child("chats").child(receiverRoom).child("messages").child(it1!!).setValue(item)
                     }
                     dialog.dismiss()
                 }
                 binding.txvDeleteForMe.setOnClickListener {
                     item.messageID.let{ it1->
-                        reference.child("chats").child(senderRoom).child("message").child(it1!!).setValue(null)
+                        reference.child("chats").child(senderRoom).child("messages").child(it1!!).setValue(null)
                     }
                     dialog.dismiss()
                 }

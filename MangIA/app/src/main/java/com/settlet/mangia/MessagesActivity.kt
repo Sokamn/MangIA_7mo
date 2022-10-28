@@ -3,22 +3,13 @@ package com.settlet.mangia
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.MessageAdapter
-import com.settlet.mangia.Model.MemoryData
 import com.settlet.mangia.Model.Message
-import com.settlet.mangia.databinding.ActivityChatBinding
 import com.settlet.mangia.databinding.ActivityMessagesBinding
-import kotlinx.android.synthetic.main.bottom_bar.view.*
 
 class MessagesActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMessagesBinding
@@ -67,54 +58,7 @@ class MessagesActivity : AppCompatActivity() {
     }
 
     private fun loadMessages() {
-        unseenMessages = 0
-        lastMessage = ""
-        chatKey = ""
-        followingList.forEach { userID->
-                dataSet = false
-                reference.child("chat").addListenerForSingleValueEvent(object : ValueEventListener{
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val childrenCount = snapshot.childrenCount
-                        if(childrenCount>0){
-                            snapshot.children.forEach{ dataSnapshot1->
-                                val key = dataSnapshot1.key
-                                chatKey = key!!
-                                if(dataSnapshot1.hasChild("user_1")&&dataSnapshot1.hasChild("user_2")&&dataSnapshot1.hasChild("messages")){
-                                    val userOne = dataSnapshot1.child("user_1").getValue(String::class.java)
-                                    val userTwo = dataSnapshot1.child("user_2").getValue(String::class.java)
 
-                                    if(userOne!! == userID && userTwo!! == currentUser || userOne == currentUser && userTwo!! == userID){
-                                        dataSnapshot1.child("messages").children.forEach { chatDataSnapshot ->
-                                            val messageKey = chatDataSnapshot.key!!.toLong()
-                                            var getLastMessage: Long = 0
-                                            val lastmsg = MemoryData.getLastMsgTS(this@MessagesActivity, key)
-                                            if(!lastmsg.isEmpty()){
-                                                getLastMessage = lastmsg.toLong()
-                                            }
-                                            lastMessage = chatDataSnapshot.child("msg").getValue(String::class.java).toString()
-                                            if(messageKey > getLastMessage){
-                                                unseenMessages++
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        if(!dataSet){
-                            dataSet = true
-                            //val message = Message(userID,lastMessage,chatKey,unseenMessages)
-                            //messageList.add(message)
-                            //messageAdapter.updateData(messageList)
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-
-        }
     }
 
     private fun CheckFollowing(){
