@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.ProgressBar
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,7 @@ class RecipeSearchedFragment : Fragment() {
     private val recipeList = mutableListOf<Recipe>()
     private lateinit var txpSearch: EditText
     private lateinit var vwpSearch: ViewPager2
+    private lateinit var prbSearched: ProgressBar
     private val reference = FirebaseDatabase.getInstance().reference
     private val recipeAdapter = RecipeSearchedAdapter()
 
@@ -43,7 +45,6 @@ class RecipeSearchedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myView = inflater.inflate(R.layout.fragment_recipe_searched, container, false)
-        loadRecipes()
         rcvRecipesSearched = myView.findViewById(R.id.rcvRecipeSearched)
         val linearLayoutManager = LinearLayoutManager(requireActivity())
         linearLayoutManager.reverseLayout = true
@@ -52,25 +53,27 @@ class RecipeSearchedFragment : Fragment() {
         rcvRecipesSearched.adapter = recipeAdapter
         txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
         vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
-        txpSearch.doOnTextChanged { text, start, before, count ->
-            val usersFiltered = recipeList.filter { recipe -> recipe.title.lowercase().contains(text.toString().lowercase()) }
-            if(text==""){
-                recipeAdapter.updateRecipes(mutableListOf())
-            }else{
-                recipeAdapter.updateRecipes(usersFiltered)
-            }
-        }
+        prbSearched = requireActivity().findViewById<ProgressBar>(R.id.prbSearched)
+
+        loadRecipes()
         return myView
     }
 
     private fun loadRecipes() {
         db.collection("recipes").get().addOnSuccessListener { snapshot->
-            recipeList.clear()
-            snapshot.forEach { recipe ->
-                val recipeOb: Recipe = recipe.toObject()
-                    recipeList.add(recipeOb)
-
+            txpSearch.doOnTextChanged { text, start, before, count ->
+                recipeList.clear()
+                prbSearched.visibility = View.VISIBLE
+                snapshot.forEach { recipe ->
+                    val recipeOb: Recipe = recipe.toObject()
+                    if(recipeOb.title.lowercase().contains(text.toString().lowercase()))
+                    {
+                        recipeList.add(recipeOb)
+                    }
+                }
+                prbSearched.visibility = View.GONE
             }
+
         }
     }
 }

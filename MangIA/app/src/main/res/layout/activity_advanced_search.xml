@@ -9,11 +9,11 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tblTabLayoutAS"
+        style="@style/AppTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@color/primaryColor"
-        style="@style/AppTabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txpSearchAS">
@@ -107,6 +107,16 @@
         app:layout_constraintBottom_toBottomOf="@+id/txpSearchAS"
         app:layout_constraintStart_toStartOf="@+id/txpSearchAS"
         app:layout_constraintTop_toTopOf="@+id/txpSearchAS" />
+
+    <ProgressBar
+        android:id="@+id/prbSearched"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tblTabLayoutAS" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
