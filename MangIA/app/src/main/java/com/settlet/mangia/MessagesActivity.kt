@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.settlet.mangia.Adapter.ChatItemAdapter
 import com.settlet.mangia.Adapter.MessageAdapter
+import com.settlet.mangia.Adapter.UserHorizontalAdapter
 import com.settlet.mangia.Model.ChatItem
 import com.settlet.mangia.Model.Message
 import com.settlet.mangia.databinding.ActivityMessagesBinding
@@ -25,6 +26,7 @@ class MessagesActivity : AppCompatActivity() {
     private val followingList = mutableListOf<String>()
     private val reference = FirebaseDatabase.getInstance().reference
     private val currentUser = FirebaseAuth.getInstance().uid
+    private val userHorizontalAdapter = UserHorizontalAdapter()
     private lateinit var chatItemAdapter: ChatItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,7 +44,9 @@ class MessagesActivity : AppCompatActivity() {
         binding.rcvMessages.adapter = chatItemAdapter
         chatItemAdapter.submitList(chatItemList)
 
+        binding.rcvHorizontalUsers.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false)
         binding.rcvMessages.layoutManager = LinearLayoutManager(this)
+
 
 
         binding.bottomNav.setOnClickMenuListener {
@@ -63,6 +67,11 @@ class MessagesActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initRecyclerView() {
+        userHorizontalAdapter.submitList(followingList)
+        binding.rcvHorizontalUsers.adapter = userHorizontalAdapter
     }
 
     private fun loadMessages() {
@@ -96,6 +105,7 @@ class MessagesActivity : AppCompatActivity() {
                 followingList.add(userID.key.toString())
             }
             loadMessages()
+            initRecyclerView()
         }
 
     }

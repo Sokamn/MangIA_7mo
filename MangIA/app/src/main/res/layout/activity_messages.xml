@@ -6,15 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".MessagesActivity">
 
+    <EditText
+        android:id="@+id/txpSearchAS2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/bg_search_recipe"
+        android:elevation="10dp"
+        android:ems="10"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/manjaribold"
+        android:hint="@string/sRecipe"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:padding="0dp"
+        android:paddingStart="40dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textColorHint="#ABABAB"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txvNickNameM"
+        tools:ignore="RtlSymmetry" />
+
+    <ImageView
+        android:id="@+id/imvSearchADS2"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="10dp"
+        android:elevation="11dp"
+        android:src="@drawable/asicon"
+        app:layout_constraintBottom_toBottomOf="@+id/txpSearchAS2"
+        app:layout_constraintStart_toStartOf="@+id/txpSearchAS2"
+        app:layout_constraintTop_toTopOf="@+id/txpSearchAS2" />
+
+    <TextView
+        android:id="@+id/txvNickNameM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/manjaribold"
+        android:text="Hola Matias"
+        android:textColor="@color/transSecundaryColor"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvMessages"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="320dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/row_message"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/row_message" />
 
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottomNav"
@@ -30,4 +82,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvHorizontalUsers"
+        android:scrollbars="horizontal"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        tools:listitem="@layout/user_horizontal_item"
+        tools:itemCount="9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txpSearchAS2" />
 </androidx.constraintlayout.widget.ConstraintLayout>
