@@ -53,27 +53,42 @@ class RecipeSearchedFragment : Fragment() {
         rcvRecipesSearched.adapter = recipeAdapter
         txpSearch = requireActivity().findViewById(R.id.txpSearchAS)
         vwpSearch = requireActivity().findViewById(R.id.vwpContentAS)
-        prbSearched = requireActivity().findViewById<ProgressBar>(R.id.prbSearched)
-
         loadRecipes()
+        prbSearched = requireActivity().findViewById<ProgressBar>(R.id.prbSearched)
+        txpSearch.doOnTextChanged { text, start, before, count ->
+            val usersFiltered = recipeList.filter { recipe ->
+                prbSearched.visibility = View.VISIBLE
+                recipe.title.lowercase().contains(text.toString().lowercase())
+            }
+            if (text != null) {
+                if (text.isEmpty()) {
+                    recipeAdapter.updateRecipes(mutableListOf())
+                    prbSearched.visibility = View.GONE
+
+                } else {
+                    recipeAdapter.updateRecipes(usersFiltered)
+                    prbSearched.visibility = View.GONE
+
+                }
+            }
+            else {
+                recipeAdapter.updateRecipes(usersFiltered)
+                prbSearched.visibility = View.GONE
+
+            }
+        }
         return myView
     }
 
     private fun loadRecipes() {
         db.collection("recipes").get().addOnSuccessListener { snapshot->
-            txpSearch.doOnTextChanged { text, start, before, count ->
-                recipeList.clear()
-                prbSearched.visibility = View.VISIBLE
-                snapshot.forEach { recipe ->
-                    val recipeOb: Recipe = recipe.toObject()
-                    if(recipeOb.title.lowercase().contains(text.toString().lowercase()))
-                    {
-                        recipeList.add(recipeOb)
-                    }
-                }
-                prbSearched.visibility = View.GONE
+            recipeList.clear()
+            prbSearched.visibility = View.VISIBLE
+            snapshot.forEach { recipe ->
+                val recipeOb: Recipe = recipe.toObject()
+                recipeList.add(recipeOb)
             }
-
+            prbSearched.visibility = View.GONE
         }
     }
 }
