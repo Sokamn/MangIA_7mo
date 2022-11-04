@@ -100,6 +100,10 @@
     <string name="orderBy">Ordenar por:</string>
     <string name="save">Guardar</string>
     <string name="writeMessage">Escribir mensaje…</string>
+    <string name="eliminatedMessage">🚫 𝐸𝑠𝑡𝑒 𝑚𝑒𝑛𝑠𝑎𝑗𝑒 ℎ𝑎 𝑠𝑖𝑑𝑜 𝑒𝑙𝑖𝑚𝑖𝑛𝑎𝑑𝑜 𝑝𝑎𝑟𝑎 𝑡𝑜𝑑𝑜𝑠.</string>
+    <string name="imageSent">🖼 Imagen</string>
+    <string name="sChat">Buscar chat, personas…</string>
+
 
     <string-array name="continents">
         <item>Africa</item>

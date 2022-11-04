@@ -4,9 +4,9 @@
     <item>
         <shape>
             <solid android:color ="#33000000"/>
-            <corners android:bottomLeftRadius="45dp"
-                android:topRightRadius="45dp"
-                android:topLeftRadius="45dp"/>
+            <corners android:bottomLeftRadius="15dp"
+                android:topRightRadius="15dp"
+                android:topLeftRadius="15dp"/>
         </shape>
     </item>
     <item
@@ -15,9 +15,9 @@
         android:top="4dp">
         <shape>
             <solid android:color ="@color/quaternaryColor"/>
-            <corners android:bottomLeftRadius="45dp"
-                android:topRightRadius="45dp"
-                android:topLeftRadius="45dp"/>
+            <corners android:bottomLeftRadius="15dp"
+                android:topRightRadius="15dp"
+                android:topLeftRadius="15dp"/>
         </shape>
     </item>
 </layer-list>

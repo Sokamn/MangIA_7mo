@@ -109,8 +109,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun showData() {
-        binding.shimmerViewFH.visibility = View.GONE
-        binding.rcvPreviewRecipe.visibility = View.VISIBLE
+        if (!requireActivity().isFinishing || !requireActivity().isDestroyed) {
+            try{
+                binding.shimmerViewFH.visibility = View.GONE
+                binding.rcvPreviewRecipe.visibility = View.VISIBLE
+            }catch (e:Exception){
+
+            }
+        }
     }
 
     override fun onDestroyView() {

@@ -9,7 +9,7 @@
         android:id="@+id/imvProfilePictureM"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,11 +25,24 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:fontFamily="@font/manjaribold"
-        android:text="@string/userName"
-        android:textColor="@color/quaternaryColor"
+        android:text=""
+        android:textColor="@color/secundaryColor"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/imvProfilePictureM"
+        app:layout_constraintTop_toTopOf="@+id/imvProfilePictureM" />
+
+    <TextView
+        android:id="@+id/txvHour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/manjaribold"
+        android:text=""
+        android:textColor="#888888"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imvProfilePictureM" />
 
     <TextView
@@ -38,10 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:fontFamily="@font/manjariregular"
+        android:fontFamily="@font/manjarithin"
         android:maxLines="1"
-        android:text="Ultimo mensaje enviado"
-        android:textColor="@color/lineColor"
+        android:text=""
+        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/imvProfilePictureM"
         app:layout_constraintEnd_toStartOf="@+id/imvNotifUMessageM"
@@ -51,11 +64,11 @@
         android:id="@+id/imvNotifUMessageM"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginEnd="10dp"
         android:background="@color/secundaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txvHour"
+        app:layout_constraintStart_toStartOf="@+id/txvHour"
+        app:layout_constraintTop_toBottomOf="@+id/txvHour"
         app:shapeAppearanceOverlay="@style/roundMessageNotif" />
 
     <TextView

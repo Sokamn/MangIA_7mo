@@ -31,8 +31,6 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-
-
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerViewFH"
         android:layout_width="match_parent"
@@ -72,7 +70,6 @@
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-
     <com.etebarian.meowbottomnavigation.MeowBottomNavigation
         android:id="@+id/bottomNav"
         android:layout_width="match_parent"
@@ -87,6 +84,7 @@
         app:mbn_rippleColor="#2f424242"
         app:mbn_selectedIconColor="@color/quaternaryColor"
         app:mbn_shadowColor="#1f212121" />
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fbtnMRecipe"

@@ -182,18 +182,20 @@ class HomeActivity : AppCompatActivity() {
         if (currentUser!=null)
         {
             val pImageRef = storageReference.child("users/" + currentUser.uid + "/profile.jpg")
-            pImageRef.downloadUrl.addOnSuccessListener { result ->
-                Glide.with(this)
-                    .load(result)
-                    .into(nav_view.imvProfileNH)
-            }
-                .addOnFailureListener {
-                    defaultPImage.downloadUrl.addOnSuccessListener { result ->
-                        Glide.with(this)
-                            .load(result)
-                            .into(nav_view.imvProfileNH)
-                    }
+            if(!this.isDestroyed ||!this.isFinishing){
+                pImageRef.downloadUrl.addOnSuccessListener { result ->
+                    Glide.with(this)
+                        .load(result)
+                        .into(nav_view.imvProfileNH)
                 }
+                    .addOnFailureListener {
+                        defaultPImage.downloadUrl.addOnSuccessListener { result ->
+                            Glide.with(this)
+                                .load(result)
+                                .into(nav_view.imvProfileNH)
+                        }
+                    }
+            }
             reference.child("users").child(currentUser.uid).get().addOnSuccessListener {
                 val user = it.getValue(User::class.java)
                 if(user!=null){

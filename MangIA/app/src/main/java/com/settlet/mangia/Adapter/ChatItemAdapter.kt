@@ -23,7 +23,7 @@ class ChatItemAdapter : ListAdapter<ChatItem, ChatItemAdapter.ChatItemViewHolder
         private val storageRef = FirebaseStorage.getInstance().reference
         fun render(chatItem:ChatItem){
             loadUserInfo(chatItem.userID.toString())
-            loadLastMessage(chatItem.lastMessage)
+            loadLastMessage(chatItem.lastMessage, chatItem.hourLastMessage)
             loadUnseenMessages(chatItem.unseenMessages)
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context,ChatActivity::class.java)
@@ -39,14 +39,18 @@ class ChatItemAdapter : ListAdapter<ChatItem, ChatItemAdapter.ChatItemViewHolder
                     binding.imvNotifUMessageM.visibility = View.GONE
                     binding.txvUMessageM.visibility = View.GONE
                 }else{
-
+                    binding.imvNotifUMessageM.visibility = View.VISIBLE
+                    binding.txvUMessageM.visibility = View.VISIBLE
+                    binding.txvUMessageM.text = unseenMessages.toString()
                 }
             }
         }
 
-        private fun loadLastMessage(lastMessage: String?) {
-            if (lastMessage!=null)
+        private fun loadLastMessage(lastMessage: String?, hour: String?) {
+            if (lastMessage!=null){
                 binding.txvLastMessage.text = lastMessage
+                binding.txvHour.text = hour
+            }
             else
                 binding.txvLastMessage.text = ""
         }

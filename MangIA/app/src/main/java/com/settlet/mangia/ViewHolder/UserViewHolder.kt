@@ -13,6 +13,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.settlet.mangia.Model.User
 import com.settlet.mangia.ProfileActivity
+import com.settlet.mangia.R
 import com.settlet.mangia.databinding.RowUserBinding
 
 class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
@@ -29,6 +30,10 @@ class UserViewHolder(view: View): RecyclerView.ViewHolder(view)  {
         pImageRef.downloadUrl.addOnSuccessListener { result ->
             Glide.with(itemView.context)
                 .load(result)
+                .into(binding.imvProfilePictureRU)
+        }.addOnFailureListener {
+            Glide.with(itemView.context)
+                .load(R.drawable.profile_picture)
                 .into(binding.imvProfilePictureRU)
         }
 

@@ -6,5 +6,7 @@ data class Message (
     var senderID: String? = null,
     var imageUrl: String? = null,
     var timeStamp: Long = 0,
+    var hour: String? = null,
+    var seen:Boolean = false
 ){
 }

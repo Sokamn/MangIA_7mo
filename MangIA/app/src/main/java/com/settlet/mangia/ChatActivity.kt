@@ -2,7 +2,6 @@ package com.settlet.mangia
 
 import android.app.ProgressDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
@@ -10,23 +9,22 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.ProgressBar
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
+import com.google.protobuf.Value
 import com.settlet.mangia.Adapter.MessageAdapter
 import com.settlet.mangia.Model.Message
 import com.settlet.mangia.databinding.ActivityChatBinding
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
-import kotlin.collections.HashMap
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
@@ -39,6 +37,7 @@ class ChatActivity : AppCompatActivity() {
     private var dialog: ProgressDialog? = null
     private var senderUid: String? = null
     private var receiverUid: String? = null
+    private lateinit var seenListener: ValueEventListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +69,7 @@ class ChatActivity : AppCompatActivity() {
             }
         }
 
+        seenMessage()
         reference.child("Presence").child(receiverUid.toString()).addValueEventListener(object:ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 var status = snapshot.getValue(String::class.java)
@@ -109,9 +109,13 @@ class ChatActivity : AppCompatActivity() {
                 Log.d("Msg","entré")
                 snapshot.children.forEach { snapMessage ->
                     Log.d("Msg","entré?")
-                    val message = Message(snapMessage.key,snapMessage.child("message").getValue(String::class.java),snapMessage.child("senderID").getValue(String::class.java), null , snapMessage.child("timeStamp").getValue(Long::class.java)!!)
+                    val message = Message(snapMessage.key,snapMessage.child("message").getValue(String::class.java),snapMessage.child("senderID").getValue(String::class.java), snapMessage.child("imageUrl").getValue(String::class.java) , snapMessage.child("timeStamp").getValue(Long::class.java)!!,snapMessage.child("hour").getValue(String::class.java)!!, snapMessage.child("seen").getValue(Boolean::class.java)!!)
+                    if(message.message!=this@ChatActivity.getString(R.string.imageSent)){
+                        message.imageUrl = null
+                    }
                     Log.d("Msg",message.toString())
                     messages.add(message)
+                    binding.rcvMessagesChat.layoutManager?.scrollToPosition(messages.size-1)
                 }
                 adapter!!.notifyDataSetChanged()
             }
@@ -146,11 +150,15 @@ class ChatActivity : AppCompatActivity() {
             if(binding.txpSendMessage.text.isNotEmpty()){
                 val messageTxt:String = binding.txpSendMessage.text.toString()
                 val date = Date()
-                val message = Message (null, messageTxt, senderUid,null,date.time)
+                val localTime = LocalTime.now()
+                val dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
+                val hour = localTime.format(dateTimeFormatter)
+                val message = Message(null, messageTxt, senderUid, null, date.time, hour, false)
                 binding.txpSendMessage.setText("")
                 val randomKey = reference.push().key
                 val lastMsgObj = HashMap<String,Any>()
                 lastMsgObj["lastMsg"] = message.message!!
+                lastMsgObj["hour"] = message.hour!!
                 lastMsgObj["lastMsgTime"] = date.time
 
                 reference.child("chats").child(senderRoom!!).updateChildren(lastMsgObj)
@@ -169,6 +177,9 @@ class ChatActivity : AppCompatActivity() {
             startActivityForResult(intent,25)
         }
         val handler = Handler()
+        binding.txpSendMessage.setOnClickListener {
+            binding.rcvMessagesChat.layoutManager?.scrollToPosition(messages.size-1)
+        }
         binding.txpSendMessage.addTextChangedListener (object:TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
@@ -187,30 +198,53 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
+    private fun seenMessage(){
+        seenListener = reference.child("chats").child(receiverRoom!!).addValueEventListener(object:ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                snapshot.child("messages").children.forEach {
+                    if(it.child("senderID").getValue(String::class.java)==receiverUid){
+                        reference.child("chats").child(receiverRoom!!).child("messages").child(it.key.toString()).child("seen").setValue(true)
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+
+            }
+
+        })
+
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == 25&& data!=null && data.data !=null){
             val selectedImage = data.data
-            val calendar = Calendar.getInstance()
-            val refence = storageReference.child("chats").child(calendar.timeInMillis.toString()+"")
+            val path = Calendar.getInstance().timeInMillis.toString()
+            val localTime = LocalTime.now()
+            val dateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm a")
+            val hour = localTime.format(dateTimeFormatter)
+            val refence = storageReference.child("chats").child(path)
             dialog!!.show()
             refence.putFile(selectedImage!!).addOnCompleteListener{ task ->
                 dialog!!.dismiss()
                 if(task.isSuccessful){
                     refence.downloadUrl.addOnSuccessListener { uri->
-                        val filePath = uri.toString()
-                        val messageTxt = binding.txpSendMessage.text.toString()
                         val date = Date()
-                        val message = Message(messageTxt,"photo",senderUid,filePath,date.time)
+                        val message = Message(null,this.getString(R.string.imageSent),senderUid,path,date.time,hour,false)
                         binding.txpSendMessage.setText("")
                         val randomkey = reference.push().key
                         val lastMsgObj = HashMap<String,Any>()
                         lastMsgObj["lastMsg"] = message.message!!
+                        lastMsgObj["hour"] = message.hour!!
                         lastMsgObj["lastMsgTime"] = date.time
-                        reference.child("chats").updateChildren(lastMsgObj)
+                        reference.child("chats").child(senderRoom!!).updateChildren(lastMsgObj)
                         reference.child("chats").child(receiverRoom!!).updateChildren(lastMsgObj)
                         reference.child("chats").child(senderRoom!!).child("messages").child(randomkey!!).setValue(message).addOnSuccessListener {
-                            reference.child("chats").child(receiverRoom!!).child("messages").child(randomkey).setValue(message).addOnSuccessListener {  }
+
+                        }
+                        reference.child("chats").child(receiverRoom!!).child("messages").child(randomkey).setValue(message).addOnSuccessListener {
+
                         }
                     }
                 }
@@ -226,12 +260,14 @@ class ChatActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         val currentID = FirebaseAuth.getInstance().uid
+        reference.child("chats").child(receiverRoom!!).removeEventListener(seenListener)
         reference.child("Presence").child(currentID!!).setValue("Offline")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         val currentID = FirebaseAuth.getInstance().uid
+        reference.child("chats").child(receiverRoom!!).removeEventListener(seenListener)
         reference.child("Presence").child(currentID!!).setValue("Offline")
     }
 }
