@@ -1,3 +1,7 @@
+# 📸 MangIA Preview
+
+<img src="https://raw.githubusercontent.com/Sokamn/MangIA_7mo/main/demo.gif" width="100%" />
+
 # 🍳 MangIA
 
 MangIA is a social cooking Android application focused on helping users discover what they can cook using the ingredients they already have at home.
